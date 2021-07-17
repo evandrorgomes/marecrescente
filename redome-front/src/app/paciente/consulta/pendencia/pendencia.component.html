@@ -1,0 +1,81 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2 *ngIf="temPerfilMedico()">{{'consultaPendenciasPaciente.titulo' | translate}}</h2>
+            <h2 *ngIf="temPerfilAvaliador()">{{'consultaPendenciasPacienteAvaliador.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-8 col-xs-12">
+            <select-centros-component #selectCentros
+                [showMeusPacientesOption]="true"
+                [forcarExibicao]="temPerfilMedico() && temPerfilAvaliador()"
+                (change)="mudouCentro(selectCentros.value)"
+                ></select-centros-component>
+        </div>
+    </div>
+    <!-- Menu -->
+    <!-- <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a class="btn btn-setting btn-default" id="" type="button" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+        </div>
+    </div> -->
+</div>
+<modal mensagem="" #modalMsgErroTarefa></modal>
+
+<div class="page-content">
+    <div class="row dadosGeraisEvolucao" >
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <!-- Exibe a lista de pendências -->
+            <table id="tabelaPendencias" class="table tableControlePendencias">
+                <thead>
+                    <tr>
+                        <th>{{'tabela.paciente.pendencia.rmr' | translate}}</th>
+                        <th>{{'tabela.paciente.pendencia.nome' | translate}}</th>
+                        <th>{{'tabela.paciente.pendencia.total' | translate}}</th>
+                        <th>{{'tabela.paciente.pendencia.avaliacaoAging' | translate}}</th>
+                        <th>{{'tabela.paciente.pendencia.pendenteAging' | translate}}</th>
+                        <th *ngIf="temPerfilAvaliador()">{{'tabela.paciente.pendencia.nomeMedico' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <tr class="visualizaPendencia" *ngFor="let tarefa of paginacao.content; index as i" (click)="redirecionarTelaAvaliacao(tarefa.rmr)">
+                        <td>{{tarefa.rmr}}</td>
+                        <td>{{tarefa.nome }}</td>
+                        <td>{{tarefa.totalTarefas}}</td>
+                        <td>{{tarefa.agingAvaliacao}}</td>
+                        <td>{{tarefa.agingTarefa}}</td>
+                        <td *ngIf="temPerfilAvaliador()">{{tarefa.medicoResponsavelPaciente}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5"
+                class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                (pageChanged)="mudarPagina($event)"
+                firstText="{{'paginacao.primeiro' | translate}}"
+                previousText="<span class='icon-seta-esquerda'></span>"
+                nextText="<span class='icon-seta-direita'></span>"
+                lastText="{{'paginacao.ultimo' | translate}}"
+                >
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecinaQuantidadePorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+

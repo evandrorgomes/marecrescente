@@ -1,0 +1,14 @@
+<div >
+    <div class="containerPendencia centraliza"> 
+        <div *ngFor="let comentario of dialogoBuilder?.comentarios; index as i">
+            <br />
+            <div [class]="getEstiloBalaoConversa(comentario.username)">
+                <span [class]="comentario.estiloIcone" id="" 
+                (click)="abrirRota(comentario.rota)"
+                    *ngIf="comentario.rota"></span>
+                {{comentario.texto}}
+                <div class="modalDialogoData"><span *ngIf="exibirUsuario">{{comentario.nomeUsuario}} - </span> {{comentario.dataFormatadaDialogo}}</div>
+            </div>
+        </div>
+    </div>
+</div>

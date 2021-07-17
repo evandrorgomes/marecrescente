@@ -1,0 +1,128 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'manterLaboratorio.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <auto-collapsed-menu>
+        <menu-item>
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span>{{'botao.voltar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary" 
+                    *ngIf="modoInclusaoHabilitado" (click)="salvar()">
+                <span class="icon-salvar"></span>{{'botao.salvar' | translate}}
+            </a>
+        </menu-item>
+    </auto-collapsed-menu>
+</div>
+<div class="page-content" >
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'manterLaboratorio.campos.dadosLaboratorio' | translate}}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" [ngClass]="dadosSomenteLeitura ? '': 'hide'">
+            <p><small>{{'manterLaboratorio.campos.nome' | translate}}: </small>
+                {{ laboratorio?.nome }}
+            </p>
+        </div>
+    </div>
+
+    <!--ENDEREÇO LABORATÓRIO-->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'manterLaboratorio.campos.enderecoLaboratorio' | translate}}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <div>
+                <span class="texto-bloco" >{{ laboratorio?.endereco?.tipoLogradouro}} {{ laboratorio?.endereco?.nomeLogradouro}}, {{ laboratorio?.endereco?.numero}} - {{ laboratorio?.endereco?.complemento }} {{ laboratorio?.endereco?.complemento ? " - " : "" }} {{ laboratorio?.endereco?.bairro}} - {{ laboratorio?.endereco?.municipio?.descricao}}<br/>{{ laboratorio?.endereco?.municipio?.uf?.sigla}} - {{ laboratorio?.endereco?.pais?.nome}} - CEP {{ laboratorio?.endereco?.cep}}
+                </span>
+            </div>
+        </div>
+    </div>
+
+      <!-- EMAILS LABORATÓRIO -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'manterLaboratorio.campos.emailLaboratorio' | translate}}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul>
+                <li *ngFor=" let email of laboratorio?.emails; index as i">                
+                    <p id="">
+                        <small>{{'manterLaboratorio.campos.emailLaboratorio' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div>                                    
+                                {{ email.email }}&nbsp;
+                                <i class="icon-favorito laranja" *ngIf="email.principal"></i>
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- USUÁRIOS LABORATÓRIO -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'manterLaboratorio.campos.usuariosLaboratorio' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarUsuarios()"
+                *ngIf="_exibirLinkEditarUsuarios" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">     
+            <div [ngClass]="_mostraUsuarios">
+                <p *ngFor="let item of laboratorio?.usuarios" ><small>{{'manterLaboratorio.campos.nome' | translate}}: </small>{{ item.nome}}</p>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioUsuarios">   
+                <div class="row">
+                        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formUsuariosDisponiveis()">            
+                            <select-component 
+                                label="{{'manterTransportadora.campos.usuariosDisponiveis' | translate}}:" 
+                                [control]="formUsuariosDisponiveis().controls['selecionados']" 
+                                formControlName="selecionados" 
+                                idd="txtUsuariosDisponiveis"
+                                [options]="usuariosDisponiveis"
+                                fieldOptionValue="id"
+                                fieldOptionText="nome"
+                                [showBlankOption]="false"
+                                [multipleSelect]="true">
+                            </select-component>        
+                        </div>
+                        <div class="form-group col-sm-1 col-xs-12">            
+                            <button id="idAdicionarUsuario" type="button" class="btn btn-setting btn-primary"
+                                (click)="adicionarUsuarios()"><span class="glyphicon glyphicon-arrow-right"></span></button>
+                            <button id="idRemoverUsuario" type="button" class="btn btn-setting btn-primary"
+                                (click)="removerUsuarios()"><span class="glyphicon glyphicon-arrow-left"></span></button>            
+                
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formUsuariosSelecionados()">            
+                            <select-component 
+                                label="{{'manterTransportadora.campos.usuariosSelecionados' | translate}}:" 
+                                [control]="formUsuariosSelecionados().controls['selecionados']" 
+                                formControlName="selecionados" 
+                                idd="txtUsuariosSelecionados"
+                                [options]="usuariosSelecionados"
+                                fieldOptionValue="id"
+                                fieldOptionText="nome"
+                                [showBlankOption]="false"
+                                [multipleSelect]="true"
+                                [quantidadeItens]="3">
+                            </select-component>
+                        </div>
+                </div>
+                <div class="row" *ngIf="_exibirBotoesEditarUsuarios">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoUsuarios()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoUsuarios()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    

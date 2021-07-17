@@ -1,0 +1,25 @@
+<div [formGroup]="checkListFormGroup">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h2>Checklist</h2>
+        </div>
+    </div>
+    <div formArrayName="categorias" class="checklist-logistica">
+        <div class="row wrap-bloco" *ngFor="let cat of listaCategoriasForm.controls; index as j" [formGroupName]="j">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{cat.get('nome').value}}</h3>
+                <small>{{obterMarcacaoQuantidade(cat)}}</small>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco" formArrayName="itens">
+                <div class="row" *ngFor="let item of listaItensForm(cat).controls; index as i" [formGroupName]="i">
+                    <div class="checkbox-group col-sm-12 col-xs-12">
+                        <input id="cat{{j}}_chk{{i}}" type="checkbox" (change)="check($event, item.get('id').value)" formControlName="selecionado">
+                        <label for="cat{{j}}_chk{{i}}">
+                            <span></span>{{item.get('nome').value}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

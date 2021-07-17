@@ -1,0 +1,183 @@
+<div class="row">
+        <div class="col-sm-12 col-xs-12">
+         <input type="checkbox" id="ckExibirHistorico" #ckExibirHistorico
+             (click)="atualizarPedidosExame(ckExibirHistorico.checked)">
+         <label for="ckExibirHistorico">
+             <span></span>{{ 'pedidoexamedoador.exibirHistorico' | translate }}
+         </label>
+
+         <form [formGroup]="filtroListasForm" class="form-ordenacao form-inline filtroMatch">
+             <div class="form-group">
+                 <label>{{'pedidoexamedoador.tipoExame' | translate}} &nbsp; </label>
+                 <select [(ngModel)]="idTipoSolicitacaoSelecionado" class="form-control"
+                         formControlName="itemTipoExame" (change)="atualizarListaBuscas()">
+                     <option *ngFor="let fase of listaFasesTipoSolicitacao()" value="{{fase?.id}}">
+                         {{fase?.descricao}}
+                     </option>
+                 </select>
+             </div>
+         </form>
+     </div>
+     </div>
+
+     <!-- LISTA DE PEDIDOS DE DOADOR INTERNACIONAL -->
+
+     <!-- <alert show="exibirAlerta" *ngIf="listaVazia(); else blocoElseHistoricoInternacionais">
+         {{ 'pedidoexamefase3.mensagemNenhumPedidoDoadoresInternacionais' | translate }}
+     </alert> -->
+
+
+         <div class="row col-sm-12 col-xs-12">
+             <h3>{{'pedidoexamedoador.internacionais' | translate}}</h3>
+         </div>
+         <div class="row">
+             <div class="col-sm-12 col-xs-12 wrap-table">
+                 <table class="table">
+                     <thead>
+                         <tr>
+                             <td>{{'pedidoexamedoador.tipo' | translate  }}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{'pedidoexamedoador.idOrigem' | translate}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{'pedidoexamedoador.origem' | translate}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca() || temPerfilMedico()">{{'pedidoexamedoador.grid' | translate}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca() || temPerfilMedico()">{{'pedidoexamedoador.tipoExame' | translate}}</td>
+                             <td>{{'pedidoexamedoador.data' | translate}}</td>
+                             <td>{{'pedidoexamedoador.exame' | translate}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{'pedidoexamedoador.origemCadastro' | translate}}</td>
+                             <td>&nbsp;</td>
+                             <td>{{'pedidoexamedoador.status' | translate}}</td>
+                         </tr>
+                     </thead>
+                     <tbody *ngFor="let pedidoInternacional of paginacaoSolicitacoesDoadores?.content; index as i" >
+                         <tr>
+                             <td *ngIf="ehMedula(pedidoInternacional?.tipoDoador)" > {{'textosGenericos.medula' | translate  }} </td>
+                             <td *ngIf="ehCordao(pedidoInternacional?.tipoDoador)" > {{'textosGenericos.cordao' | translate  }} </td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{pedidoInternacional.idOrigem}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{pedidoInternacional.origem}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca() || temPerfilMedico()">{{pedidoInternacional.grid}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca() || temPerfilMedico()">{{pedidoInternacional.nomeTipoExame}}</td>
+                             <td>{{pedidoInternacional.dataCriacao | date:'dd/MM/yyyy' }}</td>
+                             <td><span>{{obterListaLocusFormatado(pedidoInternacional)}}</span> </td>
+                             <td *ngIf="temPerfilAnalistaBusca()">
+                                 <span *ngIf="pedidoInternacional.veioDoEmdis">
+                                     {{'pedidoexamedoador.origemEmidis' | translate}}
+                                 </span>
+                                 <span *ngIf="!pedidoInternacional.veioDoEmdis">
+                                     {{'pedidoexamedoador.origemManual' | translate}}
+                                 </span>
+                             </td>
+                             <td>
+                                 <a class="btn btn-setting btn-primary btn-sm floatR" (click)="cadastrar(pedidoInternacional)"
+                                         *ngIf="temPermissaoCadastrarResultado(pedidoInternacional) && pedidoInternacional.idStatusSolicitacao == 1" >
+                                     <i class="icon icon-prescricao"></i> {{'botao.cadastrarResultado' | translate}}
+                                 </a>
+                                 <a class="btn btn-setting btn-primary btn-sm floatR" (click)="cancelar(pedidoInternacional)"
+                                         *ngIf="temPermissaoCancelar(pedidoInternacional) && pedidoInternacional.idStatusSolicitacao == 1" >
+                                     <i class="icon glyphicon glyphicon-trash"></i> {{'botao.cancelar' | translate}}
+                                 </a>
+                                 <a class="btn btn-setting btn-primary btn-sm floatR"
+                                         (click)="editar(pedidoInternacional.idPedidoExame, pedidoInternacional.idTarefa, pedidoInternacional.idProcesso)"
+                                         *ngIf="ehEditavel(pedidoInternacional) && temPermissaoEditarFase2Internacional(pedidoInternacional) && pedidoInternacional.idStatusSolicitacao == 1" >
+                                     <i class="icon icon-editar"></i> {{'botao.editar' | translate}}
+                                 </a>
+                             </td>
+                             <td>
+                                <span class="label label-warning" *ngIf="pedidoInternacional.idStatusSolicitacao == 1">{{'pedidoexamefase3.statusSolicitacao.aberto' | translate}}</span>
+                                <span class="label label-success" *ngIf="pedidoInternacional.idStatusSolicitacao == 2">{{'pedidoexamefase3.statusSolicitacao.concluido' | translate}}</span>
+                                <span class="label label-danger" *ngIf="pedidoInternacional.idStatusSolicitacao == 3">{{'pedidoexamefase3.statusSolicitacao.cancelado' | translate}}</span>
+                             </td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <p class="bg-warning" style="padding: 15px" *ngIf="listaVazia();">
+                    {{ 'pedidoexamefase3.mensagemNenhumPedidoDoadoresInternacionais' | translate }}
+                 </p>
+             </div>
+         </div>
+         <!-- Paginação e quantidade de registros -->
+         <div class="row paginaConsultaPaciente" *ngIf="paginacaoSolicitacoesDoadores?.totalElements && paginacaoSolicitacoesDoadores?.totalElements != 0">
+             <div class="col-sm-12 col-xs-12">
+                 <pagination [totalItems]="paginacaoSolicitacoesDoadores?.totalElements" [ngModel]="paginacaoSolicitacoesDoadores?.number" [maxSize]="5"
+                         class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoSolicitacoesDoadores?.quantidadeRegistro"
+                         (pageChanged)="mudarPagina($event)"
+                         firstText="{{'paginacao.primeiro' | translate}}"
+                         previousText="<span class='icon-seta-esquerda'></span>"
+                         nextText="<span class='icon-seta-direita'></span>"
+                         lastText="{{'paginacao.ultimo' | translate}}">
+                 </pagination>
+             </div>
+             <div class="col-sm-12 col-xs-12 pull-right">
+                 <div class="form-group porpagina">
+                     <label>Por Página:</label>
+                     <select class="form-control" [(ngModel)]="quantidadeRegistrosSolicitacao" (change)="selecionaQuantidadeRegistros($event)" >
+                         <option value="10">10</option>
+                         <option value="20">20</option>
+                         <option value="30">30</option>
+                         <option value="40">40</option>
+                         <option value="50">50</option>
+                     </select>
+                 </div>
+             </div>
+         </div>
+
+         <div class="row col-sm-12 col-xs-12">
+             <h3>{{'pedidoexamedoador.nacionais' | translate}}</h3>
+         </div>
+         <div class="row">
+             <div class="col-sm-12 col-xs-12 wrap-table">
+                 <table class="table">
+                     <thead>
+                         <tr>
+                             <td>{{'pedidoexamedoador.tipo' | translate  }}</td>
+                             <td *ngIf="temPerfilAnalistaBusca() || temPerfilMedico()">{{'pedidoexamedoador.dmr' | translate  }}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{'pedidoexamedoador.nome' | translate  }}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{'pedidoexamedoador.laboratorio' | translate  }}</td>
+                             <td>{{'pedidoexamedoador.data' | translate}}</td>
+                             <td>{{'pedidoexamedoador.tipoExame' | translate}}</td>
+                             <td>{{'pedidoexamedoador.status' | translate}}</td>
+                         </tr>
+                     </thead>
+                     <tbody *ngFor="let pedido of paginacaoSolicitacoesDoadoresNacionais?.content; index as i" >
+                         <tr>
+                             <td *ngIf="ehMedula(pedido?.tipoDoador)" > {{'textosGenericos.medula' | translate  }} </td>
+                             <td *ngIf="ehCordao(pedido?.tipoDoador)" > {{'textosGenericos.cordao' | translate  }} </td>
+                             <td *ngIf="temPerfilAnalistaBusca()|| temPerfilMedico()">{{pedido.dmr}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{pedido.nomeDoador}}</td>
+                             <td *ngIf="temPerfilAnalistaBusca()">{{pedido.nomeLaboratorio}}</td>
+                             <td>{{pedido?.dataCriacao | date:'dd/MM/yyyy' }}</td>
+                             <td><span>{{pedido.tipoExameDescricao}}</span> </td>
+                             <td><span>{{pedido.statusDescricao}}</span></td>
+                         </tr>
+                     </tbody>
+                 </table>
+                <p class="bg-warning" style="padding: 15px" *ngIf="listaNacionaisVazia();">
+                    {{ 'pedidoexamefase3.mensagemNenhumPedidoDoadoresNacionais' | translate }}
+                </p>
+             </div>
+         </div>
+         <!-- Paginação e quantidade de registros -->
+         <div class="row paginaConsultaPaciente"
+                 *ngIf="paginacaoSolicitacoesDoadoresNacionais.totalElements && paginacaoSolicitacoesDoadoresNacionais.totalElements != 0">
+             <div class="col-sm-12 col-xs-12">
+                 <pagination [totalItems]="paginacaoSolicitacoesDoadoresNacionais.totalElements" [ngModel]="paginacaoSolicitacoesDoadoresNacionais.number" [maxSize]="5"
+                         class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoSolicitacoesDoadoresNacionais.quantidadeRegistro"
+                         (pageChanged)="mudarPaginaNacionais($event)"
+                         firstText="{{'paginacao.primeiro' | translate}}"
+                         previousText="<span class='icon-seta-esquerda'></span>"
+                         nextText="<span class='icon-seta-direita'></span>"
+                         lastText="{{'paginacao.ultimo' | translate}}">
+                 </pagination>
+             </div>
+             <div class="col-sm-12 col-xs-12 pull-right">
+                 <div class="form-group porpagina">
+                     <label>{{'textosGenericos.porpagina' | translate  }}</label>
+                     <select class="form-control" [(ngModel)]="quantidadeRegistrosSolicitacaoNacionais"
+                             (change)="selecionaQuantidadeRegistrosNacionais($event)" >
+                         <option value="10">10</option>
+                         <option value="20">20</option>
+                         <option value="30">30</option>
+                         <option value="40">40</option>
+                         <option value="50">50</option>
+                     </select>
+                 </div>
+             </div>
+         </div>

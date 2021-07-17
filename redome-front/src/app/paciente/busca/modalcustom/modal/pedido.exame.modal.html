@@ -1,0 +1,18 @@
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h2>Pedido de Exame</h2>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="form-bloco col-sm-12 col-xs-12">
+            <label>{{'pedidoFase2.internacional.locus' | translate}}:</label>
+            <locus-component #locusComponent></locus-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12">
+            <button (click)="salvar()" id="btnConfirmar" class="btn btn-lg btn-primary floatR"><span class="glyphicon glyphicon-ok"></span> {{'botao.confirmar' | translate }}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<!-- Modal -->
+<div class="modal fade" bsModal #modalConfirmarCentroTransplante="bs-modal" 
+        [config]="{backdrop: 'static', keyboard: false}"
+        tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="fecharTela()">&times;</button>
+            </div>
+        
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <h3>{{'confirmarCentroTransplante.titulo' | translate}}</h3>
+                    </div>
+                </div>
+                <centro-transplante-form #confirmarCentroForm></centro-transplante-form>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <button class="btn btn-lg btn-default floatL" 
+                            (click)="tornarCentroIndefinidoParaPaciente()">
+                                {{ 'confirmarCentroTransplante.botao.naoConfirmado' | translate }}
+                        </button>
+                        <button class="btn btn-lg btn-primary floatR" (click)="confirmarCentroTransplante()">
+                            <i class="glyphicon glyphicon-ok-circle"></i> 
+                                {{ 'botao.confirmar' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>

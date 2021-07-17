@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: redome-tarefa
+
+---
+spring:
+  profiles: default
+  cloud:
+    config: 
+      uri: http://localhost:9081
+      username: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P
+    
+---
+
+spring:
+  profiles: dev
+  cloud:
+    config: 
+      uri: http://${REDOME_CLOUD_LB_SERVICE_HOST}:${REDOME_CLOUD_LB_SERVICE_PORT}
+      username: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P
+
+---
+spring:
+  profiles: hml
+  cloud:
+    config: 
+      uri: https://hml-redome-cloud.cancer.org.br/
+      username: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P

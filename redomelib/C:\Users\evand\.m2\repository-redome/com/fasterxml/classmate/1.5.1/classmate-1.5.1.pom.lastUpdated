@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:24:25 BRT 2021
+https\://jcenter.bintray.com/.lastUpdated=1625250265854
+@default-io.spring.repo.maven.release-http\://repo.spring.io/release/.lastUpdated=1625250265155
+http\://repo.spring.io/release/.error=Could not transfer artifact com.fasterxml\:classmate\:pom\:1.5.1 from/to io.spring.repo.maven.release (http\://repo.spring.io/release/)\: Transfer failed for http\://repo.spring.io/release/com/fasterxml/classmate/1.5.1/classmate-1.5.1.pom 308 Permanent Redirect
+http\://repo.springsource.org/milestone/.error=
+http\://repo.springsource.org/milestone/.lastUpdated=1625250265447

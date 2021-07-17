@@ -1,0 +1,236 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'avaliacaoPaciente.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()"><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            <span>
+                <a id="" type="button" class="btn btn-setting btn-default" [routerLink]="['/pacientes/' + avaliacao?.paciente.rmr + '/evolucoes']"><span class="icon-evolucao"></span> {{'botao.evolucoes' | translate}}</a>
+            </span>
+            <span>
+                <a id="" type="button" class="btn btn-setting btn-default" [routerLink]="['/pacientes/' + avaliacao?.paciente.rmr + '/exames']"><span class="icon-exames"></span> {{'botao.exames' | translate}}</a>
+            </span>
+            <span *ngIf="verificarSeUsuarioLogadoEhAvaliador() && !temAvaliador">
+                <a id="btnIniciarAvaliacao" type="button" class="btn btn-setting btn-primary" (click)="atribuirAvaliacaoAoAvaliadorLogado()"><span class="icon-avaliacao"></span> {{'botao.iniciarAvaliacao' | translate}}</a>
+            </span>
+        </div>
+    </div>
+</div>
+<modal mensagem="{{ mensagem }}" #modalMsg ></modal>
+
+<div class="page-content dadosGeraisEvolucao" >
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h3 class="btn btn-primary busca-status" *ngIf="avaliacao?.aprovado != null &&  avaliacao?.aprovado == false">
+                <span class="glyphicon glyphicon-remove"></span> {{ 'mensagem.buscaReprovada' | translate }}
+            </h3>
+            <h3 class="btn btn-primary busca-status" *ngIf="avaliacao?.aprovado != null &&  avaliacao?.aprovado == true">
+                <span class="glyphicon glyphicon-ok"></span> {{ 'mensagem.buscaAprovada' | translate }}
+            </h3>
+        </div>
+    </div>
+    <div class="row" *ngIf="autorizarAprovarOuReprovar()">
+        <div class="col-sm-12 col-xs-12 text-center btn-avaliaBusca">
+            <span>
+                <a id="btnReprovarBusca" type="button" class="btn btn-primary btn-lg" (click)="abrirModalReprovarAvaliacao()">
+                    <span class="glyphicon glyphicon-remove"></span> {{'botao.reprovarBusca' | translate}}
+                </a>
+            </span>
+            <span>
+                <a id="btnCrirarPendencia" type="button" class="btn btn-danger btn-lg" (click)="criarPendenciaModal.show()">
+                    <span class="icon-lista-pendencia"></span> {{'botao.pendencia' | translate}}
+                </a>
+            </span>
+            <span>
+                <a id="btnAprovarAvaliacao" type="button" class="btn btn-primary btn-lg" (click)="abrirModalAprovarAvaliacao()">
+                    <span class="glyphicon glyphicon-ok"></span> {{'botao.aprovarBusca' | translate}}
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>Dados do Paciente</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <p id="lbPeso"><small>{{'avaliacaoPaciente.peso' | translate}}: </small>{{ evolucao?.pesoFormatado }}  Kg</p>
+            <p id="lbAltura"><small>{{'avaliacaoPaciente.altura' | translate}}: </small>{{ evolucao?.altura }} m</p>
+            <p id="lbCMV"><small>{{'avaliacaoPaciente.cmv' | translate}}: </small> {{
+                evolucao?.cmv == null ? "-" :
+                    (evolucao?.cmv ? ('avaliacaoPaciente.positiva' | translate) : ('avaliacaoPaciente.negativa' | translate))
+            }}</p>
+            <p id="lbTransplanteAnt"><small>{{'avaliacaoPaciente.transplantePrevio' | translate}}: </small><span *ngIf="evolucao?.tiposTransplante?.length < 1">{{ 'textosGenericos.nao' | translate }}</span></p>
+                <div *ngFor="let t of evolucao?.tiposTransplante">
+                    <p>{{t.descricao}}</p>
+                </div>
+            <p id="lbDataUltimoTransplante"   *ngIf="evolucao?.tiposTransplante?.length > 0"><small>{{ 'pacienteForm.evolucaoGroup.dataUltimoTransplante' | translate }}: </small>{{ evolucao?.dataUltimoTransplanteFormatada}}</p>
+            <p id="lbCondicaoPaci"><small>{{'avaliacaoPaciente.condicaoPaciente' | translate}}: </small>{{ evolucao?.condicaoPaciente.descricao }}</p>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>Evolução do Paciente</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <p id="lbTratamentoAnt"><small>{{'avaliacaoPaciente.tratamentoAnterior' | translate}}: </small><span>{{ evolucao?.tratamentoAnterior }}</span></p>
+            <p id="lbTratamentoAtu"><small>{{'avaliacaoPaciente.tratamentoAtual' | translate}}: </small><span>{{ evolucao?.tratamentoAtual }}</span></p>
+            <p id="lbCondicaoAtu"><small>{{'avaliacaoPaciente.condicaoAtual' | translate}}: </small><span>{{ evolucao?.condicaoAtual }}</span></p>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Exibe a lista de pendências -->
+        <div class="col-sm-12 col-xs-12 wrap-table" *ngIf="temAvaliador">
+            <h4 class="subTitulo">{{'tabela.pendencia.titulo' | translate}}</h4>
+            <table id="tabelaPendencias" class="table tableControlePendencias">
+                <thead>
+                    <tr>
+                        <th>{{'tabela.pendencia.tipoPendencia' | translate}}</th>
+                        <th>{{'tabela.pendencia.nome' | translate}}</th>
+                        <th>{{'tabela.pendencia.dataCriacao' | translate}}</th>
+                        <th>{{'tabela.pendencia.status' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="visualizaPendencia" *ngFor="let pendencia of paginacao.content; index as i" (click)="visualizarDialogo(pendencia)">
+                        <td title="Visualizar pendência">
+                            {{ pendencia.tipoPendencia.descricao }}
+                        </td>
+                        <td>{{ pendencia.descricao }}</td>
+                        <td> {{ formatarDataCriacao(pendencia) | date: 'dd/MM/yyyy HH:mm' }}</td>
+                        <td>
+                            <span id="statusPendencia{{i}}" class="label label-primary">{{pendencia.statusPendencia.descricao}} </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5"
+                class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                (pageChanged)="mudarPagina($event)"
+                firstText="{{'paginacao.primeiro' | translate}}"
+                previousText="<span class='icon-seta-esquerda'></span>"
+                nextText="<span class='icon-seta-direita'></span>"
+                lastText="{{'paginacao.ultimo' | translate}}"
+                ></pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecinaQuantidadePorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para cancelar pendência -->
+<pergunta-modal id="pgCancelarPendencia" mensagem="{{ 'mensagem.cancelarPendencia' | translate }}" (fecharSucesso)="executarCancelarPendencia()" (fecharModal)="fecharModalCancelarPendencia()"   #modalCancelaPendencia></pergunta-modal>
+<!-- Modal para fechar pendência -->
+<pergunta-modal id="pgFecharPendencia" mensagem="{{ 'mensagem.fecharPendencia' | translate }}" (fecharSucesso)="executarFecharPendencia()" (fecharModal)="fecharModalFecharPendencia()"   #modalFechaPendencia></pergunta-modal>
+<!-- Modal para aprovar ou reprovar avaliação com pendencias nao finalizadas -->
+<pergunta-modal mensagem="{{ 'mensagem.mensagemAprovarOuReprovarConfirmacao' | translate }}" (fecharSucesso)="finalizarAprovacaoDaAvaliacao()"  #modalAprovacaoPendenciaAberta></pergunta-modal>
+
+<pergunta-modal mensagem="{{ 'mensagem.mensagemAprovarOuReprovarConfirmacao' | translate }}" (fecharSucesso)="finalizarReprovacaoDaAvaliacao()" (fecharModal)="fecharModalReprovacaoAvaliacao()" #modalReprovacaoPendenciaAberta></pergunta-modal>
+
+<div [formGroup]="criarPendenciaForm">
+    <!-- Modal para criar pendências -->
+    <div class="modal fade" bsModal #criarPendenciaModal="bs-modal" [config]="{backdrop: 'static', keyboard: false}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-custom">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button id="close" type="button" class="close" (click)="fecharModalCriarPendencia()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <h2>{{'avaliacaoPaciente.tituloCriarPendencia' | translate}}</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12 form-group">
+                                <label>{{'avaliacaoPaciente.tipoPendencia' | translate}}</label>
+                                <div class="radio-group" *ngFor="let tipo of tiposPendencia; index as i">
+                                    <input id="rdTipoPendencia{{i}}" tabindex="1" type="radio" value="{{ tipo.id }}"
+                                        formControlName="tipoPendencia" (click)="limparFormErrosCriacaoPendencia('tipoPendencia')">
+                                    <label for="rdTipoPendencia{{i}}" class="radio-inline">
+                                        <span></span> {{ tipo.descricao }}
+                                    </label>
+                                    <msg class="mensagem-validacao-modal"
+                                    mensagem="{{ exibirMensagemErrorPorCampo('tipoPendencia') }}"></msg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12 form-group">
+                                <label class="">{{'avaliacaoPaciente.descricaoPendencia' | translate}}</label>
+                                <textarea id="txtAreaDescricaoPendencia" class="form-control" formControlName="descricaoPendencia"
+                                    rows="3" (change)="limparFormErrosCriacaoPendencia('descricaoPendencia')">
+                                </textarea>
+                                <msg class="mensagem-validacao-modal" mensagem="{{ exibirMensagemErrorPorCampo('descricaoPendencia') }}"></msg>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12 floatR">
+                                <button id="btnSalvarNovaPendencia" class="btn btn-success floatR" (click)="criarPendencia()">
+                                    {{'botao.salvarPendencia' | translate}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<!-- Modal para exibir pendência -->
+<div class="modal fade modalAlterado" bsModal #modalPendencia="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
+    tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="close" type="button" class="close" (click)="fecharModalPendencia()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <dialogo-pendencia [pendenciaAtual]="pendenciaAtual" (finalizarRespostaSucesso)="finalizarRespostaSucesso()" (finalizarRespostaErro)="finalizarRespostaErro($event)"
+                    (cancelarRespostaEmitter)="esconderBotoes()" [avaliacao]="avaliacao" ></dialogo-pendencia>
+
+                <div class="col-sm-12 col-xs-12">
+
+                    <div *ngIf="exibirBotesModalPendencia()" class="col-sm-3 col-xs-3 ">
+                        <button class="btn btn-primary " id="btnCancelarPendencia" type="button" (click)="cancelarPendenciaPorModalResposta()"> {{ 'botao.cancelarPendencia' | translate }} </button>
+                    </div>
+
+                    <div *ngIf="exibirBotaoModalFecharPendencia()" class="col-sm-3 col-xs-3 ">
+                        <button class="btn btn-primary " id="btnFecharPendencia" (click)="fecharPendenciaPorModalResposta()">{{ 'botao.fecharPendencia' | translate }} </button>
+                    </div>
+
+                    <div [hidden]="esconderBotoesDialogo" class="col-sm-3 col-xs-3 ">
+                        <a class="btn btn-primary" id="" type="button" [routerLink]="['/pacientes/' + avaliacao?.paciente.rmr + '/evolucoes/']"
+                            *ngIf="quantidadeDeEvolcoesNaPendenciaRespondida(pendenciaAtual) >= 1">{{'botao.evolucoes' | translate}}</a>
+                        <a class="btn btn-primary" id="" type="button" [routerLink]="['/pacientes/' + avaliacao?.paciente.rmr + '/exames/']"
+                            *ngIf="quantidadeDeExamesNaPendenciaRespondida(pendenciaAtual) >= 1">{{'botao.exames' | translate}}</a>
+                    </div>
+                    <div *ngIf="exibirBotesModalPendencia()" class="col-sm-3 col-xs-3 ">
+                        <button class="btn btn-success" id="btnResponderPendencia" (click)="abrirCaixaParaResponder()"> {{ 'botao.responderPendencia' | translate }} </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

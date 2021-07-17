@@ -1,0 +1,183 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>Cadastro de Doador Internacional</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <small class="vinculado">Vinculado ao paciente:</small>
+            </div>
+            <!-- <header-paciente></header-paciente> -->
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a class="btn btn-setting btn-default">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+                </a>
+                <a id="" type="button" class="btn btn-setting btn-primary">
+                    <span class="glyphicon glyphicon-ok"></span> Salvar
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>Dados do Doador</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-bloco">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="interID">ID</label>
+                            <input class="form-control" tabindex="1" id="interID" type="text" placeholder="" name="interID" 
+                            maxlength="255" (blur)="setMensagemErroPorCampo('interID')" formControlName="interID">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interID') }}"></msg>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="interGRID">GRID</label>
+                            <input class="form-control" tabindex="1" id="interGRID" type="text" placeholder="" name="interGRID" 
+                            maxlength="255" (blur)="setMensagemErroPorCampo('interGRID')" formControlName="interGRID">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interGRID') }}"></msg>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-xs-12">
+                            <label for="interIdade">Idade</label>
+                            <input class="form-control" tabindex="1" id="interIdade" type="text" placeholder="" name="interIdade" 
+                            maxlength="255" (blur)="setMensagemErroPorCampo('interIdade')" formControlName="interIdade">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interIdade') }}"></msg>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-12">
+                            <label for="interPeso">Peso</label>
+                            <input class="form-control" tabindex="1" id="interPeso" type="text" placeholder="" name="interPeso" 
+                            maxlength="255" (blur)="setMensagemErroPorCampo('interPeso')" formControlName="interPeso">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('v') }}"></msg>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-12">
+                            <label for="interABO">ABO</label>
+                            <select class="form-control" id="interABO" formControlName="abo" (blur)="setMensagemErroPorCampo('abo');">
+                                <option value=""></option> 
+                                <option value="A-">A-</option> 
+                                <option value="B-">B-</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O-">O-</option>
+                                <option value="A+">A+</option>
+                                <option value="B+">B+</option>
+                                <option value="AB+">AB+</option>
+                                <option value="O+">O+</option>
+                            </select>
+                                <div class="clearfix"></div>
+                                <msg mensagem="{{ exibirMensagemErrorPorCampo('abo') }}"></msg>
+                        </div>
+                        <div class="form-group col-sm-3 col-xs-12">
+                            <label>Sexo</label>
+                            <div class="radio-group">
+                                <input id="SexoF" type="radio" value="F" formControlName="sexo">
+                                <label for="SexoF" class="radio-inline">
+                                    <span></span> Feminino
+                                </label>
+                                <input id="SexoM" type="radio" value="M" formControlName="sexo" (change)="setMensagemErroPorCampo('sexo');">
+                                <label for="SexoM" class="radio-inline">
+                                    <span></span> Masculino
+                                </label>
+                            </div>
+                            <div class="clearfix"></div>
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('sexo') }}"></msg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>Origem e Cobrança</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-bloco">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="interOrigem">Registro de Origem</label>
+                            <input class="form-control" tabindex="1" id="interOrigem" type="text" placeholder="" name="interOrigem" 
+                            maxlength="255" (blur)="setMensagemErroPorCampo('interOrigem')" formControlName="interOrigem">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interOrigem') }}"></msg>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="interCobranca">Registro de Cobrança</label>
+                            <input class="form-control" tabindex="1" id="interCobranca" type="text" placeholder="" name="interCobranca" 
+                            maxlength="255" (blur)="setMensagemErroPorCampo('interCobranca')" formControlName="interCobranca">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interCobranca') }}"></msg>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="checkbox-group col-sm-12 col-xs-12">
+                            <input id="registroIguais" type="checkbox">
+                            <label for="registroIguais">
+                                <span></span>O registro de cobrança é o mesmo que o de origem
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>Genótipo</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-bloco">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="interABO">Fonte</label>
+                            <select class="form-control" id="interFonte" formControlName="interFonte" (blur)="setMensagemErroPorCampo('interFonte');">
+                                <option value=""></option> 
+                                <option value="Medula">Medula</option> 
+                                <option value="Cordão Umbilical">Cordão Umbilical</option>
+                            </select>
+                            <div class="clearfix"></div>
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interFonte') }}"></msg>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="interHLA">HLA</label>
+                            COLOCAR O HLA
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>Status do Doador</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-bloco">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <label for="interABO">Situação</label>
+                            <select class="form-control" id="interFonte" formControlName="interFonte" (blur)="setMensagemErroPorCampo('interFonte');">
+                                <option value=""></option> 
+                                <option value="Ativo">Ativo</option> 
+                                <option value="Inativo">Inativo</option>
+                            </select>
+                            <div class="clearfix"></div>
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interFonte') }}"></msg>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-xs-12">
+                            <label for="interResalva">Resalva</label>
+                            <input class="form-control" tabindex="1" id="interResalva" type="text" placeholder="" name="interResalva" 
+                            maxlength="255" (blur)="setMensagemErroPorCampo('interResalva')" formControlName="interResalva">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('interResalva') }}"></msg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,12 @@
+<div class="col-sm-12 col-xs-12 header-paciente">
+        <span>
+            <h4>
+                {{doador ?('Id: ' + doador?.idRegistro + ' GRID: ' + doador?.grid + '  | ') : '' }}
+            </h4>
+            <small>{{sexo ? sexo + ', ' : ''}}</small>
+            <small>{{idade ? idade + ', ' : ''}}</small>
+            <small>{{peso ? peso + ', ' : ''}}</small>
+            <small>{{rmrSelecionado ? rmrSelecionado + ', ' : ''}}</small>
+            <small><span class="icon-sangue" *ngIf="doador?.abo"></span>{{doador?.abo}}</small>
+        </span>
+</div>

@@ -1,0 +1,127 @@
+<div class="container conteudo" [formGroup]="disponibilidadeForm">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2 *ngIf="isDoadorNacional(); else internacional">{{'workup.pedido.titulo' | translate}}</h2>
+                <ng-template #internacional>
+                    <h2>{{'workup.pedido.tituloInternacional' | translate}}</h2>
+                </ng-template>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <span *ngIf="isDoadorNacional()">
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="goToDetalheDoador()">
+                        <span class="icon-coleta"></span> {{'botao.doador' | translate}}</a>
+                </span>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="goToDetalheCT()">
+                        <span class="icon-centro"></span> {{'botao.detalheCT' | translate}}</a>
+                </span>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" *ngIf="pedidoConfirmadoCT()" (click)="abrirModalAgendamentoWorkup()">
+                        <span class="icon-calendario"></span> {{'botao.agendar' | translate}}
+                    </a>    
+                </span>                
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="abrirModalCancelamento()" *ngIf="exibeCancelamento()">
+                        <span class="glyphicon glyphicon-remove"></span> {{'botao.cancelar' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 text-center">
+                <p>
+                    Status:
+                    <span class="label label-primary">{{pedidoWorkup?.statusPedidoWorkup.descricao}}</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.pedido.programacaoCC' | translate}}</h3>
+                <a href="javascript:void(0)" class="editar-bloco" (click)="abrirFormularioNovaDisponibilidadeCentroColeta()"
+                    [ngClass]='mostraDados' *ngIf="hideEditarProgramacao()">
+                    <span class="icon-editar"></span>{{'link.editar' | translate}} </a>
+            </div>
+
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <ul [ngClass]="mostraDados">
+                    <li>
+                        <p id="">
+                            <span class="texto-bloco" *ngIf="!hideEditarProgramacao()">
+                                <textarea class="form-control" readonly="true" [value]="pedidoWorkup?.ultimaDisponibilidade?.descricao" 
+                                rows="4" cols="60" style="background-color: #fff;"></textarea>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+                <div [ngClass]='mostraFormulario'>
+                    <div class="form-group">
+                        <label for="txtDescricao">{{'workup.pedido.programacaoCC' | translate}}:</label>
+                            <textarea class="form-control" tabindex="5" (blur)="setMensagemErroPorCampo('observacao');" 
+                                id="txtObs" type="text" formControlName="observacao"
+                                maxlength="255"> 
+                            </textarea>
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('observacao') }}"></msg>
+                        <br/>
+                        <div class="form-group btn-bloco">
+                            <button id="cancelarContato" class="btn btn-default floatL"
+                                (click)="cancelarInclusao()">{{'botao.cancelar' | translate}}</button>
+                            <button id="alterarContato" class="btn btn-primary floatR"
+                                (click)="incluirResumoNovaDisponibilidade()">{{'botao.salvar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 text-center">
+                <span *ngIf="exibirTagCancelada" class="label label-danger">
+                    {{'workup.pedido.prescricaoCancelada' | translate}}
+                </span>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.pedido.dataProposta' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <p *ngIf="isDoadorNacional()">
+                    <small>{{'workup.pedido.fonteCelula' | translate}}</small>
+                    <small *ngIf="exibeFonteCelulaOpcao1() && exibeFonteCelulaOpcao2()"  >{{'workup.pedido.opcao1' | translate}}</small>
+                    <small>:</small>
+                    <span *ngIf="exibeFonteCelulaOpcao1()">{{pedidoWorkup?.solicitacao?.prescricao?.fonteCelulaOpcao1?.descricao }} </span>
+                    <span *ngIf="exibeFonteCelulaOpcao1() && exibeFonteCelulaOpcao2()">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                    <small *ngIf="exibeFonteCelulaOpcao1() && exibeFonteCelulaOpcao2()">{{'workup.pedido.opcao2' | translate}}</small>
+                    <small *ngIf="exibeFonteCelulaOpcao1() && exibeFonteCelulaOpcao2()">:</small>
+                    <span *ngIf="exibeFonteCelulaOpcao2()"> {{pedidoWorkup?.solicitacao?.prescricao?.fonteCelulaOpcao2?.descricao }} </span>
+                </p>
+                <p>
+                    <small>{{'workup.pedido.dataLimiteResult' | translate}}: </small>
+                    <span>{{pedidoWorkup?.solicitacao?.prescricao?.dataResultadoWorkup1 | date: 'dd/MM/yyyy'}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                    <small>{{'workup.pedido.dataLimiteColeta' | translate}}: </small>
+                    <span>{{pedidoWorkup?.solicitacao?.prescricao?.dataColeta1 | date: 'dd/MM/yyyy'}}</span>
+                </p>
+                <p id="">
+                    <small>{{'workup.pedido.dataLimiteResult' | translate}}: </small>
+                    <span>{{pedidoWorkup?.solicitacao?.prescricao?.dataResultadoWorkup2 | date: 'dd/MM/yyyy'}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                    <small>{{'workup.pedido.dataLimiteColeta' | translate}}: </small>
+                    <span>{{pedidoWorkup?.solicitacao?.prescricao?.dataColeta2 | date: 'dd/MM/yyyy'}}</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

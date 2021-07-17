@@ -1,0 +1,32 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{ titulo }}</h2> 
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+
+                <span *ngIf="isDoadorNacional">
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="goToDetalheDoador()">
+                        <span class="icon-coleta"></span> {{'botao.doador' | translate}}</a>
+                </span>
+
+                <a type="button" class="btn btn-setting btn-primary" (click)="reprovarAvaliacao()">
+                    <span class="glyphicon glyphicon-remove"></span> {{'botao.reprovar' | translate}}</a>
+                <a type="button" class="btn btn-setting btn-primary" (click)="aprovarAvaliacao()">
+                    <span class="glyphicon glyphicon-ok"></span> {{'botao.aprovar' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <detalhe-prescricao-medula [showDescarteEAprovacao]="true" *ngIf="isMedula()"></detalhe-prescricao-medula>
+        <detalhe-prescricao-cordao *ngIf="isCordao()"></detalhe-prescricao-cordao>
+    </div>
+</div>

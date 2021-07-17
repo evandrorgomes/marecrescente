@@ -1,0 +1,38 @@
+<div [formGroup]="form">
+    <div class="row">
+        <!--<form class="formCriarNovaPendencia">-->
+        <div class="col-sm-12 col-xs-12">
+            <h2 class="text-center"  *ngIf="data.aprovarAvaliacao" >{{'avaliacaoPaciente.modalAprovacaoAvaliacao.tituloAprovar' | translate}}</h2>
+            <h2 class="text-center" *ngIf="!data.aprovarAvaliacao" >{{'avaliacaoPaciente.modalAprovacaoAvaliacao.tituloReprovar' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row" *ngIf="data.aprovarAvaliacao" >
+        <div class="col-sm-4 col-xs-12 form-group">
+            <label for="dlTempoParaTransplante"> {{ 'avaliacaoPaciente.modalAprovacaoAvaliacao.tempoparatransplante' | translate }} </label> 
+            <label>(em dias) </label>
+            <select-component                  
+                formControlName="tempoParaTransplante" 
+                [control]="form.controls['tempoParaTransplante']" 
+                idd="dlTempoParaTransplante"
+                [options]="_temposParaTransplante">
+            </select-component> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 form-group">
+            <textarea-component 
+                label="{{ _labelObservacao }}" 
+                formControlName="observacao" 
+                [control]="form.controls['observacao']" 
+                idd="txtObservacao"                 
+                placeholder="" rows="3" maxlength="200" >                
+            </textarea-component>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 modal-btn">
+            <button *ngIf="data.aprovarAvaliacao" id="btnConfirmarAprovacao" class="btn btn-lg btn-primary" (click)="confirmar()">{{'botao.aprovarBusca' | translate}}</button>
+            <button *ngIf="!data.aprovarAvaliacao" id="btnConfirmarReprovacao" class="btn btn-lg btn-primary" (click)="confirmar()">{{'botao.reprovarBusca' | translate}}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.consulta.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-8 col-xs-12 centrotransplante">
+                <select-centros-component #selectCentros
+                    [showAvaliadorOption]="false"
+                    (change)="mudarCentroTransplante(selectCentros.value)">
+                </select-centros-component>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <h4 class="subTitulo">{{'workup.consulta.aseremrealizadas' | translate}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.rmr' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.iddoador' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.origem' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.fonte' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtsugworkup' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtsugcoleta' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtworkup' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtcoleta' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.acao' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let workup of paginacaoTarefasWorkup.content; index as i" 
+                            (click)="irParaAcaoSelecionada(workup)">
+                            <td>{{workup?.rmr}}</td>
+                            <td>{{workup?.identificacaoDoador}}</td>
+                            <td>{{workup?.registroOrigem}} </td>
+                            <td>{{workup?.tipoPrescricao}}</td>
+                            <td>{{ formatarData(workup?.dataSugWorkup) }}</td>
+                            <td>{{ formatarData(workup?.dataSugColeta) }}</td>
+                            <td>{{ formatarData(workup?.dataWorkup) }}</td>
+                            <td>{{ formatarData(workup?.dataColeta) }}</td>
+                            <td>{{workup?.acao}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoTarefasWorkup.totalElements && paginacaoTarefasWorkup.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoTarefasWorkup.totalElements"
+                            [ngModel]="paginacaoTarefasWorkup.number" [maxSize]="5"
+                            class="pagination-sm pagination-wrap" [boundaryLinks]="true"
+                            [rotate]="false" [itemsPerPage]="paginacaoTarefasWorkup.quantidadeRegistro"
+                            (pageChanged)="mudarPaginaTarefasWorkupAtribuidas($event)"
+                            firstText="{{'paginacao.primeiro' | translate}}"
+                            previousText="<span class='icon-seta-esquerda'></span>"
+                            nextText="<span class='icon-seta-direita'></span>"
+                            lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroTarefasWorkup"
+                        (change)="selecionaQuantidadeTarefasWorkupPorPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <h4 class="subTitulo">{{'workup.consulta.aguardandoterceiros' | translate}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.rmr' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.iddoador' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.origem' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.fonte' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtsugworkup' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtsugcoleta' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtworkup' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.dtcoleta' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.consulta.tabela.aguardando' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let workup of paginacaoSolicitacoesWorkup.content; index as i">
+                            <td>{{workup?.rmr}}</td>
+                            <td>{{workup?.identificacaoDoador}}</td>
+                            <td>{{workup?.registroOrigem}} </td>
+                            <td>{{workup?.tipoPrescricao}}</td>
+                            <td>{{ formatarData(workup?.dataSugWorkup) }}</td>
+                            <td>{{ formatarData(workup?.dataSugColeta) }}</td>
+                            <td>{{ formatarData(workup?.dataWorkup) }}</td>
+                            <td>{{ formatarData(workup?.dataColeta) }}</td>
+                            <td>{{workup?.acao}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoSolicitacoesWorkup.totalElements && paginacaoSolicitacoesWorkup.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoSolicitacoesWorkup.totalElements"
+                            [ngModel]="paginacaoSolicitacoesWorkup.number" [maxSize]="5"
+                            class="pagination-sm pagination-wrap" [boundaryLinks]="true"
+                            [rotate]="false" [itemsPerPage]="paginacaoSolicitacoesWorkup.quantidadeRegistro"
+                            (pageChanged)="mudarPaginaSolicitacoesWorkup($event)"
+                            firstText="{{'paginacao.primeiro' | translate}}"
+                            previousText="<span class='icon-seta-esquerda'></span>"
+                            nextText="<span class='icon-seta-direita'></span>"
+                            lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroWorkupAtribuido" 
+                        (change)="selecionaQuantidadeSolicitacoesWorkupsPorPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

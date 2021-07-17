@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:24:41 BRT 2021
+byte-buddy-agent-1.9.3.pom>jcenter-snapshots=
+byte-buddy-agent-1.9.3.jar>jcenter-snapshots=

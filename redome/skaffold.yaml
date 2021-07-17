@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: redome
+build:
+  artifacts:
+  - image: localhost:32000/redome
+    docker:
+      dockerfile: local-Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - local-deployment.yml
+portForward:
+  - resourceType: service
+    resourceName: redome-svc
+    port: 9080
+    localPort: 9080

@@ -1,0 +1,61 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'definirCentroTransplante.titulo' | translate}}</h2>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <table  id="tabelaTarefasEncontrarCentroTransplante" 
+                    class="table tableSelecaoCentroTransplante">
+                <thead>
+                    <tr>
+                        <th>{{'definirCentroTransplante.tabela.rmr' | translate}}</th>
+                        <th>{{'definirCentroTransplante.tabela.nome' | translate}}</th>
+                        <th>{{'definirCentroTransplante.tabela.aging' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clicavel" *ngFor="let centroIndefinido of paginacao.content; index as i" 
+                        (click)="abrirConfirmacaoCentroTransplante(centroIndefinido)">
+                        <td>{{ centroIndefinido.rmr }}</td>
+                        <td>{{ centroIndefinido.nomePaciente  }}</td>
+                        <td>{{ centroIndefinido.aging  }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row paginaConsultaPaciente" 
+            *ngIf="paginacao.totalElements && paginacao.totalElements != 0"> 
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                    (pageChanged)="mudarPagina($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}"
+                    >
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>{{'paginacao.porPagina' | translate}}</label>
+                <select class="form-control" 
+                        [(ngModel)]="quantidadeRegistro" 
+                        (change)="selecionarQuantidadePorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<modal mensagem="" #modalMsgErro></modal>

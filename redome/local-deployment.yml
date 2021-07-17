@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-svc
+  namespace: develop 
+spec:
+  type: NodePort
+  selector:
+    app: redome
+    namespace: develop
+  ports:
+   - protocol: TCP
+     port: 9080
+     targetPort: 9080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-deployment
+  namespace: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome
+      namespace: develop
+  template:
+    metadata:
+      labels:
+        app: redome
+        namespace: develop
+    spec:
+      hostname: redome
+      subdomain: redome-svc      
+      containers:
+      - name: redome
+        image: localhost:32000/redome:latest
+        env:
+          - name: profile
+            value: dev

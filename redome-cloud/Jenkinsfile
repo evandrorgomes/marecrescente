@@ -1,0 +1,102 @@
+pipeline {
+    agent any
+    
+    environment {
+      DOCKER_REGISTRY = "sr-vmlxapp26.inca.local:5000" 
+      IMAGE_NAME = "${DOCKER_REGISTRY}/redome-cloud:${BUILD_NUMBER}_${BUILD_TIMESTAMP}"
+      
+    }
+    
+    stages {
+	    stage('Unit Test') {
+	       steps {
+	          sh 'mvn test'
+	       }             
+	    }
+	    stage('Build Project') {
+	       steps {
+	          sh 'mvn -f pom.xml package -Dmaven.test.skip package'	          
+	       }      
+	    }
+	    stage('Build Image and Push') {	       
+	       steps {
+	          sh 'docker build -t ${IMAGE_NAME} .'
+	          sh 'docker push ${IMAGE_NAME}'	          
+	       }
+	    }
+	    stage('deploy') {
+	       steps {
+	          withKubeConfig([credentialsId: 'inca-dev']) {
+                /**  sh 'kubectl version --insecure-skip-tls-verify' */
+                
+                sh """ cat <<EOF > deployment.yaml   
+                
+apiVersion: v1
+kind: Service
+metadata:
+ name: redome-cloud-svc
+ namespace: hml
+spec:
+ type: NodePort
+ selector:
+   app: redome-cloud
+ ports:
+  - protocol: TCP
+    port: 9081
+
+---    
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-cloud-deployment
+  namespace: hml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-cloud
+      namespace: hml
+  template:
+    metadata:
+      labels:
+        app: redome-cloud
+        namespace: hml
+    spec:
+      hostname: redome-cloud
+      subdomain: redome-cloud-svc
+      containers:
+      - name: redome-cloud
+        image: '$IMAGE_NAME'
+        ports:
+        - containerPort: 9081
+        env:
+          - name: profile
+            value: hml
+        resources:
+          requests:
+            cpu: '100m'
+            memory: '512Mi'
+          limits:
+            cpu: '100m'
+            memory: '768Mi'
+        volumeMounts:
+          - mountPath: "/logs"
+            name: apilog
+      volumes:
+        - name: apilog
+          persistentVolumeClaim:
+            claimName: inca-pvc
+                """
+            sh 'kubectl apply --insecure-skip-tls-verify -n hml -f deployment.yaml'
+              }
+	       }
+	    }
+	}
+	post {
+	  always {
+	    junit skipPublishingChecks: true, testResults: 'target/surefire-reports/*.xml'
+	  }
+	}
+}
+
+

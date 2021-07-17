@@ -1,0 +1,7 @@
+FROM gcr.io/distroless/java:8
+COPY  target/redome-auth.jar /usr/redome/redome-auth.jar
+
+ENV profile=default
+
+EXPOSE 9000
+ENTRYPOINT [ "java", "-Dspring.profiles.active=${profile}", "-jar", "/usr/redome/redome-auth.jar", ">>", "null" ]

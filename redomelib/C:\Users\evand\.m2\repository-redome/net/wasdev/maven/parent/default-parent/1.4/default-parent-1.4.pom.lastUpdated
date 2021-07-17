@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:23:37 BRT 2021
+https\://jcenter.bintray.com/.lastUpdated=1625250217734
+@default-io.spring.repo.maven.release-http\://repo.spring.io/release/.lastUpdated=1625250216914
+http\://repo.spring.io/release/.error=Could not transfer artifact net.wasdev.maven.parent\:default-parent\:pom\:1.4 from/to io.spring.repo.maven.release (http\://repo.spring.io/release/)\: Transfer failed for http\://repo.spring.io/release/net/wasdev/maven/parent/default-parent/1.4/default-parent-1.4.pom 308 Permanent Redirect
+http\://repo.springsource.org/milestone/.error=
+http\://repo.springsource.org/milestone/.lastUpdated=1625250217213

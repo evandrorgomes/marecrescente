@@ -1,0 +1,124 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'transporteMaterial.titulo.agendar' | translate}}</h2>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h4>{{'transporteMaterial.subtitulo.agendar' | translate}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 wrap-table">    
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="col-sm-3">{{'transporteMaterial.tarefas.localRetirada' | translate}}</td>
+                        <td class="col-sm-2">{{'transporteMaterial.tarefas.data' | translate}}</td>
+                        <td class="col-sm-1">{{'transporteMaterial.tarefas.id' | translate}}</td>
+                        <td class="col-sm-1">{{'transporteMaterial.tarefas.rmr' | translate}}</td>
+                        <td class="col-sm-3">{{'transporteMaterial.tarefas.ct' | translate}}</td>
+                        <td class="col-sm-2">{{'transporteMaterial.tarefas.status' | translate}}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clicavel" *ngFor="let dto of paginacaoTarefasTransporteMaterial?.content; index as i"
+                    (click)="irParaAgendamento(dto)">
+                        <td>{{dto?.nomeLocalRetirada}}</td>
+                        <td>{{horaPrevistaRetiradaFormatada(dto)}}</td>
+                        <td>{{dto?.identificacaoDoador}}</td>
+                        <td>{{dto?.rmr}}</td>
+                        <td>{{dto?.nomeCentroTransplante}}</td>
+                        <td><span class="label label-default">{{dto?.descricaoStatusPedidoTransporte}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacaoTarefasTransporteMaterial?.totalElements && paginacaoTarefasTransporteMaterial?.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoTarefasTransporteMaterial?.totalElements" [ngModel]="paginacaoTarefasTransporteMaterial?.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoTarefasTransporteMaterial?.quantidadeRegistro"
+                    (pageChanged)="mudarPaginaTarefasTransporteMaterial($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="qtdRegistroTarefasTransporteMaterial" (change)="selecionaQuantidadeTarefasTransportesPorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h4>{{'transporteMaterial.subtitulo.pendentes' | translate}}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 wrap-table">    
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="col-sm-3">{{'transporteMaterial.tarefas.localRetirada' | translate}}</td>
+                        <td class="col-sm-2">{{'transporteMaterial.tarefas.data' | translate}}</td>
+                        <td class="col-sm-1">{{'transporteMaterial.tarefas.id' | translate}}</td>
+                        <td class="col-sm-1">{{'transporteMaterial.tarefas.rmr' | translate}}</td>
+                        <td class="col-sm-3">{{'transporteMaterial.tarefas.ct' | translate}}</td>
+                        <td class="col-sm-2">{{'transporteMaterial.tarefas.status' | translate}}</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let transporte of paginacaoTransporteMaterial?.content; index as i" >
+                        <td>{{transporte?.nomeLocalRetirada}}</td>
+                        <td>{{horaPrevistaRetiradaFormatada(transporte)}}</td>
+                        <td>{{transporte?.identificacaoDoador}}</td>
+                        <td>{{transporte?.rmr}}</td>
+                        <td>{{transporte?.nomeCentroTransplante}}</td>
+                        <td><span class="label label-default">{{transporte?.descricaoStatusPedidoTransporte}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacaoTransporteMaterial?.totalElements && paginacaoTransporteMaterial?.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoTransporteMaterial?.totalElements" [ngModel]="paginacaoTransporteMaterial?.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoTransporteMaterial?.quantidadeRegistro"
+                    (pageChanged)="mudarPaginaTransporteMaterial($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="qtdRegistroTransporteMaterial" (change)="selecionaQuantidadeTransportesPorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

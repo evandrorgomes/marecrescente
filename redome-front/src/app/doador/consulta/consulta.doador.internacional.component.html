@@ -1,0 +1,89 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <!-- Título da seção -->
+                <h2>{{'doadorForm.consulta.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <form [formGroup]="doadorForm">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-3 ">
+                    <label for="txtIdDoador">{{'doadorForm.consulta.idRegistro' | translate}}</label>
+                    <input class="form-control" id="txtIdDoador" formControlName="idRegistro" (blur)="setMensagemErroPorCampo('idRegistro');"
+                        type="text"  maxlength="30" Filtro padrao="onlyNumber">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('idRegistro') }}"></msg>
+                </div>
+                <div class="form-group col-xs-12 col-sm-3">
+                    <label for="txtConsultaRMR">{{'doadorForm.consulta.grid' | translate}}</label>
+                    <input class="form-control" id="txtConsultaRMR" formControlName="grid" (blur)="setMensagemErroPorCampo('grid');" type="text"
+                        maxlength="19"  Filtro padrao="onlyNumber">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('grid') }}"></msg>
+                </div>
+                <div class="form-group col-xs-12 col-sm-4">
+                    <label for="txtConsultaNome">{{'doadorForm.consulta.origem' | translate}}</label>
+                    <select class="form-control" id="interOrigem" formControlName="origem" tabindex="8" (blur)="setMensagemErroPorCampo('origem');">
+                        <option value=""></option>
+                        <option *ngFor="let c of origens" value="{{c.id}}">{{c.nome}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('origem') }}"></msg>
+                </div>
+                <div class="col-sm-2 col-xs-12">
+                    <button id="btnConsulta" class="btn btn-lg btn-primary btn-block" (click)="consultar()">{{'botao.consultar' | translate}}</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Tabela que exibe o resultado da busca -->
+        <div class="row" *ngIf="paginacaoDoadores.totalElements && paginacaoDoadores.totalElements != 0">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table id="tblConsultaPaciente" class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-3">{{'doadorForm.consulta.idRegistro' | translate}}</th>
+                            <th class="col-sm-3">{{'doadorForm.consulta.grid' | translate}}</th>
+                            <th>{{'doadorForm.consulta.origem' | translate}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel"
+                            *ngFor="let doador of paginacaoDoadores.content; index as i"
+                            (click)="abrirDetalhe(doador)">
+                            <td>{{doador.idRegistro}}</td>
+                            <td>{{doador.grid}}</td>
+                            <td>{{doador.registroOrigem.nome}} </td>
+                            <td>{{doador.statusDoador.descricao}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoDoadores.totalElements && paginacaoDoadores.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoDoadores.totalElements" [ngModel]="paginacaoDoadores.number" [maxSize]="5" class="pagination-sm pagination-wrap"
+                    [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoDoadores.quantidadeRegistro" (pageChanged)="mudarPagina($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}" previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>" lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroDoadores" (change)="selecinaQuantidadePorPagina($event)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

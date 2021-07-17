@@ -1,0 +1,73 @@
+<form [formGroup]="logisticaMaterialGroup">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h3 class="text-center">{{'logisticaMaterial.informacoesAdicionais' | translate}}</h3>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'logisticaMaterial.dadosCourier' | translate }}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco form-bloco">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{ 'logisticaMaterial.nomeCourier' | translate }}</label>
+                <input class="form-control" type="text" maxlength="60" formControlName="nomeCourier" 
+                    (blur)="setMensagemErroPorCampo('nomeCourier');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeCourier') }}"></msg>
+            </div>
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{ 'logisticaMaterial.passaporteCourier' | translate }}</label>
+                <input class="form-control" type="text" maxlength="60" formControlName="passaporteCourier" 
+                    (blur)="setMensagemErroPorCampo('passaporteCourier');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('passaporteCourier') }}"></msg>
+            </div>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'logisticaMaterial.dadosRetirada' | translate }}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco form-bloco">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{ 'logisticaMaterial.retiradaLocal' | translate }}: </label>
+                <textarea id="txtEnderecoRetirada" class="form-control modal-dialogo" rows="3" maxlength="200" formControlName="retiradaLocal"
+                (blur)="setMensagemErroPorCampo('retiradaLocal');"></textarea>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('retiradaLocal') }}"></msg>
+            </div>
+            <div class="form-group col-sm-4 col-xs-6">
+                <label>{{ 'logisticaMaterial.dataEmbarque' | translate }}: </label>
+                <input [textMask]="{mask: datas}" class="form-control" type="text" maxlength="11" placeholder="DD/MM/AAAA" formControlName="dataEmbarque" (blur)="setMensagemErroPorCampo('dataEmbarque');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataEmbarque') }}"></msg>
+            </div>
+            <div class="form-group col-sm-4 col-xs-6">
+                <label>{{ 'logisticaMaterial.dataChegada' | translate }}: </label>
+                <input [textMask]="{mask: datas}" class="form-control" type="text" maxlength="11" placeholder="DD/MM/AAAA" formControlName="dataChegada" (blur)="setMensagemErroPorCampo('dataChegada');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataChegada') }}"></msg>
+            </div>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'logisticaMaterial.dadosDoadorInternacional' | translate }}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco form-bloco">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{ 'logisticaMaterial.retiradaIdDoador' | translate }}</label>
+                <input class="form-control" type="text" maxlength="15" formControlName="retiradaIdDoador" (blur)="setMensagemErroPorCampo('retiradaIdDoador');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('retiradaIdDoador') }}"></msg>
+            </div>
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{ 'logisticaMaterial.retiradaHawb' | translate }}</label>
+                <input class="form-control" type="text" maxlength="15" formControlName="retiradaHawb" (blur)="setMensagemErroPorCampo('retiradaHawb');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('retiradaHawb') }}"></msg>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 modal-btn">
+            <a id="" type="button" class="btn btn-lg btn-primary" (click)="salvarLogistica()">
+                <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}
+            </a>
+        </div>
+    </div>
+</form>

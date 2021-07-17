@@ -1,0 +1,133 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'analisematchpreliminar.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 header-paciente">
+            <h4>
+                {{analiseMatchPreliminarDTO ? (analiseMatchPreliminarDTO?.buscaPreliminar?.nomePaciente + '  | ') : '' }}
+            </h4>
+            <small>{{analiseMatchPreliminarDTO?.buscaPreliminar ? retornarIdadeFormatada(analiseMatchPreliminarDTO?.buscaPreliminar) + ', ' : ''}}</small>
+            <small><span class="icon-sangue" *ngIf="analiseMatchPreliminarDTO?.buscaPreliminar?.abo"></span>{{analiseMatchPreliminarDTO?.buscaPreliminar ? analiseMatchPreliminarDTO?.buscaPreliminar?.abo : ''}}</small> 
+        </div>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()"><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            <a id="idComparar" type="button" class="btn btn-setting btn-primary" (click)="compararDoadores()"><span class="icon-genotipo"></span> {{'botao.comparar' | translate}}</a>
+            <a id="idCadastroPaciente" type="button" class="btn btn-setting btn-primary" (click)="abrirCadastroPaciente()"><span class="icon-cadastrar"></span> {{'botao.cadastrarpaciente' | translate}}</a>
+        </div>
+    </div>
+</div>
+<div class="page-content">    
+    <div class="row">
+        <div class="col-sm-8 col-xs-12 rdMedCord">
+            <small>{{ 'textosGenericos.visualizar.titulo' | translate }}: </small><br/>
+            <input type="radio" id="rdMedula" name="visualizar" [checked]="filtroMatch == 0" (change)="mudarVisualizacao($event)" />
+            <label for="rdMedula">
+                <span></span>{{ 'textosGenericos.visualizar.medula' | translate:{quantidade: quantidadeTotalMedula()} }}
+            </label>
+            <input type="radio" id="rdCordao" name="visualizar" [checked]="filtroMatch == 1" (change)="mudarVisualizacao($event)" />
+            <label for="rdCordao">
+                <span></span>{{ 'textosGenericos.visualizar.cordao' | translate:{quantidade: quantidadeTotalCordao()} }}
+            </label>
+        </div>        
+    </div> 
+
+    <div class="lista-carrossel">
+        <ngx-carousel
+            [inputs]="carouselOne"
+            (onMove)="onmoveFn($event)"
+            (carouselLoad)="myfunc($event)">
+                <ngx-tile NgxCarouselItem>
+                    <div class="lista-match">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >        
+                                <h4 class="text-center">{{ getTitulo('F1') }}</h4>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="exibeMensagemNenhumDoador(analiseMatchPreliminarDTO.listaFase1)">
+                            <div class="col-sm-12 col-xs-12" > 
+                                <p class="text-center">{{ 'mensagem.nenhumdoadornafase' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!exibeMensagemNenhumDoador(analiseMatchPreliminarDTO.listaFase1)" >
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <div *ngFor="let match of analiseMatchPreliminarDTO.listaFase1; index as i">
+                                        <lista-match #listaFase1 
+                                            [match]="match"           
+                                            [mostrarIconeComentario]="'false'"
+                                            [limiteFavoritos]="quantidadeLimiteFavoritos"
+                                            (abrirModalGenotipo)="abrirModalGenotipo($event)">
+                                        </lista-match>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tile>                
+                <ngx-tile NgxCarouselItem>
+                    <div class="lista-match">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >        
+                                <h4 class="text-center">{{ getTitulo('F2') }}</h4>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="exibeMensagemNenhumDoador(analiseMatchPreliminarDTO.listaFase2)">
+                            <div class="col-sm-12 col-xs-12" > 
+                                <p class="text-center">{{ 'mensagem.nenhumdoadornafase' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!exibeMensagemNenhumDoador(analiseMatchPreliminarDTO.listaFase2)" >
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <div *ngFor="let match of analiseMatchPreliminarDTO.listaFase2; index as i">
+                                        <lista-match #listaFase2 
+                                            [match]="match"
+                                            [mostrarIconeComentario]="'false'"
+                                            [limiteFavoritos]="quantidadeLimiteFavoritos"
+                                            (abrirModalGenotipo)="abrirModalGenotipo($event)">
+                                        </lista-match>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tile>
+                <ngx-tile NgxCarouselItem>
+                    <div class="lista-match">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >        
+                                <h4 class="text-center">{{ getTitulo('F3') }}</h4>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="exibeMensagemNenhumDoador(analiseMatchPreliminarDTO.listaFase3)">
+                            <div class="col-sm-12 col-xs-12" > 
+                                <p class="text-center">{{ 'mensagem.nenhumdoadornafase' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!exibeMensagemNenhumDoador(analiseMatchPreliminarDTO.listaFase3)" >
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <div *ngFor="let match of analiseMatchPreliminarDTO.listaFase3; index as i">
+                                        <lista-match #listaFase3 
+                                            [match]="match"
+                                            [mostrarIconeComentario]="'false'"
+                                            [limiteFavoritos]="quantidadeLimiteFavoritos"
+                                            (abrirModalGenotipo)="abrirModalGenotipo($event)">
+                                        </lista-match>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tile>
+                <button NgxCarouselPrev class='leftRs'><i class="icon icon-seta-esquerda"></i></button>  
+                <button NgxCarouselNext class='rightRs'><i class="icon icon-seta-direita"></i></button>
+        </ngx-carousel>
+    </div>
+</div>          
+<modal #modalFavorito ></modal>

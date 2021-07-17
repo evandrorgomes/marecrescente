@@ -1,0 +1,39 @@
+<div class="row">
+
+        <div class="col-xs-12 col-sm-8">
+            <p>
+                <small>{{'analisematch.subheader.centroAvaliador' | translate}}:</small>
+                <span *ngIf="!analiseMatchDTO?.nomeCentroAvaliador">--</span>{{analiseMatchDTO?.nomeCentroAvaliador }}
+            <br/>
+                <small>{{'analisematch.subheader.medicoResponsavel' | translate}}:</small>
+                <span *ngIf="!analiseMatchDTO?.nomeMedicoResponsavel">--</span>{{analiseMatchDTO?.nomeMedicoResponsavel }}
+            <br/>
+               <small>{{'analisematch.subheader.centroTransplantador' | translate}}:</small>
+               <span *ngIf="!analiseMatchDTO?.centroTransplanteConfirmado?.nome">--</span>
+               <span class="label label-primary" *ngIf="analiseMatchDTO && analiseMatchDTO?.centroTransplanteConfirmado?.nome">{{analiseMatchDTO?.centroTransplanteConfirmado?.nome }}
+                  <i class="glyphicon glyphicon-remove-circle clicavel" *ngIf="temRecursoRecusarCT" alt="Recusar"
+                     (click)="recusarTransplante()"></i></span>
+               <span class="label" style="width: 250px;">&nbsp;</span>
+               <small>{{'analisematch.subheader.doador' | translate}}:</small>
+               <span *ngIf="!analiseMatchDTO?.doadoresPrescritos; else elseDoadoresPrescritos">--</span>
+               <ng-template #elseDoadoresPrescritos>
+                  <span class=""label> {{ analiseMatchDTO?.doadoresPrescritos }}</span>
+               </ng-template>
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <p>
+                <small>{{'analisematch.subheader.mismatch' | translate}}:</small>
+                {{analiseMatchDTO?.aceitaMismatch }} <span *ngIf="analiseMatchDTO?.boolAceitaMismatch && analiseMatchDTO?.locusMismatch">({{analiseMatchDTO?.locusMismatch}})</span>
+            <br/>
+                <small>{{'analisematch.subheader.exameAnticorpo' | translate}}:</small>
+                <span *ngIf="analiseMatchDTO?.boolTemExameAnticorpo"><a href="javascript:void(0)" (click)="exibirResultadoAnticorpo()">{{analiseMatchDTO?.temExameAnticorpo}}</a> - {{analiseMatchDTO?.dataExameAnticorpo}}</span>
+                <span *ngIf="!analiseMatchDTO?.boolTemExameAnticorpo">{{analiseMatchDTO?.temExameAnticorpo}}</span>
+            <br/>
+                <small>{{'analisematch.subheader.transplantePrevio' | translate}}:</small>
+                {{analiseMatchDTO?.transplantePrevio}}
+
+            </p>
+        </div>
+        <hr class="divider">
+</div>

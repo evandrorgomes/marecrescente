@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: redome-notificacao
+build:
+  artifacts:
+  - image: localhost:32000/redome_notificacao
+    docker:
+      dockerfile: local-Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - local-deployment.yml
+portForward:
+  - resourceType: service
+    resourceName: redome-notificacao-svc
+    port: 9002
+    localPort: 9002

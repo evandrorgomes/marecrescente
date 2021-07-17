@@ -1,0 +1,7 @@
+FROM gcr.io/distroless/java:8
+COPY  target/redome-cloud.jar /usr/redome-cloud/redome-cloud.jar
+
+ENV profile=default
+
+EXPOSE 9081
+ENTRYPOINT [ "java", "-Dspring.profiles.active=${profile}", "-jar", "/usr/redome-cloud/redome-cloud.jar", ">>", "null" ]

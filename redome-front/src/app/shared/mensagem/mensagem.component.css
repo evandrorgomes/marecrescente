@@ -1,0 +1,25 @@
+.form-group small {
+    color: red !important;
+    margin-top: 3px;
+    position: absolute;
+}
+.form-group small span {
+    margin-right: 4px;
+}
+
+.form-group.col-xs-1 small,
+.form-group.col-xs-2 small,
+.form-group.col-xs-3 small,
+.form-group.col-xs-4 small {
+    width: 120%;
+}
+.form-group.col-xs-5 small,
+.form-group.col-xs-6 small,
+.form-group.col-xs-7 small,
+.form-group.col-xs-8 small,
+.form-group.col-xs-9 small,
+.form-group.col-xs-10 small,
+.form-group.col-xs-11 small,
+.form-group.col-xs-12 small {
+    width: 100%;
+}

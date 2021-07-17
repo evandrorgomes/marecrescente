@@ -1,0 +1,29 @@
+<window-view-container #windowViewContainer [heading]="getTitulo()" [floating]="getFloating()" [showBackground]="getShowBackground()" size="s"
+    (close)="closeWindow()" > 
+    <table class="table table-condensed table-hover">
+        <tbody>
+            <tr *ngFor="let checklist of lista"
+            [ngClass]="{clicavel: checklist.identificadorDoador && checklist.identificadorDoador != null && checklist.identificadorDoador !== ''}">
+                <td>
+                    <!-- checkbox -->
+                    <a href="javascript:void(0);" title="Vistar" class="ativo" (click)="adicionarRemoverChecked(checklist)">
+                        <i [ngClass]="obterClasseChecklist(checklist)" ></i>
+                    </a>
+                </td>
+                <td (click)="selecionar(checklist)" *ngIf="!checklist.identificadorDoador" style="width: 10px;"> {{ 'textosGenericos.paciente' | translate }} </td>
+                <td (click)="selecionar(checklist)" *ngIf="checklist.identificadorDoador && checklist.identificadorDoador != null && checklist.identificadorDoador !== ''" style="width: 10px;" >{{ checklist.identificadorDoador }} </td>
+                <td (click)="selecionar(checklist)">{{ checklist.descricao }} </td>
+                <td (click)="selecionar(checklist)">{{ checklist.prazoEmDias }} </td>
+            </tr>
+            <tr *ngIf="!lista || lista.length === 0 " >
+                <td> {{ 'mensagem.nenhumchecklist' | translate }} </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row" *ngIf="temChechVistado()">
+        <div class="col-sm-12 col-xs-12 wrap-table">    
+            <button id="btnEnviar" class="btn btn-lg btn-primary btn-block btn-consulta" (click)="confirmarVistos()"> {{'botao.vistar' | translate}}</button>
+        </div>
+    </div>
+</window-view-container>

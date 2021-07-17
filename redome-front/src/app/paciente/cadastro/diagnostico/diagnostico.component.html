@@ -1,0 +1,57 @@
+<div class="etapa3">
+    <div class="row">
+        <div [formGroup]="diagnosticoForm">
+            <div class="form-group col-sm-3 col-xs-12">
+                <label for="txtDataDiagnóstico">{{getLabel('dataDiagnostico')}}</label>
+                <input [textMask]="{mask: data}" class="form-control" tabindex="1" id="txtDataDiagnostico" type="text" placeholder="DD/MM/AAAA" formControlName="dataDiagnostico" (blur)="setMensagemErroPorCampo('dataDiagnostico')" maxlength="11">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataDiagnostico') }}"></msg>
+            </div>
+            <div class="form-group col-sm-9 col-xs-12">
+                <label for="txtCid">{{getLabel('selecione_cid')}}</label>
+                <input class="form-control" tabindex="2" autocomplete="off" id="txtBuscarCid" maxlength="200" formControlName="cid"
+                    #filtro type="text" placeholder="Pesquise pelo código e/ou descrição do CID"
+                    [typeahead]="dataSource"
+                    typeaheadOptionsLimit="900"
+                    typeaheadMinLength="3"
+                    typeaheadOptionField="descricaoFormatada"
+                    [typeaheadItemTemplate]="cidTypeHeadTemplate"
+                    (typeaheadOnSelect)="typeaheadOnSelect($event)"
+                    (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+                    (blur)="setMensagemErroPorCampoELimpaContempladoPortaria()"
+                >
+                <!-- Se for contemplado em portaria, adiciona a classe azul ao span -->
+                <!-- Se não for contemplado em portaria, adiciona a classe amarelo -->
+                <span class="mostraIconeCid icon-cid" [ngClass]="isContempladoPortaria"></span>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('cid') }}"></msg>
+            </div>
+            <div class="checkbox col-sm-9 col-sm-offset-3 col-xs-12">
+                <span class="icon-cid azul"></span>
+                <small>Contemplado na portaria</small>&nbsp;&nbsp;
+                <span class="icon-cid amarelo"></span>
+                <small>Não contemplado</small>
+            </div>
+        </div>
+    </div>
+    <ng-template #cidTypeHeadTemplate let-model="item" let-index="index">
+        <span>{{model.codigo}} - {{model.descricao}} </span>
+    </ng-template>
+
+    <ng-template #listCidsTemplate>
+            <div style="height:200px; overflow-y: scroll;">
+            </div>
+    </ng-template>
+
+    <ng-template #popMsgDataDiagnostico>
+        <div id="dataDiagnosticoError" >
+            <span> {{ exibirMensagemErrorPorCampo('dataDiagnostico') }}  </span>
+        </div>
+    </ng-template>
+
+    <ng-template #popMsgCid>
+        <div id="cidError" >
+            <span> {{ exibirMensagemErrorPorCampo('cid') }}  </span>
+        </div>
+    </ng-template>
+
+
+</div>

@@ -1,0 +1,24 @@
+server:
+  port: 9081
+  servlet:
+    context-path: /
+  use-forward-headers: true
+
+management:
+  endpoint:
+    health:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,bus-refresh
+
+logging:
+  level:
+    root: info
+  file:  
+    ize: 5MB
+    max-history: 20
+  pattern:
+    file: '%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n'
+    

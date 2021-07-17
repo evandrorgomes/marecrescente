@@ -1,0 +1,41 @@
+<div class="container conteudo">
+   <div class="page-title">
+      <div class="row">
+         <div class="col-xs-12 col-sm-12">
+            <h2>{{'tabela.pedido.workup.coleta.titulo' | translate}}</h2> 
+         </div>
+      </div>
+      <div class="row">
+         <header-paciente #headerPaciente></header-paciente>
+      </div>
+      <div class="row menu-btn">
+         <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()" >
+               <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+
+            <a id="idSalvar" type="button" class="btn btn-setting btn-primary" (click)="salvarCentroColeta()">
+               <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}</a>
+         </div>
+      </div>
+   </div>
+   <div class="page-content">
+      <div class="row col-sm-6 col-xs-12" [formGroup]="form()">
+         <div class="form-group" style="min-height: 0px !important;">
+            <label for="ddlCentroColeta" style="color: #767676; font-size: 16px; font-weight: bold;">
+               {{'workup.pedido.selecioneCcentroColeta' | translate}}:
+            </label>
+            <select formControlName="centroColeta" id="ddlCentroColeta" (change)="setMensagemErroPorCampo('centroColeta')">
+               <option value=""></option>
+               <option *ngFor="let c of centrosColetores" value="{{c.id}}">{{c.nome}}</option>
+            </select>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('centroColeta') }}"></msg>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-xs-12 col-sm-12" style="color: #767676; font-weight: bold;">
+            <h2>{{'prescricao.detalhe.subtitulo' | translate}}</h2> 
+         </div>
+      </div>
+      <detalhe-prescricao-medula [showDescarteEAprovacao]="false" ></detalhe-prescricao-medula>
+   </div>
+</div>

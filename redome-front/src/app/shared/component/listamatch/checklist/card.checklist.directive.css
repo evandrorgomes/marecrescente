@@ -1,0 +1,83 @@
+.checklistmenu {
+    top: 20px;
+    left: calc(100% - 242px);
+    right: -33px;
+    min-height: auto;
+    overflow: inherit;
+    margin: 0;
+    padding: 0 5px;
+}
+
+.checklistmenu-header {
+    right: 0px;
+    left: 10px;
+}
+
+.checklistmenu:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -4px;
+    right: 16px;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-bottom: 4px solid #fff;
+}
+.checklistmenu:before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 5px solid #ccc;
+}
+/* .checklistmenu-exames {
+    margin-top: 13px;
+    margin-right: 5px;
+} */
+.checklistmenu li {
+    border-top: 1px solid #ccc;
+    padding: 2px 5px;
+}
+.checklistmenu li:first-child {
+    border-top: none;
+}
+.checklistmenu li a {
+    color: #f38630;
+    margin: 0 -5px;
+    width: 100%;
+}
+.checklistmenu li p {
+    color: #767676;
+    margin-bottom: 0;
+}
+.checklistmenu li a:hover {
+    color: #fff;
+}
+.checklistmenu li small {
+    font-size: 11px;
+    color: #a7a7a7;
+}
+
+.open .btn-checklistmenu {
+    box-shadow: none !important;
+    color: #f38630;
+}
+
+.btn-checklistmenu {
+    float: right;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: -6px 0px 0px 289px;
+    background: none;
+    box-shadow: none;
+    border: none;
+    color: #767676;
+    position: absolute;
+}

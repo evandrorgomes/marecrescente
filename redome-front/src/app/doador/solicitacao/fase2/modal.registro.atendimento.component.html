@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+            <h2 class="text-center"> {{ 'modalRegistroContato.titulo' | translate }} <br/> </h2>
+    </div>
+</div>
+<div class="" [formGroup]="form()">
+
+    <div class="row" style="margin-top: 15px">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="text"
+                label="{{'modalRegistroContato.nomeContato' | translate}}:" 
+                formControlName="nomeContato" 
+                [control]="form().controls['nomeContato']" 
+                idd="txtNomeContato" 
+                placeholder="" >
+            </input-component>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <group-radio-component label= "{{'modalRegistroContato.tipoOcorrencia' | translate}}:"
+                formControlName="tipoocorrencia" 
+                columnClass=""
+                [control]="form().controls['tipoocorrencia']"
+                [optionsLabel]="labelsTipoOcorrencia"
+                [optionsValue]="valuesTipoOcorrencia">
+            </group-radio-component>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="text"
+                label="{{'modalRegistroContato.observacao' | translate}}:" 
+                formControlName="observacao" 
+                [control]="form().controls['observacao']" 
+                idd="txtObservacao" 
+                placeholder="" >
+            </input-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-sm-offset-4 col-sm-5 col-xs-12 modal-btn" style="padding: 30px 0 0 0">
+            <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()" ><span class=""></span> {{ 'botao.confirmar' | translate }}  </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="col-sm-12 col-xs-12">
+<h2>{{ 'logisticaMaterial.alterarLogisticaTitulo' | translate }}</h2>
+</div>
+<div class="form-group col-sm-12 col-xs-12" [formGroup]="popupLogisticaMaterialGroup">
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12">
+            <label>{{ 'logisticaMaterial.tipoAlteracao'| translate }}</label>
+            <div class="radio-group" style="margin: 15px 0 0 0;">
+                <input id="chkData" (click)="modoAlterarTelaData($event)" tabindex="1" type="checkbox" value="1"  formControlName="tipoAlteracaoData">
+                <label for="chkData" class="radio-inline">
+                    <span></span> {{ 'logisticaMaterial.alterarData'| translate }}
+                </label>
+                <input id="chkDocumento" (click)="modoAlterarTelaArquivo($event)" tabindex="1" type="checkbox" value="1"  formControlName="tipoAlteracaoDocumento">
+                <label for="chkDocumento" class="radio-inline">
+                    <span></span> {{ 'logisticaMaterial.alterarArquivo'| translate }}
+                </label>
+            </div>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('tipo') }}"></msg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12" [hidden]="!modoAlterarData">
+            <input-component 
+                label="{{'logisticaMaterial.data' | translate}}:"
+                formControlName="dataAlteracao"
+                [control]="form().controls['dataAlteracao']"
+                idd="txtData"
+                placeholder=""
+                [mascara]="_mascaraData">
+            </input-component>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('data_tipo_data') }}"></msg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12"  [hidden]="!modoAlterarArquivo">
+            <textarea-component label="{{'logisticaMaterial.descricao' | translate}}:" formControlName="descricao"
+                [control]="form().controls['descricao']" idd="txtDescricao" placeholder="" rows="11" maxlength="4000">
+            </textarea-component>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('descricao_tipo_arquivo') }}"></msg>
+        </div>
+    </div>    
+    <div class="row"   [hidden]="!modoAlterarArquivo">
+        <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+    </div>
+    <div class="row">
+            <a id="idAlterar" type="button" class="btn btn-primary floatR" (click)="altararWorkup()" > {{'botao.alterar' | translate}}</a>
+    </div>
+</div>
+
+
+

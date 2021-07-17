@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: redome-cloud-lb
+ annotations:
+   service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: private
+spec:
+ type: LoadBalancer
+ selector:
+   app: redome-cloud
+ ports:
+  - protocol: TCP
+    port: 9081
+    nodePort: 31001

@@ -1,0 +1,147 @@
+:host /deep/ .RgSpace {
+    padding-right: 25px;
+}
+:host /deep/ .nomeSocialStyle>input {
+    width: calc(100% - 120px);
+}
+:host /deep/ .nomeSocialStyle>div {
+    position: absolute;
+    top: 30px;
+    right: 0;
+}
+
+:host /deep/ .listaTelefone {
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+}
+:host /deep/ .listaTelefone li {
+    margin-bottom: 20px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+:host /deep/ .listaTelefone li div {
+    display: inline-block;
+    margin-left: 5px;
+}
+:host /deep/ .listaTelefone li .listaTelefone-tipo {
+    margin: 0;
+}
+:host /deep/ .listaTelefone li .listaTelefone-ddi {
+    width: 60px;
+    margin: 0
+}
+:host /deep/ .listaTelefone li .listaTelefone-ddd {
+    width: 35px;
+}
+:host /deep/ .listaTelefone li .listaTelefone-tel {
+    width: 90px;
+}
+:host /deep/ .listaTelefone li .listaTelefone-comple {
+    width: calc(100% - 211px);
+}
+:host /deep/ .listaTelefone li .listaTelefone-nome {
+    width: calc(100% - 116px);
+    margin: 0;
+}
+:host /deep/ .listaTelefone li .listaTelefone-check {
+    width: 80px;
+    margin: 0px 0 0 10px;
+    vertical-align: bottom;
+}
+:host /deep/ .listaTelefone li .listaTelefone-check label {
+    margin: 0;
+}
+:host /deep/ .listaTelefone .full-line {
+    display: block;
+    float: left;
+    width: 100%;
+}
+:host /deep/ .listaTelefone li .full-lineNome{
+    display: flex;
+}
+:host /deep/ .listaTelefone li .listaTelefone-check {
+    line-height: 16px;
+    margin-top: 26px;
+}
+:host /deep/ .listaTelefone li .full-lineNome .glyphicon {
+    margin-left: 10px;
+    line-height: 16px;
+    margin-top: 25px;
+    color: #767676;
+}
+:host /deep/ .listaTelefone-msg {
+    margin: -35px 0 25px;
+    overflow: hidden;
+    display: block;
+}
+:host /deep/ .listaTelefone-msg small{
+    margin-top: -5px;
+}
+:host /deep/ .lista-telefone {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+}
+:host /deep/ .lista-telefone p {
+    float: left;
+}
+:host /deep/ .lista-telefone ul {
+    display: block;
+    float: left;
+    padding-left: 5px;
+    margin-bottom: 0;
+}
+:host /deep/ .lista-telefone li {
+    list-style: none;
+    line-height: 24px;
+    color: #767677;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+:host /deep/ .full-lineNome .checkbox-group.bottomline {
+    margin: 20px auto -10px !important;
+}
+:host /deep/ .dados-bloco-nao-atendido {
+    opacity: 0.35;
+}
+:host /deep/ .dados-bloco-nao-atendido .btn {
+    border: 1px solid #767676 !important;
+    color: #767676 !important;
+    pointer-events: none;
+}
+@media screen and (min-width: 769px) {
+    :host /deep/ .listaTelefone li div {
+        margin-left: 10px;
+        display: inline-block;
+    }
+    :host /deep/ .listaTelefone .full-line {
+        display: inline-block;
+        width: auto;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-tipo {
+        width: 72px;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-ddi {
+        margin-left: 10px;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-comple {
+        width: 120px;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-nome {
+         width: calc(100% - 116px);
+        margin-left: 10px;
+    }
+    :host /deep/ .listaTelefone li .full-lineNome{
+        width: calc(100% - 428px);
+    }
+    :host /deep/ .btn-alerta span {
+        padding: 0;
+    }
+    :host /deep/ .bloco-solicitacao{
+        margin: 20px 0 10px -15px;
+    }
+}

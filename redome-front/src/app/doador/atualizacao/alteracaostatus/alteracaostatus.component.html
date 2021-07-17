@@ -1,0 +1,65 @@
+<modal mensagem="" #modalMsg></modal>
+
+<div class="modal fade"  bsModal #modal="bs-modal" 
+        [config]="{backdrop: 'static', keyboard: false}"
+        tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog-confirmation modal-custom">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+                        <p>{{'alteracaostatus.titulo' | translate}}</p>
+                    </div>
+                </div>
+                <form [formGroup]="alteracaoStatusForm">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+                            <label for="ddlStatusDoador">{{ 'alteracaostatus.status' | translate }}:</label>
+                            <select class="form-group" #motivoStatusDoador formControlName="status" 
+                                #comboStatusDoador
+                                class="form-control" id="ddlStatusDoador"
+                                (change)="exibirMotivosInativacaoSeStatusAtivo(comboStatusDoador.value)"
+                                (blur)="setMensagemErroPorCampo('status');" >
+                                <option value="1">{{ 'alteracaostatus.opcaoAtivo' | translate }}</option>
+                                <option value="3">{{ 'alteracaostatus.opcaoInativo' | translate }}</option>
+                            </select>
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('status') }}"></msg>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="exibeMotivoInativacao">
+                        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+                            <label for="ddlMotivoStatusDoador">{{ 'inativarDoador.motivoStatus' | translate }}:</label>
+                            <select class="form-group" #motivoStatusDoador formControlName="motivoStatusDoador" 
+                                    class="form-control" id="ddlMotivoStatusDoador"
+                                    (blur)="setMensagemErroPorCampo('motivoStatusDoador');"
+                                    (change)="alterarValidacaoDoCampoDescricao(motivoStatusDoador.value);">
+                                <option value=""></option>    
+                                <option  *ngFor="let motivo of motivosStatusDoador; index as i"  value="{{motivo?.id}}">{{motivo?.descricao}}</option>
+                            </select>
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('motivoStatusDoador') }}"></msg>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12" [hidden]="!exibirTempoAfastamento">
+                            <label for="txtTempoAfastamento">{{ 'inativarDoador.tempoAfastamento' | translate }}:</label>
+                            <input class="form-control centraliza" tabindex="1" [textMask]="{mask: data}"
+                                formControlName="tempoAfastamento" id="txtTempoAfastamento" 
+                                (blur)="setMensagemErroPorCampo('tempoAfastamento');"
+                                type="text" maxlength="11" placeholder="DD/MM/AAAA">
+                            <msg mensagem="{{ exibirMensagemErrorPorCampo('tempoAfastamento') }}"></msg>
+                        </div>
+                    </div>
+                </form>            
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+                        <button id="btnCancelar" class="btn btn-lg btn-default floatL" 
+                            (click)="cancelar()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="btnConfirmar"  class="btn btn-lg btn-primary floatR" 
+                            (click)="confirmar()"><i class="glyphicon glyphicon-ok-circle"></i> {{ 'botao.confirmar' | translate }} </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>  
+    </div>
+</div>

@@ -1,0 +1,229 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'manterTransportadora.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <auto-collapsed-menu>
+        <menu-item>
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span>{{'botao.voltar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary" 
+                    *ngIf="modoInclusaoHabilitado" (click)="salvar()">
+                <span class="icon-salvar"></span>{{'botao.salvar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-default"
+                    *ngIf="!modoInclusaoHabilitado" (click)="inativar()">
+                <span class="icon-proibido"></span> {{'manterUsuario.inativar' | translate}}
+            </a>
+        </menu-item>
+    </auto-collapsed-menu>
+</div>
+<div class="page-content" >
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'manterTransportadora.campos.dadosTransportadora' | translate}}</h3>
+            <a  href="javascript:void(0)" class="editar-bloco" 
+                (click)="dadosSomenteLeitura = false"
+                *ngIf="dadosSomenteLeitura">
+                <span class="icon-editar"></span>{{'botao.editar' | translate}}
+            </a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" [ngClass]="dadosSomenteLeitura ? '': 'hide'">
+            <p><small>{{'manterTransportadora.campos.nome' | translate}}: </small>
+                {{ transportadora?.nome }}
+            </p>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" [ngClass]="dadosSomenteLeitura ? 'hide': ''" [formGroup]="formulario.form">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-8">
+                    <label>{{'manterTransportadora.campos.nome' | translate}}</label>
+                    <input #txNome class="form-control" type="text" formControlName="nome">
+                    <required-message *ngIf="formulario.get('nome').invalid"></required-message>
+                </div>
+            </div>
+            <div class="row" *ngIf="!dadosSomenteLeitura && !modoInclusaoHabilitado">
+                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                    <button class="btn btn-default floatL" (click)="cancelarEdicao()">
+                        {{'botao.cancelar' | translate}}
+                    </button>
+                    <button class="btn btn-primary floatR" (click)="salvar()">
+                        {{'botao.salvar' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- Endereço -->
+   <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'centrotransplante.detalhe.endereco.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarEndereco()"
+                *ngIf="_exibirLinkEditarEndereco" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <div [ngClass]="_mostraEndereco" >
+                <span class="texto-bloco" >{{ transportadora?.endereco?.tipoLogradouro}} {{ transportadora?.endereco?.nomeLogradouro}}, {{ transportadora?.endereco?.numero}} - {{ transportadora?.endereco?.complemento }} {{ transportadora?.endereco?.complemento ? " - " : "" }} {{ transportadora?.endereco?.bairro}} - {{ transportadora?.endereco?.municipio?.descricao}}<br/>{{ transportadora?.endereco?.municipio?.uf?.sigla}} - {{ transportadora?.endereco?.pais.nome}} - CEP {{ transportadora?.endereco?.cep}}  
+                </span>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioEndereco">
+                <endereco-contato #endereco esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecocontato></endereco-contato>
+                <div class="row" *ngIf="_exibirBotoesEditarEndereco">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEndereco()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEndereco()" >{{'botao.salvar' | translate}}</button>                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telefones -->
+    <div class="row wrap-bloco"> 
+        <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'manterTransportadora.campos.telefoneTransportadora' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirTelefone()"
+                *ngIf="_exibirLinkInserirTelefone" ><span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <ul [ngClass]="_mostraTelefone" >
+                        <li *ngFor=" let contatoTelefonico of transportadora?.telefones; index as i">
+                        <p id="">
+                                <small>{{'medico.detalhe.telefone.telefone' | translate}} {{ i+1 }}: </small>
+                                <span class="texto-bloco">
+                                    <div *ngIf= "contatoTelefonico.tipo == 2" >
+                                        <i class="icon-celular"></i> 
+                                        {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}
+                                        <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                        <a class="btn-dadosinline" *ngIf="!contatoTelefonico.principal"
+                                            title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}" 
+                                                (click)="excluirTelefone(contatoTelefonico)">
+                                        <i class="glyphicon glyphicon-trash"></i></a>   
+                                    </div>
+                                    <div *ngIf= "contatoTelefonico.tipo == 1" >
+                                        <i class="icon-telefone"></i> 
+                                        {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}
+                                        <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                        <a class="btn-dadosinline" *ngIf="!contatoTelefonico.principal"
+                                            title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}" 
+                                            (click)="excluirTelefone(contatoTelefonico)">
+                                        <i class="glyphicon glyphicon-trash"></i></a>  
+                                    </div>
+                                </span>
+                        </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioTelefone">
+                <contato-telefone [esconderBotaoAdicionarTelefone]="_exibirBotaoNovoTelefone" validarPrincipal="false"  #contatoTelefoneComponent></contato-telefone>
+                <div class="row" *ngIf="_exibirBotoesInserirTelefone" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoTelefone()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarContatoTelefonico()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Emails -->
+  <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'manterTransportadora.campos.emailTransportadora' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirEmail()"
+            *ngIf="_mostraLinkInserirEmail">
+                <span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEmail">
+                <li *ngFor=" let email of transportadora?.emails; index as i">                
+                    <p id="">
+                        <small>{{'manterTransportadora.campos.emailTransportadora' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div>                                    
+                                {{ email.email }}&nbsp;
+                                <i class="icon-favorito laranja" *ngIf="email.principal"></i>
+                                <a class="btn-dadosinline" *ngIf="!email.principal"
+                                    title="{{ 'medico.detalhe.email.excluir' | translate}}" 
+                                    (click)="excluirEmail(email)">
+                                    <i class="glyphicon glyphicon-trash"></i></a>  
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioEmail">
+                <contato-email [esconderBotaoAdicionarEmail]="true" [validarPrincipal]="_validarEmailPrincipal"  #emailContatoComponent></contato-email>
+                <div class="row" *ngIf="_exibirBotoesEditarEmail" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEmail()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarContatoEmail()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                    <h3>{{'manterTransportadora.campos.usuariosTransportadora' | translate}}</h3>
+                    <a href="javascript:void(0)" class="editar-bloco" (click)="editarUsuarios()"
+                        *ngIf="_exibirLinkEditarUsuarios" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+                </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">     
+            <div [ngClass]="_mostraUsuarios">
+                <p *ngFor="let item of transportadora?.usuarios" ><small>{{'manterTransportadora.campos.nome' | translate}}: </small>{{ item.nome}}</p>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioUsuarios">   
+                <div class="row">
+                        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formUsuariosDisponiveis()">            
+                            <select-component 
+                                label="{{'manterTransportadora.campos.usuariosDisponiveis' | translate}}:" 
+                                [control]="formUsuariosDisponiveis().controls['selecionados']" 
+                                formControlName="selecionados" 
+                                idd="txtUsuariosDisponiveis"
+                                [options]="usuariosDisponiveis"
+                                fieldOptionValue="id"
+                                fieldOptionText="nome"
+                                [showBlankOption]="false"
+                                [multipleSelect]="true">
+                            </select-component>        
+                        </div>
+                        <div class="form-group col-sm-1 col-xs-12">            
+                            <button id="idAdicionarUsuario" type="button" class="btn btn-setting btn-primary"
+                                (click)="adicionarUsuarios()"><span class="glyphicon glyphicon-arrow-right"></span></button>
+                            <button id="idRemoverUsuario" type="button" class="btn btn-setting btn-primary"
+                                (click)="removerUsuarios()"><span class="glyphicon glyphicon-arrow-left"></span></button>            
+                
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formUsuariosSelecionados()">            
+                            <select-component 
+                                label="{{'manterTransportadora.campos.usuariosSelecionados' | translate}}:" 
+                                [control]="formUsuariosSelecionados().controls['selecionados']" 
+                                formControlName="selecionados" 
+                                idd="txtUsuariosSelecionados"
+                                [options]="usuariosSelecionados"
+                                fieldOptionValue="id"
+                                fieldOptionText="nome"
+                                [showBlankOption]="false"
+                                [multipleSelect]="true"
+                                [quantidadeItens]="3">
+                            </select-component>
+                        </div>
+                </div>
+                <div class="row" *ngIf="_exibirBotoesEditarUsuarios">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoUsuarios()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoUsuarios()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    

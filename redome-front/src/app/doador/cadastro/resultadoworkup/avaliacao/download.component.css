@@ -1,0 +1,26 @@
+:host /deep/ .wrap-laudo {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+}
+:host /deep/ .wrap-laudo>div {
+    display: inline-block;
+}
+
+:host /deep/ .listaLaudos {
+    line-height: 40px;
+    color: #767676;
+    font-size: 16px;
+}
+:host /deep/ .listaLaudos p {
+    margin: 0;
+}   
+:host /deep/ .listaLaudos a {
+    color: #767676;
+    font-size: 16px;
+    text-decoration: none;
+    margin-left: 10px;
+    vertical-align: baseline;
+}
+:host /deep/ .listaLaudos a:hover {
+    color: #f38630;
+}

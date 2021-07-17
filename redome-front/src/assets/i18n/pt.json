@@ -1,0 +1,2709 @@
+{
+	"formLogin": {
+		"usuario": "Nome de usuário",
+		"senha": "Senha",
+		"email": "E-Mail"
+	},
+	"textosGenericos": {
+		"localizardoador": "Localizar doador",
+		"paciente": "Paciente",
+		"anos": "anos",
+		"ativo": "Ativo",
+		"inativo": "Inativo",
+		"homem": "Homem",
+		"mulher": "Mulher",
+		"dias": "Dias",
+		"nomeCentro": "Nome do Centro de Coleta",
+		"dataLimite": "Data Limite",
+		"arquivosAnexados": "Arquivo(s) Anexado(s)",
+		"porpagina": "Por Página",
+		"nao": "Não",
+		"sim": "Sim",
+		"kilograma": "Kg",
+		"nomeArquivo": "Nome do arquivo",
+		"pedidoexame": "Pedido de Exame",
+		"selecioneArquivo": "Selecione o arquivo",
+		"filtrarpor": "Filtrar por",
+		"quantidadeTCNPorKilo": "TCN/Kg",
+		"quantidadeCD34PorKilo": "CD34/Kg",
+    "medula": "Medula Óssea",
+    "sangueperiferico": "Sangue Periférico",
+		"cordao": "Cordão",
+		"registro": "Registro",
+		"Banco": "Banco",
+		"as": "às",
+		"idm": "IDM",
+		"fases": {
+			"fase1": "Fase 1",
+			"exameF2": "Exame F2",
+			"fase2": "Fase 2",
+			"exameF3": "Exame F3",
+			"fase3": "Fase 3",
+			"disponibilizado": "Disponibilizado"
+		},
+		"visualizar": {
+			"titulo": "Visualizar",
+      "medula": "Medula (P:{{quantidade}})",
+      "cordao": "Cordão (P:{{quantidade}})",
+      "wmda": "WMDA ({{quantidade}})",
+      "legendaMedulaCordao": "P - Pedidos I - Importados T - Total"
+		},
+		"etapa": {
+			"anterior": "Etapa Anterior",
+			"proxima": "Próxima Etapa"
+		},
+		"finalizar": "Finalizar",
+		"baixararquivo": "Baixar arquivo",
+		"meuspacientes": "Meus Pacientes",
+		"arquivos": "Arquivos",
+		"diagnostico": {
+			"titulo": "Diagnóstico",
+			"dataDiagnostico": "Data Diagnóstico",
+			"cid": "CID"
+		},
+		"evolucao": {
+			"titulo": "Evolução"
+		},
+		"naoForamEncontradosRegistros": "Não existem registros",
+		"genotipo": "Genótipo",
+		"locus": "Locus",
+		"alelo1": "Alelo 1",
+		"alelo2": "Alelo 2",
+		"dataUltimoPedidoContato": "Contato anterior ",
+		"dataPedidoContato": "Data do pedido",
+		"de": "de",
+		"dataPedido": "Data do pedido"
+	},
+	"tarefas": {
+		"rmr": "RMR",
+		"nomePaciente": "Nome",
+		"aging": "Aging"
+	},
+	"mensagem": {
+		"obrigatorio": "Preenchimento é obrigatório",
+		"erro": {
+			"parametrosminimos": "Parametros mínimos não informados corretamente.",
+			"invalido": "O campo {{ campo }} é inválido",
+			"obrigatorio": "O campo {{ campo }} é obrigatório",
+			"numeroDigitos": "O campo {{campo}} deve ter ao menos {{digitos}} dígitos",
+			"menorDataAtual": "{{campo}} deve ser menor ou igual a data atual.",
+			"horaInicialMaior": "{{campo}} deve ser menor que a data final",
+			"horaInvalida": "{{campo}} deve possuir uma hora válida.",
+			"tipoArquivoLaudo": "Tipo de arquivo não suportado.",
+			"quantidadeArquivoLaudo": "Limite de laudos por exame atingido.",
+			"tamanhoArquivoLaudo": "O arquivo ultrapassou o tamanho máximo permitido de {{maxFileSize}}",
+			"inserirLaudo": "Erro tentar incluir o arquivo",
+			"nenhumLaudoSelecionado": "É necessário selecionar um arquivo de laudo.",
+			"nenhumArquivoSelecionado": "É necessário selecionar um arquivo",
+			"metodologia": "Selecione ao menos uma metodologia",
+			"tipoAmostra": "Selecione ao menos um tipo de amostra",
+			"nenhumalocalizada": "Nenhuma {{campo}} localizada",
+			"aoMenosUmArquivo": "Deve haver ao menos um arquivo de laudo",
+			"preencherTodosLocus": "Todos os campos de locus devem ser preenchidos",
+			"nenhumlocus": "É necessário informar ao menos 1 locus.",
+			"camposObrigatorios": "Os campos marcados em vermelho são obrigatórios",
+			"camposInvalidos": "Os campos marcados em vermelho são inválidos",
+			"campoPrincipal": "Pelo menos um {{campo}} deve ser o principal",
+			"tipoArquivo": "Tipo de arquivo não suportado.",
+			"tamanhoArquivo": "O arquivo ultrapassou o tamanho máximo permitido de {{maxFileSize}}",
+			"inserirArquivo": "Erro tentar incluir o arquivo",
+			"requisicao": "Ocorreu um erro ao processar a requisição.",
+      "maiorDataAtual": "{{campo}} deve ser maior ou igual a data atual.",
+      "maiorDataColeta": "Data G-CSF deve ser maior ou igual a data coleta.",
+			"dataInvalida": "O campo {{ campo }} deve possuir uma data válida.",
+			"quantidadeArquivoPrescricao": "Limite de arquivos por prescrição  atingido.",
+			"nenhumaPrescricaoSelecionada": "É necessário selecionar um arquivo de prescrição.",
+			"nenhumaJustificativaSelecionada": "É necessário selecionar um arquivo de justificativa.",
+			"quantidadeTotalInvalida": "Quantidade total diferente do valor calculado.",
+			"dataHoraInvalida": "O campo {{ campo }} deve possuir uma data válida.",
+			"quantidadeArquivoPedidoTransporte": "Limite de arquivos por pedido de transporte atingido.",
+			"tamanhoArquivoPedidoTransporte": "O arquivo ultrapassou o tamanho máximo permitido de {{maxFileSize}}.",
+			"tipoArquivoPedidoTransporte": "Formato de arquivo inválido, use {{formato}}.",
+			"inserirArquivoPedidoTransporte": "O arquivo de com os dados de transporte é obrigatório.",
+			"nenhumArquivoPedidoSelecionado": "Selecione o arquivo de transporte",
+			"quantidadeLocusMismatch": "Selecione ao menos um locus",
+			"quantidadeMaximaItens": "O campo {{campo}} permite no máximo {{quantidade}} itens.",
+			"minLength": "O campo {{ campo }} deve possuir no mínimo {{minlength}} caracteres.",
+			"pattern": "O campo {{ campo }} é inválido.",
+			"matchOther": "Os valores não coincidem.",
+			"todosexamesselecionados": "Não é possível selecionar todos os exames.",
+      "nenhumexameselecionado": "É necessário escolher pelo menos um exame.",
+      "dataRecebimentoMaiorDataColeta": "Data recebimento deve ser maior ou igual a data coleta.",
+      "dataInfusaoMaiorDataRecebimento": "Data infusão deve ser maior ou igual a data de recebimento.",
+      "dataCongelamentoMaiorDataRecebimento": "Data congelamento deve ser maior ou igual a data de recebimento.",
+      "dataDescarteMaiorDataRecebimento": "Data descarte deve ser maior ou igual a data de recebimento."
+		},
+		"acesso.negado": "Você não tem permissão para efetuar esta ação.",
+		"sucesso": {
+			"novoExame": "Exame salvo com sucesso",
+			"aceiteexame": "Exame aceito com sucesso",
+			"descarteexame": "Exame descartado com sucesso",
+			"laudoPedidoIdmCadastrado": "Laudo do Pedido IDM cadastrado com sucesso.",
+			"laudoPedidoIdmCadastradoExameCtPendenteAtalho": "Laudo do Pedido IDM cadastrado com sucesso. Deseja cadastrar o resultado do pedido de CT?",
+			"laudoPedidoCTCadastrado": "Laudo do Pedido CT cadastrado com sucesso.",
+			"laudoPedidoCTCadastradoIdmPendenteAtalho": "Laudo do Pedido CT cadastrado com sucesso. Deseja cadastrar o resultado do pedido de IDM?"
+		},
+		"cancelarPendencia": "Deseja cancelar esta pendência?",
+		"fecharPendencia": "Concorda com todas as informações e deseja fechar esta pendência?",
+		"mensagemAprovarOuReprovarConfirmacao": "Todas as pendências abertas serão canceladas e as respondidas serão fechadas. Deseja continuar?",
+		"paciente_nao_possui_exames_cadastrados": "Paciente não possui exames cadastrados.",
+		"buscaAprovada": "Busca Aprovada",
+		"buscaReprovada": "Busca Reprovada",
+		"nenhumdoadornafase": "Não há doadores nessa fase.",
+		"avisoDataPrazoExpirado": "A {{campo}} é inferior a {{prazo}} dias. É necessário anexar a justificativa.",
+		"avisoNovaEvolucao": "Para cadastrar uma prescrição é necessário que exista uma evolução mais recente.",
+		"mensagemQuantidadeMaxima": "Quantidade máxima de favoritos excedida!",
+		"marcarprincipal": "Marcar como contato principal",
+		"excluirarquivo": "excluir arquivo",
+		"nenhumregistro": "Não foram encontrados registros com os parametros informados.",
+		"nenhumchecklist": "Não existem itens de checklist",
+		"nenhumarquivoinformado": "Nenhum arquivo informado",
+		"tarefaIndisponivel": "Tarefa já está atribuída para outro {{campo}}."
+	},
+	"botao": {
+		"entrar": "Entrar",
+		"adicionar": "Adicionar",
+		"adicionarMetodologia": "Adicionar Metodologia",
+		"arquivo": "Selecionar arquivo",
+		"proximo": {
+			"1": "Ir para dados pessoais",
+			"2": "Ir para contato",
+			"3": "Ir para diagnóstico",
+			"4": "Ir para evolução",
+			"5": "Ir para exame",
+			"6": "Ir para avaliação"
+		},
+		"salvarEvolucao": "Salvar evolução",
+		"consultar": "Consultar",
+		"voltar": "Voltar",
+		"evolucoes": "Evoluções",
+		"fechar": "Fechar",
+		"salvarExame": "Salvar Exame",
+		"nova": {
+			"evolucao": "Nova evolução"
+		},
+		"novo": {
+			"exame": "Novo exame",
+			"crud": "Novo",
+			"email": "Novo E-Mail",
+			"telefone": "Novo Telefone"
+		},
+		"baixarPedidos": "Baixar pedidos",
+		"incluir": "Incluir",
+		"exames": "Exames",
+		"nao": "Não",
+		"sim": "Sim",
+		"exibirGenotipo": "Exibir Genótipo",
+		"ocultarGenotipo": "Ocultar Genótipo",
+		"aprovarBusca": "Aprovar",
+		"reprovarBusca": "Reprovar",
+		"pendencia": "Incluir Pendência",
+		"responderPendencia": "Responder pendência",
+		"fecharPendencia": "Fechar pendência",
+		"cancelarPendencia": "Cancelar pendência",
+		"salvarPendencia": "Salvar",
+		"comentar": "Comentar",
+		"comentarEResponder": "Comentar e Resolver",
+		"cancelar": "Cancelar",
+		"avaliacoes": "Avaliações",
+		"conferirExame": "Conferir exame",
+		"notificacoes": "Ver Notificações",
+		"download": "Baixar Arquivo",
+		"downloadZip": "Baixar arquivo no formato .zip",
+		"visualizarArquivo": "Visualizar arquivo",
+		"aceitarexame": "Aceitar",
+		"recusarexame": "Recusar",
+		"ciente": "Ciente",
+		"iniciarAvaliacao": "Iniciar avaliação",
+		"salvarContato": "Salvar",
+		"salvarIdentificacaoDadosPessoais": "Salvar",
+		"cancelarBusca": "Cancelar busca",
+		"acompanharBusca": "Acompanhar Match",
+		"salvarCancelamentoBusca": "Salvar",
+		"salvar": "Salvar",
+		"confirmar": "Confirmar",
+		"inativar": "Inativar",
+		"agendar": "Agendar",
+		"excluir": "Excluir",
+		"doador": "Doador",
+		"detalheCT": "Detalhes do CT",
+		"finalizar": "Finalizar",
+		"fase2": "Continuar fase 2",
+		"fase3": "Continuar fase 3",
+    "anexarLaudo": "Anexar Laudo",
+    "anexarexame": "Anexar Exame",
+		"alteracaostatus": "Alterar Status",
+		"naoprosseguir": "Não prosseguir",
+		"prosseguir": "Prosseguir",
+		"pedirInfo": "Pedir Mais Informações",
+		"progredir": "Progredir",
+		"disponibilizar": "Disponibilizar",
+		"comparar": "Comparar",
+		"historicoBusca": "Histórico",
+		"prescricao": "Prescrição",
+		"analisematchs": "Analise Matchs",
+		"aprovar": "Aprovar",
+		"reprovar": "Reprovar",
+		"aceitar": "Aceitar",
+		"descartar": "Descartar",
+		"dialogo": "Diálogo",
+		"concluirSelecaoMatchs": "Concluir",
+		"clique": "Clique aqui",
+		"receber": "Receber",
+		"baixarPedido": "Baixar Pedido",
+		"cadastrarResultado": "Cadastrar Resultado",
+		"pedidoExameDoador": "Pedido de Exame de Doador",
+		"pedidoExamePaciente": "Pedido de Exame de Paciente",
+		"editar": "Editar",
+		"solicitar": {
+			"exameFase3": "Amostra de Sangue p\\ CT",
+			"exameSangueSwabFase3": "Amostra de Sangue + Swab p\\ CT",
+			"exameSwabFase3": "Amostra Swab p\\ CT"
+		},
+		"cancelarsolicitacao": {
+			"exameFase3": "Cancelar"
+		},
+		"alterarsolicitacao": {
+			"laboratorio": "Alterar laboratório"
+		},
+		"historico": "Histórico",
+		"novoDoador": "Novo Doador Internacional",
+		"novoCordao": "Nodo Cordão",
+		"checklist": "Checklist",
+		"vistar": "Vistar",
+		"buscar": "Buscar",
+		"cadastrarpaciente": "Cadastrar Paciente",
+		"documentos": "Documentos",
+		"remover": "Remover",
+		"login": "Retornar Tela Login",
+		"transferircentroavaliador": "Transferir<br/>Centro Avaliador",
+		"imprimir": "Imprimir",
+		"recusar": "Recusar",
+		"descartarExame": "Recusar",
+		"alterarStatus": "Alterar Status",
+		"novaBusca": "Nova Busca",
+		"inativarDoador": "Inativar Doador",
+		"reativarDoador": "Reativar Doador",
+		"detalhepaciente": "Detalhe Paciente",
+		"continuar": "Continuar",
+		"email": "E-mail",
+		"buscainternacional": "Busca Internacional",
+		"analisarBusca": "Análise Técnica",
+		"informarResultadoExame": "Informar resultado",
+		"pedidoExameTipoSwab": "Baixar pedidos",
+		"enviaremail": "Enviar e-mail",
+		"enviarPacienteParaEmdis":"Enviar o paciente para EMDIS",
+		"alterarworkup":"Alterar Data Coleta e/ ou Arquivo",
+    "alterar":"Alterar",
+    "examesAdicionais": "Exames Adicionais"
+	},
+	"menu": {
+		"MeusDados": "Meus Dados",
+		"Alterarsenha": "Alterar senha",
+		"Sair": "Sair",
+		"ConsultaComponent": "Consultar Paciente",
+		"CadastrarBuscaPreliminarComponent": "Busca Preliminar",
+		"CadastroComponent": "Cadastrar Paciente",
+		"ConferenciaComponent": "Conferir exame",
+		"ConsultarNotificacaoComponent": "Ver Notificações",
+		"PendenciaComponent": "Consultar Pendências",
+		"ConsultaCentroTransplanteComponent": "Centro Transplante",
+		"UsuarioComponent": "Lista de Usuários",
+		"PerfilComponent": "Perfis",
+		"ConsultaAvaliacoesComponent": "Avaliações",
+		"ConsultaTransferenciaCentroComponent": "Tranferência Paciente",
+		"PacienteBuscaComponent": "Análise de Match",
+		"EnriquecerDoadorComponent": "Enriquecer doador",
+		"ContatoFase2Component": "Pedido Fase 2",
+		"ContatoFase3Component": "Pedido Fase 3",
+		"ConsultaWorkupComponent": "Consulta de Workup",
+		"ConsultaWorkupCentroColetaComponent": "Consulta de Workup Centro de Coleta",
+		"DoadorPendenciaWorkupComponent": "Pendências de Agendamento",
+		"LogisticaDoadorComponent": "Logística",
+		"ConsultaContatoDoadorComponent": "Consultar Contatos Doadores",
+		"ConsultaDoadorNacionalComponent": "Consultar Doadores Nacionais",
+		"ResultadoWorkupComponent": "Cadastro de Resultado Workup",
+		"AvaliacoesResultadoWorkupComponent": "Avaliar Resultado Workup",
+		"PedidoColetaComponent": "Agendar Coleta Doador",
+		"CadastroWorkupInternacionalComponent": "Cadastro de Resultado Workup",
+		"PedidoColetaInternacionalComponent": "Agendar Coleta Doador",
+		"ConsultaAvaliacoesPrescricaoComponent": "Avaliar Prescrição",
+		"AvaliacaoPedidoColetaComponent": "Avaliar Pedido de Coleta",
+		"AvaliarDoadorComponent": "Avaliar Doador",
+		"CancelarAgendamentoPedidoColetaComponent46": "Aviso Cancel. de coleta Doador",
+		"CancelarAgendamentoPedidoColetaComponent47": "Aviso Cancel. de coleta CC",
+		"RecebimentoColetaComponent": "Recebimento de Coleta",
+		"ConsultarPrescricaoComponent": "Consultar Prescrição",
+		"DefinirCentroTransplanteComponent": "Definir Centro de Transplante",
+		"ConsultaTransporteMaterialComponent": "Agendar Transporte Material",
+		"LaboratorioExameComponent": "Coletas",
+		"RetiradaEntregaTransporteMaterialComponent": "Transporte de Material",
+		"RelatorioComponent": "Layout de Documento",
+		"ConsultaDoadorInternacionalComponent": "Consultar Doadores Internacionais",
+		"ConsultarAutorizacaoPacienteComponent": "Autorização do Paciente",
+    "LogisticaDoadorInternacionalComponent": "Logística Internacional",
+    "ConsultaLogisticaMaterialComponent": "Logística Material",
+		"RetiradaEntregaTransporteMaterialInternacionalComponent": "Retirada de Material Internacional",
+		"AnalistaBuscaCentroAvaliadorComponent": "Analista Busca p/ Centro Avaliador",
+		"ConsultaPreCadastroMedicoComponent": "Pré Cadastro de Médicos",
+		"ConsultaMedicoComponent": "Médico",
+		"AvaliacaoCamaraTecnicaComponent": "Avaliação Câmara Técnica",
+		"AvaliarNovaBuscaComponent": "Avaliar Nova Busca",
+		"ListarUsuarioComponent": "Lista de Usuários",
+		"TransportadoraCadastroConsultaComponent": "Transportadoras",
+		"CourierConsultaComponent": "Courier",
+		"LaboratorioConsultaComponent": "Laboratórios",
+		"AnaliseMedicaComponent": "Análise médica de doadores",
+		"PedidoContatoSmsComponent": "Sms Enviado",
+		"BuscaChecklistConsultaComponent": "Consulta de Checklist",
+		"ConsultaInvoiceApagarComponent": "Invoice à Pagar",
+		"ConsultarDistribuicaoWorkupComponent": "Distribuir Workup"
+	},
+	"tabela": {
+    "laudoSelecionado": "Arquivos de laudo",
+    "exameadicionalselecionado": "Arquivos de exame adicional",
+		"consultaForm": {
+			"rmr": "RMR",
+			"nome": "Nome",
+			"sexo": "Sexo",
+			"dataNascimento": "Nascimento",
+			"medicoResponsavel": "Médico responsável",
+			"status": "Situação do paciente"
+		},
+		"pendencia": {
+			"titulo": "Controle de pendências",
+			"tipoPendencia": "Pendência",
+			"descricao": "Descrição",
+			"nome":"Nome",
+			"dataCriacao": "Criação",
+			"status": "Status",
+			"opcoes": "Opções"
+		},
+		"associaPendencia": {
+			"titulo": "Pendências"
+		},
+		"paciente": {
+			"pendencia": {
+				"rmr": "RMR",
+				"nome": "Nome",
+				"total": "Total",
+				"pendenteAging": "Pendente",
+				"avaliacaoAging": "Cadastrado",
+				"nomeMedico": "Médico",
+				"iniciaisPaciente": "Nome do Paciente"
+			}
+		},
+		"notificacao": {
+			"rmr": "RMR",
+			"nome": "Nome",
+			"agingCadastro": "Cadastrado",
+			"agingNotificacao": "Notificado",
+			"titulo": "Consulta de notificações"
+		},
+		"pedido": {
+			"workup": {
+				"coleta": {
+					"titulo": "Definir Centro de Coleta Medula Nacional",
+					"dmr": "DMR",
+					"idbancosanguecordao": "ID",
+					"idregistro": "ID do Registro",
+					"idDoador": "Id do Doador",
+					"doador": "Doador",
+					"bancosanguecordao": "Banco de Sangue",
+					"registro": "Registro",
+					"responsavel": "Responsável",
+					"dataLimite": "Data Limite",
+					"status": "Status",
+					"tipo": "Tipo",
+					"cancelar": {
+						"agendamento": {
+							"doador": {
+								"dmr": "DMR",
+								"nome": "Doador"
+							},
+							"centrocoleta": "Centro de coleta",
+							"responsavel": "Responsável",
+							"dataLimite": "Data Limite"
+						}
+					}
+				}
+			}
+		},
+		"agendarColeta": {
+			"titulo": "Agendar Coleta Doador",
+			"centrocoleta": "Centro de Coleta",
+			"datacoleta": "Data da Coleta",
+			"dataDisponibilidadeDoador": "Disponibilidade do Doador",
+			"dataliberacaodoador": "Liberação do Doador",
+			"logisticadoador": "Logistica Doador",
+			"logisticamaterial": "Logistica Material"
+		},
+		"prescricaoSelecionada": "Arquivos da Prescrição",
+		"prescricao": {
+			"autorizacaopaciente": {
+				"rmr": "RMR",
+				"nome": "Nome",
+				"dataNascimento": "Nascimento",
+				"responsavel": "Responsável",
+				"aging": "Cadastrado"
+			}
+		},
+		"financeiro": {
+			"pedidos": {
+				"semconciliacao": {
+					"paciente": "Paciente",
+					"doador": "Doador",
+					"tipo": "Tipo"
+				},
+				"conciliados": {
+					"paciente": "Paciente",
+					"doador": "Doador",
+					"tipo": "Tipo",
+					"numeropagamento": "Nº Pagamento",
+					"indevido": "Indevido",
+					"valor": "Valor"
+				}
+			}
+		}
+	},
+	"pacienteForm": {
+		"identificacaoGroup": {
+			"dataNascimento": "Data de Nascimento",
+			"cpf": "CPF",
+			"cns": "CNS",
+			"responsavel": {
+				"cpf": "CPF do responsável",
+				"nome": "Nome do responsável",
+				"parentesco": "Parentesco"
+			},
+			"nome": "Nome",
+			"nomeMae": "Nome da Mãe",
+			"maeDesconhecida": "Mãe Desconhecida ?"
+		},
+		"dadosPessoaisGroup": {
+			"sexo": "Sexo",
+			"abo": "ABO",
+			"etnia": {
+				"id": "Etnia"
+			},
+			"pais": {
+				"id": "Nacionalidade"
+			},
+			"raca": {
+				"id": "Raça"
+			},
+			"uf": {
+				"sigla": "Naturalidade"
+			}
+		},
+		"dadosContatoGroup": {
+			"principal": "Principal?",
+			"nome": "Nome para contato",
+			"tipo": "Tipo",
+			"codInter": "Código Internacional",
+			"codArea": "Código de Área",
+			"numero": "Número",
+			"complemento": "Complemento",
+			"pais": {
+				"id": "País em que reside"
+			},
+			"cep": "CEP",
+			"tipoLogradouro": "Tipo de Logradouro",
+			"nomeLogradouro": "Nome do Logradouro",
+			"bairro": "Bairro",
+			"municipio": "Município",
+			"uf": "UF",
+			"enderecoEstrangeiro": "End. Estrangeiro",
+			"email": "E-mail"
+		},
+		"diagnosticoGroup": {
+			"titulo": "Diagnóstico",
+			"dataDiagnostico": "Data do Diagnóstico",
+			"cid": "CID",
+			"selecione_cid": "Selecione uma CID",
+			"mensagemCid": "<h2>O paciente está fora dos critérios da Portaria, por este motivo é necessário enviar na evolução um relatório mais detalhado sobre o caso.</h2>"
+		},
+		"evolucaoGroup": {
+			"ultimaEvolucao": "Evolução mais Recente",
+			"motivo": "Motivo",
+			"peso": "Peso (Kg)",
+			"altura": "Altura",
+			"tratamentoAnterior": "Tratamento Anterior",
+			"tratamentoAtual": "Tratamento Atual",
+			"condicaoAtual": "Condição Atual",
+			"estagioDoenca": "Estágio da doença",
+			"evolucao": "Condição do paciente",
+			"tipoTransplanteAnterior": "Existência de transplante prévio",
+			"resultadoCMV": "Resultado CMV",
+			"titulo": "Consulta de Evolução",
+			"descricaoCombo": "Data da Evolução - Motivo - Condição",
+			"homem": "Homem",
+			"mulher": "Mulher",
+			"anos": "anos",
+			"positivo": "Positivo",
+			"negativo": "Negativo",
+			"nao": "Não",
+			"arquivo": "Selecionar arquivo",
+			"dadosPaciente": "Dados do Paciente",
+			"evolucaoDoPaciente": "Evolução do Paciente",
+			"arquivosComplementares": "Arquivos complementares",
+			"exameAnticorpo": "Possui Exame Anticorpo",
+			"dataExameAnticorpo": "Data do Exame Anticorpo",
+			"resultadoExameAnticorpo": "Resultado do Exame Anticorpo",
+			"dataCriacao": "Data de Inclusão",
+			"dataUltimoTransplante": "Data do último transplate",
+			"dataUltimoTransplanteObrigatoria": "A data do último transplante é obrigatória quando existe transplante"
+		},
+		"exameGroup": {
+			"listMetodologias": "Metodologia",
+			"laboratorio": "Laboratório",
+			"laboratorioParticular": "Laboratorio não consta na lista",
+			"dataColetaAmostra": "Data da Coleta",
+			"tiposAmostra": "Tipo de amostra utilizadas",
+			"sangue": "Sangue",
+			"swab": "Swab oral",
+			"sangueSwab": "Sangue + Swab Oral",
+			"dataExame": "Data de Exame",
+			"idm": "Exame IDM",
+			"alelo1": "Alelo 1",
+			"alelo2": "Alelo 2",
+			"laudo": "Laudo",
+			"idm": "IDM",
+			"nao_conferido": "Não Conferido",
+			"dataColetaAmostraMaiorDataExame": "Data da Coleta deve ser menor que a Data de Exame",
+			"locus": "Lócus",
+			"hlaInvalidoSingular": "O lócus {0} é inválido.",
+			"hlaInvalidoPlural": "Os lócus {0} são inválidos.",
+			"tituloHla": "Adicionar informações de HLA",
+			"hlaNaoPreenchido": "O HLA é obrigatório",
+			"e": "e",
+			"ambosAlelosBlank": "Não é possível inserir blank para ambos alelos no mesmo locus",
+			"locusNaoInformados": "Ao menos um lócus deve ser informado",
+			"dataUltimoTransplante": "Data do último transplante"
+		},
+		"motivoGroup": {
+			"motivoCadastro": "Motivo do cadastro",
+			"centroAvaliador": "Centro Avaliador",
+			"centroTransplantador": "Centro Transplantador",
+			"aceiteMismatch": "Aceita Mismatch de Busca",
+			"data":"Data",
+			"laudo":"Laudo"
+		}
+	},
+	"loading": "Aguarde...",
+	"consultaForm": {
+		"titulo": "Consulta de Paciente",
+		"informativo": "Você pode buscar informações através do RMR ou nome do paciente.",
+		"centroavaliador": "Centro Avaliador",
+		"rmr": "Pesquisa por RMR:",
+		"nome": "Pesquisa por nome:"
+	},
+	"paginacao": {
+		"primeiro": "Primeira",
+		"anterior": "Anterior",
+		"proximo": "Próxima",
+		"ultimo": "Última",
+		"quantidadePaginas": "Quantidade por página",
+		"porPagina": "Por Página"
+	},
+	"detalhePaciente": {
+		"titulo": "Detalhe do Paciente",
+		"idade": "Idade",
+		"cpf": "CPF",
+		"cns": "CNS",
+		"nome": "Nome",
+		"nomeMae": "Nome da mãe",
+		"sexo": "Sexo",
+		"nacionalidade": "Nacionalidade",
+		"naturalidade": "Naturalidade",
+		"abo": "ABO",
+		"raca": "Raça",
+		"etinia": "Etnia",
+		"pais": "País em que reside",
+		"detalhe": "Endereço",
+		"email": "E-mail",
+		"telefones": "Telefones",
+		"celular": "Celular",
+		"fixo": "Fixo",
+		"contatoPrincipal": "Contato principal",
+		"endereco": "Endereço",
+		"contato": "Contato",
+		"responsavel": {
+			"cpf": "CPF do responsável",
+			"nome": "Nome do responsável",
+			"parentesco": "Parentesco"
+		},
+		"dadosPessoais": "Dados Pessoais",
+		"dadosContato": "Dados de Contato",
+		"diagnostico": "Diagnóstico",
+		"msgPedidoExame": "Necessário realizar exames de classe 2 de alta resolução",
+		"msgPedidoExameCT": "Solicitado amostra de sangue para CT",
+		"msgPedidoExameSwabCT": "Solicitado amostra de swab bucal para CT",
+		"msgPedidoExameSangueSwabCT": "Solicitado amostra de sangue e swab bucal para CT",
+		"avaliacaoEmAndamento": "Avaliação em Andamento",
+		"datadiagnostico": "Data Diagnóstico",
+		"cid": "CID",
+		"mismatch": "Mismatch",
+		"aceitamismatch": "Aceita",
+		"locus": "Locus"
+	},
+	"buscaChecklist": {
+		"titulo": "Consulta de Checklist",
+		"matchInativo": "match inativo",
+		"tabela": {
+			"rmr": "RMR",
+			"identificacaoDoador": "Identificação Doador",
+			"tipoDoador": "Tipo Doador",
+			"prazo": "Prazo em dias",
+			"descricao": "Descrição",
+			"dataCriacao": "Data de Criação"
+		}
+	},
+	"pacienteBusca": {
+		"titulo": "Análise de Match",
+		"sub_titulo": "Consulta de Pacientes Liberados para Busca",
+		"ordenacao": "Ordenar",
+		"erro.mensagem.busca.atribuicao": "Erro atribuir busca para analista, verifique se essa busca já foi atribuida a outro analista.",
+		"mensagem.busca.atribuicao": "Match em acompanhamento",
+		"dataUpdate": "Última Atualização",
+		"tabela": {
+			"rmr": "RMR",
+			"nome": "Nome",
+			"idade": "Idade",
+			"score": "Score",
+			"aging": "Aging",
+			"centro_transplantador": "Transplantador",
+			"cid": "CID",
+			"dataCriacao": "Data de Criação",
+			"prazo": "Prazo",
+			"amanha": "Amanhã",
+			"hoje": "Hoje",
+			"vencido": "Vencido à",
+			"dia": "dia",
+			"dias": "dias",
+			"data_ultima_analise": "Dt Ult. Análise",
+			"data_ultima_evolucao": "Dt Ult. Evolução",
+			"centro_avaliador": "Avaliador"
+		},
+		"icon": {
+			"favorito": "Favorito",
+			"verComentario": "Ver Comentário",
+			"salvarComentario": "Inserir Comentário",
+			"verGenotipo": "Ver Genótipo",
+			"ressalva": "Ressalva",
+			"outrosProc": "Outros Processos",
+			"verGenotipoDivergente": "Ver Genótipo Divergente"
+		},
+		"mensagem": {
+			"confirmarAnalise": "Esta busca foi analisada?"
+		},
+		"analistaResponsavel": "Responsável",
+		"pesquisarRmr": "Pesquisar por RMR",
+		"pesquisarNome": "Pesquisar por nome",
+		"checklist": "Checklist",
+		"todos": "Todos"
+	},
+	"consultaExame": {
+		"dataColetaAmostra": "Data da coleta",
+		"exameSemResultado": "O resultado deste exame ainda não foi cadastrado",
+		"dataCadastro": "Data de cadastro",
+		"laboratorio": "Laboratório",
+		"tipoAmostra": "Tipo de Amostra",
+		"metodologia": "Metodologias",
+		"hla": "Informações de HLA",
+		"primeiroAlelo": "Alelo 1",
+		"segundoAlelo": "Alelo 2",
+		"anexos": "Arquivos anexados",
+		"titulo": "Consulta de Exame",
+		"descricaoCombo": "Data do Exame - Lócus",
+		"genotipo": "Genótipo",
+		"pedidoExameC": "Pedido de exame C",
+		"pedidoExameDQB1": "Pedido de exame DQB1 e DRB1",
+		"textoLaboratorioParticular": "Exame feito em laboratório fora da rede do REDOME."
+	},
+	"draft": {
+		"existe.rascunho.disponivel": "Deseja continuar o último preenchimento do cadastro de paciente?"
+	},
+	"consultaAvaliacaoForm": {
+		"rmr": "Pesquisa por RMR:"
+	},
+	"avaliacaoPaciente": {
+		"titulo": "Avaliação de Paciente",
+		"peso": "Peso (Kg)",
+		"altura": "Altura",
+		"cmv": "Resultado CMV",
+		"transplantePrevio": "Existência de transplante prévio",
+		"condicaoPaciente": "Condição do paciente",
+		"tratamentoAnterior": "Tratamento Anterior",
+		"tratamentoAtual": "Tratamento Atual",
+		"condicaoAtual": "Condição Atual",
+		"positiva": "Positiva",
+		"negativa": "Negativa",
+		"tipoPendencia": "Tipo de Pendência",
+		"descricaoPendencia": "Descrição",
+		"tituloCriarPendencia": "Criar Pendência",
+		"modalAprovacaoAvaliacao": {
+			"tempoparatransplante": "Tempo para transplante",
+			"observacao": "Observação",
+			"tituloAprovar": "Aprovar avaliação",
+			"tituloReprovar": "Reprovar avaliação"
+		},
+		"modalPendencia": {
+			"titulo": "Responder pendência"
+		},
+		"qualLocus": "Qual locus?"
+	},
+	"header": {
+		"situacao": "Situação",
+		"medicoResponsavel": "Médico responsável"
+	},
+	"associaPendenciaForm": {
+		"associaPendencias": "Associar essa evolução a pendências abertas",
+		"listaPendencias": "Pendências",
+		"resposta": "Observação",
+		"sim": "Sim",
+		"nao": "Não",
+		"respondePendencias": "Este comentário resolve a pendência"
+	},
+	"dialogoForm": {
+		"sim": "Sim",
+		"nao": "Não",
+		"respondePendencias": "Este comentário resolve a pendência",
+		"comentario": "Comentário"
+	},
+	"placeholder": {
+		"opcional": "Opcional"
+	},
+	"conferenciaExame": {
+		"tituloExame": "Datas e Metodologia",
+		"titulo": "Conferir Exame",
+		"motivoDescarte": "Motivo da recusa",
+		"segundaMensagem": "Deseja conferir outro exame ?",
+		"dataExame": "Data de Exame",
+		"nomePaciente": "Nome do paciente",
+		"rmr": "RMR",
+		"aging": "Aging"
+	},
+	"consultaNotificacoes": {
+		"titulo": "Notificações"
+	},
+	"consultaPendenciasPaciente": {
+		"titulo": "Pacientes em Avaliação"
+	},
+	"consultaPendenciasPacienteAvaliador": {
+		"titulo": "Pacientes em Avaliação"
+	},
+	"manterUsuario": {
+		"titulo": "Lista de Usuários",
+		"tituloDetalhe": "Informações sobre o Usuário",
+		"login": "Login",
+		"email": "E-mail",
+		"nome": "Nome",
+		"perfis": "Perfis",
+		"colunas": {
+			"nome": "Nome",
+			"username": "Login",
+			"perfil": "Perfil",
+			"email": "E-mail"
+		},
+		"filtros": {
+			"pesquisarLogin": "Pesquisar por login",
+			"pesquisarNome": "Pesquisar por nome",
+			"pesquisarEmail": "Pesquisar por e-mail"
+		},
+		"consultaForm": {
+			"titulo": "Consulta de Usuários do Sistema",
+			"informativo": "Você pode buscar informações através do nome do usuário.",
+			"querytring": "Pesquisa por nome:",
+			"icone": {
+				"excluirUsuario": "Eliminar Usuário"
+			}
+		},
+		"mensagem": {
+			"usuarioEliminado": "O usuário foi excluído com sucesso.",
+			"selecionePerfil": "Selecione ao menos um perfil de acesso.",
+			"confirmarInativacao": "Deseja realmente inativar este usuário?",
+			"selecioneBscup": "Selecione qual o banco de sangue de cordão.",
+			"removerperfilmedico": "O perfil 'MEDICO' não pode ser removido da lista."
+		},
+		"dadosAcesso": "Dados Acesso",
+		"perfisDisponiveis": "Disponíveis",
+		"perfisSelecionados": "Selecionados",
+		"sistema": "Sistema",
+		"inativar": "Inativar",
+		"bscup": "Banco de Sangue"
+	},
+	"manterPerfil": {
+		"titulo": "Perfis",
+		"consultaForm": {
+			"titulo": "Consulta de Perfis de Acesso",
+			"informativo": "Você pode buscar informações através do nome do perfil.",
+			"querytring": "Pesquisa por nome:",
+			"tabela": {
+				"nome": "Perfil",
+				"usuarios": "usuários",
+				"usuario": "usuário",
+				"nenhum": "nenhum",
+				"qtUsuarios": "Total de Usuários"
+			},
+			"icone": {
+				"excluirPerfil": "Eliminar Perfil"
+			}
+		},
+		"mensagem": {
+			"perfilEliminado": "O perfil de acesso foi excluído com sucesso."
+		}
+	},
+	"manterTransportadora": {
+		"titulo": "Transportadoras",
+		"consultaForm": {
+			"titulo": "Consulta de transportadoras",
+			"querytring": "Pesquisa por nome:",
+			"tabela": {
+				"nome": "nome"
+			},
+			"icone": {
+				"excluirTransportadora": "Eliminar Transportadora"
+			}
+		},
+		"campos": {
+			"dadosTransportadora": "Dados da transportadora",
+			"nome": "Nome",
+			"usuariosTransportadora": "Usuários",
+			"usuariosDisponiveis": "Usuários Disponíveis",
+			"usuariosSelecionados": "Usuários Selecionados",
+			"enderecoTransportadora": "Endereço",
+			"emailTransportadora": "E-mail",
+			"telefoneTransportadora": "Telefone"
+		},
+		"filtros": {
+			"pesquisarNome": "Pesquisar por nome"
+		},
+		"mensagem": {
+			"transportadoraEliminada": "A transportadora foi excluída com sucesso.",
+			"confirmarInativacao": "Deseja realmente inativar esta transportadora?"
+		}
+	},
+	"manterCourier": {
+		"titulo": "Courier",
+		"consultaForm": {
+			"titulo": "Consulta de Courier",
+			"querytring": "Pesquisa por nome:",
+			"tabela": {
+				"nome": "nome"
+			},
+			"icone": {
+				"excluirTransportadora": "Eliminar Courier"
+			}
+		},
+		"campos": {
+			"dadosPessoais": "Dados Pessoais",
+			"nome": "Nome",
+			"CPF": "Cpf",
+			"RG": "RG",
+			"contatosTelefonicos": "Contatos Telefônicos",
+			"telefone": "Telefone",
+			"email": "E-Mail"
+		},
+		"filtros": {
+			"pesquisarNome": "Pesquisar por nome",
+			"pesquisarCpf": "Pesquisar por cpf"
+		},
+		"mensagem": {
+			"confirmarInativacao": "Deseja realmente inativar este courier?"
+		}
+	},
+	"avaliacoesPendentes": {
+		"titulo": "Avaliações",
+		"centroavaliador": "Centro Avaliador",
+		"anos": "anos",
+		"pendentes": {
+			"titulo": "Pacientes a serem avaliados"
+		},
+		"atribuidos": {
+			"titulo": "Avaliação em andamento"
+		},
+		"rmr": "RMR",
+		"nome": "Nome",
+		"idade": "Idade",
+		"tempo": "Tempo"
+	},
+	"editarIdentificacaoDadosPessoais": {
+		"titulo": "Dados Pessoais"
+	},
+	"editarContato": {
+		"titulo": "Editar Contato"
+	},
+	"editarDiagnostico": {
+		"titulo": "Editar Diagnóstico"
+	},
+	"editarAvaliacao": {
+		"titulo": "Editar Avaliação"
+	},
+	"cancelamentoBusca": {
+		"titulo": "Cancelamento busca",
+		"dataEvento": "Data Evento",
+		"motivo": "Motivo",
+		"especifique": "Especifique"
+	},
+	"doadores": {
+		"titulo": "Enriquecer doador",
+		"rmr": "RMR",
+		"dmr": "DMR",
+		"idDoador": "ID Doador",
+		"telefone": "Telefone",
+		"telefones": "Telefones",
+		"telefoneCompleto": "{{telefone}} | {{nome}}",
+		"enriquecer": {
+			"titulo": "Detalhe Doador",
+			"inativar": "Inativar",
+			"salvar": "Salvar Alterações"
+		},
+		"consulta": {
+			"titulo": "Consulta de Doadores",
+			"dmr": "DMR",
+			"nome": "Doador",
+			"status": "Status",
+			"motivo": "Motivo",
+			"tempo": "Tempo",
+			"cpf": "CPF",
+			"resultado": "Resultado da Consulta",
+			"nenhumResultado": "Não foi encontrado nenhum doador com os parâmetros fornecidos."
+		},
+		"detalhe": {
+			"titulo": "Detalhes do Doador"
+		},
+		"cadastro":{
+			"titulo":"Cadastrar Doador"
+		},
+		"internacional": {
+			"consulta": {
+				"titulo": "Consultar Doadores Internacionais"
+			}
+		},
+		"nacional": {
+			"titulo": "Visualizar Informações Doadores Nacionais",
+			"consulta": {
+				"titulo": "Consultar Doadores Nacionais"
+			}
+		},
+		"mensagem": {
+			"sucesso": "Doador salvo com sucesso",
+			"existenteGrid": "Já existe um doador com o GRID {{grid}} cadastrado no sistema",
+			"confirmarReativacao": "Deseja ativar doador?",
+			"confirmarEnriquecimento": "Deseja não enriquecer o doador?"
+		}
+	},
+	"pedidoFase2": {
+		"titulo": "Pedido Fase 2",
+		"dmr": "DMR",
+		"sucesso": "Pedido de exame solicitado com sucesso.",
+		"internacional": {
+			"titulo": "Pedido Fase 2 - Internacional",
+			"locus": "Selecione os lócus"
+		},
+		"solicitarPedidoExame": "Deseja solicitar um exame para este doador?",
+		"nenhum": "Agora não!"
+	},
+	"pedidoFase3": {
+		"titulo": "Pedido Fase 3",
+		"dmr": "DMR"
+	},
+	"link": {
+		"editar": "Editar",
+		"incluir": "Incluir",
+		"adicionarVolta": "Adicionar Retorno",
+		"copiarendereco": "Copiar Endereço",
+		"precadastro": "Pré-Cadastro para Médicos",
+		"anterior": "Anterior",
+		"proximo": "Próximo",
+		"finalizar": "Finalizar",
+		"lembrarsenha": "Esqueceu a senha?",
+		"retornarlogin": "Retornar tela de login"
+	},
+	"sexo": {
+		"masculino": "Masculino",
+		"feminino": "Feminino"
+	},
+	"DoadorIdentificacao": {
+		"titulo": "Identificação",
+		"dataNascimento": "Data de Nascimento",
+		"cpf": "CPF",
+		"nome": "Nome",
+		"nomeCivil": "Nome Civil",
+		"nomeSocial": "Nome Social",
+		"nomeMae": "Nome da Mãe",
+		"maeDesconhecida": "Mãe Desconhecida ?",
+		"sexo": "Sexo",
+		"rg": "RG",
+		"orgaoExpedidor": "Orgão Expedidor"
+	},
+	"DoadorDadosPessoais": {
+		"titulo": "Dados Pessoais",
+		"raca": "Raça",
+		"etnia": "Etnia",
+		"naturalidade": "Naturalidade",
+		"municipio": "Município",
+		"nacionalidade": "Nacionalidade",
+		"peso": "Peso (Kg)",
+		"altura": "Altura",
+		"nomePai": "Nome do Pai",
+		"abo": "ABO",
+		"ressalva": "Ressalvas",
+		"estadoCivil": "Estado Civil",
+		"fumante": "Fumante"
+	},
+	"DoadorContatoTelefone": {
+		"titulo": "Telefone",
+		"principal": "Principal",
+		"nome": "Nome para contato",
+		"tipo": "Tipo",
+		"codArea": "DDD",
+		"telefone": "Telefone",
+		"complemento": "Complemento"
+	},
+	"DoadorEnderecoContato": {
+		"titulo": "Endereço",
+		"form": {
+			"pais": {
+				"id": "País em que reside"
+			},
+			"cep": "CEP",
+			"tipoLogradouro": "Tipo de Logradouro",
+			"nomeLogradouro": "Nome do Logradouro",
+			"bairro": "Bairro",
+			"municipio": "Município",
+			"uf": "UF",
+			"enderecoEstrangeiro": "End. Estrangeiro",
+			"excluir": "Excluir"
+		}
+	},
+	"DoadorEmailContato": {
+		"titulo": "E-mail",
+		"email": "E-mail",
+		"excluir": "Excluir"
+	},
+	"enderecoComponent": {
+		"numero": "Número",
+		"complemento": "Complemento",
+		"pais": {
+			"id": "País em que reside"
+		},
+		"cep": "CEP",
+		"tipoLogradouro": "Tipo de Logradouro",
+		"nomeLogradouro": "Nome do Logradouro",
+		"bairro": "Bairro",
+		"municipio": "Município",
+		"uf": "UF",
+		"enderecoEstrangeiro": "End. Estrangeiro",
+		"principal": "Principal",
+		"correspondencia": "Correspondência"
+	},
+	"emailComponent": {
+		"principal": "Principal",
+		"email": "E-mail"
+	},
+	"contato": {
+		"tituloFase2": "Contato Fase 2",
+		"tituloFase3": "Contato Fase 3",
+		"telefonesContato": "Telefones de contato",
+		"telefoneIncluir": "Incluir telefone",
+		"salvarQuestionario": "Salvar Questionário",
+		"proximoturno": "Próximo turno",
+		"cancelarTentativa": "Cancelar Tentativa",
+		"naoAtende": "Não Atendeu",
+		"registrarAtendimento": "Registrar Atendimento",
+		"atendeuDoador": "Atendeu o Doador",
+		"atendeuTerceiro": "Atendeu Terceiros",
+		"cancelar": "Cancelar",
+		"excluirTelefone": "Excluir Telefone",
+		"contactadoComSucesso": "Contactado com Sucesso",
+		"retornoContatoSucesso": "Contato registrado com sucesso",
+		"realizado": {
+			"titulo": "Contato Realizado",
+			"voltar": "Voltar para os contatos",
+			"inativar": "Inativar",
+			"cancelar": "Cancelar Tentativa"
+		},
+		"excluir": "Excluir",
+		"telefones": "Telefones",
+		"atualizacao": "Atualização",
+		"questionario": "Questionário",
+		"evolucao": "Evolução",
+		"finalizar": "Finalizar",
+		"reativar": "Reativar",
+		"proximo": "Próximo",
+		"anterior": "Anterior",
+		"perguntaProximoDoador": "Deseja contactar outro doador?",
+		"hemocentro": "Hemocentro",
+		"selecionarHemocentro": "Selecione o hemocentro desejado",
+		"selecionarEndDoador": "Selecione o endereço de referência",
+		"agendar": "Agendar",
+		"telefone": "Telefone",
+		"fazerAgendamento": "Fazer Agendamento",
+		"registroContato": {
+			"atendente": "Atendente",
+			"telefone": "Telefone",
+			"momento": "Data/Hora",
+			"statusContato": "Tipo de Ocorrência",
+			"observacao": "Observação"
+		},
+		"semevolucao": "Não existe evolução para esse doador.",
+		"evolucaodescricao": "Descrição"
+	},
+	"modalRegistroContato": {
+		"titulo": "Registro de Contato",
+		"nomeContato": "Nome Contato",
+		"observacao": "Observação",
+		"tipoOcorrencia": "Tipo de ocorrência"
+	},
+	"modalAgendarContato": {
+		"titulo": "Agendar Contato",
+		"telefones": "Telefones de Contato",
+		"data": "Data",
+		"horaInicio": "Hora início",
+		"horaFim": "Hora Fim",
+		"atribuirParaMeuUsuario": "Atribuir agendamento para meu usuário?",
+		"opcoesAtribuir":{
+			"sim":"Sim",
+			"nao":"Não"
+		}
+	},
+	"analiseMedica": {
+		"titulo": "Análise Médica de Doador",
+		"tituloTarefas": "Análises a ser realizadas",
+		"DMR": "DMR",
+		"nomeDoador": "Nome do doador",
+		"tipoContato": "Tipo de contato",
+		"quantidadeDeDias": "Quantidade de dias de espera"
+	},
+	"inativarDoador": {
+		"motivoStatus": "Motivo para a Inativação",
+		"tempoAfastamento": "Ficará afastado até",
+		"titulo": "Inativar Doador",
+		"mensagemDoadorInativadoSucesso": "Doador inativado com sucesso"
+	},
+	"workup": {
+		"consulta": {
+			"titulo": "Consulta de Workups",
+			"aseremrealizadas": "A serem realizadas",
+			"aguardandoterceiros": "Aguardando Terceiros",
+			"tabela": {
+				"rmr": "RMR",
+				"centrotransplante": "Centro Transplante",
+				"medico": "Médico Prescreveu",
+				"fonte": "Fonte",
+				"identificacaodoador": "Identificação Doador",
+				"iddoador": "Id.Doador",
+				"dataprescricao": "Data Prescrição",
+				"acao": "Ação",
+        "origem": "Origem",
+        "score": "Score",
+				"dtsugworkup": "Dt.Sug.Workup",
+				"dtsugcoleta": "Dt.Sug.Coleta",
+				"dtworkup": "Dt.Workup",
+        "dtcoleta": "Dt.Coleta",
+        "nome": "Nome",
+        "agingPedidoWkp": "Pedido de Workup",
+				"aguardando": "Aguardando..."
+			}
+		},
+		"pendencia": {
+			"titulo": "Pendências de Agendamento",
+			"centrotransplante": "Centro Transplantador",
+			"subTituloWorkup": "Medula",
+			"subTituloCordao": "Cordão",
+			"disponibilidade": "Disponibilidade",
+			"dataResultadoWorkup": "Data Lim. Resultado",
+			"dataColeta": "Data Lim. Coleta",
+			"desejaRealizarColeta": "Desejo realizar a coleta",
+			"dataLimiteResult": "Data Lim. Resultado",
+			"dataLimiteColeta": "Data Lim. Coleta",
+			"dataResult": "Data Resultado",
+			"centroColeta": "Centro de coleta",
+			"dataLimiteWorkupMaiorDataColeta": "Data Resultado maior que a data da coleta",
+			"programacaoCC": "Programação",
+			"detalhe": {
+				"titulo": "Confirmar sugestão de agendamento"
+			},
+			"acoes": {
+				"cancelar_prescricao": "Cancelar Prescrição",
+				"salvar": "Salvar",
+				"confirmar": "Confirmar"
+			},
+			"mensagens": {
+				"confirmar_cancelamento_prescricao": "Confirma o cancelamento da prescrição?"
+			},
+			"termoResponsabilidade": "O sigilo na identidade do doador e receptor é imprescindível no processo de doação de Células Progenitoras Hematopoiéticas com doador não aparentado. Além disso, a avaliação do doador deve ser feita de forma imparcial e segura, sem que a avaliação do doador seja influenciada devido ao conhecimento do paciente pela equipe. Desta forma, é preservada a segurança da dupla doador/paciente. Caso a coleta de células venha a ser realizada no mesmo centro responsável pelo paciente, as equipes de avaliação do doador e responsável pelo paciente devem ser independentes, conforme a política de proteção ao doador do REDOME."
+		},
+		"pedido": {
+			"titulo": "Pedido de Workup",
+      "tituloFormularioWorkup":"Contato Doador Workup",
+      "tituloFormularioResultadoWorkup":"Resultado de Workup",
+      "tituloFormularioAvaliacaoResultadoWorkup":"Formulário de Avaliação",
+			"tituloInternacional": "Pedido Workup Internacional",
+			"dataProposta": "Datas Sugeridas na Prescrição",
+			"dataSugerida": "Datas Sugeridas",
+			"dataLimiteResult": "Data Lim. Resultado Workup",
+			"dataLimiteColeta": "Data Lim. Coleta",
+			"dataResult": "Data Resultado",
+			"dataColeta": "Data Coleta",
+			"centroColeta": "Centro de coleta",
+			"selecioneCcentroColeta": "Selecione o centro de coleta",
+			"disponibilidadeCC": "Programação Proposta",
+			"descricao": "Descrição",
+			"inicial": "Inicial",
+			"analise": "Em Análise",
+			"aguardando": "Aguardando CT",
+			"agendado": "Agendado",
+			"cancelado": "Cancelado",
+			"observacao": "Programação",
+			"historico": "Ver histórico",
+			"dataEscolhida": "Data escolhida",
+			"prescricaoCancelada": "Prescrição Cancelada",
+			"motivoCancelamento": "Motivo de Cancelamento",
+			"telefonesCT": "Telefones do Centro de transplante",
+			"fixo": "Fixo",
+			"celular": "Celular",
+			"nomeTel": "Nome para contato",
+			"tipoTel": "Tipo",
+			"codArea": "DDD",
+			"telefone": "Telefone",
+			"complemento": "Complemento",
+			"codInter": "Código Internacional",
+			"numero": "Número",
+			"telefonesMedico": "Telefones do Médico",
+			"paciRmr": "RMR",
+			"nomePaciente": "Nome do paciente",
+			"nomeMedico": "Nome do médico",
+			"nomeCT": "Nome do centro de transplante",
+			"desejaRealizarColeta": "Centro Transplante deseja realizar a coleta",
+			"tituloCT": "Informações do Centro de Transplante",
+			"dataInicioWorkup": "Data Workup 1",
+			"dataFinalWorkup": "Data Workup{{complemento}}",
+			"dataPrevistaDisponibilidadeDoador": "Data Prevista de Internação/Medicação Doador",
+			"dataPrevistaLiberacaoDoador": "Data Prevista de Liberação do Doador",
+			"dataFinalColeta": "Data Realização do Coleta",
+			"necessitaLogistica": "Doador necessita de logística",
+			"ctRealizaraAColeta": "CT irá realizar a coleta",
+			"dataFinalMenorDataLimiteWorkup": "Data Final deve ser menor que a Data Limite para o Workup",
+			"dataInicioMaiorDataFinalWorkup": "Data Início deve ser menor que a Data Realização do Workup",
+			"dataPrevistaDisponibilidadeDoadorMaiorDataPrevistaLiberacaoDoador": "Data Prevista de Disponibilidade do Doador deve ser menor que a Data de Liberação do Doador",
+			"dataPrevistaDisponibilidadeDoadorMaiorDataRealizacaoColeta": "Data Prevista de Disponibilidade do doador deve ser menor que a Data de Realização da Coleta",
+			"telefoneCT": "Telefone do CT",
+			"telefoneMedico": "Telefone do Médico",
+			"nomeContato": "Nome do Contato",
+			"fonteCelula": "Fonte Celulas",
+			"opcao1": "Opção 1",
+			"opcao2": "Opção 2",
+			"programacaoCC": "Programação",
+			"dataPedido": "Data do pedido"
+		},
+		"logistica": {
+			"editar":"Editar",
+			"titulo": "Logística",
+			"tituloWorkup": "Logística de Doador para Workup",
+			"tituloColeta": "Logística de Coleta",
+			"tituloInternacional": "Logística Internacional",
+			"tituloAcompanhamento": "Acompanhamento Pedido",
+			"pendentes": "Workups Pendentes",
+			"dmr": "DMR",
+			"rmr":"RMR",
+			"doador": "Doador",
+			"responsavel": "Responsável",
+			"dataLimite": "Data Limite",
+			"evento": "Evento",
+			"informacoesDoador": "Doador",
+			"enderecos": "Endereços",
+			"enderecoEntrega": "Endereço Entrega",
+			"enderecoRetirada": "Endereço Retirada",
+      "enderecoWorkup": "Endereço Workup",
+      "enderecogcsf": "Endereço G-CSF",
+      "enderecointernacao": "Endereço Internação",
+			"endereco": "Endereço",
+			"emails": "E-mails",
+			"telefones": "Telefones",
+			"workup": "Workup",
+			"atribuidoAMim": "Atribuído a mim",
+			"informacoesCentroColeta": "Centro de Coleta",
+			"transporte": "Transporte",
+			"transporteTerrestre": "Transporte Terrestre",
+			"labels": {
+				"origem": "Origem",
+				"destino": "Destino",
+				"dataRealizacao": "Data / Hora",
+				"objetoTransportado": "Quem será transportado"
+			},
+			"acoes": {
+				"confirmar": "Confirmar",
+				"salvar":"Salvar",
+				"finalizar":"Finalizar"
+			},
+			"transporteAereo": "Transporte Aéreo",
+			"voucherPassagem": "Voucher da passagem",
+			"excluir": "Excluir",
+			"voucherForm": {
+				"filename": "Arquivo",
+				"comentario": "Comentário"
+			},
+			"hospedagem": "Hospedagem",
+			"observacoes": "Observações",
+			"mensagens": {
+				"tarefaIndisponivel": "Tarefa já está atribuída para outro analista.",
+				"dataInvalida": "Data informada é inválida.",
+				"tipo":"Selecione o tipo de alteração",
+				"data_tipo_data":"O campo data da coleta é obrigatório",
+				"descricao_tipo_arquivo":"O campo descrição é obrigatório",
+				"arquivo_tipo_arquivo":"Entre com a nova carta CNT"
+			},
+			"examemedico": "Exame Médico",
+			"dataexamemedico1": "Dia 1",
+			"dataexamemedico2": "Dia 2",
+			"dataInternacao": "Data de Internação",
+			"dataLiberacao": "Data de Liberação",
+			"coleta": "Coleta",
+			"material": "Material",
+			"idDoador": "Id do Doador",
+			"registro": "Registro",
+			"transportadora": "Transportadora",
+			"dataAgendamento": "Data Retirada",
+			"status": "Status"
+		},
+		"resultadoworkup": {
+			"titulo": "Cadastro de Resultado Workup",
+			"coletaviavel": "Para registro internacional a coleta é viável ?",
+			"doadorindisponivel": "Para registro internacional o doador está indisponível ?",
+			"descricao": "Descrição do arquivo",
+			"comentario": "Comentário",
+      "arquivoObrigatorio": "Deve haver ao menos um arquivo de resultado",
+      "coletaInviavel": "A partir desta avaliação, é considerado viável o cumprimento da prescrição?",
+      "coletaInviavelNao": "Detalhe os motivos:",
+			"fontecelula": "Fonte de coleta de CPH",
+			"fontecelulaprescrita": "Fonte de coleta de CPH prescrita",
+			"datagcfh": "Data do início do G-CSF",
+			"coletaaferese" : "Sangue periférico adeguado para coleta por aférese",
+			"acessovenoso": "Acesso venoso central a ser utilizado (somente no caso de não serem adequados os acessos periféricos)",
+			"sangueautologo": "Sangue autólogo coletado",
+			"motivosangueautologonaocoletado": "Motivo"
+		},
+		"coleta": {
+			"titulo": "Agendar Coleta Doador",
+			"atribuidoAMim": "Atribuído a mim",
+			"avaliacao": {
+				"titulo": "Avaliar Pedido de Coleta",
+				"contdown": "Dias restantes",
+				"rmr": "RMR",
+				"nome": "Nome",
+				"doador": "Doador",
+				"dataColeta": "Data Coleta"
+			},
+			"avaliar": {
+				"titulo": "Avaliar Pedido de Coleta",
+				"prosseguir": {
+					"coletainviavel": "O centro de transplante informou que deseja prosseguir tendo o resultado de workup inviável."
+				},
+				"naoprosseuir": {
+					"coletainviavel": "O centro de transplante informou que não deseja prosseguir tendo o resultado de workup inviável.",
+					"coletaviavel": "O centro de transplante informou que não deseja prosseguir."
+				},
+				"avaliacaocentrotransplante": "Avaliação Centro Transplante",
+				"justificativa": "Justificativa"
+			},
+			"cancelar": {
+				"agendamento": {
+					"titulo": {
+						"doador": "Aviso Cancel. de coleta Doador",
+						"centrocoleta": "Aviso Cancel. de coleta CC"
+					},
+					"atribuidoAMim": "Atribuído a mim",
+					"doador": {
+						"rmr": "RMR",
+						"nome": "Nome"
+					}
+				}
+			}
+		},
+		"recebimentoColeta": {
+			"data": "Data",
+      "titulo": "Recebimento de Coleta",
+      "doador": "Doador",
+			"rmr": "RMR",
+			"dmr": "DMR",
+			"dmrId": "DMR / ID",
+			"idRegistro": "ID",
+			"nome": "Nome",
+			"datarecebimento": "Data do recebimento",
+			"aging": "Cadastrado",
+			"recebeuColeta": "Recebeu Coleta",
+      "fonte": "Fonte Celular",
+      "tipoProduto": "Produto coletado",
+			"total": "Total",
+			"quantidade": "Quantidade",
+			"destinacao": "Destinação",
+			"infusao": "Infusão",
+			"descarte": "Descarte",
+			"congelamento": "Congelamento",
+			"desprezado": "Desprezado",
+			"datainfusao": "Data de Infusão",
+			"datadescarte": "Data de Descarte",
+			"dataprevista": "Data prevista para infusão",
+			"justificativaDescarte": "Justificativa de Descarte",
+			"justificativaCongelamento": "Justificativa de Congelamento",
+			"justificativa": "Justificativa",
+			"sim": "Sim",
+			"nao": "Não",
+			"recebeu": "Recebeu Coleta",
+      "destino": "Destino",
+      "numerodebolsas": "Número de bolsas",
+      "totalcelulasnucleadas": "Total de células nucleadas",
+      "volume": "Volume",
+      "listaChecagem": "Lista de checagem",
+      "motivoprodutocoletadodeacordo1": "O produto coletado está de acordo com a prescrição enviada previamente?",
+      "motivoprodutocoletadodeacordo2": "Se não, motivo",
+      "inconformidadeidentificacaodoadorconfere1": "A identificação do doador (DMR/Doador ID) nas etiquetas do produto confere com o doador previamente escolhido?",
+      "inconformidadeIdentificacaodoadorconfere2": "Se não, qual a inconformidade encontrada",
+      "inconformidadeprodudoacondicionadocorreto1": "O produto chegou acondicionado da maneira correta?",
+      "inconformidadeprodudoacondicionadocorreto2": "Se não, qual a inconformidade encontrada",
+      "descrevaprodudoeventoadverso1": "Houve algum evento adverso relacionado ao produto?",
+      "descrevaprodudoeventoadverso2": "Se sim, descreva",
+      "comentarioadicional": "Comentários adicionais",
+      "dadostransplante": "Dados do transplante"
+		},
+		"agendarcoleta": {
+			"titulo": "Agendar Coleta Doador",
+			"tituloCordao": "Agendar Coleta Cordão",
+			"fonte": "Fonte",
+			"centrocoleta": "Centro de Coleta",
+			"dataColeta": "Data da Coleta",
+			"dataDisponibilidadeDoador": "Data da Internação/Medicação",
+			"dataLiberacaoDoador": "Data de Liberação",
+			"logisticaDoador": "Precisa de Logistica Doador",
+			"logisticaMaterial": "Precisa de Logistica Material",
+			"dataDisponibilidadeDoadorMaiorDataLiberacaoDoador": "Data de Disponibilidade do Doador deve ser menor que a Data de Liberação do Doador",
+			"dataDisponibilidadeDoadorMaiorDataColeta": "Data de Disponibilidade do doador deve ser menor que a Data da Coleta",
+			"previsto": "Previsto",
+			"dataLimiteColeta": "Data Lim. Coleta",
+			"dataProposta": "Datas Sugeridas na Prescrição",
+			"dataSugerida": "Data Sugerida",
+      "resumoDisponibilidade": "Disponibilidade",
+
+      "informacoesparadoador":"Informações para o doador",
+      "tipoproduto":"Produto",
+      "produto":{
+        "mo":"MO",
+        "pbsc":"PBSC",
+        "dli":"DLI"
+      },
+      "enderecogcsf":"Endereço G-CSF",
+      "enderecointernacao":"Endereço de Internação",
+      "seaplicavel":"Se aplicável",
+      "datainiciogcsf":"Início G-CSF Data",
+      "horario":"Horário",
+		  "datainternacao":"Data da Internação",
+	  	"setorandar":"Nome do setor/andar",
+	  	"procurarpor":"Procurar por",
+      "estaemjejum":"Doador em jejum no dia da coleta?",
+      "opcao":{
+        "sim":"Sim",
+        "nao":"Não"
+      },
+		  "quantashorasemjejum":"Jejum de quantas horas?",
+		  "estatotalmenteemjejum":"Jejum total?",
+		  "informacoesadicionais":"Informações adicionais"
+		},
+		"plano": {
+			"titulo": "Plano de Workup Nacional",
+			"tituloInternacional": "Plano de Workup Internacional",
+			"dataExame": "Data do Exame",
+			"dataResultado": "Data do Resultado",
+			"dataInternacao": "Data da Internação",
+			"dataColeta": "Data da Coleta",
+			"observacao": "Observação",
+			"dataCondicionamento": "Data condicionamento paciente",
+			"dataInfusao": "Data planejada para Infusão",
+			"criopreservacao": "Criopreservação do produto?",
+			"sim": "Sim",
+			"nao": "Não",
+			"rmr": "RMR",
+			"dmr": "DMR",
+			"arquivos": "Arquivos do Plano",
+			"dataInfusaoMenorDataColeta": "Data de Infusão menor que a Data de Coleta.",
+			"dataCondicionamentoMenorDataColeta": "Data de Condicionamento menor que a Data de Coleta.",
+			"visualizarTitulo": {
+				"medulaNacional": "Plano de Workup Medula Nacional",
+				"medulaInternacional": "Plano de Workup Medula Internacional"
+			}
+    },
+    "pedidoadicional":{
+      "titulo": "Resultado de exames adicionais",
+      "examessolicitados": "Exames solicitados"
+    }
+  },
+  "logisticadoador": {
+    "titulo": "Logistica de Doador",
+    "datacoleta": "Data da Coleta",
+    "informacoesdoador": "Doador",
+    "telefones": "Telefones",
+    "enderecos": "Endereços",
+    "emails": "E-mails",
+    "informacoescentrocoleta": "Centro de Coleta",
+    "enderecoretirada": "Endereço Retirada",
+    "transporteaereo": "Transporte Aéreo",
+    "transporteterrestre": "Transporte Terrestre",
+    "transporte": "Transporte",
+    "hospedagem": "Hospedagem",
+    "observacoes": "Observações",
+    "data": "Data",
+    "necessidadelogistica": "Há necessidade de logística de doador?",
+    "justificativa": "Justificativa"
+  },
+	"contatoPassivo": {
+		"titulo": "Atualização do doador"
+	},
+	"alteracaostatus": {
+		"titulo": "Atualizar Status",
+		"opcaoAtivo": "Ativo",
+		"opcaoInativo": "Inativo",
+		"status": "Status"
+	},
+	"avaliacao": {
+		"resultadoworkup": {
+			"internacional": {
+					"titulo": "Avaliar Resultado Workup Internacional",
+				  "coletainviavel": "O registro internacional informou que a coleta é inviável. ",
+				  "coletaviavel": "O registro internacional informou que a coleta é viável. ",
+			    "laudos": "Laudos",
+          "prescricao": "Prescrição",
+          "examesadicionais": "Exames Adicionais",
+				  "modal": {
+						"titulo": "Justificativa"
+					}
+      },
+      "nacional":{
+          "titulo": "Avaliar Resultado Workup Nacional",
+          "coletainviavel": "O Centro de Coleta informou que a coleta é inviável. ",
+          "coletaviavel": "O Centro de Coleta informou que a coleta é viável. ",
+          "prescricao": "Prescrição",
+          "motivoinviabilidade": "Motivos inviabilidade",
+          "examesadicionais": "Exames Adicionais",
+          "modal": {
+            "titulo": "Descrição - Exames Adicionais"
+          }
+      },
+			"diagnosticocc": "Diagnóstico do CC",
+			"coletainviavel": "Coleta inviável",
+			"coletaviavel": "Coleta viável",
+			"observacoes": "Observações",
+			"justificativa": "Justificativa",
+			"nomePaciente": "Paciente",
+			"rmr": "RMR",
+			"dmr": "DMR",
+			"idDoador": "Id do Doador",
+			"nomeDoador":"Nome do doador",
+			"dmrId": "DMR / ID"
+		}
+	},
+	"solicitacao": {
+		"aberta": "Aberta",
+		"fechada": "Fechada"
+	},
+	"avaliarDoador": {
+		"titulo": "Avaliar Doador",
+		"justificativaCC": "Justificativa do CC",
+		"justificativaMedico": "Justificativa do Médico"
+	},
+	"ressalva": {
+		"titulo": "Ressalvas",
+		"ressalva": "Ressalva",
+		"observacao": "Observação",
+		"tabela": {
+			"observacoes": "Observações"
+		}
+	},
+	"analisematch": {
+		"titulo": "Análise de Match",
+		"ordenacao": "Ordenação",
+		"atributosOrder": {
+      "wmda": "WMDA",
+			"abo": "ABO",
+			"sexo": "Sexo",
+			"idade": "Idade",
+			"mismatch": "Mismatch",
+			"peso": "Peso (Kg)",
+			"dtUltimaAtua": "Data Última Atualização",
+			"nacional": "Nacional",
+			"internacional": "Internacional",
+			"fase": "Fase",
+			"qualificacao": "Qualificação"
+		},
+		"subheader": {
+			"centroTransplantador": "Centro Transplantador",
+			"doador": "Doador",
+			"mismatch": "Mismatch",
+			"exameAnticorpo": "Possui Exame Anticorpo",
+			"transplantePrevio": "Existência de transplante prévio",
+			"centroAvaliador": "Centro Avaliador",
+			"medicoResponsavel": "Médico do Paciente"
+		}
+	},
+	"modalComentarioMatchComponent": {
+		"comentario": "Comentário"
+	},
+	"comentarioMatchComponent": {
+		"comentario": "Comentário"
+	},
+	"modalGenotipo": {
+		"paciente": {
+			"genotipo": "Genótipo do Paciente",
+			"rmr": "RMR"
+		},
+		"doador": {
+			"genotipo": "Genótipo do Doador",
+			"dmr": "DMR"
+		}
+	},
+	"prescricaoComponent": {
+		"tituloMedula": "Prescrição Para Medula",
+		"opcao1": "Opção 1",
+		"opcao2": "Opção 2",
+		"dataLimiteWorkup1": "Data Limite Workup",
+		"dataLimiteWorkup2": "Data Limite Workup",
+		"dataColeta1": "Data Coleta",
+		"dataColeta2": "Data Coleta",
+		"fonteCelulaOpcao1": "Fonte de Celula",
+		"fonteCelulaOpcao2": "Fonte de Celula",
+		"quantidade": "Quantidade ",
+		"tcn": "TCN",
+		"cd34": "CD34 + totais",
+		"x10": "X10",
+		"8": "8",
+		"6": "6",
+		"upload": "",
+		"quantidadeTotalOpcao1": "Quantidade Total",
+		"quantidadePorKgOpcao1": "Quantidade Por Kg",
+		"quantidadeTotalOpcao2": "Quantidade Total",
+		"quantidadePorKgOpcao2": "Quantidade Por Kg",
+		"dataLimiteWorkupEDataColeta": "Data Limite do Workup deve ser menor que a Data Coleta",
+		"peloMenosUmaDataDeveSerDiferente": "Ao menos uma das datas deve ser diferente",
+		"ml":"ML",
+		"outros":"Nome do exame",
+		"tiposTransplante":"Tipos de Transplante anteriores",
+		"dataUltimoTransplante":"Data do último transplante",
+		"tipoTransplanteTitulo":"Tipos de Transplante Anteriores",
+		"amostrasTitulo":"Amostras à serem solicitadas",
+		"fazerColeta": "Desejo realizar a coleta.",
+		"doador": {
+			"titulo": "Doador",
+			"identificacao": "Identificação",
+			"peso": "Peso (Kg)",
+			"abo": "ABO",
+			"sexo": "Sexo"
+		}
+	},
+	"prescricaoCordaoComponent": {
+		"tituloCordao": "Prescrição Para Cordão",
+		"contato": "Contato",
+		"nomeContatoParaReceber": "Nome",
+		"datas": "Datas para envio do cordão",
+		"informe": "(Relacionar em ordem de preferência as datas nas quais você gostaria de receber a unidade de cordão,",
+		"informeNegrito": "com antecedência mínima de 20 dias à data da solicitação",
+		"informe2": ")",
+		"dataReceber1": "Opção 1",
+		"dataReceber2": "Opção 2",
+		"dataReceber3": "Opção 3",
+		"dataInfusao": "Data Infusão",
+		"armazenaCordao": "Possui condições de manter a unidade de cordão à - 150ºC até a data de transplante ?",
+		"contatoUrgencia": "Contato Urgência",
+		"nomeContatoUrgente": "Nome",
+		"codAreaUrgencia": "DDD",
+		"telefoneUrgencia": "Telefone",
+		"freezer": "(freezer à - 80ºC)",
+		"quantidade": "Quantidade ",
+		"tcn": "TCN",
+		"cd34": "CD34 + totais",
+		"x10": "X10",
+		"8": "8",
+		"6": "6",
+		"upload": "",
+		"quantidadeTotalOpcao1": "Quantidade Total",
+		"quantidadePorKgOpcao1": "Quantidade Por Kg",
+		"quantidadeTotalOpcao2": "Quantidade Total",
+		"quantidadePorKgOpcao2": "Quantidade Por Kg",
+		"dataInfusaoEDataReceber": "Data infusão deve ser maior que a Data para receber o cordão",
+		"peloMenosUmaDataDeveSerDiferente": "Ao menos uma das datas deve ser diferente",
+		"ml":"ML",
+		"outros":"Nome do exame",
+		"tiposTransplante":"Tipos de Transplante anteriores",
+		"dataUltimoTransplante":"Data do último transplante",
+		"tipoTransplanteTitulo":"Tipos de Transplante Anteriores",
+		"cordao": {
+			"titulo": "Cordão",
+			"bancoOrigem": "Banco de Origem",
+			"identificacao": "Identificação",
+			"peso": "Peso (Kg)",
+			"abo": "ABO",
+			"sexo": "Sexo"
+		},
+		"endereco": "Endereço para envio"
+	},
+	"prescricao": {
+		"tituloAvaliacao": "Avaliar Prescrição",
+		"subtitulo": "Prescrições a serem avaliadas",
+		"avaliacoes": {
+			"avaliar": "Avaliar Prescrição de Medula",
+			"avaliarCordao": "Avaliar Prescrição de Cordão",
+			"consulta": {
+				"titulo": "Avaliar Prescrição",
+				"rmr": "RMR",
+				"nome": "Nome Paciente",
+				"dataColeta": "Menor Data Coleta",
+				"idDoador": "Id do Doador",
+				"tipoDoador": "Tipo Doador"
+			},
+			"detalhe": {
+				"erroFontesDescartadas": "Ao menos uma fonte deve ser aceita."
+			}
+		},
+		"detalhe": {
+			"subtitulo": "Informações da Prescrição",
+			"data": "Datas",
+			"dataLimite1": "Data Limite Workup 1",
+			"dataLimite2": "Data Limite Workup 2",
+			"dataColeta1": "Data Coleta 1",
+			"dataColeta2": "Data Coleta 2",
+			"fontes": "Fontes",
+			"fonte": "Fonte",
+			"doador": "Doador",
+			"qtd": "Quantidade",
+			"arquivos": "Arquivos",
+			"justificativas": "Justificativas",
+			"qtdKg": "Quantidade por Kg",
+			"tiposAmostra":"Tipo de amostra utilizadas",
+			"tipoAmostraDescricao":"Tipo Amostra",
+			"tipoAmostraML":"ml",
+			"dataUltimoTransplante":"Data do último transplante",
+			"tiposTransplante":"Tipos de Transplante Anteriores"
+		},
+		"visualizar": {
+			"medulaNacional": "Prescrição de Medula Nacional",
+			"medulaInternacional": "Prescrição de Medula Internacional",
+			"cordaoNacional": "Prescrição de Cordão Nacional",
+			"cordaoInternacional": "Prescrição de Cordão Internacional"
+		},
+		"autorizacaopaciente": {
+			"consulta": {
+				"titulo": "Autorização do Paciente",
+				"centrotransplantador": "Centro Transplantador",
+				"atribuidoAMim": "Atribuído a mim"
+			},
+			"modalupload": {
+				"titulo": "Selecionar arquivo de Autorização",
+				"detalhepaciente": "Detalhe Paciente",
+				"rmr": "RMR",
+				"nome": "Nome",
+				"dtNascimento": "Dt.Nascimento"
+			}
+		}
+	},
+	"historicoBusca": {
+		"titulo": "Histórico",
+		"tabela": {
+			"evento": "Evento",
+			"data": "Data",
+			"usuarioResponsavel": "Responsável"
+		}
+	},
+	"consultarPrescricao": {
+		"titulo": "Consultar Prescrição",
+		"centrotransplantador": "Centro Transplantador",
+		"subtitulo": "Pacientes sem prescrição",
+		"subtitulo2": "Pacientes com prescrição",
+		"rmr": "RMR",
+		"idDoador":"Id do Doador",
+		"tipoDoador":"Tipo Doador",
+		"nome": "Nome Paciente",
+		"centroTransplante": "Centro Transplante",
+		"aging": "Aging",
+		"status": "Status"
+	},
+	"icone": {
+		"detalhePaciente": "Detalhe do paciente",
+		"pendenciaPaciente": "Pendências do paciente",
+		"notificacoes": "Notificações",
+		"analisematch": "Matchs",
+		"historico": "Histórico"
+	},
+	"confirmarCentroTransplante": {
+		"titulo": "Confirmação de Centro de Transplante",
+		"centroAvaliador": "Centro Avaliador",
+		"medico": "Médico do Paciente",
+		"selecioneCentroTransplantador": "Selecione o Centro Transplantador",
+		"botao": {
+			"naoConfirmado": "Não tenho como confirmar"
+		},
+		"atual": "Atual",
+		"selecionado": "Centro Transplantador selecionado",
+		"centroSemEndereco": "Não possui endereço cadastrado.",
+		"centroSemContato": "Não possui telefones cadastrados.",
+		"endereco": "Endereço",
+		"telefone": "Telefone"
+	},
+	"definirCentroTransplante": {
+		"titulo": "Definir Centro de Transplante",
+		"tabela": {
+			"rmr": "RMR",
+			"nome": "Nome",
+			"aging": "Aging"
+		}
+	},
+	"recusarCentroTransplante": {
+		"justificativa": "Descreva o motivo pelo qual está recusando ser o centro transplantador deste paciente",
+		"justificativaObrigatoria": "A justificativa é obrigatória."
+	},
+	"transporteMaterial": {
+		"titulo": {
+			"agendar": "Agendar Transporte Material",
+			"retiradaentrega": "Transporte de Material",
+			"retiradaentregainternacional": "Retirada de Material Internacional"
+		},
+		"subtitulo": {
+			"agendar": "Transportes a Serem Agendados",
+			"retiradaentrega": "Materiais a serem retirados e entregues",
+			"pendentes": "Pedidos de Transporte Pendentes"
+		},
+		"tarefas": {
+			"id": "ID Doador",
+			"data": "Data/Hora Retirada",
+			"dataRetirada": "Data/Hora Retirada",
+			"dataEntrega": "Data/Hora Entrega",
+			"rmr": "RMR",
+			"ct": "Centro de transplante",
+			"status": "Status",
+			"localRetirada": "Retirada",
+			"localEntrega": "Entrega",
+			"fonteCelula": "Fonte de Célula",
+			"cordaoUmbilical": "CORDÃO UMBILICAL"
+		},
+		"erro": "Ocorreu um erro ao preencher dados na tela.",
+		"retiradaentrega": {
+			"label": {
+				"dataRetirada": "Data Retirada",
+				"dataEntrega": "Data Entrega",
+				"dataRetiradaMenorDataPrevistaRetirada": "Data Retirada deve ser maior ou igual à Data Prevista de Retirada",
+				"dataEntregaMenorDataRetirada": "Data Entrega deve ser maior ou igual à Data de Retirada",
+				"dataHoraPrevista": "Previsão de retirada"
+			}
+		},
+		"dadosCourier": "Informações sobre o courier",
+		"dadosVoo": "Deslocamento Aéreo",
+		"temVoo": "Necessita deslocamento aéreo?",
+		"cartaMo": "Imprimir Carta MO",
+		"transporteRel": "Imprimir Relatório Transporte",
+		"voucherCnt": "Baixar Carta CNT",
+		"cnt": "C.N.T",
+		"courier": "Courier",
+		"informacoesDeslocamento": "Informações sobre o deslocamento",
+		"nomeCourier": "Responsável pela retirada"
+	},
+	"logisticaMaterial": {
+		"titulo": "Coleta Doador - Medula",
+		"tituloCordao": "Coleta Doador - Cordão",
+  	"titulomedulanacional": "Logística de Material - Medula",
+    "titulocordaonacional": "Logística de Material - Cordão",
+    "necessidadelogistica": "Há necessidade de logística do material?",
+    "justificativa": "Justificativa",
+	  "bscup": "Banco de Sangue",
+		"centroColeta": "Centro de Coleta",
+		"dataColeta": "Data da Coleta",
+		"horaRetirada": "Hora para retirada",
+		"dataEmbarque": "Data do Embarque",
+		"dataChegada": "Data da Chegada",
+		"centroTransplante": "Centro Transplante",
+		"transportadora": "Transportadora",
+		"enderecoRetirada": "Endereço",
+    "enderecodoCT": "Endereço",
+    "contatos": "Contatos",
+		"dadosCT": "Entrega",
+		"dadosRetirada": "Retirada",
+		"dadosVoo": "Dados do Vôo",
+		"dadosCourier": "Dados do Courier",
+		"nomeCourier": "Nome",
+		"rgCourier": "R.G.",
+		"cpfCourier": "C.P.F.",
+		"anexarCnt": "Anexar C.N.T.",
+		"cnt": "C.N.T.",
+		"fonteCelula": "Fonte de Célula",
+		"telefones": "Telefones",
+		"retiradaPais": "País",
+		"retiradaEstado": "Estado",
+		"retiradaCidade": "Cidade",
+		"retiradaRua": "Rua",
+		"retiradaTelefone": "Telefone",
+		"retiradaIdDoador": "Id do Doador",
+		"retiradaHawb": "HAWB",
+		"dadosDoadorInternacional": "Dados do Doador",
+		"autorizacaoPaciente": "Autoriz. Paciente",
+		"informacoesAdicionais": "Informações Adicionais",
+		"retiradaLocal": "Local de Retirada",
+		"mensagens": {
+			"checklistOuInfoAdicionaisPendentes": "Existem itens de checklist e/ou informações adicionais pendentes de preenchimento. Deseja realmente finalizar?",
+			"tipo":"Selecione o tipo de alteração",
+			"data_tipo_data":"O campo data da coleta é obrigatório",
+			"descricao_tipo_arquivo":"O campo descrição é obrigatório",
+			"arquivo_tipo_arquivo":"Entre com a nova carta CNT"
+		},
+		"passaporteCourier": "Passaporte",
+		"nomeArquivoAutorizacaoPaciente": "AutorizacaoPaciente",
+		"tipoAlteracao":"Qual o tipo de alteração que você deseja realizar?",
+		"alterarLogisticaTitulo":"Alterar data coleta e Arquivo CNT",
+		"alterarData":"Alterar data",
+		"alterarArquivo":"Alterar Arquivo de Courier",
+		"descricao": "Descreva o motivo do envio de um outro arquivo de Courier",
+		"data":"Data da para a alteração"
+	},
+	"manterLaboratorio": {
+		"titulo": "Laboratórios",
+		"consulta": {
+			"titulo": "Consulta Laboratório",
+			"colunas": {
+				"id": "Id",
+				"nome": "Nome",
+				"endereco.municipio.uf.sigla": "UF"
+			}
+		},
+		"filtros": {
+			"pesquisarUf": "Pesquisar por UF",
+			"pesquisarNome": "Pesquisar por nome"
+		},
+		"campos":{
+			"dadosLaboratorio":"Dados do laboratório",
+			"nome":"Nome",
+			"uf":"UF",
+			"usuariosLaboratorio":"Usuários",
+			"usuariosDisponiveis":"Usuários Disponíveis",
+			"usuariosSelecionados":"Usuários Selecionados",
+			"enderecoLaboratorio":"Endereço",
+			"emailLaboratorio":"E-mail"
+		}
+	},
+	"laboratorioReceberColeta": {
+		"titulo": "Coletas",
+		"subtitulo": {
+			"receber": "Receber Coleta",
+			"resultado": "Cadastrar Resultado"
+		},
+		"rmr": "RMR",
+		"iniciais": "Iniciais do nome",
+		"tipoAmostra": "Tipo de amostra",
+		"recebimento": {
+			"dataColeta": "Data Coleta",
+			"dataRecebimento": "Data Recebimento",
+			"dataColetaMenorQueRecebimento": "A data de coleta deve ser menor do que a de recebimento"
+		},
+		"erro": "Ocorreu um erro ao preencher dados na tela."
+	},
+	"admin": {
+		"relatorio": "Layout de Documento",
+		"imgLogoRedome": "&LOGO_REDOME&",
+		"imgAssinatura": "&ASSINATURA&",
+		"imgLogoRedomeExt": "&LOGO_REDOME_EXTENDIDO&",
+		"imgLogoInca": "&LOGO_INCA&",
+		"consts": "Parâmetros Fixos",
+		"params": "Parâmetros Variáveis",
+		"img": "Imagens",
+		"codigo": "Nome do Documento",
+		"novo": "Novo Documento",
+		"salvar": "Salvar Alterações",
+		"modal": {
+			"titulo": "Alterar Valor Constante"
+		}
+	},
+	"historicoRecusasCt": {
+		"tabela": {
+			"justificativa": "Justificativa",
+			"dataAtualizacao": "Data Atualização",
+			"usuario": "Usuário"
+		}
+	},
+	"pedidoexameIdm": {
+		"cancelar": {
+			"titulo": "Cancelar Pedido Exame - IDM"
+		}
+	},
+	"pedidoexamefase2": {
+		"cancelar": {
+			"titulo": "Cancelar Pedido Exame - Fase 2"
+		}
+	},
+	"pedidoexamefase3": {
+		"titulo": "Pedidos de Exames de Doadores",
+		"mensagemnenhumpedido": "Não existe pedido de fase 3(CT) para este paciente.",
+		"status": "Status",
+		"statusAguardandoAmostra": "Aguardando Amostra",
+		"datacoleta": "Data da Coleta",
+		"datarecebimento": "Data do Recebimento",
+		"tipo": "Tipo",
+		"laboratorio": "Laboratório",
+		"justificativa": "Justificativa",
+		"cancelar": {
+			"titulo": "Cancelar Pedido Exame - Fase 3",
+			"justificativa": "Justificativa",
+			"inativarDoador": "Deseja inativar doador?"
+		},
+		"mensagemNenhumPedidoDoadoresInternacionais": "Não existem pedidos em aberto associados aos doadores internacionais em match com este paciente.",
+		"mensagemNenhumPedidoDoadoresNacionais": "Não existem pedidos em aberto associados aos doadores nacionais em match com este paciente.",
+		"statusSolicitacao": {
+			"concluido": "Concluído",
+			"cancelado": "Cancelado",
+			"aberto": "Em aberto"
+		}
+	},
+	"pedidoexamepaciente": {
+		"titulo": "Pedidos de Exames de Paciente",
+		"mensagemnenhumpedido": "Não existe pedido de fase 3(CT) para este paciente.",
+		"status": "Status",
+		"datacoleta": "Data da Coleta",
+		"datarecebimento": "Data do Recebimento",
+		"tipoAmostra": "Tipo de Amostra",
+		"sangue": "Sangue",
+		"swab": "Swab oral",
+		"sangueSwab": "Sangue + Swab Oral",
+		"tipo": "Tipo",
+		"laboratorio": "Laboratório",
+		"justificativa": "Justificativa",
+		"cancelar": {
+			"titulo": "Cancelar Pedido Exame - Fase 3",
+			"justificativa": "Justificativa",
+			"inativarDoador": "Deseja inativar doador?"
+		}
+	},
+	"modalpedidoexamefase3": {
+		"municipioenderecopaciente": "Município",
+		"ufenderecopaciente": "UF",
+		"laboratorioatual": "Laboratório Atual",
+		"laboratorio": "Laboratório",
+		"mensagemmesmolaboratorio": "O Laboratório não pode ser igual ao atual."
+	},
+	"modalcancelarpedidoexamefase3": {
+		"titulo": "Cancelar Pedido de Exame de Fase 3",
+		"justificativa": "Justificativa",
+		"datacancelamento": "Data do Cancelamento"
+	},
+	"doadorForm":{
+		"titulo":"Cadastro de Doador Internacional",
+		"vinculo":"Reservado para o paciente",
+		"dados":"Dados do Doador",
+		"origpag":"Origem e Pagamento",
+		"hla":"HLA",
+		"status":"Status do Doador",
+		"cadastro":{
+			"id":"ID",
+			"grid":"GRID",
+			"idade":"Idade",
+			"anos": "anos",
+			"peso": "Peso (Kg)",
+			"abo": "ABO",
+			"sexo": "Sexo",
+			"origem": "Registro de Origem",
+			"pagamento": "Registro de Pagamento",
+			"fonte": "Fonte",
+			"hla": "HLA",
+			"situacao": "Situação",
+			"ressalva": "Ressalva",
+			"dataNascimento": "Data de Nascimento",
+			"fem": "Feminino",
+			"masc": "Masculino",
+			"emdis": "Cadastrado via EMDIS",
+			"pedidoexame": "Fase2",
+			"pedidoexamect": "CT + IDM",
+			"quantidadeTotalTCN": "TCN",
+			"quantidadeTotalCD34": "CD34",
+			"volume": "Volume",
+			"tipo": "Tipo Doador",
+			"medula": "Medula",
+			"cordao": "Cordão",
+			"status": "Status"
+		},
+		"consulta": {
+			"titulo": "Consulta de Doadores Internacionais",
+			"idRegistro": "Identificador Registro",
+			"origem": "Origem",
+			"grid": "GRID"
+		},
+		"edicao": {
+			"titulo": "Doador Internacional"
+		},
+		"exame": {
+			"tipo": {
+				"segundaFase": "Segunda Fase",
+				"CT": "CT"
+			}
+		}
+	},
+	"erro": {
+		"retornoBack": "Ocorreu um erro ao preencher dados na tela."
+	},
+	"pedidoExameInternacional": {
+		"titulo": "Pedido de Exame - Doador Internacional",
+		"locus": "Lócus",
+		"exameCT": "Teste Confirmatório",
+		"fase2": "Segunda Fase",
+		"tipoExame": "Tipo de Exame"
+	},
+	"pedidoexamedoador": {
+		"tipo": "Tipo",
+		"idOrigem": "Id Origem",
+		"origem": "Origem",
+		"grid": "GRID",
+		"data": "Data",
+		"locus": "Lócus",
+		"origemCadastro": "Origem Cadastro",
+		"origemEmidis": "EMIDIS",
+		"origemManual": "Manual",
+		"tipoDoador": "Tipo Doador",
+		"tipoDoadorInternacional": "INTERNACIONAL",
+		"tipoDoadorNacional": "NACIONAL",
+		"laboratorio": "Laboratório",
+		"hemocentro": "Hemocentro",
+		"status": "Status",
+		"faseEnriquecimento": "Enriquecimento",
+		"faseContato": "Contato",
+		"dmr": "DMR",
+		"nome": "Nome",
+		"exame": "Exame",
+		"tipoExame": "Tipo Exame",
+		"internacionais": "Internacionais",
+		"nacionais": "Nacionais",
+		"exibirHistorico": "Exibir pedidos fechados e cancelados",
+		"todos": "Todos",
+		"idm": "IDM",
+		"fase2": "Fase 2",
+		"fase3": "Fase 3",
+		"rmr": "RMR"
+	},
+	"resultadopedidoexame": {
+		"titulo": "Cadastrar Resultado Exame"
+	},
+	"pedidoIDM": {
+		"resultado": {
+			"titulo": "Cadastrar Resultado Pedido IDM",
+			"selecionarLaudoResultado": "Laudo"
+		}
+	},
+	"workupInternacional": {
+		"titulo": "Tarefas Cadastrar Workup",
+		"rmr": "RMR",
+		"idRegistro": "Identificador Registro",
+		"idDoador": "Id do Doador",
+		"registro": "Registro",
+		"data": "Data tarefa"
+	},
+	"cadastrarBuscaPreliminarComponent": {
+		"titulo": "Busca Preliminar",
+		"dataNascimento": "Data de Nascimento",
+		"abo": "ABO",
+		"peso": "Peso (Kg)",
+		"nome": "Nome",
+		"tituloHla": "Adicionar informações de HLA"
+	},
+	"analisematchpreliminar": {
+		"titulo": "Análise de Match Preliminar"
+	},
+	"centrotransplante": {
+		"menu": "Centro Transplante",
+		"consulta": {
+			"titulo": "Consulta de Centros de Transplante",
+			"colunas": {
+				"id": "Id",
+				"nome": "Nome",
+				"cnpj": "CNPJ",
+				"cnes": "CNES"
+			}
+		},
+		"filtros": {
+			"pesquisarNome": "Pesquisar por nome",
+			"pesquisarCnpj": "Pesquisar por CNPJ",
+			"pesquisarCnes": "Pesquisar por CNES"
+		},
+		"detalhe": {
+			"titulo": "Centro de Transplante",
+			"dadosbasicos": {
+				"titulo": "Dados Básicos",
+				"nome": "Nome",
+				"cnpj": "CNPJ",
+				"cnes": "CNES",
+				"funcoes": "Funções"
+			},
+			"laboratorio": {
+				"titulo": "Laboratório Preferência",
+				"nome": "Nome"
+			},
+			"endereco": {
+				"titulo": "Endereço"
+			},
+			"enderecoretirada": {
+				"titulo": "Endereço Retirada",
+				"excluir": "Excluir",
+				"naopossui": "Não possui endereço retirada"
+			},
+			"enderecoentrega": {
+				"titulo": "Endereço Entrega",
+				"excluir": "Excluir",
+				"naopossui": "Não possui endereço entrega"
+			},
+			"enderecoworkup": {
+				"titulo": "Endereço de Workup",
+				"excluir": "Excluir",
+				"naopossui": "Não possui endereço de workup"
+			},
+			"enderecogcsf": {
+				"titulo": "Endereço de G-CSF",
+				"excluir": "Excluir",
+				"naopossui": "Não possui endereço de G-CSF"
+			},
+			"enderecointernacao": {
+				"titulo": "Endereço Internação",
+				"excluir": "Excluir",
+				"naopossui": "Não possui endereço de internação"
+			},
+      "telefone": {
+				"titulo": "Telefone",
+				"telefone": "Telefone",
+				"excluir": "Telefone"
+			},
+			"email": {
+				"titulo": "E-mail",
+				"email": "E-mail",
+				"excluir": "E-mail"
+			},
+			"medico": {
+				"nome": "Nome",
+				"titulo": "Médico Responsável",
+				"medicosDiposniveis": "Médicos disponíveis",
+				"medicosResponsaveis": "Médicos responsáveis",
+				"consultaMedico": "Consultar médicos"
+			}
+		}
+	},
+	"analistabuscacentroavaliador": {
+		"menu": "Analista Busca p/ Centro Avaliador",
+		"titulo": "Relacionar Analista Busca ao Centro Avaliador",
+		"analistabusca": "Selecione o Analista de Busca",
+		"centros": {
+			"disponiveis": "Centros Avaliadores Disponíveis",
+			"selecionados": "Centros Avaliadores Selecionados"
+		}
+	},
+	"precadastro": {
+		"titulo": "Pré-cadastro para médicos",
+		"crm": "CRM",
+		"nome": "Nome",
+		"login": "Login",
+		"endereco": "Endereço",
+		"telefone": "Contatos",
+		"email": "E-mails",
+		"arquivocrm": "Selecione o arquivo com a cópia do CRM",
+		"etapa": {
+			"identificacao": "Identificação",
+			"contato": "Contato",
+			"centrosreferencia": "Centro de Referência"
+		},
+		"centros": {
+			"disponiveis": "Centros de Referência Disponíveis",
+			"selecionados": "Centros de Referência Selecionados"
+		}
+	},
+	"precadastromedico": {
+		"menu": "Pré Cadastro de Médicos",
+		"consulta": {
+			"titulo": "Consulta Pré-cadastro de médicos",
+			"colunas": {
+				"id": "Id",
+				"nome": "Nome",
+				"dataSolicitacao": "aging"
+			}
+		},
+		"detalhe": {
+			"titulo": "Pré cadastro Médico",
+			"dadosidentificacao": {
+				"titulo": "Identificação",
+				"crm": "CRM",
+				"nome": "Nome",
+				"login": "Login"
+			},
+			"endereco": {
+				"titulo": "Endereço"
+			},
+			"telefone": {
+				"titulo": "Telefone",
+				"telefone": "Telefone"
+			},
+			"email": {
+				"titulo": "Email",
+				"email": "Email"
+			},
+			"arquivocrm": {
+				"titulo": "Arquivo CRM"
+			},
+			"centroreferencia": {
+				"titulo": "Centro de Referência",
+				"centroreferencia": "Centro de Referência"
+			}
+		}
+	},
+	"modalreprovarprecadastromedico": {
+		"titulo": "Reprovar Pré Cadastro Médico",
+		"justificativa": "Justificativa"
+	},
+	"medico": {
+		"menu": "Médico",
+		"consulta": {
+			"titulo": "Consulta de Médicos",
+			"colunas": {
+				"id": "Id",
+				"crm": "CRM",
+				"nome": "Nome"
+			}
+		},
+		"filtros": {
+			"pesquisarCrm": "Pesquisar por CRM",
+			"pesquisarNome": "Pesquisar por nome"
+		},
+		"detalhe": {
+			"titulo": "Cadastro Médico",
+			"dadosidentificacao": {
+				"titulo": "Identificação",
+				"crm": "CRM",
+				"nome": "Nome"
+			},
+			"endereco": {
+				"titulo": "Endereço"
+			},
+			"telefone": {
+				"titulo": "Telefone",
+				"telefone": "Telefone"
+			},
+			"email": {
+				"titulo": "Email",
+				"email": "Email"
+			},
+			"arquivocrm": {
+				"titulo": "Arquivo CRM"
+			},
+			"centroreferencia": {
+				"titulo": "Centro de Referência",
+				"centroreferencia": "Centro de Referência",
+				"disponiveis": "Centros de Referência Disponíveis",
+				"selecionados": "Centros de Referência Selecionados"
+			}
+		}
+	},
+	"transferencia": {
+		"centro": {
+			"avaliador": {
+				"titulo": "Tranferência de Centro Avaliador",
+				"atual": {
+					"titulo": "Centro Avaliador Atual"
+				},
+				"disponiveis": "Centros Avaliadores Disponíveis"
+			},
+			"consulta": {
+				"menu": "Tranferência Paciente",
+				"titulo": "Transferências",
+				"filtro": {
+					"centroavaliador": "Centro Avaliador"
+				},
+				"pendentes": {
+					"titulo": "Pacientes a serem transferidos"
+				},
+				"rmr": "RMR",
+				"nome": "Iniciais",
+				"idade": "Idade",
+				"tempo": "Tempo"
+			},
+			"detalhe": {
+				"titulo": "Transferência",
+				"origem": {
+					"titulo": "Centro Avaliador de Origem",
+					"nome": "Nome"
+				},
+				"dadospaciente": {
+					"titulo": "Dados do Paciente",
+					"peso": "Peso (Kg)",
+					"altura": "Altura",
+					"cmv": {
+						"titulo": "Resultado CMV",
+						"positiva": "Positiva",
+						"negativa": "Negativa"
+					},
+					"transplantePrevio": "Existência de transplante prévio",
+					"condicaoPaciente": "Condição do paciente"
+				},
+				"evolucaopaciente": {
+					"titulo": "Evolução do Paciente",
+					"tratamentoAnterior": "Tratamento Anterior",
+					"tratamentoAtual": "Tratamento Atual",
+					"condicaoAtual": "Condição Atual"
+				}
+			},
+			"modal": {
+				"recusar": {
+					"titulo": "Recusar Transferência",
+					"justificativa": "Justificativa"
+				}
+			}
+		}
+	},
+	"avaliacaocamaratecnica": {
+		"titulo": "Avaliação Câmara Técnica",
+		"subtituloavaliacoesabertas": "Avaliações em aberto",
+		"subtituloavaliacoesandamento": "Avaliações em andamento",
+		"tabela": {
+			"rmr": "RMR",
+			"nome": "Nome",
+			"status": "Status Avaliação",
+			"aging": "Aging",
+			"usuarioResponsavel": "Responsável"
+		},
+		"detalhe": {
+			"dadospaciente": {
+				"peso": "Peso (Kg)",
+				"altura": "Altura",
+				"cmv": {
+					"titulo": "Resultado CMV",
+					"negativa": "Negativa",
+					"positiva": "Positiva"
+				},
+				"transplantePrevio":"Existência de transplante prévio",
+				"condicaoPaciente":"Condição do paciente",
+				"titulo":"Dados do Paciente"
+			},
+			"form":{
+				"status":"Status Avaliação",
+				"justificativa":"Justificativa",
+				"relatorio":"Relatório"
+			}
+			,"acao":{
+				"aprovacao":"Aprovação",
+				"reprovacao":"Reprovação",
+				"status":"Alteração de Status"
+			}
+		}
+	},
+	"novabusca": {
+		"titulo": "Nova Busca",
+		"subtitulo": "Para solicitar uma nova busca é necessário confirmar o diagnóstico e informar uma nova evolução.",
+		"confirmarDiagnostico": "Confirmar o Diagnóstico",
+		"avaliar": {
+			"titulo": "Avaliar Nova Busca",
+			"justificativaParaReprovacao": "Justifique a reprovação",
+			"justificativa": "Justificativa"
+		}
+	},
+	"listamatchcomponent": {
+		"fase2": "Fase 2",
+		"fase3": "CT",
+		"fase3comidm": "CT + IDM",
+		"cancelar": "Cancelar",
+		"disponibilizar": "Disponibilizar",
+		"prescricao": "Prescrição",
+		"editar": "Editar",
+		"cadastrarresultado": "Cadastrar Resultado",
+		"estePaciente": "Este paciente",
+		"outroPaciente": "Outro paciente",
+		"locus": "Locus",
+		"RMR": "rmr",
+		"historico": "Histórico"
+	},
+	"pedidoExameNacionalModal": {
+		"titulo": "Pedido de Exame",
+		"tipoExame": "Tipo de Exame",
+		"laboratorio": "Laboratório",
+		"municipio": "Município",
+		"uf": "UF"
+	},
+	"modalalterarsenha": {
+		"titulo": "Alterar senha",
+		"senhaatual": "Senha Atual",
+		"novasenha": "Nova Senha",
+		"confirmarsenha": "Confirmar Senha"
+	},
+	"genotipodivergente": {
+		"titulo": "Genótipo Divergente",
+		"divergencia": "Divergência ?",
+		"examedogenotipo": "Exame do Genótipo",
+		"examedivergente": "Exame Divergente",
+		"examePedidoCT": "Exame do Pedido de CT: {{index}}",
+		"dataexame": "Data Exame",
+		"laboratorio": "Laboratório",
+		"metodologias": "Metodologias",
+		"composicaoalelo1": "Composição Alelo 1",
+		"composicaoalelo2": "Composição Alelo 2",
+		"selecionar": "Selecionar",
+		"nomeArquivoGenotipoComparado": "GenotipoComparado",
+		"modaleditartextoemaillaboratorio": {
+			"titulo": "Enviar e-mail para laboratório",
+			"destinatarios": "Destinatários"
+		}
+	},
+	"buscainternacional": {
+		"titulo": "Busca Internacional",
+		"relatorio": "Relatório",
+		"descricao": "Descrição"
+	},
+	"modalFinalizarContato":{
+		"titulo":"Finalizar Contato",
+		"contactado": "Contactado",
+		"contactadoterceiro": "Contactado por Terceiro",
+		"acao": "Ação",
+		"motivo": "Motivo",
+		"tempo": "Tempo Afastamento"
+	},
+	"detalheAnaliseMedica": {
+		"titulo": "Análise Médica do Doador"
+	},
+	"modalFinalizarAnaliseMedica": {
+		"titulo": "Finalizar Análise Médica do Doador",
+		"acao": "Ação",
+		"motivo": "Motivo",
+		"tempo": "Tempo Afastamento"
+	},
+	"modalEvolucaoDoador": {
+		"titulo": "Evolução do Doador",
+		"descricao": "Descrição"
+	},
+	"consultaSmsComponent": {
+		"titulo": "sms Enviado",
+		"dmr": "DMR",
+		"datainicial": "Data Inicial",
+		"datafinal": "Data Final",
+		"status": "Status",
+		"tabela": {
+			"data": "Data",
+			"dmr": "DMR",
+			"telefone": "Telefone",
+			"status": "Status"
+		}
+	},
+	"dashboard": {
+		"contato": {
+			"titulo": "Resumo Contato",
+			"enriquecimento": {
+				"fase2": "Enriquecimento Fase 2",
+				"fase3": "Enriquecimento Fase 3"
+			},
+			"fase2": "Contato Fase 2",
+			"fase3": "Contato Fase 3",
+			"fechados": "Fechados",
+			"dmr": "DMR",
+			"nome": "Nome",
+			"iniciocontato": "Data Pedido ",
+			"numerotentativas": "Nº Tentativas",
+			"ultimatentativa": "Última Tentativa",
+			"status": "Status",
+			"aberto": "Aberto",
+			"fechado": "Fechado"
+		}
+	},
+	"invoice": {
+		"apagar": {
+			"consulta": {
+				"titulo": "Consulta de Invoices",
+				"colunas": {
+					"id": "Id",
+					"numero": "Nº Invoice",
+					"dataVencimento": "Vencimento",
+					"dataFaturamento": "Faturamento",
+					"total": "Total",
+					"status.nome": "Status"
+				},
+				"filtros": {
+					"pesquisarNumero": "Pesquisar por Nº Invoice",
+					"pesquisarFaturamento": "Pesquisar por data de faturamento"
+				}
+			},
+			"cadastro": {
+				"titulo": "Invoice",
+				"invoice": "Dados Invoice",
+				"itens": "Itens Invoice",
+				"proximo": "Próximo",
+				"anterior": "Anterior",
+				"dadosinvoice": {
+					"invoice": "Nº Invoice",
+					"data": {
+						"faturamento": "Faturamento",
+						"vencimento": "Vencimento"
+					}
+				},
+				"itensinvoice": {
+					"rmr": "RMR",
+					"nome": "Nome"
+				},
+				"mensagem":{
+					"sucesso":"Invoice salvo com sucesso!"
+				}
+			}
+		},
+		"modal":{
+			"titulo":"Conciliar Item de Invoice",
+			"campos":{
+				"numero":"Número (Billing)",
+				"valor":"Valor",
+				"indevido":"Indevido"
+			}
+		}
+	},
+	"distribuicaoworkup": {
+		"titulo": "Distribuição Workup",
+		"tituloworkupandamento": "Workup em Andamento",
+		"tabela": {
+			"rmr": "RMR",
+			"centrotransplante": "Centro Transplante",
+      "medico": "Médico Prescreveu",
+			"fonte": "Fonte",
+			"identificacaodoador": "Identificação Doador",
+			"dataprescricao": "Data Prescrição",
+			"dataavaliacao": "Data Avaliação"
+		},
+		"tabelausuario": {
+			"nomeusuario": "Analista Workup",
+			"cordao": "Cordão",
+			"medula": "Medula",
+			"total": "Total"
+		},
+		"modal": {
+			"titulo": {
+				"distribuir": "Distribuir Workup",
+				"redistribuir": "Redistribuir Workup"
+			},
+			"analistasworkup": "Analistas Workup"
+		}
+	},
+	"informarplanoworkup": {
+		"titulo": "Plano Workup",
+		"dataexame": "Data do Exame",
+		"dataresultado": "Data do Resultado",
+		"datainternacao": "Data da Internação",
+		"datacoleta": "Data da Coleta",
+		"observacao": "Observação",
+		"horario": "horário",
+		"dataexamemedico1": "Dia 1 - Exame médico",
+		"dataexamemedico2": "Dia 2 - Exame médico",
+		"datarepeticaobthcg": "Data para repetição BTHCG",
+		"nomesetorandar": "Nome do setor/andar",
+		"procurarpor": "Procurar por",
+		"doadoremjejum": "Doador em jejum?",
+		"horasemjejum": "Jejum de quantas horas",
+		"informacoesadicionais": "Informações adicionais",
+		"prescricao": {
+			"titulo": "Prescrição - Paciente {{rmr}}"
+		}
+	},
+	"visualizar": {
+			"prescricao": {
+				"titulocomrmr": "Prescrição - Paciente {{rmr}}",
+				"titulosemrmr": "Prescrição"
+			}
+
+	}
+}

@@ -1,0 +1,26 @@
+<div class="row wrap-bloco" *ngIf="evolucao">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'pacienteForm.evolucaoGroup.ultimaEvolucao' | translate}}</h3>
+        <a  *ngIf="!somenteLeitura"
+            href="javascript:void(0)" class="editar-bloco"
+            [routerLink]="['/pacientes/' + rmr + '/evolucoes','nova']">
+            <span class="icon-editar"></span>{{'botao.incluir' | translate}}
+        </a>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco">
+        <p id="lbDataCriacao"><small>{{ 'pacienteForm.evolucaoGroup.dataCriacao' | translate }}: </small>{{evolucao?.dataCriacao | date:'dd/MM/yyyy' }}</p>
+        <p id="lbPeso"><small>{{ 'pacienteForm.evolucaoGroup.peso' | translate }}: </small>{{evolucao?.peso}} Kg</p>
+        <p id="lbAltura"><small>{{ 'pacienteForm.evolucaoGroup.altura' | translate }}: </small>{{evolucao?.altura}} m</p>
+        <p id="lbCMV"><small>{{ 'pacienteForm.evolucaoGroup.resultadoCMV' | translate }}: </small>{{formatarCMV()}}</p>
+        <p id="lbTransplanteAnt"><small>{{ 'pacienteForm.evolucaoGroup.tipoTransplanteAnterior' | translate }}: </small>{{formatarTipoTransplanteAnterior()}}</p>
+        <!-- <hr >
+        <p id="lbCondicaoPaci"><small>{{ 'pacienteForm.evolucaoGroup.evolucao' | translate }}: </small><span class="texto-bloco">{{evolucao?.condicaoPaciente?.nome}}</span></p>
+        <p id="lbTratamentoAnt"><small>{{ 'pacienteForm.evolucaoGroup.tratamentoAnterior' | translate }}: </small><span class="texto-bloco">{{evolucao?.tratamentoAnterior}}</span></p>
+        <p id="lbTratamentoAtu"><small>{{ 'pacienteForm.evolucaoGroup.tratamentoAtual' | translate }}: </small><span class="texto-bloco">{{evolucao?.tratamentoAtual}}</span></p>
+        <p id="lbCondicaoAtu"><small>{{ 'pacienteForm.evolucaoGroup.condicaoAtual' | translate }}: </small><span class="texto-bloco">{{evolucao?.condicaoAtual}}</span></p>
+        <p id="lbPossuiExameAnticorpo" *ngIf="!evolucao?.exameAnticorpo " ><small>{{ 'pacienteForm.evolucaoGroup.exameAnticorpo' | translate }}: </small><span class="texto-bloco">{{ 'textosGenericos.nao' | translate }}</span></p>
+        <p id="lbPossuiExameAnticorpo" *ngIf="evolucao?.exameAnticorpo" ><small>{{ 'pacienteForm.evolucaoGroup.exameAnticorpo' | translate }}: </small><span class="texto-bloco">{{ 'textosGenericos.sim' | translate }}</span></p>
+        <p id="lbDataExameAnticorpo" *ngIf="evolucao?.exameAnticorpo"><small>{{ 'pacienteForm.evolucaoGroup.dataExameAnticorpo' | translate }}: </small><span class="texto-bloco">{{evolucao?.dataExameAnticorpo | date:'dd/MM/yyyy' }}</span></p>
+        <p id="lbResultadoExameAnticorpo" *ngIf="evolucao?.exameAnticorpo"><small>{{ 'pacienteForm.evolucaoGroup.resultadoExameAnticorpo' | translate }}: </small><span class="texto-bloco">{{evolucao?.resultadoExameAnticorpo}}</span></p> -->
+    </div>
+</div>

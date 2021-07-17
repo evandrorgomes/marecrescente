@@ -1,0 +1,19 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'pedidoexamefase3.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            <!--<a id="idSolicitarPedidoFase3" type="button" class="btn btn-setting btn-primary" (click)="solicitarFase3()" *ngIf="deveExibirBotaoSolicitarExame()" ><span class="glyphicon icon-exames"></span> {{'botao.solicitar.exameFase3' | translate}}</a>-->            
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <pedido-exame-doador-lista #historicoPedidosExame></pedido-exame-doador-lista>
+</div>

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-discovery-prod1-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-discovery-prod1
+  template:
+    metadata:
+      labels:
+        app: redome-discovery-prod1
+    spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "redome-discovery-prod1"
+      - ip: "10.150.207.37"
+        hostnames:
+        - "redome-discovery"
+      containers:
+      - name: redome-discovery
+        image: us.icr.io/modred/redome-discovery:latest
+        env:
+          - name: profile
+            value: prod1
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: redome-discovery-prod1-lb
+ annotations:
+   service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: public
+spec:
+ type: LoadBalancer
+ selector:
+   app: redome-discovery-prod1
+ ports:
+  - protocol: TCP
+    port: 9082
+

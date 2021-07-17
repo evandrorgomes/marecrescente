@@ -1,0 +1,62 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2> {{ 'invoice.apagar.cadastro.titulo' | translate }} </h2>
+            </div>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <span>
+                    <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                            <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+
+                    <a class="btn btn-setting btn-primary" (click)="finalizarInvoice()">
+                        <span class="icon-calendario"></span>
+                        {{'botao.finalizar'| translate}}
+                    </a>
+
+                    <a class="btn btn-setting btn-primary" (click)="cancelarInvoice()">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                        {{'botao.cancelar'| translate}}
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+                <!-- Sinaliza as etapas de preenchimento do form -->
+                <ol class="etapaContainer">
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(1)" (click)="habilitarEtapa(1)"  >
+                        <b>{{'invoice.apagar.cadastro.invoice' | translate}}</b>
+                    </li>
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(2)" (click)="habilitarEtapa(2)">
+                        <b>{{'invoice.apagar.cadastro.itens' | translate}}</b>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-xs-12">
+                <div class="floatL">
+                    <a href="javascript:void(0)" title="Etapa Anterior" id="idEtapaAnterior" class="btn-controle"
+                       (click)="habilitarEtapaAnterior()" *ngIf="exibirAnterior()">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span> {{'invoice.apagar.cadastro.anterior' | translate}}
+                    </a>
+                </div>
+                <div class="floatR">
+                    <a href="javascript:void(0)" title="Proxima Etapa" id="idProximaEtapa" class="btn-controle" (click)="habilitarProximaEtapa()" *ngIf="exibirProximo()">
+                        {{'invoice.apagar.cadastro.proximo' | translate}} <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div [hidden]="esconderEtapa(1)">
+            <dados-invoice-apagar></dados-invoice-apagar>
+        </div>
+        <div [hidden]="esconderEtapa(2)">
+            <itens-invoice-apagar #itemInvoice></itens-invoice-apagar>
+        </div>
+
+    </div>
+</div>

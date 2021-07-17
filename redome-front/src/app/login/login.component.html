@@ -1,0 +1,114 @@
+<ul class="bg-slideshow">
+    <li><span></span></li>
+    <li><span></span></li>
+</ul>
+
+<div class="containerLogin">
+    <div class="container-fluid" id="loginBox">
+        <div class="row">
+            <h1 id="logo-loginbox">
+                <img src="/assets/imagens/logo-redome.png" title="Redome - Plataforma Tecnológica" alt="Redome - Plataforma Tecnológica" />
+            </h1>
+        </div>
+        <div class="row" *ngIf="!_lembrarSenha">
+            <form  (ngSubmit)="submeter()" #loginForm="ngForm" class="form-signin" name="formLogin">
+                <div *ngFor="let mensagem of listaCampoMensagem">
+                    <div id="mensagem">
+                        <small>
+                            <span class="glyphicon glyphicon-exclamation-sign"></span> {{mensagem.mensagem}}
+                        </small>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group-addon" for="login">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </label>
+                    <input id="login" class="form-control" tabindex="1" type="text" 
+                        required value="" minlength="4" maxlength="50" name="login" 
+                        [(ngModel)]="login.username" #username="ngModel" placeholder="{{ 'formLogin.usuario' | translate }}">
+                </div>
+
+                <div id="loginError" class="formError" *ngIf="username.errors && (username.dirty || username.touched)">
+                    <small [hidden]="username.errors && !username.errors.required">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        {{ 'mensagem.erro.obrigatorio' | translate:campoUsuarioObrigatorio }}
+                    </small>
+                    <small [hidden]="username.errors && !username.errors.minlength">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        {{ 'mensagem.erro.numeroDigitos' | translate:campoUsuarioNumeroDigitos }}
+                    </small>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-group-addon" for="senha">
+                        <i class="glyphicon glyphicon-lock"></i>
+                    </label>
+                    <input id="senha" class="form-control" tabindex="2" type="password" required minlength="4" 
+                        maxlength="15" name="senha" [(ngModel)]="login.password" #password="ngModel" 
+                        placeholder="{{ 'formLogin.senha' | translate }}">
+                </div>
+
+                <div id="senhaError" class="formError" *ngIf="password.errors && (password.dirty || password.touched)">
+                    <small i18n [hidden]="password.errors && !password.errors.required">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        {{ 'mensagem.erro.obrigatorio' | translate:campoSenhaObrigatorio }}
+                    </small>
+                    <small i18n [hidden]="password.errors && !password.errors.minlength">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        {{ 'mensagem.erro.numeroDigitos' | translate:campoSenhaNumeroDigitos }}
+                    </small>
+                </div>
+
+                <button type="submit" i18n class="btn btn-lg btn-primary btn-block" tabindex="3">{{ 'botao.entrar' | translate }}</button>
+            </form>
+        </div>
+        <div class="row" *ngIf="_lembrarSenha">
+            <form  (ngSubmit)="lembrarSenha(lembrarSenhaForm)" #lembrarSenhaForm="ngForm" class="form-signin" name="formLembrarSenha">
+                
+                <div id="mensagem" *ngIf="_mensagemErrorLembrarSenha">
+                    <small>
+                        <span class="glyphicon glyphicon-exclamation-sign"></span> {{ _mensagemErrorLembrarSenha }}
+                    </small>
+                </div>
+            
+                <div *ngIf="_mensagemSucessoLembrarSenha">
+                    <small>
+                        <span class="glyphicon glyphicon-info-sign"></span> {{ _mensagemSucessoLembrarSenha }}
+                    </small>
+                    
+                </div>
+                <div class="input-group">
+                    <label class="input-group-addon" for="email">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    </label>
+                    <input id="email" class="form-control" tabindex="1" type="text" 
+                        required value="" maxlength="50" name="email" 
+                        [(ngModel)]="_email" #email="ngModel" placeholder="{{ 'formLogin.email' | translate }}">
+                </div>
+
+                <div id="loginError" class="formError" *ngIf="email.errors && (email.dirty || email.touched)">
+                    <small [hidden]="email.errors && !email.errors.required">
+                        <span class="glyphicon glyphicon-exclamation-sign"></span>
+                        {{ 'mensagem.erro.obrigatorio' | translate:campoEmailObrigatorio }}
+                    </small>                    
+                </div>
+                <button type="submit" i18n class="btn btn-lg btn-primary btn-block" tabindex="3">{{ 'botao.continuar' | translate }}</button>
+            </form>            
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12" *ngIf="!_lembrarSenha">
+                <a id="idPreCadastro" class="link" href="javascript:void(0)" (click)="abrirTelaPreCadastro()" >{{'link.precadastro' | translate}}</a>
+            </div>
+            <div class="col-sm-12 col-xs-12" *ngIf="!_lembrarSenha">
+                <a id="idPreCadastro" class="link" href="javascript:void(0)" (click)="exibirLembrarSenha()">{{'link.lembrarsenha' | translate}}</a>
+            </div>
+            <div class="col-sm-12 col-xs-12" *ngIf="_lembrarSenha">
+                <a id="idPreCadastro" class="link" href="javascript:void(0)" (click)="_lembrarSenha = false" >{{'link.retornarlogin' | translate}}</a>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <a href="javascript:void(0)" id="linkLembrarsenha" title="Lembrar senha">Esqueceu a senha?</a>
+        </div> -->
+    </div>
+</div>

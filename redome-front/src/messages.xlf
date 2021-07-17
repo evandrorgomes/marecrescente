@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="pt-BR" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
+        <source>Login</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/login/login.component.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="667d414b0bddc34ed370162582e149139e1dad22" datatype="html">
+        <source>
+                    O campo login é obrigatório
+                </source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/login/login.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="85ab4e38d3f81b8ce04aee5941d345dc7d895b9e" datatype="html">
+        <source>
+                    O campo de login deve ter ao menos 4 dígitos
+                </source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/login/login.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7b5d9a66b6a91846c21d186e3f6a2d971f4bacbb" datatype="html">
+        <source>Senha</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/login/login.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ddc3ef33718012790f793b97d2d865a89a0d484d" datatype="html">
+        <source>
+                    O campo senha é obrigatório
+                </source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/login/login.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="41078c5294153cc33b58edf60a3c69788286465a" datatype="html">
+        <source>
+                    O campo de senha deve ter ao menos 4 dígitos
+                </source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/login/login.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4d6541f2d3476257c8af8cb55de1272893532961" datatype="html">
+        <source>Efetuar Login</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/login/login.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fff4c2283ba9f75d7a95519e37a1fca829421deb" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/motivo/motivo.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dc493d3c5a152947952b117bca10bb0d30dcf164" datatype="html">
+        <source>Aparentado</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/motivo/motivo.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f607ae628bc9a5ef484e2497441c95899e1cad5e" datatype="html">
+        <source>Não aparentado</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/motivo/motivo.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="409d1fad722756d97ec552cdb302e23dfc73ee84" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/motivo/motivo.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="91409553e9cc43316e3490440c8a71201260c126" datatype="html">
+        <source><x id="INTERPOLATION"/>: </source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b6333f55ec0100566bb73a98a07b5eaa0f26c227" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2ee5e6c2555ab0d76a488786b377f8a4ab969f4a" datatype="html">
+        <source>Sigla</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1335faeff58019410b81a3c2b88b69d4394f0b66" datatype="html">
+        <source>Metodologias Escolhidas</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e34d8d4e30fcdfdd9c1bc225e65a586574e24e3c" datatype="html">
+        <source><x id="INTERPOLATION"/></source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c65c653fce2d5585152bfd786b9d9ac47fef4bb2" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="560fb6d850a0b543a4731782c35d31814663bf36" datatype="html">
+        <source>Laudos selecionados: <x id="INTERPOLATION"/></source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="06d0491684a3972bb9ec45b5f05b18ce11488080" datatype="html">
+        <source>Nome</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/exame/exame.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8c1de92b7f35e7478e9d3209ee61c5a00a342895" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d70cfee45ccabd01a5e42389d8debc521b9288fd" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d84dbcb8eb6390ac23e3c89092ac4c33b67f48cf" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="95c305ed372b2b1090c0869b1c97463dff07270c" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5209a85da0e306432fba39e849908ba7630a2f61" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="300a72c04f876bfe01bdc1d27cce0b2d533588e6" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f69347e9703496c4d7b9c8a114ac8dbebcbd63ff" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="68e46441c5be4c40ba89f22d9b64c6b95cf57240" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6f9949b48eca1c3922fa0370de6499457194da74" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="49c60aad9c417ac9ff7d4f67cf02615f2d85c59d" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/evolucao/evolucao.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="939f1d831a2ed45689fe3b310512b6420dfa46c5" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cfca578a1a142776cd2eb3a02c48cabfb96118eb" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8bf3a88e6cabc9e788423a6cea5f1ce5a44453b1" datatype="html">
+        <source><x id="INTERPOLATION"/>: </source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="71d52ccd816e680078d531aef0ddffb593196c81" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a4aae4c9fa6f20177d01aa4a1806c555c7966e3" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7a8f9a73835d3127328dd0e70ddf2937b99de164" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4b549c7e0f69a4eae426b318333f2a9afad9408a" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1d4f5140cabf12f30dd2bd133a41a46ab4ec6092" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c7e2d242aa6ee94c6aa5ff1dce5584421e6d377e" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="79fcd981301a8bd2b3a4fc902a662d16c0ea0de6" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="933b37488b139e0f1ad068bfd21b829735820ab1" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="490339a1e6a284098cfcc0eb7289b2bf2783c215" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="20fd76f7ec2c29210136b7c23d6baa52daa9f301" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b6c2f209593abf61f93984dca9ed679efe567a0a" datatype="html">
+        <source><x id="INTERPOLATION"/>:</source>
+        <target/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">C:/projeto_redome/git/redome/src/main/frontend/src/app/paciente/cadastro/dadosbasicos/dadosbasicos.component.ts</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

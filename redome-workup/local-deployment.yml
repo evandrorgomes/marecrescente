@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-workup-svc
+  namespace: develop
+spec:
+  type: NodePort
+  selector:
+    app: redome-workup
+    namespace: develop
+  ports:
+    - protocol: TCP
+      port: 9004
+      targetPort: 9004
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-workup-deployment
+  namespace: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-workup
+      namespace: develop
+  template:
+    metadata:
+      labels:
+        app: redome-workup
+        namespace: develop
+    spec:
+       hostname: redome-workup
+       subdomain: redome-workup-svc          
+       containers:
+       -  name: redome-workup
+          image: localhost:32000/redome-workup
+          env:
+          -  name: profile
+             value: dev

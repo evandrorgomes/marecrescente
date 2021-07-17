@@ -1,0 +1,20 @@
+<div class="row historicoBusca">
+    <div class="col-sm-12 col-xs-12 wrap-table">
+        <table id="tblHistoricoBusca" class="table">
+            <thead>
+                <tr>
+                    <th>{{'historicoRecusasCt.tabela.dataAtualizacao' | translate}}</th>
+                    <th>{{'historicoRecusasCt.tabela.usuario' | translate}}</th>
+                    <th>{{'historicoRecusasCt.tabela.justificativa' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let historico of historicoRecusasCt; index as i" >
+                    <td>{{formatarDataHora(historico.dataAtualizacao)}}</td>
+                    <td>{{historico.nomeUsuario}}</td>
+                    <td>{{historico.justificativa}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

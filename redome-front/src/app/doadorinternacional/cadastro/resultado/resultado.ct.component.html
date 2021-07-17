@@ -1,0 +1,54 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'resultadopedidoexame.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador-internacional #headdoadorinternacional></header-doador-internacional>
+        </div>        
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()">
+                    <span class="icon-seta-esquerda" tabindex="1"></span> {{'botao.voltar' | translate}}</a>
+                <a id="" type="button" class="btn btn-setting btn-primary" (click)="salvar()">
+                    <span class="glyphicon glyphicon-ok-circle" tabindex="2"></span> {{'botao.salvar' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'pedidoFase2.internacional.locus' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-bloco">
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-xs-12">
+                            <hla-component #hlaComponent></hla-component>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+        <div class="row">
+            <div class="checkbox-group col-sm-12 col-xs-12">
+                <input id="inativarDoador" type="checkbox" #inativarCheckBox>
+                <label for="inativarDoador">
+                    <span></span>{{'inativarDoador.titulo' | translate}}
+                </label>
+            </div>
+        </div>
+        <div class="row" [hidden]="!inativarCheckBox.checked">
+            <div class="form-group col-sm-12 col-xs-12">
+                <inativacao-doador #inativacaoDoador recurso="CANCELAR_FASE_3_INTERNACIONAL"></inativacao-doador>
+            </div>
+        </div>
+    </div>
+
+    
+    
+</div>

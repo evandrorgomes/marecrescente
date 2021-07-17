@@ -1,0 +1,48 @@
+<div class="row wrap-bloco">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{ 'DoadorEnderecoContato.titulo' | translate}}</h3>
+        <a href="javascript:void(0)" class="editar-bloco" (click)="incluir()"  
+        *ngIf="!deveEsconderLinkIncluirEndereco()" ><span class="icon-editar"></span>{{'link.incluir' | translate}}</a>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+        <ul [ngClass]="mostraDados" >
+            <li *ngFor=" let endereco of enderecosContatoDoador; index as i">
+                <p><small>Endereço {{ i + 1}}: </small>
+                <span [ngClass]="contatoExcuido(endereco)" *ngIf="paisIsBrasil(endereco.pais)" >{{ endereco.tipoLogradouro}} {{ endereco.nomeLogradouro}}, {{ endereco.numero}} - {{ endereco.bairro}} - {{ endereco?.municipio?.descricao }}<br/>{{ endereco?.municipio?.uf?.sigla}} - {{ endereco.pais.nome}} - CEP {{ endereco.cep}}  
+                    <i *ngIf="endereco.principal" class="icon-favorito laranja"></i>
+                    <i *ngIf="endereco.correspondencia" class="icon-mail laranja"></i>
+                        <a class="btn-dadosinline" *ngIf="deveExibirRemoverEndereco"
+                            title="{{ 'DoadorEnderecoContato.form.excluir' | translate}}" 
+                            (click)="excluirEnredecoContato(endereco)">
+                        <i class="glyphicon glyphicon-trash"></i></a>    
+                </span>
+                
+                </p>
+                
+
+                <p>
+                <span [ngClass]="contatoExcuido(endereco)" *ngIf="endereco.pais.id != 1" >{{ endereco.enderecoEstrangeiro}}  - {{ endereco.pais.nome}}  
+                    <a class="btn-dadosinline" *ngIf="deveExibirRemoverEndereco"
+                        title="{{ 'DoadorEnderecoContato.form.excluir' | translate}}" 
+                        (click)="excluirEnredecoContato(endereco)">
+                    <i class="glyphicon glyphicon-trash"></i></a>    
+                </span>
+                </p>                
+            </li>
+            
+        </ul>
+        <div class="form-bloco" [ngClass]="mostraFormulario">
+            
+            <endereco-contato esconderCampoPrincipal="false" esconderCampoCorrespondencia="false" #enderecoContato ></endereco-contato>
+            <div class="row">
+                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                    <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicao()" >{{'botao.cancelar' | translate}}</button>
+                    <button id="alterarContato" class="btn btn-primary floatR" 
+                        *ngIf="temPermissaoParaIncluirEndereco()" (click)="salvarEndereco()">{{'botao.salvar' | translate}}</button>                            
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal mensagem="" #modalErro></modal>

@@ -1,0 +1,81 @@
+security:
+  oauth2:
+    client:        
+      clientId: modred-front-client
+      clientSecret: 123456
+      accessTokenUri: http://localhost:9000/redome-auth/oauth/token
+      user-authorization-uri: http://localhost:9000/redome-auth/oauth/authorize
+      grant-type: password, client_credentials
+      scope: trust, validation_hla, integracao
+    resource:
+#      user-info-uri: http://localhost:9080/redome/user/current
+      token-info-uri: http://localhost:9000/redome-auth/oauth/check_token.json
+      prefer-token-info: true
+  
+jpa:
+  url: jdbc:oracle:thin:@10.46.9.63:1521/bdintra.inca.local
+  password: euPwzh7F55
+  username: modred_aplicacao
+
+email:
+  servidor: smtp.gmail.com
+  porta: 587
+  usuario: redomenet.suporte@cancer.org.br
+  senha: "!redome!"
+
+# servidor=192.168.0.3
+# porta=25
+# usuario=sismatch@inca.gov.br
+# senha=SI160112
+
+# HOST DE INTEGRAÇÃO REDOME WEB
+host:
+  redomeweb: http://localhost:8080/REDOMEWeb
+
+storage:
+  bucketname: hml-redome
+  #storage_container_name: container-redome
+  
+feign:
+  hystrix:
+    enabled: true
+    command:
+      default:
+        execution:
+          isolation:
+            strategy: SEMAPHORE
+    
+hystrix:
+  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 210000
+
+ribbon:
+  eureka:
+    enabled: true
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@localhost:9082/eureka/
+      
+spring:
+  sleuth:
+    enabled: false
+    sampler:
+      percentage: 1.0
+      probability: 1.0  
+    web:      
+      additionalSkipPattern: "/redome/oauth/.*"
+  zipkin:
+    sender:
+      type: web
+    baseUrl: http://localhost:9441/
+    

@@ -1,0 +1,125 @@
+resourceId: modred_rest_api
+spring:
+  mvc:    
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+
+jpa:
+  driver: oracle.jdbc.driver.OracleDriver
+  
+c3p0:
+  initial_pool_size: 5
+  min_pool_size: 5
+  max_pool_size: 20
+  max_idle_time: 1800
+hibernate:
+  dialect: org.hibernate.dialect.Oracle12cDialect
+storage:
+  api_key: o93BXIZkOHScnMFcvhLSYBH4xwo80C4RCo6uFyuGjgBv
+  service_instance_id: "crn:v1:bluemix:public:cloud-object-storage:global:a/d97c2f72526b4d00bacd785b76777ca2:66ed8cd4-172b-4045-91c2-8fea84f9342e::" 
+  endpoint_url: https://s3.sao01.objectstorage.softlayer.net
+  IAM_ENDPOINT: https://iam.cloud.ibm.com/identity/token
+
+logging:
+  level:
+    org.springframework: INFO
+
+---
+spring:
+  profiles: test
+  jmx:
+    default-domain: redome
+  cloud:
+    discovery:
+      enabled: false
+#Disable cloud config and config discovery
+    config:
+      discovery:
+        enabled: false
+      enabled: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  sleuth:
+    enabled: false
+    sampler:
+      percentage: 1.0
+      probability: 1.0  
+    web:      
+      additionalSkipPattern: "/redome/oauth/.*"
+  zipkin:
+    sender:
+      type: web
+    baseUrl: http://localhost:9441/
+server:
+  port: 9080
+security:
+  oauth2:
+    client:        
+      clientId: modred-front-client
+      clientSecret: 123456
+      accessTokenUri: http://localhost:1111/redome-auth/oauth/token
+      user-authorization-uri: http://localhost:1111/redome-auth/oauth/authorize
+      grant-type: password, client_credentials
+      scope: trust, validation_hla, integracao
+    resource:
+#      user-info-uri: http://localhost:9080/redome/user/current
+      token-info-uri: http://localhost:1111/redome-auth/oauth/check_token.json
+      prefer-token-info: true
+
+#jpa:
+#  url: jdbc:oracle:thin:@169.57.173.77:1521/dev12c
+# password: euPwzh7F55
+#  username: modred_aplicacao
+email:
+  - servidor: smtp.gmail.com
+# servidor=192.168.0.3
+  - porta: 587
+# porta=25
+  - usuario: redomenet.suporte@cancer.org.br
+# usuario=sismatch@inca.gov.br
+  - senha: "!redome!"
+# senha=SI160112
+
+# HOST DE INTEGRAÇÃO REDOME WEB
+host:
+  redomeweb: http://localhost:8080/REDOMEWeb
+
+storage:
+  bucketname: dev-redome
+  #storage_container_name: container-redome
+  
+feign:
+  hystrix:
+    enabled: false
+    command:
+      default:
+        execution:
+          isolation:
+            strategy: SEMAPHORE
+  client:
+    url:
+      redome-tarefa: http://localhost:1111/redome-tarefa
+      redome-notificacao: http://localhost:1111/redome-notificacao
+      redome-workup: http://localhost:1111/redome-workup
+
+hystrix:
+  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 210000  
+
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@localhost:9082/eureka/
+      
+  
+    
+

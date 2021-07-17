@@ -1,0 +1,11 @@
+version: "3"
+services:
+    tarefa:
+        build:
+            context: ./redome-tarefa
+            dockerfile: ./.devcontainer/Dockerfile
+        ports:
+            - "9001:9001"
+        volumes:
+            - .:/workspace:cached
+        command: /bin/sh -c "while sleep 1000; do :; done"

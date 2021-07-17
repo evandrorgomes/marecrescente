@@ -1,0 +1,114 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!-- Título da seção -->
+            <h2>{{'consultaForm.titulo' | translate}}</h2>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <form [formGroup]="consultaForm" (ngSubmit)="onSubmit(1)" >
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-8 col-xs-12">
+                <select-centros-component #selectCenrtos
+                    [(ngModel)]="_centroSelecionado" 
+                    [ngModelOptions]="{standalone: true}"
+                    [showMeusPacientesOption]="true">
+                </select-centros-component>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-12 col-sm-3">
+                <label for="txtConsultaRMR">{{'consultaForm.rmr' | translate}}</label>
+                <input class="form-control" id="txtConsultaRMR" formControlName="rmr" type="text" Filtro padrao="onlyNumber">
+            </div>
+            <div class="form-group col-xs-12 col-sm-7">
+                <label for="txtConsultaNome">{{'consultaForm.nome' | translate}}</label>
+                <input id="txtConsultaNome" class="form-control" type="text" formControlName="nome" oninput="this.value = this.value.toUpperCase()" />
+            </div>
+            <div class="col-sm-2 col-xs-12">
+                <button id="btnConsultaRMR" class="btn btn-lg btn-primary btn-block" type="submit">{{'botao.consultar' | translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+    <!-- Tabela que exibe o resultado da busca -->
+    <div class="row" *ngIf="paginacao.totalElements && paginacao.totalElements != 0" >
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <table id="tblConsultaPaciente" class="table">
+                <thead>
+                    <tr>
+                        <th>{{'tabela.consultaForm.rmr' | translate}}</th>
+                        <th>{{'tabela.consultaForm.nome' | translate}}</th>
+                        <th class="text-center">{{'tabela.consultaForm.sexo' | translate}}</th>
+                        <th>{{'tabela.consultaForm.dataNascimento' | translate}}</th>
+                        <th>{{'tabela.consultaForm.medicoResponsavel' | translate}}</th>
+                        <th>{{'tabela.consultaForm.status' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let paciente of paginacao.content; index as i" >
+                        <td>{{paciente.rmr}}</td>
+                        <td>{{paciente.nome}} </td>
+                        <td class="text-center">{{paciente.sexo}}</td>
+                        <td>{{ formataDataNascimento(paciente.dataNascimento) }}</td>
+                        <td>{{paciente.medicoResponsavel.nome}}</td>
+                        <td>{{paciente?.status?.descricao}}</td>
+
+                        <!-- colocar o routerlink quando tiver a tela de detalhe  -->
+                        <td class="table-icon text-right">
+                            
+                            <span *ngIf="deveExibirIconeVisualizarPendencias(paciente)" 
+                                (click)="carregaTelaPendenciaPaciente(paciente.rmr)"
+                                class="icon icon-lista-pendencia clicavel linkhover" title="{{ 'icone.pendenciaPaciente' | translate }}">
+                            </span>
+                            <span *ngIf="deveExibirIconeAnaliseMatch(paciente)" 
+                                (click)="carregaTelaAnaliseMatch(paciente.rmr)" style="font-size: 18px; vertical-align: sub;"
+                                class="icon icon-mach-done clicavel linkhover" title="{{ 'icone.analisematch' | translate }}">
+                            </span>
+                            <span (click)="carregaTelaLogPaciente(paciente.rmr)" style="font-size: 18px; vertical-align: sub;"
+                                class="glyphicon glyphicon-time clicavel linkhover" title="{{ 'icone.historico' | translate }}">
+                            </span>
+                            <span *ngIf="deveExibirIconeDetalhePaciente(paciente)" 
+                                (click)="carregaTelaDetalhe(paciente.rmr)"
+                                class="glyphicon glyphicon-user clicavel linkhover" title="{{ 'icone.detalhePaciente' | translate }}">
+                            </span>
+                            <span (click)="carregaTelaNotificacoes(paciente.rmr)"
+                                class="icon icon-alerta notificacao-contador clicavel linkhover" title="{{ 'icone.notificacoes' | translate }}">
+                                <i *ngIf="deveExibirIconeQuantiddadeNotificacoesNaoLidas(paciente)"> {{ paciente.quantidadeNotificacoesNaoLidas }} </i>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+                        
+
+<!-- Paginação e quantidade de registros -->
+<div class="row paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+    <div class="col-sm-12 col-xs-12">
+        <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5" 
+                class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                (pageChanged)="mudarPagina($event)" 
+                firstText="{{'paginacao.primeiro' | translate}}"
+                previousText="<span class='icon-seta-esquerda'></span>"
+                nextText="<span class='icon-seta-direita'></span>"
+                lastText="{{'paginacao.ultimo' | translate}}"
+                >
+        </pagination>
+    </div>
+    <div class="col-sm-12 col-xs-12 pull-right">
+        <div class="form-group porpagina">
+            <label>Por Página:</label>
+            <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecinaQuantidadePorPagina($event)" >
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+</div>

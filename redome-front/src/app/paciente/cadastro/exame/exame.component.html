@@ -1,0 +1,139 @@
+<div class="etapa5">
+    <div [formGroup]="exameForm">
+        <div *ngIf="!idPedidoExame"  class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                <label for="laboratorio">{{getLabel('laboratorio')}}</label>
+                <select id="laboratorio" class="form-control" formControlName="laboratorio" >
+                    <option></option>
+                    <option *ngFor="let l of laboratorios"  value="{{l.id}}">
+                        {{l.descricaoUfNome}}
+                    </option>
+                </select>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('laboratorio') }}"> </msg>
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+                <div class="checkbox-group bottomline">
+                    <input type="checkbox" id="chkLaboratorioParticular" formControlName="laboratorioParticular" value="" (click)="clickLaboratorioParticular($event)"   >
+                    <label for="chkLaboratorioParticular" >
+                        <span></span>{{ getLabel('laboratorioParticular') }}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3 col-xs-12">
+                <label for="txtDataColetaAmostra">{{getLabel('dataColetaAmostra')}}</label>
+                <input [disableControl]="pedidoExame" class="form-control" tabindex="1" id="txtDataColetaAmostra" type="text" placeholder="" formControlName="dataColetaAmostra" maxlength="11" [textMask]="{mask: data}">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataColetaAmostra') }}"> </msg>
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+                <label for="txtDataExame">{{getLabel('dataExame')}}</label>
+                <input class="form-control" tabindex="1" id="txtDataExame" type="text" placeholder="" formControlName="dataExame" maxlength="11" [textMask]="{mask: data}">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataExame') }}"> </msg>
+            </div>
+        </div>
+
+        <div *ngIf="tipoExameCtSwab" class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{'pacienteForm.exameGroup.tiposAmostra' | translate}}</label>
+                <div class="checkbox-group" formArrayName="listTiposAmostra">
+                    <div class="inline-block"  *ngFor="let amostra of listTiposAmostraForm.controls; index as i">
+                        <div [formGroupName]="i">
+                            <input type="checkbox" id="chkAmostra{{i}}" formControlName="checked" value="">
+                            <label for="chkAmostra{{i}}" >
+                                <span></span>{{ amostra.get('nome').value }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 zeraPadding">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('tipoAmostra') }}"></msg>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label for="ddlMetodologia">{{getLabel('listMetodologias')}}</label>
+                <div class="checkbox-group" formArrayName="listMetodologias">
+                    <div class="inline-block"  *ngFor="let metodologia of listMetodologiasForm.controls; index as i">
+                        <div [formGroupName]="i">
+                            <input type="checkbox" id="chkMetodologia{{i}}" formControlName="checked" value="">
+                            <label for="chkMetodologia{{i}}" >
+                                <span></span>{{metodologia.get('sigla') ? metodologia.get('sigla').value : '' }} - {{ metodologia.get('descricao') ? metodologia.get('descricao').value : '' }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 zeraPadding">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('metodologia') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{'pacienteForm.exameGroup.tituloHla' | translate}}</label>
+                <hla-component #hlaComponent></hla-component>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table tableLaudo">
+                    <thead>
+                        <tr>
+                            <th>{{'tabela.laudoSelecionado' | translate}}: ({{ arquivos.length }} {{ arquivos.length <= 1 ? 'anexado' : 'anexados' }})</th>
+                            <th><!--<span class="glyphicon glyphicon-option-horizontal" title="Opções"></span>--></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor="let item of arquivos">
+                            <td>{{ item.nomeSemTimestamp }}</td>
+                            <td class="tdAcoes"><span class="glyphicon glyphicon-remove" title="Remover arquivo" (click)="removerArquivo(item.nome)"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivo') }}"></msg>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Lista os laudos selecionados -->
+            <div class="selecionaLaudos text-center">
+                <div [hidden]="true">
+                    <input id="fileInput"  #fileInput type="file" ng2FileSelect [uploader]="uploader" formControlName="upload" />
+                </div>
+                <button type="button" class="btn-setting btn-primary btn-center" (click)="fileInput.click()" id="uploadButton">
+                    <span class="glyphicon glyphicon-paperclip"></span>
+                    {{'botao.arquivo' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+      <!-- Modal -->
+    <div class="modal fade" bsModal #modalExame="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
+            tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-custom">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="fecharModal(modalExame, aleloFocus)">&times;</button>
+                </div>
+                <div class="modal-body" *ngIf="exibirMensagemErrorPorCampo('locusInvalido')">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <h3>{{ exibirMensagemErrorPorCampo('locusInvalido') }}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12 modal-btn">
+                            <button type="button" class="btn-primary" (click)="fecharModal(modalExame, aleloFocus)">
+                                Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

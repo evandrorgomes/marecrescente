@@ -1,0 +1,30 @@
+<modal mensagem="" #modalErro ></modal>
+<div [formGroup]="dialogoForm">
+    <div class="row">
+        <div class="containerPendencia col-sm-12 col-xs-12"> 
+            <div [class]="getEstiloBalaoConversa()" ></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+                <dialogo #dialogoComponent></dialogo>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <textarea id="txtAreaComentario" class="form-control modal-dialogo" rows="3" maxlength="200" 
+                (keypress)="setMensagemErroPorCampo('comentario')"
+                (blur)="setMensagemErroPorCampo('comentario')"
+                formControlName="comentario" #inputResposta>
+            </textarea>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('comentario') }}"></msg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+            <button id="btnComentarPendencia" (click)="comentar()" class="btn btn-primary floatR">{{ 'botao.comentar' | translate }}</button>
+            <button class="btn btn-default confirmation-cancel floatL" 
+                (click)="fecharDialogo()">{{'botao.cancelar' | translate }} </button>
+        </div>
+    </div>
+</div>

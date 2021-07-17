@@ -1,0 +1,95 @@
+spring:  
+  jmx:
+    default-domain: redome-tarefa
+  sleuth:
+    enabled: false
+    sampler:
+      percentage: 1.0
+      probability: 1.0
+  zipkin:
+    sender:
+      type: web
+    baseUrl: http://localhost:9441/
+      
+#logging:
+#  level:
+#    org.springframework: DEBUG
+ 
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:        
+      clientId: redome-tarefa
+      clientSecret: 123456
+      accessTokenUri: http://localhost:9000/redome-auth/oauth/token
+      user-authorization-uri: http://localhost:9000/redome-auth/oauth/authorize
+      grant-type: client_credentials
+      scope: server, PACIENTES_PARA_PROCESSO_BUSCA
+    resource:
+#      user-info-uri: http://localhost:9080/redome/user/current
+      token-info-uri: http://localhost:9000/redome-auth/oauth/check_token.json
+      prefer-token-info: true
+      
+#jpa:
+#  url: jdbc:oracle:thin:@169.57.173.77:1521/dev12c
+#  password: euPwzh7F55
+#  username: modred_aplicacao
+
+jpa:
+  url: jdbc:oracle:thin:@10.46.9.63:1521/bdintra.inca.local
+  password: euPwzh7F55
+  username: modred_aplicacao
+
+  
+feign:
+  hystrix:
+    enabled: true
+    command:
+      default:
+        execution:
+          isolation:
+            strategy: SEMAPHORE
+  client:
+    url:
+      redome: http://localhost:9080/redome
+    
+hystrix:
+  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 210000
+
+
+ribbon:
+  eureka:
+    enabled: true
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@localhost:9082/eureka/
+      
+
+email:
+  - servidor: smtp.gmail.com
+# servidor=192.168.0.3
+  - porta: 587
+# porta=25
+  - usuario: redomenet.suporte@cancer.org.br
+# usuario=sismatch@inca.gov.br
+  - senha: "!redome!"
+# senha=SI160112
+
+# HOST DE INTEGRAÇÃO REDOME WEB
+host:
+  redomeweb: http://localhost:8080/REDOMEWeb
+
+storage:
+  bucketname: dev-redome

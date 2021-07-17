@@ -1,0 +1,15 @@
+#FROM maven:3.6-jdk-8 as build
+#COPY src /usr/src/redome-cloud/src
+#COPY pom.xml /usr/src/redome-cloud
+#RUN mvn -f /usr/src/redome-cloud/pom.xml clean package -P debug -Dmaven.test.skip package
+
+FROM gcr.io/distroless/java:8
+#COPY --from=build /usr/src/redome-cloud/target/redome-cloud.jar /usr/redome-cloud/redome-cloud.jar
+COPY target/redome-cloud.jar /usr/redome-cloud/redome-cloud.jar
+
+ENV profile=default
+
+EXPOSE 9081
+EXPOSE 5000
+#ENTRYPOINT [ "java", "-Dspring.profiles.active=${profile}", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5000", "-jar", "/usr/redome-cloud/redome-cloud.jar", ">>", "null" ]
+ENTRYPOINT [ "java", "-Dspring.profiles.active=${profile}", "-jar", "/usr/redome-cloud/redome-cloud.jar", ">>", "null" ]

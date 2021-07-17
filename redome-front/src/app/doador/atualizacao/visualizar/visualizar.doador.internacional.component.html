@@ -1,0 +1,250 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'doadorForm.edicao.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador-internacional #headdoadorinternacional></header-doador-internacional>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <a id="idExames" type="button" class="btn btn-setting btn-primary" (click)="visualizarExames()"><span class="icon-exames"></span> {{'botao.exames' | translate}}</a>
+                <a *ngIf="!statusInativoDoador" id="idInativar" type="button" class="btn btn-setting btn-primary" (click)="abrirModalInativarDoador()"><span class="icon-proibido"></span> {{'botao.inativarDoador' | translate}}</a>
+                <a *ngIf="statusInativoDoador" id="idReativar" type="button" class="btn btn-setting btn-primary" (click)="abrirModalReativarDoador()"><span class="icon-salvar"></span> {{'botao.reativarDoador' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'doadorForm.dados' | translate }}</h3>
+                <a *ngIf="!editarDadosPessoais && !statusInativoDoador" href="javascript:void(0)" class="editar-bloco" (click)="modoEditarDadosPessoais()">
+            <span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div *ngIf="!editarDadosPessoais">
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.id'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.idRegistro}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.grid'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.grid}}</span>
+                    </p>
+                    <p id="" *ngIf="doador?.idade && !tipoCordao">
+                        <small>{{ 'doadorForm.cadastro.idade'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.idade}} {{ 'doadorForm.cadastro.anos'| translate }}</span>
+                    </p>
+                    <p id="" *ngIf="doador?.dataNascimento">
+                        <small>{{ 'doadorForm.cadastro.dataNascimento'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.dataNascimento | date:'dd/MM/yyyy'}}</span>
+                    </p>
+                    <p id="" *ngIf="doador?.peso && !tipoCordao">
+                        <small>{{ 'doadorForm.cadastro.peso'| translate }}: </small>
+                        <span class="texto-bloco">{{this._peso}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.abo'| translate }}: </small>
+                        <span class="texto-bloco RgSpace">{{doador?.abo}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.sexo'| translate }}: </small>
+                        <span *ngIf="doador?.sexo == 'F'">{{ 'doadorForm.cadastro.fem'| translate }}</span>
+                        <span *ngIf="doador?.sexo == 'M'">{{ 'doadorForm.cadastro.masc'| translate }}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.status'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.statusDoador?.descricao }}</span>
+                    </p>
+                    <p id="" *ngIf="tipoCordao">
+                        <small>{{ 'doadorForm.cadastro.quantidadeTotalTCN'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.quantidadeTotalTCN}}</span>
+                    </p>
+                    <p id="" *ngIf="tipoCordao">
+                            <small>{{ 'doadorForm.cadastro.quantidadeTotalCD34'| translate }}: </small>
+                            <span class="texto-bloco">{{doador?.quantidadeTotalCD34}}</span>
+                    </p>
+                    <p id="" *ngIf="tipoCordao">
+                            <small>{{ 'doadorForm.cadastro.volume'| translate }}: </small>
+                            <span class="texto-bloco">{{doador?.volume}}</span>
+                    </p>
+                </div>
+                <div [hidden]="!editarDadosPessoais" [formGroup]="form()">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <input-component
+                                label="{{'doadorForm.cadastro.id' | translate}}:"
+                                formControlName="idRegistro"  [maxLength]="30"
+                                [control]="form().controls['idRegistro']"
+                                idd="txtId"
+                                placeholder="" >
+                            </input-component>
+                        </div>
+                        <div class="form-group col-sm-6 col-xs-12">
+                            <input-component
+                                label="{{'doadorForm.cadastro.grid' | translate}}:"
+                                formControlName="grid"  [maxLength]="19"
+                                [control]="form().controls['grid']"
+                                idd="txtGrid"
+                                placeholder="" >
+                            </input-component>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-4 col-xs-12" *ngIf="!tipoCordao">
+                            <input-component
+                                label="{{'doadorForm.cadastro.idade' | translate}}:"
+                                formControlName="idade"
+                                [control]="form().controls['idade']"
+                                idd="txtIdade"
+                                placeholder=""
+                                (blur)="alternarModoIdadeEDataNascimento()">
+                            </input-component>
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12">
+                            <input-component
+                                label="{{'doadorForm.cadastro.dataNascimento' | translate}}:"
+                                formControlName="dataNascimento"
+                                [control]="form().controls['dataNascimento']"
+                                idd="txtDataNascimento"
+                                [mascara]="maskData"
+                                placeholder="DD/MM/AAAA"
+                                (blur)="alternarModoIdadeEDataNascimento()">
+                            </input-component>
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12" *ngIf="!tipoCordao">
+                            <input-number-component
+                                label="{{'doadorForm.cadastro.peso' | translate}}:"
+                                formControlName="peso"
+                                [control]="form().controls['peso']"
+                                [currencyOption]="{ prefix: '', allowNegative : false, decimal: ',', precision: '1' }"
+                                idd="txtPeso">
+                            </input-number-component>
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12">
+                            <select-component
+                                label="{{'doadorForm.cadastro.abo' | translate}}:"
+                                formControlName="abo"
+                                [control]="form().controls['abo']"
+                                idd="txtAbo"
+                                [options]="abos">
+                            </select-component>
+                        </div>
+                        <div class="col-sm-4 col-xs-12">
+                            <group-radio-component label= "{{'doadorForm.cadastro.sexo' | translate}}"
+                                formControlName="sexo"
+                                [control]="form().controls['sexo']"
+                                [optionsLabel]="labelsSexo"
+                                [optionsValue]="opcoesSexo">
+                            </group-radio-component>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="tipoCordao">
+                        <div class="form-group col-sm-4 col-xs-12">
+                            <input-number-component
+                                label="{{'doadorForm.cadastro.quantidadeTotalTCN' | translate}}:"
+                                formControlName="quantidadeTotalTCN"
+                                [control]="form().controls['quantidadeTotalTCN']"
+                                [currencyOption]="{ prefix: '', allowNegative : false, decimal: ',', thousands: ''}"
+                                idd="txtTotalTCN">
+                            </input-number-component>
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12">
+                            <input-component
+                                label="{{'doadorForm.cadastro.quantidadeTotalCD34' | translate}}:"
+                                formControlName="quantidadeTotalCD34"
+                                [control]="form().controls['quantidadeTotalCD34']"
+                                idd="txtQuantidadeTotalCD34">
+                            </input-component>
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12">
+                            <input-component
+                                label="{{'doadorForm.cadastro.volume' | translate}}:"
+                                formControlName="volume"
+                                [control]="form().controls['volume']"
+                                idd="txtVolume">
+                            </input-component>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                            <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoDadosPessoais()" >{{'botao.cancelar' | translate}}</button>
+                            <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoDadosPessoais()">{{'botao.salvar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'doadorForm.origpag' | translate }}</h3>
+                <a *ngIf="!editarDadosRegistro && !statusInativoDoador" href="javascript:void(0)" class="editar-bloco" (click)="modoEditarRegistro()">
+                    <span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div *ngIf="!editarDadosRegistro">
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.origem'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.registroOrigem?.nome}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.pagamento'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.registroPagamento?.nome}}</span>
+                    </p>
+                </div>
+
+            <div  [hidden]="!editarDadosRegistro"  [formGroup]="formRegistro()">
+                <div class="row">
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <select-component
+                            label="{{'doadorForm.cadastro.origem'| translate}}:"
+                            formControlName="registroOrigem"
+                            [control]="formRegistro().controls['registroOrigem']"
+                            idd="txtRegistroOrigem"
+                            [options]="origens"
+                            fieldOptionValue="id"
+                            fieldOptionText="nome"
+                        >
+                        </select-component>
+                    </div>
+                    <div class="form-group col-sm-6 col-xs-12">
+                        <select-component
+                            label="{{'doadorForm.cadastro.pagamento'| translate}}:"
+                            formControlName="registroPagamento"
+                            [control]="formRegistro().controls['registroPagamento']"
+                            idd="txtRegistroPagamento"
+                            fieldOptionValue="id"
+                            fieldOptionText="nome"
+                            [options]="pagamentos">
+                        </select-component>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoRegistro()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoRegistro()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'doadorForm.hla' | translate }}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div>
+                    <p id="">
+                        <hla-viewer-component #hlaComponent></hla-viewer-component>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <ressalva #ressalva esconderLinkIncluirRessalva="false" esconderLinkExcluirRessalva="false"></ressalva>
+    </div>
+</div>

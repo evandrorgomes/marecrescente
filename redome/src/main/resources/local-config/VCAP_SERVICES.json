@@ -1,0 +1,66 @@
+{
+    "AvailabilityMonitoring": [
+        {
+            "credentials": {
+                "cred_url": "https://perfbroker.ng.bluemix.net",
+                "token": "URv+kZUK++apu/clRV62Yb1ggYy9VhUvu5MFtO/SlZsnKCDSoMcTxekFhzhGNbN6v902drUT6yyQk13EWUMCwMluhkbkUGteDNe4KQxUQUY="
+            },
+            "syslog_drain_url": null,
+            "label": "AvailabilityMonitoring",
+            "provider": null,
+            "plan": "Lite",
+            "name": "Availability Monitoring",
+            "tags": [
+                "ibm_created",
+                "bluemix_extensions",
+                "dev_ops",
+                "lite"
+            ]
+        }
+    ],
+    "Application Security on Cloud": [
+        {
+            "credentials": {
+                "bindingid": "c36d0850-1351-e711-a23a-002590ac753d",
+                "password": "enipaxCwpaA40vxMK4ksbs52hLOcqxJdYiznM4ilV44="
+            },
+            "syslog_drain_url": null,
+            "label": "Application Security on Cloud",
+            "provider": null,
+            "plan": "free",
+            "name": "Application Security on Cloud",
+            "tags": [
+                "Security",
+                "security",
+                "ibm_created",
+                "ibm_dedicated_public"
+            ]
+        }
+    ],
+    "Object-Storage": [
+        {
+            "credentials": {
+                "auth_url": "https://identity.open.softlayer.com",
+                "project": "object_storage_7f8e9515_a65d_431b_ab80_113207c7d1e7",
+                "projectId": "6f82568e5ea946e58c13835c7617bd4a",
+                "region": "dallas",
+                "userId": "b8b9295487294fd2a8f997747982a125",
+                "username": "admin_16b2f47f4b054c998c91e3d4d38b3db82ec74317",
+                "password": "ozUkS4s_MPU/Mam2",
+                "domainId": "088a630a319a4a08b9e16352b5f5bddc",
+                "domainName": "1379889",
+                "role": "admin"
+            },
+            "syslog_drain_url": null,
+            "label": "Object-Storage",
+            "provider": null,
+            "plan": "standard",
+            "name": "storage-redome",
+            "tags": [
+                "storage",
+                "ibm_release",
+                "ibm_created"
+            ]
+        }
+    ]
+}

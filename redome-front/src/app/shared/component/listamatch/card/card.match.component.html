@@ -1,0 +1,112 @@
+<card-checklist [match]="retornarTrueParaChecklist()" [value]="match?.buscaChecklist">
+<li>
+    <div class="match-funcoes">
+        <!-- checkbox -->
+        <a href="javascript:void(0);" title="{{'pacienteBusca.icon.favorito' | translate}}" class="ativo"
+            *ngIf="_temRecursoFavoritar" (click)="adicionarRemoverFavorito()">
+            <i [ngClass]="obterClasseFavorito()" ></i>
+        </a>
+        <!-- Icone para o comentário -->
+        <a href="javascript:void(0);" *ngIf="_temRecursoParaVisualizarComentario && match?.possuiComentario" title="{{'pacienteBusca.icon.verComentario' | translate}}" class="ativo" (click)="mostrarComentario()"><i class="icon icon-notas"></i></a>
+        <a href="javascript:void(0);" *ngIf="_temRecursoParaVisualizarComentario && !match?.possuiComentario" title="{{'pacienteBusca.icon.salvarComentario' | translate}}" class="inativo" (click)="mostrarComentario()"><i class="icon icon-notas"></i></a>
+    </div>
+    <div class="match-dados">
+        <p>
+            <span class="icon icon-globo clicavel laranja" *ngIf="match?.idRegistro" container="body" tooltip="{{match?.registroOrigem}}">
+            </span>
+            <small class="dmr" *ngIf="!ehCordao()" > {{ match?.dmr }} </small>
+            <small class="dmr" *ngIf="ehMedula() && !ehMedulaNacional()" > {{ match?.idRegistro }} </small>
+            <small class="dmr" *ngIf="!ehMedula() && !ehMedulaNacional()" > {{ match?.idRegistro }} </small>
+            <small class="dmr" *ngIf="!ehMedula() && ehMedulaNacional()" > {{ match?.idBscup }} </small>
+            <span class="classificacao">{{ match?.classificacao }}</span>
+            <span class="mismatch"> {{ match?.mismatch }}</span>
+            <!-- Genotipo Comparado -->
+            <a href="javascript:void(0);" (click)="abrirModalGenotipoPorDoador()" *ngIf="!match.possuiGenotipoDivergente && (_temPerfilMedico || _temPerfilAnalistaBusca)"
+                title="{{'pacienteBusca.icon.verGenotipo' | translate}}"><i class="icon icon-genotipo"></i></a>
+            <!-- Genotipo Divergente -->
+            <a href="javascript:void(0);" (click)="acaoIconeGenotipoDivergente()" *ngIf="match.possuiGenotipoDivergente && _temPerfilAnalistaBusca"
+                title="{{'pacienteBusca.icon.verGenotipoDivergente' | translate}}"><i class="icon icon-genotipo-divergente"></i></a>
+            <!-- Icone para a ressalva -->
+            <a href="javascript:void(0);" *ngIf="match?.possuiRessalva && _temPerfilAnalistaBusca" title="{{'pacienteBusca.icon.ressalva' | translate}}" class="ativo" (click)="visualizarRessalvasDoador()">
+                <i class="icon icon-warning"></i>
+            </a>
+            <!-- Icone para outros processos -->
+            <a href="javascript:void(0);" *ngIf="match?.outrosProcessos != 0" title="{{'pacienteBusca.icon.outrosProc' | translate}}" class="ativo"><i class="icon icon-match"></i></a>
+            <!-- Icone exames -->
+            <a href="javascript:void(0);" title="" class="ativo" dropdownToggle dropdown container="body" *ngIf="match?.locusPedidoExameParaPaciente || match?.locusPedidoExame">
+                <i class="icon icon-evolucao"></i>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu matchmenu matchmenu-exames" role="menuLocus">
+                    <li *ngIf="match?.locusPedidoExameParaPaciente">
+                        <small>{{'listamatchcomponent.estePaciente' | translate}}:</small>
+                    </li>
+                    <li *ngIf="match?.locusPedidoExameParaPaciente">
+                        <p>{{'listamatchcomponent.locus' | translate}}: {{match?.locusPedidoExameParaPaciente}}</p>
+                    </li>
+
+                    <li *ngIf="match?.locusPedidoExame">
+                        <small>{{'listamatchcomponent.outroPaciente' | translate}} {{'listamatchcomponent.RMR' | translate}} {{match?.rmrPedidoExame}}:</small>
+                    </li>
+                    <li *ngIf="match?.locusPedidoExame">
+                        <p>{{'listamatchcomponent.locus' | translate}}: {{match?.locusPedidoExame}}</p>
+                    </li>
+                </ul>
+            </a>
+            <span *ngIf="exibirStatusDoadorNoHistorico" [class]="getClassByStatusDoador(match?.statusDoador.id)">{{match.statusDoador.descricao}}</span>
+        </p>
+        <p>
+            <small *ngIf="ehMedula()" >
+                {{ generoDecorator() }}{{ qtdGestacaoFormatado() }}, {{ idadeFormatada() }} {{ pesoFormatado() }} <span *ngIf="match?.abo">,</span>  <i class="icon-sangue" *ngIf="match?.abo" ></i>{{ match?.abo }}
+            </small>
+            <small *ngIf="ehCordao()" >
+                {{ generoDecorator() }}{{ qtdGestacaoFormatado() }}, {{ quantidadeTCNPorKiloFormatada() }}, {{ quantidadeCD34PorKiloFormatada() }}, <i class="icon-sangue"></i>{{ match?.abo }}
+            </small>
+        </p>
+        <small class="ultima-atu">{{'pacienteBusca.dataUpdate' | translate}}: {{ formatarDataAtualizacao() }}</small>
+    </div>
+    <div class="btn-group" dropdown container="body"  [isOpen]="_isOpen"   *ngIf="exibirMenu()">
+        <button type="button" class="btn-matchmenu dropdown-toggle" (click)=" _isOpen = !_isOpen" >
+            <span class="glyphicon glyphicon-option-vertical"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu matchmenu" role="menu">
+
+            <li *ngIf="_exibirMenuFase2">
+                <a href="javascript:void(0);" id="" type="button" (click)="solicitarFase2()" >
+                    {{'listamatchcomponent.fase2' | translate}}</a>
+            </li>
+
+            <li *ngIf="_exibirMenuFase3">
+                <a href="javascript:void(0);" type="button" (click)="solicitarFase3()" >
+                    <span *ngIf="!verificarSeCordaoIternacional(); else comIdm"> {{'listamatchcomponent.fase3' | translate}} </span>
+                    <ng-template #comIdm> <span> {{'listamatchcomponent.fase3comidm' | translate}} </span> </ng-template>
+                </a>
+            </li>
+
+            <li *ngIf="_exibirMenuDisponibilizar">
+                <a href="javascript:void(0);" id="" type="button" (click)="disponibilizar()" >
+                    {{'listamatchcomponent.disponibilizar' | translate}}</a>
+            </li>
+
+            <li *ngIf="_exibirMenuPrescricao">
+                <a href="javascript:void(0);" id="" type="button" (click)="prescrever()" >
+                    {{'listamatchcomponent.prescricao' | translate}}</a>
+            </li>
+
+            <li *ngIf="_exibirMenuEditar">
+                    <a href="javascript:void(0);" id="" type="button" (click)="editarPedidoExame()" >
+                        {{'listamatchcomponent.editar' | translate}}</a>
+            </li>
+
+            <li *ngIf="_exibirMenuCadastrarResultaddo">
+                <a href="javascript:void(0);" id="" type="button" (click)="cadastrarResultado()" >
+                    {{'listamatchcomponent.cadastrarresultado' | translate}}</a>
+            </li>
+
+            <li *ngIf="_exibirMenuCancelar">
+                    <a href="javascript:void(0);" id="" type="button" (click)="cancelar()" >
+                        {{'listamatchcomponent.cancelar' | translate}}</a>
+            </li>
+
+        </ul>
+    </div>
+</li>
+</card-checklist>

@@ -1,0 +1,75 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2 *ngIf="ehNotificacaoCancelamentoPedidoColetaDoador()" >{{'workup.coleta.cancelar.agendamento.titulo.doador' | translate}}</h2>
+                <h2 *ngIf="ehNotificacaoCancelamentoPedidoColetaCentroColeta()">{{'workup.coleta.cancelar.agendamento.titulo.centrocoleta' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <input id="atribuidoAMim" type="checkbox" [(ngModel)]="atribuidoAMim" (change)="listarTarefasNotificacaoCancelamentoPedidoColeta(1)" >
+                <label for="atribuidoAMim">
+                    <span></span> {{'workup.coleta.cancelar.agendamento.atribuidoAMim' | translate}} 
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-2" *ngIf="ehNotificacaoCancelamentoPedidoColetaDoador()">{{'tabela.pedido.workup.coleta.cancelar.agendamento.doador.dmr' | translate}}</td>
+                            <td class="col-sm-4" *ngIf="ehNotificacaoCancelamentoPedidoColetaDoador()">{{'tabela.pedido.workup.coleta.cancelar.agendamento.doador.nome' | translate}}</td>
+                            <td class="col-sm-4" *ngIf="ehNotificacaoCancelamentoPedidoColetaCentroColeta()">{{'tabela.pedido.workup.coleta.cancelar.agendamento.centrocoleta' | translate}}</td>
+                            <td class="col-sm-3">{{'tabela.pedido.workup.coleta.cancelar.agendamento.responsavel' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.cancelar.agendamento.dataLimite' | translate}}</td>                            
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let tarefa of paginacao.content; index as i" 
+                                (click)="detalharTarefa(tarefa)">
+                            <td class="col-sm-2" *ngIf="ehNotificacaoCancelamentoPedidoColetaDoador()">{{tarefa.pedidoWorkup?.solicitacao?.doador?.dmr}}</td>
+                            <td class="col-sm-4" *ngIf="ehNotificacaoCancelamentoPedidoColetaDoador()">{{tarefa.pedidoWorkup?.solicitacao?.doador?.nome}}</td>
+                            <td class="col-sm-4" *ngIf="ehNotificacaoCancelamentoPedidoColetaCentroColeta()">{{tarefa.pedidoWorkup?.centroColeta?.nome}}</td>
+                            <td class="col-sm-3">{{tarefa.usuarioResponsavel?.nome}}</td>
+                            <td class="col-sm-2">{{tarefa.pedidoWorkup?.dataPrevistaDisponibilidadeDoador | date: 'dd/MM/yyyy' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaLogisticaWorkup" 
+                *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacao.totalElements" 
+                        [ngModel]="paginacao.number" [maxSize]="5" 
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true" 
+                        [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                        (pageChanged)="mudarPagina($event)" 
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>{{ 'textosGenericos.porpagina' | translate }}:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroPorPagina" 
+                            (change)="mudarPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+<modal mensagem="" #modalErro></modal>

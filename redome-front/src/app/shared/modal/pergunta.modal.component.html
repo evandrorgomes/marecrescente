@@ -1,0 +1,21 @@
+<div class="modal fade" bsModal #modal="bs-modal" [config]="{backdrop: 'static', keyboard: false}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-custom">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12 exibeDadosPendencia">
+                            <h3 class="text-center">{{ mensagem }}</h3>
+                            <br>
+                            <small *ngIf="segundaMensagem" >{{ segundaMensagem }}</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12 modal-btn">
+                            <button id="{{id}}btnNao"  class="btn btn-lg btn-default" (click)="fecharModalComponente(false)"> {{ 'botao.nao' | translate }} </button>
+                            <button id="{{id}}btnSim" class="btn btn-lg btn-primary" (click)="fecharModalComponente(true)">{{ 'botao.sim' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,180 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>
+                {{'detalhePaciente.titulo' | translate}}
+            </h2>
+            <span class="label label-success" *ngIf="hasAvaliacaoIniciada">
+                {{'detalhePaciente.avaliacaoEmAndamento' | translate}}
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente #headerPaciente></header-paciente>
+    </div>
+    <auto-collapsed-menu>
+        <menu-item>
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="deveExibirBotaoAnaliseMatch" id="idAvaliacoesMatch" type="button" class="btn btn-setting btn-primary"
+                [routerLink]="['/pacientes/' + paciente.rmr + '/matchs']">
+                <span class="icon icon-mach-done"></span> {{'botao.analisematchs' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="deveExibirBotaoAvaliacao" id="idAvaliacao" type="button" class="btn btn-setting btn-primary"
+            [routerLink]="['/pacientes/' + paciente.rmr + '/avaliacaoMedico']">
+                <span class="icon-avaliacao"></span> {{'botao.avaliacoes' | translate}}</a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="temPermissaoConsultaExames" id="idConsultaExames" type="button" class="btn btn-setting btn-primary"
+                [routerLink]="['/pacientes/' + paciente.rmr + '/exames']"><span class="icon-exames"></span>
+                {{'botao.exames' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="deveExibirBotaoNotificacoes"
+                id="btnNotificacoes" type="button" class="btn btn-setting btn-primary btn-alerta"
+                (click)="visualizarNotificacoes()"><span class="icon-alerta"></span>{{'botao.notificacoes' | translate}}</a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="temPermissaoConsultaEvolucao"
+                id="idBtnConsultaEvolucao" type="button" class="btn btn-setting btn-primary"
+                [routerLink]="['/pacientes/' + paciente.rmr + '/evolucoes']">
+                <span class="icon-evolucao"></span> {{'botao.evolucoes' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="temPermissaoVisualizarHistorico"
+                type="button" class="btn btn-setting btn-primary" [routerLink]="['/pacientes/' + paciente.rmr + '/logs']">
+                <span class="glyphicon glyphicon-time"></span> {{'botao.historicoBusca' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="temPermissaoTransferirPaciente"
+                type="button" class="btn btn-setting btn-primary" (click)="abrirModalTransferencia()">
+                <span class="glyphicon glyphicon-share-alt"></span> <b innerHTML="{{'botao.transferircentroavaliador' | translate}}"></b>  </a>
+        </menu-item>
+        <menu-item>
+            <a id="idCancelamentoBusca" *ngIf="temPermissaoCancelarBusca && deveExibirBotaoCancelarBusca"
+                type="button" class="btn btn-setting btn-primary" [routerLink]="['/pacientes/' + paciente.rmr + '/cancelamentoBusca']">
+                <span class="glyphicon glyphicon-remove-sign"></span> {{'botao.cancelarBusca' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a *ngIf="liberadoParaSolicitarNovaBusca"
+                type="button" class="btn btn-setting btn-primary" [routerLink]="['/pacientes/' + paciente.rmr + '/busca/nova']">
+                <span class="glyphicon glyphicon-plus-sign"></span> {{'botao.novaBusca' | translate}}
+            </a>
+        </menu-item>
+    </auto-collapsed-menu>
+</div>
+<div class="page-content dadosGeraisPaciente">
+    <alert [show]="exibirInstrucaoColetaExameCT()">
+        {{ exibirMensagemFase3() }},
+        <a href="" title="" [routerLink]="['/pacientes/' + paciente.rmr + '/exames']">
+           <span class="underline">{{'botao.clique' | translate}}</span>
+        </a>.
+    </alert>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'detalhePaciente.dadosPessoais' | translate}}</h3>
+            <a href="javascript:void(0)" *ngIf="temPermissaoEditarDadosPessoais && !pacienteEmObito" class="editar-bloco" (click)="editarDadosIdentificacaoDadosPessoais()"><span class="icon-editar"></span> Editar</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <p><small>{{'detalhePaciente.nome' | translate}}: </small>{{ paciente.nome }}</p>
+            <p><small>{{'detalhePaciente.nomeMae' | translate}}: </small>{{ paciente.nomeMae }}</p>
+            <p *ngIf="paciente.responsavel">
+                <small>{{'detalhePaciente.responsavel.nome' | translate}}: </small>{{ paciente.responsavel.nome }} ({{ paciente.responsavel.parentesco }})
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <small>{{'detalhePaciente.responsavel.cpf' | translate}}: </small>{{ aplicarMascaraCpf(paciente.responsavel.cpf) }}</p>
+            <p>
+                <span *ngIf="paciente.sexo && paciente.sexo == 'M'" ><small>{{'detalhePaciente.sexo' | translate}}: </small>{{ 'sexo.masculino' | translate }}</span>
+                <span *ngIf="paciente.sexo && paciente.sexo == 'F'" ><small>{{'detalhePaciente.sexo' | translate}}: </small>{{ 'sexo.feminino' | translate }}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <small>{{'detalhePaciente.idade' | translate}}: </small>{{ _idadeFormatada }}
+            </p>
+            <p>
+                <small>{{'detalhePaciente.cpf' | translate}}: </small>{{ aplicarMascaraCpf(paciente.cpf) }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <small>{{'detalhePaciente.cns' | translate}}: </small>{{ paciente.cns }}
+            </p>
+            <p *ngIf="paciente.etnia"><small>{{'detalhePaciente.etnia' | translate}}: </small>{{ paciente?.etnia?.nome }}</p>
+            <p>
+                <small>{{'detalhePaciente.nacionalidade' | translate}}: </small>{{paciente.pais ? paciente.pais.nome : ""}}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <small>{{'detalhePaciente.naturalidade' | translate}}: </small>{{ paciente.naturalidade ? paciente.naturalidade.nome : "" }}
+            </p>
+            <p><small>{{'detalhePaciente.pais' | translate}}: </small>{{(paciente.enderecosContato && paciente.enderecosContato[0]) ? paciente.enderecosContato[0].pais.nome : ''}}</p>
+            <p><small>{{'detalhePaciente.raca' | translate}}: </small>{{ paciente?.raca?.nome }}</p>
+            <p><small>{{'detalhePaciente.abo' | translate}}: </small>{{ paciente?.abo }}</p>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'detalhePaciente.diagnostico' | translate}}</h3>
+            <a href="javascript:void(0)" *ngIf="temPermissaoEditarDiagnostico" class="editar-bloco" (click)="editarDadosDiagnostico()"><span class="icon-editar"></span> Editar</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <p><small>{{'detalhePaciente.datadiagnostico' | translate}}: </small>{{ paciente?.diagnostico?.dataDiagnostico | date:'dd/MM/yyyy' }}</p>
+            <p><small>{{'detalhePaciente.cid' | translate}}: </small><span class="mostraIconeCid icon-cid " [ngClass]="_isContempladoPortaria"></span>{{ paciente.diagnostico ? paciente.diagnostico?.cid?.codigo + ' - ' + paciente.diagnostico?.cid?.descricao : "" }}</p>
+        </div>
+    </div>
+
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'detalhePaciente.dadosContato' | translate}}</h3>
+            <a href="javascript:void(0)" *ngIf="temPermissaoEditarContato && !pacienteEmObito" class="editar-bloco" (click)="editarDadosContato()"><span class="icon-editar"></span> Editar</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <p *ngIf = "temEnderecoBrasil()">
+                <small>{{'detalhePaciente.endereco' | translate}}: </small>
+                {{paciente.enderecosContato  && paciente?.enderecosContato?.length == 1 ? paciente?.enderecosContato[0]?.tipoLogradouro + " " + paciente?.enderecosContato[0]?.nomeLogradouro + ", " + paciente?.enderecosContato[0]?.numero : "" }}  {{ paciente?.enderecosContato && paciente?.enderecosContato?.length == 1 && paciente?.enderecosContato[0]?.complemento ? " , " + paciente?.enderecosContato[0]?.complemento : "" }}
+                {{" - " + paciente?.enderecosContato && paciente?.enderecosContato?.length == 1 ? paciente?.enderecosContato[0]?.bairro : "" }}
+                {{" - " + paciente?.enderecosContato && paciente?.enderecosContato?.length == 1 ? paciente?.enderecosContato[0]?.municipio?.descricao : "" }}
+                {{" / " + paciente?.enderecosContato && paciente?.enderecosContato?.length == 1 ? paciente?.enderecosContato[0]?.municipio?.uf?.sigla : "" }}
+                {{" - " + paciente?.enderecosContato && paciente?.enderecosContato?.length == 1 ? paciente?.enderecosContato[0]?.cep : "" }}
+            </p>
+            <p *ngIf = "!temEnderecoBrasil()">
+                <small>{{'detalhePaciente.endereco' | translate}}: </small>
+                {{paciente?.enderecosContato && paciente?.enderecosContato?.length == 1 ? paciente?.enderecosContato[0]?.enderecoEstrangeiro : "" }}
+            </p>
+            <div class="lista-telefone">
+                <p><small>{{'detalhePaciente.telefones' | translate}}: </small></p>
+                <ul>
+                    <li *ngFor=" let contatoTelefonico of paciente.contatosTelefonicos">
+                        <p *ngIf= "contatoTelefonico.tipo == 2" >
+                            <span class="icon-celular"></span>
+                            {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ (contatoTelefonico.complemento ? (" | " + contatoTelefonico.complemento) : '') }} {{ contatoTelefonico.nome ? " (" +  contatoTelefonico.nome + ")" : '' }}
+                            <span class="label label-default" *ngIf="contatoTelefonico.principal">{{ 'detalhePaciente.contatoPrincipal' | translate }}</span>
+                        </p>
+                        <p *ngIf= "contatoTelefonico.tipo == 1" >
+                            <span class="icon-telefone"></span>
+                            {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{(contatoTelefonico.complemento ? (" | " + contatoTelefonico.complemento) : '')}} {{ contatoTelefonico.nome ? " (" +  contatoTelefonico.nome + ")" : ''}}
+                            <span class="label label-default" *ngIf="contatoTelefonico.principal">{{ 'detalhePaciente.contatoPrincipal' | translate }}</span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <p><small>{{'detalhePaciente.email' | translate}}: </small>{{ paciente.email }}</p>
+        </div>
+    </div>
+
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'detalhePaciente.mismatch' | translate}}</h3>
+            <a href="javascript:void(0)" *ngIf="temPermissaoEditarMismatch" class="editar-bloco" (click)="editarDadosMismatch()"><span class="icon-editar"></span> Editar</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" >
+            <div>
+                <p *ngIf="paciente?.aceiteMismatch == 0"><small>{{'detalhePaciente.aceitamismatch' | translate}}: </small>{{ 'textosGenericos.nao' | translate }}</p>
+                <p *ngIf="paciente?.aceiteMismatch == 1"><small>{{'detalhePaciente.aceitamismatch' | translate}}: </small>{{ 'textosGenericos.sim' | translate }}</p>
+                <p *ngIf="paciente?.aceiteMismatch == 1" ><small>{{'detalhePaciente.locus' | translate}}: </small> {{ obterLocusMismatch() }} </p>
+            </div>
+        </div>
+    </div>
+
+</div>

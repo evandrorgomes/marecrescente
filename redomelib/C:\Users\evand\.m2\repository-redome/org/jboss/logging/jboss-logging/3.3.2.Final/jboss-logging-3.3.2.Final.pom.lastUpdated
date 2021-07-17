@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:23:54 BRT 2021
+https\://jcenter.bintray.com/.lastUpdated=1625250234415
+@default-io.spring.repo.maven.release-http\://repo.spring.io/release/.lastUpdated=1625250234049
+http\://repo.spring.io/release/.error=Could not transfer artifact org.jboss.logging\:jboss-logging\:pom\:3.3.2.Final from/to io.spring.repo.maven.release (http\://repo.spring.io/release/)\: Transfer failed for http\://repo.spring.io/release/org/jboss/logging/jboss-logging/3.3.2.Final/jboss-logging-3.3.2.Final.pom 308 Permanent Redirect
+http\://repo.springsource.org/milestone/.error=
+http\://repo.springsource.org/milestone/.lastUpdated=1625250234344

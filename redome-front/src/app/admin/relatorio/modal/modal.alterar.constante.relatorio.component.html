@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <h3 class="text-center">{{ 'admin.modal.titulo' | translate }}</h3>
+    </div>
+</div>
+
+<div class="row" [formGroup]="form()" >
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12 ">
+        <label for="txValor">{{ data?.codigo }}:</label>
+        <input class="form-control" id="txValor"
+                type="text" formControlName="valor" 
+                (blur)="setMensagemErroPorCampo('valor')">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('valor') }}"></msg>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <br />
+        <button type="button" class="btn btn-default btn-lg floatL" (click)="fechar()">
+            {{'botao.cancelar' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary btn-lg floatR" (click)="salvarValorConstante()">
+            {{'botao.salvar' | translate}}
+        </button>
+    </div>
+</div>

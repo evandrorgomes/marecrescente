@@ -1,0 +1,4 @@
+<label [attr.for]="idd">{{ label }}</label>
+ <input #input placeholder="{{ placeHolder }}" [attr.maxlength]="maxLength" [ngClass]="getClazz()" id="{{idd}}" type="{{type}}" tabindex="0"
+    (blur)="onChange($event, input.value)" currencyMask [options]="currencyOption">
+<msg mensagem="{{ getMensagemErro() }}"></msg>

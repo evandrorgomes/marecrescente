@@ -1,0 +1,52 @@
+<div class="etapa6">
+    <div [formGroup]="motivoForm">
+        <div class="row" *ngIf="_exibirrCentroAvaliador" >
+            <div class="form-group col-sm-6 col-xs-12">
+                <label for="ddlCentroAvaliador">{{getLabel('centroAvaliador')}}:</label>
+                <select formControlName="centroAvaliador" class="form-control" id="ddlCentroAvaliador" (change)="filtrarCentrosTransplantadores()" (blur)="setMensagemErroPorCampo('centroAvaliador')">
+                    <option value=""></option>    
+                    <option *ngFor="let c of centrosAvaliadores" value="{{c.id}}">{{c.nome}}</option>
+                </select>
+                <div *ngIf="exibirMensagemErrorPorCampo('centroAvaliador') && motivoForm.get('centroAvaliador').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('centroAvaliador') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6 col-xs-12">
+                <label>{{getLabel('aceiteMismatch')}}?</label>
+                <div class="radio-group">
+                    <input formControlName="aceiteMismatch" id="rdAceitaMismatch" type="radio" value="1" (change)="limparLocus()" (blur)="setMensagemErroPorCampo('aceiteMismatch')">
+                    <label for="rdAceitaMismatch" class="radio-inline">
+                        <span></span>{{ 'textosGenericos.sim' | translate }}
+                    </label>
+                    
+                    <input formControlName="aceiteMismatch" id="rdNaoAceitaMismatch" type="radio" value="0" (change)="limparLocus()" (blur)="setMensagemErroPorCampo('aceiteMismatch')">
+                    <label for="rdNaoAceitaMismatch" class="radio-inline">
+                        <span></span>{{ 'textosGenericos.nao' | translate }}
+                    </label>
+                </div>
+                <div *ngIf="exibirMensagemErrorPorCampo('aceiteMismatch') && motivoForm.get('aceiteMismatch').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('aceiteMismatch') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="exibirLocus()">
+            <div class="form-group col-xs-12 col-xs-12"  formArrayName="locus">
+                <label for="">{{ 'avaliacaoPaciente.qualLocus' | translate }}</label>
+                <div class="checkbox-group">
+                    <span *ngFor="let item of locusMismatchFormArray.controls; index as i"  [formGroupName]="i">
+                        <input id="locus_{{i}}" type="checkbox"  formControlName="selecionado">
+                        <label class="checkbox-inline" for="locus_{{i}}">
+                            <span></span> {{item.get('codigo').value}}*
+                        </label>
+                    </span>
+                </div>
+                <div *ngIf="exibirMensagemErrorPorCampo('nenhumLocusSelcionado')">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('nenhumLocusSelcionado') }}"></msg>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

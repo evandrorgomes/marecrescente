@@ -1,0 +1,730 @@
+/* Estilos modificados do bootstrap */
+/* Consulta de evolução e exame do paciente */
+:host /deep/ .tituloIdPaciente {
+    color: inherit;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+:host /deep/ .tituloIdPaciente, 
+:host /deep/ .infoIdPaciente {
+    display: inline;
+}
+
+:host /deep/ .infoIdPaciente {
+    margin-bottom: 6px;
+}
+
+:host /deep/ .infoIdPaciente small {
+    font-size: 100%;
+}
+
+:host /deep/ .infoIdPaciente small span.glyphicon {
+    position: relative;
+    right: 0;
+    top: 0;
+}
+
+:host /deep/ .infoPaciente {
+    margin-bottom: 20px;
+}
+
+/* :host /deep/ .infoPaciente > div:first-child {
+    border-right: 2px solid #eee;
+} */
+
+:host /deep/ .infoPaciente div div {
+    margin-bottom:8px
+}
+
+:host /deep/ .infoPaciente label {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    margin-bottom: 8px;
+}
+
+:host /deep/ .infoPaciente form select {
+    margin-bottom: 4px;
+}
+
+:host /deep/ .infoPaciente .subTitulo {
+    color: #FF9900;
+    font-weight: bold;
+}
+
+:host /deep/ .infoPaciente p {
+    line-height: 1.8em;
+    margin-bottom: 16px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+:host /deep/ .infoPaciente ul {
+    list-style: none;
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+:host /deep/ .infoPaciente .infoMetodologia .glyphicon {
+    color: limegreen;
+    cursor: initial;
+}
+
+:host /deep/ .infoPaciente .infoMetodologia {
+    margin-right: 10px;
+}
+
+:host /deep/ .checkbox, .radio {
+    margin-top: 0px;
+}
+
+/* :host /deep/ .form-group {
+    margin-bottom: 22px;
+} */
+
+/* :host /deep/ .form-group.col-xs-1 small,
+:host /deep/ .form-group.col-xs-2 small,
+:host /deep/ .form-group.col-xs-3 small,
+:host /deep/ .form-group.col-xs-4 small {
+    width: 120%;
+}
+
+:host /deep/ .form-group.col-xs-5 small,
+:host /deep/ .form-group.col-xs-6 small,
+:host /deep/ .form-group.col-xs-7 small,
+:host /deep/ .form-group.col-xs-8 small,
+:host /deep/ .form-group.col-xs-9 small,
+:host /deep/ .form-group.col-xs-10 small,
+:host /deep/ .form-group.col-xs-11 small,
+:host /deep/ .form-group.col-xs-12 small {
+    width: 100%;
+} */
+
+:host /deep/ .table {
+    margin-bottom: 6px;
+}
+
+:host /deep/ .table td:last-child {
+    vertical-align: middle;
+}
+
+:host /deep/ .table th {
+    background: #fff;
+}
+
+:host /deep/ .formContainer {
+    display: table;
+    margin: 0 auto 20px auto;
+    width: 80%;
+}
+
+:host /deep/ .formContainer .checkbox {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+:host /deep/ .formContainer .rodapeForm {
+    padding-top: 8px;
+}
+
+/* Etapa de contato */
+:host /deep/ .addTelefone span {
+    font-size: 30px;
+}
+
+/* Estilos da tabela de contatos */
+:host /deep/ .table.tableContato td:nth-child(2),
+:host /deep/ .table.tableContato td:nth-child(3) {
+    width: 86px;
+}
+
+:host /deep/ .table.tableContato td:nth-child(7) {
+    width: 48px;
+}
+
+/* Etapa de exame */
+:host /deep/ .listaMetodologia div {
+    display: inline-block;
+    width: 40%;
+}
+
+:host /deep/ .listaMetodologia div div {
+    width: 100%;
+}
+
+/* :host /deep/  .aleloContainer {
+    margin-bottom: 10px;
+    width: 100%;
+} 
+
+:host /deep/ .aleloContainer .addBox {
+    background: #eee;
+}
+
+:host /deep/ .aleloContainer .addBox,
+:host /deep/ .aleloContainer .box  {
+    border-radius: 6px;  
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    margin: 0 6px 6px 0;
+    padding: 10px 10px 4px 10px; 
+    height: 120px;
+    width: 12%;
+}
+
+:host /deep/ .aleloContainer .box {
+    background: yellowgreen; 
+    text-align: center;
+    width: 12%;
+}
+
+:host /deep/ .aleloContainer .box input {
+    margin: 4px 0 4px 0;
+}
+
+:host /deep/ .aleloContainer .box p {
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+    margin: 0;
+    padding-left: 6px;
+}
+
+:host /deep/ .aleloContainer .box span {
+    font-size: 26px;
+    position: absolute;
+    top: 10px;
+    left: 78px;
+}
+
+:host /deep/ .aleloContainer .addBox span {
+    color: #337ab7;
+    position: relative;
+    top: 56px;
+    left: 38px;
+}
+
+:host /deep/ .aleloContainer .box span {
+    color: #fff;
+}*/
+
+/* Estilos da tabela de arquivos de laudo */
+:host /deep/ .table.tableLaudo th:nth-child(1) {
+    width: 95%;
+}
+
+:host /deep/ .table.tableLaudo th:nth-child(2) {
+    width: 5%;
+}
+
+:host /deep/ .selecionaLaudos {
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    margin-bottom: 15px;
+    padding: 6px 0 6px 0;
+}
+/* 
+:host /deep/ .listaLaudos {
+    display: block;
+    padding-bottom: 6px;
+} */
+
+/* Consulta de paciente */
+/* :host /deep/ .paginaConsultaPaciente .pagination, */
+:host /deep/ .paginaConsultaPaciente .form-control {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px 20px 0;
+}
+
+:host /deep/ #tblConsultaPaciente {
+    margin-bottom: 12px;
+}
+
+
+
+:host /deep/ .infoHLA .box {
+    display: inline-block;
+    background: yellowgreen;
+    color: #fff;
+    border-radius: 6px;
+    width: 15%;
+    margin: 0 6px 10px 0;
+    padding: 18px;
+}
+
+:host /deep/ .infoHLA .box p {
+    line-height: 0.8;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+:host /deep/ .infoHLA .box span {
+    display: block;
+}
+
+:host /deep/ .infoLaudos .separaArquivosLaudo {
+    float: left;
+    padding: 4px 0 0 0;
+    width: 100%;
+}
+
+:host /deep/ .infoLaudos .separaArquivosLaudo:nth-child(odd) {
+    background: #f1f1f1;
+}
+
+:host /deep/ .infoLaudos p {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+:host /deep/ .infoLaudos .glyphicon {
+    color: #333;
+    font-size: medium;
+    margin-right: 4px;
+}
+
+:host /deep/ .infoLaudos .glyphicon:last-child {
+    margin-right: 0;
+}
+
+:host /deep/ .listaTransPrevio div {
+    margin-bottom: 10px;
+}
+
+:host /deep/ .listaTransPrevio small {
+    left: 0;
+}
+
+/* Estilos da tabela de consulta de paciente  */
+:host /deep/ .infoPaciente .table tr:nth-of-type(odd) {background:#f1f1f1;}
+
+/* Avaliação de paciente */ 
+:host /deep/ .avaliaDadosPaciente.panel-group {
+    margin-top: 8px;
+}
+
+:host /deep/ .avaliaDadosPaciente.panel-group,
+:host /deep/ .avaliaDadosPaciente.panel-group .panel,
+:host /deep/ .avaliaDadosPaciente.panel-group .panel-heading,
+:host /deep/ .avaliaDadosPaciente.panel-group .panel-title,
+:host /deep/ .avaliaDadosPaciente.panel-group .accordion-toggle,
+:host /deep/ .avaliaDadosPaciente.panel-group .accordion-toggle div {
+    margin-bottom: 0;
+}
+
+:host /deep/ .exibeDadosPendencia div {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+:host /deep/ .exibeDadosPendencia label {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    margin-bottom: 8px;
+}
+
+:host /deep/ .tableControlePendencias .visualizaPendencia,
+:host /deep/ .tableControlePendencias .visualizaPendencia-naoLida {
+    cursor: pointer;
+}
+
+:host /deep/ .tableControlePendencias .visualizaPendencia-naoLida {
+    font-weight: bold;
+}
+
+:host /deep/ .tableControlePendencias th:last-child {
+    width: 104px;
+}
+
+:host /deep/ .containerPendencia {
+    overflow-y: auto;
+}
+
+:host /deep/ .containerPendencia,
+:host /deep/ .boxRespondePendencia {
+    width: 100%;
+}
+
+:host /deep/ .balaoPendenciaPergunta,
+:host /deep/ .balaoPendenciaResposta {
+    border-radius: 8px;
+    width: 80%;
+    margin-bottom: 8px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+:host /deep/ .balaoPendenciaPergunta {
+    background: #eee;
+    float: left;
+    text-align: left;
+}
+
+/* .balaoPendenciaPergunta::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 75px;
+    left: 170px;
+    border: 12px solid;
+    border-color: #eee transparent transparent;
+} */
+
+:host /deep/ .balaoPendenciaResposta {
+    background: palegreen;
+    float: right;
+    text-align: right;
+}
+
+/* .balaoPendenciaResposta::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 143px;
+    right: 170px;
+    border: 12px solid;
+    border-color: palegreen transparent transparent;
+} */
+
+:host /deep/ .boxRespondePendencia {
+    /* background: #eee; */
+    text-align: left;
+    padding: 20px;
+    border-top: 4px solid #fff;
+}
+
+:host /deep/ .formCriarNovaPendencia label {
+    border-bottom: 0;
+}
+
+/* Estilos diversos */
+:host /deep/ .displayInline {
+    display: inline-block;
+}
+
+:host /deep/ .inputMinimo {
+    width: 70px;
+}
+
+:host /deep/ .inputData {
+    width: 50px;
+}
+
+:host /deep/ .labelInvisivel {
+    visibility: hidden;
+}
+
+:host /deep/ .goMobile {
+    display: none;
+}
+
+:host /deep/ .mostraIconeCid {
+    cursor: text;
+    position: absolute;
+    right: 16px;
+    top: 34px;
+    color: #a7a7a7;
+}
+
+:host /deep/ .azul {
+    color: #f38630;
+}
+
+:host /deep/ .amarelo {
+    color: #a7a7a7;
+}
+
+/* 
+:host /deep/ .avaliacoesPendentes {
+    border-right: 2px solid #eee;
+} */
+:host /deep/ .avaliacoesPendentes thead {
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+:host /deep/ .avaliacoesPendentes tbody{
+    border-top: 1px solid #ddd;
+}
+:host /deep/ .avaliacoesPendentes tbody tr:nth-child(odd) td {
+    border-bottom: none;
+}
+:host /deep/ .avaliacoesPendentes tbody tr:nth-child(even) td {
+    border-top: none;
+    padding-top: 0;
+}
+:host /deep/ .avaliacoesPendentes tbody:nth-child(even){
+    background: #f1f1f1;
+}
+
+/* Media queries */
+/* @media screen and (max-width: 1024px) {
+    :host /deep/ [class^="col"] {padding-left: 10px; padding-right: 10px;}
+    :host /deep/ .formContainer {width: 90%;}
+    :host /deep/ .infoPaciente p {padding-right: 40px; padding-left: 40px;}
+} */
+
+@media screen and (max-width: 768px) {
+    /* :host /deep/ [class^="col"] {padding-left: 8px; padding-right: 8px;}
+    :host /deep/ .noMobile {display: none;}
+    :host /deep/ .formContainer {width: 100%;} */
+    /* :host /deep/ .aleloContainer .addBox,  */
+    /* :host /deep/ .aleloContainer .box {width: 14%;}
+    :host /deep/ .aleloContainer .box span {left: 68px;} */
+    :host /deep/ .listaMetodologia div {width: 60%;}
+    :host /deep/ .infoPaciente .infoMetodologia {margin-right: -2px; width: 50%; display: inline-block;}
+    :host /deep/ .infoPaciente p {padding-right: 20px; padding-left: 20px;}
+    :host /deep/ .infoHLA .box {width: 20%;}
+    :host /deep/ .tableContato table, 
+    :host /deep/ .tableContato tbody, 
+    :host /deep/ .tableContato td,
+    :host /deep/ .infoPaciente table, 
+    :host /deep/ .infoPaciente thead, 
+    :host /deep/ .infoPaciente tbody,
+    :host /deep/ .infoPaciente th, 
+    :host /deep/ .infoPaciente td {display: block;}
+    :host /deep/ .infoPaciente tr,
+    :host /deep/ .tableContato tr {border:2px solid #ddd; border-spacing: 0; display: inline-block; vertical-align: top; margin-bottom:4px; width: 49%}
+    :host /deep/ .infoPaciente td,
+    :host /deep/ .tablecontato td {min-height: 30px; vertical-align: middle;}
+    :host /deep/ #tblConsultaPaciente thead th:nth-child(3),
+    :host /deep/ #tblConsultaPaciente thead th:nth-child(4),
+    :host /deep/ #tblConsultaPaciente thead th:nth-child(5),
+    :host /deep/ #tblConsultaPaciente td:nth-child(3),
+    :host /deep/ #tblConsultaPaciente td:nth-child(4),
+    :host /deep/ #tblConsultaPaciente td:nth-child(5) {display: none;}
+    :host /deep/ .tableControlePendencias thead {display: none}
+    :host /deep/ .tableControlePendencias td:first-child {min-height: 50px;}
+    :host /deep/ .tableControlePendencias td:last-child {padding: 10px;}
+    :host /deep/ .tableControlePendencias td span.glyphicon {font-size: 26px;}
+
+    :host /deep/ #tabelaPendencias thead {
+        display: table-header-group;
+    }
+    :host /deep/ #tabelaPendencias tbody {
+        display: table-row-group;
+    }
+    :host /deep/ #tabelaPendencias tr {
+        display: table-row;
+        width: 100%;
+    }
+    :host /deep/ #tabelaPendencias td {
+        display: table-cell;
+        white-space: nowrap;
+    }
+    :host /deep/ #tabelaPendencias th {
+        display: table-cell;
+    }
+    .infoPaciente > div:first-child {
+        border-right: none;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    :host /deep/ .clearfix {display: none;}
+    :host /deep/ .goMobile {display: block;}
+    /* :host /deep/ .conteudo {padding-left:12px; padding-right:12px;} */
+    /* :host /deep/ .conteudo h2 {margin: 0px 0 10px 0;} */
+    :host /deep/ .infoHLA .box {width: 30%;}
+    :host /deep/ .infoHLA .box p {font-size: 26px;}
+    :host /deep/ .infoPaciente > div:first-child {border-right: 0; border-bottom: 2px solid #eee; margin-bottom: 16px;}
+    :host /deep/ .infoPaciente .infoMetodologia {width: 100%;}
+    :host /deep/ .infoPaciente p {padding-left: 20px; padding-right: 20px}
+    :host /deep/ .infoLaudos .glyphicon {font-size: smaller; margin-right: 5px;}
+    :host /deep/ .listaTransPrevio div {display: block; margin-left: 10px; padding: 0;}
+}
+:host /deep/ .table.tableLaudo th {
+    font-size: 12px;
+    color: #767676;
+}
+
+:host /deep/ #btnConsultaRMR {
+    margin: 15px 0 0;
+}
+
+:host /deep/ #txtBuscarCid {
+    padding-right: 20px;
+    width: calc(100% - 20px);
+}
+:host /deep/ .listaTelefone {
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    padding: 0 0 25px;
+    overflow: hidden;
+}
+:host /deep/ .listaTelefone li {
+    margin-bottom: 20px;
+    display: block;
+    float: left;
+    width: 100%;
+}
+:host /deep/ .listaTelefone li div {
+    display: inline-block;
+    margin-left: 5px;
+}
+:host /deep/ .listaTelefone li .listaTelefone-tipo {
+    margin: 0;
+}
+:host /deep/ .listaTelefone li .listaTelefone-ddi {
+    width: 65px;
+    margin: 0
+}
+:host /deep/ .listaTelefone li .listaTelefone-ddd {
+    width: 35px;
+}
+:host /deep/ .listaTelefone li .listaTelefone-tel {
+    width: 90px;
+}
+:host /deep/ .listaTelefone li .listaTelefone-comple {
+    width: calc(100% - 211px);
+}
+:host /deep/ .listaTelefone li .listaTelefone-nome {
+    width: calc(100% - 30px);
+    margin: 0;
+}
+:host /deep/ .listaTelefone li .listaTelefone-check {
+    width: 16px;
+    margin: 0px 0 0 10px;
+    vertical-align: bottom;
+}
+:host /deep/ .listaTelefone li .listaTelefone-check label {
+    margin: 0;
+}
+:host /deep/ .listaTelefone .full-line {
+    display: block;
+    float: left;
+    width: 100%;
+}
+:host /deep/ .listaTelefone li .full-lineNome{
+    display: flex;
+}
+:host /deep/ .listaTelefone li .listaTelefone-check {
+    line-height: 16px;
+    margin-top: 26px;
+}
+:host /deep/ .listaTelefone li .full-lineNome .glyphicon {
+    margin-left: 10px;
+    line-height: 16px;
+    margin-top: 25px;
+    color: #767676;
+}
+:host /deep/ .listaTelefone-msg {
+    margin: -35px 0 25px;
+    overflow: hidden;
+    display: block;
+}
+:host /deep/ .listaTelefone-msg small{
+    margin-top: -5px;
+}
+:host /deep/ .lista-telefone {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+}
+:host /deep/ .lista-telefone p {
+    float: left;
+}
+:host /deep/ .lista-telefone ul {
+    display: block;
+    float: left;
+    padding-left: 5px;
+    margin-bottom: 0;
+}
+:host /deep/ .lista-telefone li {
+    list-style: none;
+    line-height: 24px;
+    color: #767677;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+:host /deep/ .infoMetodologia {
+    display: inline-block;
+    color: #767676;
+    margin: 10px 10PX 10PX 0;
+}
+:host /deep/ .infoMetodologia span {
+    color: #f38630;
+    margin-right: 5px;
+}
+:host /deep/ .baixar-todos {
+    color: #767676;
+    text-decoration: none;
+}
+:host /deep/ .baixar-todos:hovver {
+    color: #f38630;
+}
+:host /deep/ .baixar-todos span {
+    color: #f38630;
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: sub;
+}
+:host /deep/ .wrap-laudo {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+}
+:host /deep/ .wrap-laudo>div {
+    display: inline-block;
+}
+:host /deep/ .listaLaudos {
+    line-height: 30px;
+    color: #767676;
+    font-size: 16px;
+}
+:host /deep/ .listaLaudos p {
+    margin: 0;
+}   
+:host /deep/ .listaLaudos a {
+    color: #767676;
+    font-size: 12px;
+    text-decoration: none;
+    margin-left: 10px;
+    vertical-align: baseline;
+}
+:host /deep/ .listaLaudos a:hover {
+    color: #f38630;
+}
+:host /deep/ .btn-alerta span {
+    font-size: 22px;
+    line-height: 26px;
+}
+@media screen and (min-width: 769px) {
+    :host /deep/ .listaTelefone li div {
+        margin-left: 10px;
+        display: inline-block;
+    }
+    :host /deep/ .listaTelefone .full-line {
+        display: inline-block;
+        width: auto;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-tipo {
+        width: 72px;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-ddi {
+        margin-left: 10px;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-comple {
+        width: 120px;
+    }
+    :host /deep/ .listaTelefone li .listaTelefone-nome {
+        width: calc(100% - 40px);
+        margin-left: 10px;
+    }
+    :host /deep/ .listaTelefone li .full-lineNome{
+        width: calc(100% - 433px);
+    }
+    :host /deep/ .btn-alerta span {
+        padding: 0;
+    }
+}

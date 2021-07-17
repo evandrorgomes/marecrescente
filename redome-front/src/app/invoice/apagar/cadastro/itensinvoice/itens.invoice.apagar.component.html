@@ -1,0 +1,158 @@
+<div>
+   <div class="etapa2" [formGroup]="form()">
+      <div class="row" style="margin-top:  -20px;">
+         <div class="col-sm-6 col-xs-12">
+            <group-radio-component label= ""
+                                   formControlName="tipoConsulta"
+                                   groupClass="form-group form-group-min-height-10"
+                                   rowClass="row"
+                                   columnClass="radio-group col-sm-4 col-xs-12"
+                                   [control]="form().get('tipoConsulta')"
+                                   [optionsLabel]="_labelsTipoConsulta"
+                                   [optionsValue]="_valuesTipoConsulta">
+            </group-radio-component>
+         </div>
+      </div>
+      <div class="row" [hidden]="form().get('tipoConsulta').value != '0'">
+         <div class="form-group col-sm-2 col-xs-12">
+            <input-number-component label="{{ 'invoice.apagar.cadastro.itensinvoice.rmr' | translate }}" formControlName="rmr" [control]="form().get('rmr')"
+                                    [currencyOption]="{ prefix: '', allowNegative : false, thousands: '', precision: '0' }"></input-number-component>
+         </div>
+         <div class="form-group col-sm-8 col-xs-12">
+            <input-component label="{{ 'invoice.apagar.cadastro.itensinvoice.nome' | translate }}" formControlName="nome" [control]="form().get('nome')">
+               </input-component>
+         </div>
+         <div class="form-group col-sm-2 col-xs-12">
+            <button class="btn btn-primary" (click)="pesquisar()">Pesquisar</button>
+         </div>
+      </div>
+
+      <div class="row" [hidden]="form().get('tipoConsulta').value != '1'">
+         <div class="form-group col-sm-10 col-xs-12">
+            <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+         </div>
+         <div class="form-group col-sm-2 col-xs-12">
+            <button class="btn btn-primary" (click)="importar()">Importar</button>
+         </div>
+      </div>
+      <hr/>
+   </div>
+   <div class="row">
+      <div class="col-sm-12 col-xs-12">
+         <h4>Pedidos sem conciliação </h4>
+      </div>
+   </div>
+   <div class="row" *ngIf="paginacao.totalElements && paginacao.totalElements !== 0" >
+      <div class="col-sm-12 col-xs-12 wrap-table">
+         <table id="tblConsultaPaciente" class="table">
+            <thead>
+            <tr>
+               <th>{{'tabela.financeiro.pedidos.semconciliacao.paciente' | translate}}</th>
+               <th>{{'tabela.financeiro.pedidos.semconciliacao.doador' | translate}}</th>
+               <th>{{'tabela.financeiro.pedidos.semconciliacao.tipo' | translate}}</th>
+               <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of paginacao.content; index as i">
+               <td><a href="javascript:return void();" (click)="conciliarItem(item)">{{item.rmr}}</a></td>
+               <td><a href="javascript:return void();" (click)="conciliarItem(item)">{{item.idDoadorInternacional}} </a></td>
+               <td><a href="javascript:return void();" (click)="conciliarItem(item)">{{item?.tipoServico?.descricao}} </a></td>
+               <td class="table-icon text-right">
+
+               </td>
+            </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="row paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements !== 0">
+      <div class="col-sm-12 col-xs-12">
+         <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5"
+                     class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                     (pageChanged)="mudarPaginaPaginacao($event)"
+                     firstText="{{'paginacao.primeiro' | translate}}"
+                     previousText="<span class='icon-seta-esquerda'></span>"
+                     nextText="<span class='icon-seta-direita'></span>"
+                     lastText="{{'paginacao.ultimo' | translate}}"
+         >
+         </pagination>
+      </div>
+      <div class="col-sm-12 col-xs-12 pull-right">
+         <div class="form-group porpagina">
+            <label>Por Página:</label>
+            <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecinaQuantidadePorPagina($event)" >
+               <option value="10">10</option>
+               <option value="20">20</option>
+               <option value="30">30</option>
+               <option value="40">40</option>
+               <option value="50">50</option>
+            </select>
+         </div>
+      </div>
+   </div>
+   <hr/>
+   <div class="row">
+      <div class="col-sm-12 col-xs-12">
+         <h4>Pedidos conciliados </h4>
+      </div>
+   </div>
+   <div class="row" *ngIf="paginacaoConciliado.totalElements && paginacaoConciliado.totalElements !== 0" >
+      <div class="col-sm-12 col-xs-12 wrap-table">
+         <table id="tblPedidosConciliados" class="table">
+            <thead>
+            <tr>
+               <th>{{'tabela.financeiro.pedidos.conciliados.paciente' | translate}}</th>
+               <th>{{'tabela.financeiro.pedidos.conciliados.doador' | translate}}</th>
+               <th>{{'tabela.financeiro.pedidos.conciliados.tipo' | translate}}</th>
+               <th>{{'tabela.financeiro.pedidos.conciliados.numeropagamento' | translate}}</th>
+               <th>{{'tabela.financeiro.pedidos.conciliados.indevido' | translate}}</th>
+               <th>{{'tabela.financeiro.pedidos.conciliados.valor' | translate}}</th>
+               <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of paginacaoConciliado.content; index as i" >
+               <td>{{item.rmr}}</td>
+               <td>{{item.idDoadorInternacional}} </td>
+               <td>{{item.tipoServico.descricao}} </td>
+               <td>{{item.numeroDoPagamento}} </td>
+               <td *ngIf="item.indevido"> {{ 'textosGenericos.sim' | translate }}  </td>
+               <td *ngIf="!item.indevido"> {{ 'textosGenericos.nao' | translate }}  </td>
+               <td class="text-right" >{{ formatarNumero(item.valor)}} </td>
+               <td class="table-icon text-right">
+                     <button class="btn btn-primary" (click)="excluirItem(item.id)">{{ 'botao.excluir' | translate }}</button>
+               </td>
+            </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <div class="row paginaConsultaPaciente" *ngIf="paginacaoConciliado.totalElements && paginacaoConciliado.totalElements !== 0">
+      <div class="col-sm-12 col-xs-12">
+         <pagination [totalItems]="paginacaoConciliado.totalElements" [ngModel]="paginacao.number" [maxSize]="5"
+                     class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoConciliado.quantidadeRegistro"
+                     (pageChanged)="mudarPaginaPaginacaoConciliado($event)"
+                     firstText="{{'paginacao.primeiro' | translate}}"
+                     previousText="<span class='icon-seta-esquerda'></span>"
+                     nextText="<span class='icon-seta-direita'></span>"
+                     lastText="{{'paginacao.ultimo' | translate}}"
+         >
+         </pagination>
+      </div>
+      <div class="col-sm-12 col-xs-12 pull-right">
+         <div class="form-group porpagina">
+            <label>Por Página:</label>
+            <select class="form-control" [(ngModel)]="quantidadeRegistroConciliado" (change)="selecinaQuantidadePorPaginaConciliado($event)" >
+               <option value="10">10</option>
+               <option value="20">20</option>
+               <option value="30">30</option>
+               <option value="40">40</option>
+               <option value="50">50</option>
+            </select>
+         </div>
+      </div>
+   </div>
+
+
+</div>

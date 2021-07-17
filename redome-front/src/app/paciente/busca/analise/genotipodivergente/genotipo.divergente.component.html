@@ -1,0 +1,147 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'genotipodivergente.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()" >
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a> 
+                <a id="idSolicitarCT" type="button" class="btn btn-setting btn-default" (click)="abrirModalPedidoExameNacional()" *ngIf="doadorNacional() && naoExisteSolicitacaoFase3EmAberto()" >
+                        {{'botao.solicitar.exameFase3' | translate}}</a>                            
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <h4>{{'textosGenericos.genotipo' | translate}}:</h4>
+                <div class="genotipo aleloContainer">
+                    <div class="box melhorResolucao" *ngFor="let genotipo of _genotipos">
+                        <p>{{ genotipo.locus }}*
+                            <span class="divergente" *ngIf="genotipo.divergentePrimeiroAlelo || genotipo.divergenteSegundoAlelo" (click)="mostrarExames(genotipo.examePrimeiroAlelo, genotipo.locus)" >!</span>
+                        </p>
+                        <small>
+                            {{genotipo.primeiroAlelo}}
+                        </small>
+                        <small>
+                            {{genotipo.segundoAlelo}}                            
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />        
+        <div class="row" *ngIf="_exames && _exames.length !== 0">
+            <div class="col-sm-3 col-xs-12">
+                <group-radio-component label="{{ 'genotipodivergente.divergencia' | translate }}" [optionsLabel]="motivosLabel()" [optionsValue]="motivosId()" [(ngModel)]="_idMotivoSelecionado"
+                    rowClass="row" columnClass="radio-group col-sm-6 col-xs-12"  (change)="limparValoresSelecionados()"  ></group-radio-component> 
+            </div>
+            <div class="col-sm-2 col-xs-12">
+                <button type="button" class="btn btn-primary" (click)="saveLocusDivergente()" [disabled]="desabilitarBotaoSalvar()" > Salvar </button> 
+            </div>
+        </div>        
+        <div class="row form-group">
+            <msg mensagem="{{ _mensagemValidacao }}"></msg>
+        </div>        
+        <div class="row wrap-bloco" >
+            <div class="col-sm-6  col-xs-6 col-md-6 remove-borda dados-bloco textarea-bloco" *ngIf="_exames?.length !== 0 ">
+                <div class="row">
+                    <div class="col-sm-6  col-xs-6 col-md-6" *ngFor="let _exame of _exames; index as index"  >
+                        <h5 *ngIf="_exame.exameDoGenotipo" > {{ 'genotipodivergente.examedogenotipo' | translate }}</h5>
+                        <h5 *ngIf="_exame.exameDivergente"> {{ 'genotipodivergente.examedivergente' | translate }}</h5>
+                        <h5 *ngIf="!_exame.exameDoGenotipo && !_exame.exameDivergente"  >{{ 'genotipodivergente.examePedidoCT' | translate:{'index': index} }} </h5>
+                        
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <small>{{ 'textosGenericos.locus' | translate }} : </small>                        
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame.locus }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <small>{{ 'textosGenericos.alelo1' | translate }}: </small>                        
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame.primeiroAlelo }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <small>{{ 'textosGenericos.alelo2' | translate }}: </small>
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame.segundoAlelo }}</span>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="_exame?.dataExame">
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <small>{{ 'genotipodivergente.dataexame' | translate }}: </small>
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame.dataExame | date : 'dd/MM/yyyy' }}</span>
+                            </div>                    
+                        </div>
+
+                        <div class="row" *ngIf="_exame.laboratorio">
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <small>{{ 'genotipodivergente.laboratorio' | translate }}: </small>
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame.laboratorio.nome }}</span>
+                            </div>                    
+                        </div>
+                        <div class="row" *ngIf="_exame?.metodologias">
+                            <div class="col-sm23 col-xs-2 col-md-2">
+                                <small>{{ 'genotipodivergente.metodologias' | translate }}: </small>
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame?.metodologias }}</span>
+                            </div>                                        
+                        </div>
+                        <div class="row" *ngIf="_exame?.primeiroAleloComposicao">
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <small>{{ 'genotipodivergente.composicaoalelo1' | translate }}: </small>
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame?.primeiroAleloComposicao }}</span>
+                            </div>                                        
+                        </div>
+                        <div class="row" *ngIf="_exame?.segundoAleloComposicao">
+                            <div class="col-sm-2 col-xs-2 col-md-2">
+                                <small>{{ 'genotipodivergente.composicaoalelo2' | translate }}: </small>
+                            </div>
+                            <div class="col-sm-4 col-xs-4 col-md-6">
+                                <span class="texto-bloco">{{ _exame?.segundoAleloComposicao }}</span>
+                            </div>                                        
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="form-group col-xs-6 col-md-4" *ngIf="_temPermissaoDescartar && _idMotivoSelecionado">
+                                    <input class="form-control" id="exameSelecionado-{{ index }}" type="checkbox" [(ngModel)]="_exame.selecionado">
+                                    <label for="exameSelecionado-{{ index }}"><span></span>{{ 'genotipodivergente.selecionar' | translate }}</label>                                    
+                                </div>
+                                <div class="col-xs-6 col-md-4" *ngIf="_idMotivoSelecionado">
+                                    <a id="idEmail" type="button" class="btn btn-primary" (click)="abrirModalEditarEmail(index)" *ngIf="doadorNacional()" >
+                                        <span class="glyphicon glyphicon-envelope"></span>   {{'botao.email' | translate}}</a>
+                                </div>
+                            </div>                                
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

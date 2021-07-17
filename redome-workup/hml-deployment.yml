@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-workup-svc
+  namespace: hml
+spec:
+  type: NodePort
+  selector:
+    app: redome-workup
+    namespace: hml
+  ports:
+    - protocol: TCP
+      port: 9004
+      targetPort: 9004
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-workup-deployment
+  namespace: hml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-workup
+      namespace: hml
+  template:
+    metadata:
+      labels:
+        app: redome-workup
+        namespace: hml
+    spec:
+       hostname: redome-workup
+       subdomain: redome-workup-svc          
+       containers:
+       -  name: redome-workup
+          image: $IMAGE_NAME
+          env:
+          -  name: profile
+             value: hml
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "768Mi"
+            limits:
+              cpu: "100m"
+              memory: "1536Mi"
+          volumeMounts:
+            - mountPath: "/logs"
+              name: apilog      
+       volumes:
+         - name: apilog
+           persistentVolumeClaim:
+             claimName: inca-pvc
+         

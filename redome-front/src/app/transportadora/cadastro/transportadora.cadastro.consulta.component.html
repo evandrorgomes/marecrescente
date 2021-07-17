@@ -1,0 +1,14 @@
+<ng-template #consulta>
+</ng-template>
+
+<div *filtro>
+    <div class="form-group col-xs-12 col-sm-4">
+        <label>{{'manterTransportadora.filtros.pesquisarNome' | translate}}</label>
+        <input class="form-control" type="text" [(ngModel)]="filtrarPorNome"/>
+    </div>
+    <div class="col-sm-2 col-xs-12">
+        <button class="btn btn-lg btn-primary btn-block" (click)="listarUtilizandoFiltros()">
+            {{'botao.consultar' | translate}}
+        </button>
+    </div>
+</div>

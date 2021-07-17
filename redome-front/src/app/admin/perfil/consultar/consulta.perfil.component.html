@@ -1,0 +1,93 @@
+<h2>{{'manterPerfil.consultaForm.titulo' | translate}}</h2>
+<p>{{'manterPerfil.consultaForm.informativo' | translate}}</p>
+<form [formGroup]="consultaForm" (ngSubmit)="onSubmit(1)" >
+    <div class="form-group row" >
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <label for="txtConsultaNome">{{'manterPerfil.consultaForm.querytring' | translate}}</label>
+            <input id="txtConsultaNome" class="form-control" type="text" formControlName="querystring" />
+        </div>
+        <div class="col-xs-8 goMobile">
+            <label class="labelInvisivel">Espaçador</label>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+        
+            <button id="btnConsultaRMR" class="btn btn-primary pull-right" type="submit">{{'botao.consultar' | translate}} </button>
+        </div>
+    </div>
+</form>
+
+
+
+<!-- Tabela que exibe o resultado da busca -->
+<div class="row" *ngIf="paginacao.totalElements && paginacao.totalElements != 0" >
+    <div class="col-lg-12 col-sm-12 col-xs-12 wrap-table">
+        <table id="tblConsultaPaciente" class="table">
+            <thead>
+                <tr>
+                    <th>{{'manterPerfil.consultaForm.tabela.nome' | translate}}</th>
+                    <th class="text-center">{{'manterPerfil.consultaForm.tabela.qtUsuarios' | translate}}</th>                   
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let perfil of paginacao.content; index as i" >
+                    <td>{{perfil.descricao}}</td>                   
+                    <td class="text-center">{{formataQtUsuario(perfil.qtUsuarios)}} </td>     
+                  
+                    <!-- colocar o routerlink quando tiver a tela de detalhe  -->
+                    <td>                  
+                        <span  (click)="excluirPerfil(perfil.id)"
+                            class="glyphicon glyphicon-trash" title="{{ 'manterPerfil.consultaForm.icone.excluirPerfil' | translate }}">
+                        </span>                        	
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+<!-- Paginação e quantidade de registros -->
+<div class="row text-right paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+    <div class="col-sm-12 col-xs-12">
+        <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5" 
+                class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                (pageChanged)="mudarPagina($event)" 
+                firstText="{{'paginacao.primeiro' | translate}}"
+                previousText="<span class='icon-seta-esquerda'></span>"
+                nextText="<span class='icon-seta-direita'></span>"
+                lastText="{{'paginacao.ultimo' | translate}}"
+                ></pagination>
+    </div>
+    <div class="col-sm-12 col-xs-12 pull-right">
+        <div class="form-group porpagina">
+            <label>Por Página:</label>
+            <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecionaQuantidadePorPagina($event)" >
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" bsModal #mensagemModal="bs-modal" [config]="{backdrop: 'static', keyboard: false}" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="close" type="button" class="close" (click)="fecharModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-center">{{ mensagem }}</h3>
+            </div>
+        </div>
+    </div>
+</div>

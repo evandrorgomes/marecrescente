@@ -1,0 +1,5 @@
+export enum StatusContato {
+    NAO_ATENDIDO,
+    ATENDIDO_POR_TERCEIROS,
+    ATENDIDO_PELO_DOADOR
+}

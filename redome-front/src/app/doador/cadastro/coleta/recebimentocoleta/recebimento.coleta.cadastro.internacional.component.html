@@ -1,0 +1,287 @@
+<div class="container conteudo" [formGroup]="form()">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.recebimentoColeta.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+                <div class="col-sm-12 col-xs-12">
+                    <span>
+                        <a id="" type="button" class="btn btn-setting btn-default" (click)="voltar()">
+                            <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                    </span>
+                    <span>
+                        <a id="" type="button" class="btn btn-setting btn-primary"  (click)="salvarRecebimentoColeta()">
+                           <span class="glyphicon glyphicon-ok"></span> {{'botao.salvar' | translate}}</a>
+                    </span>
+                </div>
+            </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h4>
+                    {{ 'workup.recebimentoColeta.doador' | translate }}: {{ identificacaoDoador }}
+                </h4>
+            </div>
+        </div>
+        <div class="row" *ngIf="exibirOpcaoMedulaESangue; else elseCordao">
+          <div  class="form-group col-sm-6 col-xs-12">
+              <group-radio-component label="{{ 'workup.recebimentoColeta.tipoProduto' | translate }}:"
+                  id="fonteCelula"
+                  formControlName="fonteCelula"
+                  [control]="form().controls['fonteCelula']"
+                  [optionsLabel]="labelsMedulaSangue"
+                  [optionsValue]="opcoesMedulaSangue"
+                  (change) = limparProdutoColetado()
+                  columnClass="radio-group col-sm-4 col-xs-12">
+              </group-radio-component>
+          </div>
+        </div>
+        <ng-template #elseCordao>
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-12">
+                <label>{{ 'workup.recebimentoColeta.tipoProduto' | translate }}:</label> {{ 'textosGenericos.cordao' | translate }}
+            </div>
+          </div>
+        </ng-template>
+
+        <div class="row" >
+            <div class="form-group col-sm-2 col-xs-12">
+                <input-component
+                        label="{{ 'workup.recebimentoColeta.numerodebolsas' | translate }}:"
+                        formControlName="numeroDeBolsas"
+                        [control]="form().controls['numeroDeBolsas']"
+                        idd="txtNumeroDeBolsas">
+                </input-component>
+            </div>
+            <div class="form-group col-sm-2 col-xs-12">
+                <input-component
+                        label="{{ 'workup.recebimentoColeta.totalcelulasnucleadas' | translate }}:"
+                        formControlName="totalTotalTcn"
+                        [control]="form().controls['totalTotalTcn']"
+                        idd="txtTotalTotalTcn">
+                </input-component>
+            </div>
+            <div class="form-group col-sm-2 col-xs-12">
+                <input-component
+                      label="{{ 'workup.recebimentoColeta.volume' | translate }}:"
+                      formControlName="volume"
+                      [control]="form().controls['volume']"
+                      idd="txtVolume">
+                </input-component>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="page-title h2 col-xs-12 col-sm-12" style="margin-top: 20px !important;">
+              <h2>{{ 'workup.recebimentoColeta.listaChecagem' | translate }}</h2>
+          </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                <group-radio-component label= "{{ 'workup.recebimentoColeta.motivoprodutocoletadodeacordo1' | translate }}"
+                    id="produtoColetadoDeAcordo"
+                    formControlName="produtoColetadoDeAcordo"
+                    [control]="form().controls['produtoColetadoDeAcordo']"
+                    [optionsLabel]="labelsSimNao"
+                    [optionsValue]="opcoesSimNao"
+                    (change)="isExibirMotivoProdutoColetadoIncorreto(form().controls['produtoColetadoDeAcordo'].value)"
+                    columnClass="radio-group col-sm-2 col-xs-12">
+                </group-radio-component>
+            </div>
+        </div>
+        <div class="row" *ngIf="exibirMotivoProdutoColetadoIncorreto">
+          <div class="form-group col-sm-6 col-xs-12">
+              <textarea-component
+                      label="{{ 'workup.recebimentoColeta.motivoprodutocoletadodeacordo2' | translate }}:"
+                      formControlName="motivoProdutoColetadoIncorreto"
+                      [control]="form().controls['motivoProdutoColetadoIncorreto']"
+                      rows="2"
+                      idd="txtMotivoProdutoColetadoIncorreto">
+              </textarea-component>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-sm-6 col-xs-12">
+              <group-radio-component label= "{{ 'workup.recebimentoColeta.inconformidadeidentificacaodoadorconfere1' | translate }}"
+                  id="identificacaoDoadorConfere"
+                  formControlName="identificacaoDoadorConfere"
+                  [control]="form().controls['identificacaoDoadorConfere']"
+                  [optionsLabel]="labelsSimNao"
+                  [optionsValue]="opcoesSimNao"
+                  (change)="isExibirMotivoIdentificacaoDoadorIncorreta(form().controls['identificacaoDoadorConfere'].value)"
+                  columnClass="radio-group col-sm-2 col-xs-12">
+              </group-radio-component>
+          </div>
+        </div>
+        <div class="row" *ngIf="exibirMotivoIdentificacaoDoadorIncorreta" >
+          <div class="form-group col-sm-6 col-xs-12">
+              <textarea-component
+                      label="{{ 'workup.recebimentoColeta.inconformidadeIdentificacaodoadorconfere2' | translate }}:"
+                      formControlName="motivoIdentificacaoDoadorIncorreta"
+                      [control]="form().controls['motivoIdentificacaoDoadorIncorreta']"
+                      rows="2"
+                      idd="txtMotivoIdentificacaoDoadorIncorreta">
+              </textarea-component>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-sm-6 col-xs-12">
+              <group-radio-component label= "{{ 'workup.recebimentoColeta.inconformidadeprodudoacondicionadocorreto1' | translate }}"
+                  id="produdoAcondicionadoCorreto"
+                  formControlName="produdoAcondicionadoCorreto"
+                  [control]="form().controls['produdoAcondicionadoCorreto']"
+                  [optionsLabel]="labelsSimNao"
+                  [optionsValue]="opcoesSimNao"
+                  (change)="isExibirMotivoProdudoAcondicionadoIncorreto(form().controls['produdoAcondicionadoCorreto'].value)"
+                  columnClass="radio-group col-sm-2 col-xs-12">
+              </group-radio-component>
+          </div>
+        </div>
+        <div class="row" *ngIf="exibirMotivoProdudoAcondicionadoIncorreto" >
+          <div class="form-group col-sm-6 col-xs-12">
+              <textarea-component
+                      label="{{ 'workup.recebimentoColeta.inconformidadeprodudoacondicionadocorreto2' | translate }}:"
+                      formControlName="motivoProdudoAcondicionadoIncorreto"
+                      [control]="form().controls['motivoProdudoAcondicionadoIncorreto']"
+                      rows="2"
+                      idd="txtMotivoProdudoAcondicionadoIncorreto">
+              </textarea-component>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-sm-6 col-xs-12">
+              <group-radio-component label= "{{ 'workup.recebimentoColeta.descrevaprodudoeventoadverso1' | translate }}"
+                  id="produdoEventoAdverso"
+                  formControlName="produdoEventoAdverso"
+                  [control]="form().controls['produdoEventoAdverso']"
+                  [optionsLabel]="labelsSimNao"
+                  [optionsValue]="opcoesSimNao"
+                  (change)="isExibirDescrevaProdudoEventoAdverso(form().controls['produdoEventoAdverso'].value)"
+                  columnClass="radio-group col-sm-2 col-xs-12">
+              </group-radio-component>
+          </div>
+        </div>
+        <div class="row" *ngIf="exibirDescrevaProdudoEventoAdverso">
+          <div class="form-group col-sm-6 col-xs-12">
+              <textarea-component
+                      label="{{ 'workup.recebimentoColeta.descrevaprodudoeventoadverso2' | translate }}:"
+                      formControlName="descrevaProdudoEventoAdverso"
+                      [control]="form().controls['descrevaProdudoEventoAdverso']"
+                      rows="2"
+                      idd="txtDescrevaProdudoEventoAdverso">
+              </textarea-component>
+          </div>
+        </div>
+
+        <div class="row" >
+          <div class="form-group col-sm-6 col-xs-12">
+              <textarea-component
+                      label="{{ 'workup.recebimentoColeta.comentarioadicional' | translate }}:"
+                      formControlName="comentarioAdicional"
+                      [control]="form().controls['comentarioAdicional']"
+                      rows="2"
+                      idd="txtComentarioAdicional">
+              </textarea-component>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="page-title h2 col-xs-12 col-sm-12" style="margin-top: 20px !important;">
+              <h2>{{ 'workup.recebimentoColeta.dadostransplante' | translate }}</h2>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-sm-2 col-xs-12">
+              <input-component
+                  label="{{ 'workup.recebimentoColeta.datarecebimento' | translate }}:"
+                  formControlName="dataRecebimento"
+                  [control]="form().controls['dataRecebimento']"
+                  idd="txtDataRecebimento"
+                  [mascara]="maskData"
+                  placeholder="DD/MM/AAAA">
+              </input-component>
+          </div>
+        </div>
+
+        <div class="row">
+          <div  class="form-group col-sm-10 col-xs-12">
+              <group-radio-component label="{{ 'workup.recebimentoColeta.destino' | translate }}:"
+                  id="destino"
+                  formControlName="destino"
+                  [control]="form().controls['destino']"
+                  [optionsLabel]="labelsInfusaoCongelamentoDesprezado"
+                  [optionsValue]="opcoesInfusaoCongelamentoDesprezado"
+                  (change)="isExibirDadosDestino(form().controls['destino'].value)"
+                  columnClass="radio-group col-sm-2 col-xs-12">
+              </group-radio-component>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="exibirDataInfusao">
+          <div class="form-group col-sm-2 col-xs-12">
+              <input-component
+                  label="{{ 'workup.recebimentoColeta.datainfusao' | translate }}:"
+                  formControlName="dataInfusao"
+                  [control]="form().controls['dataInfusao']"
+                  idd="txtDataInfusao"
+                  [mascara]="maskData"
+                  placeholder="DD/MM/AAAA">
+              </input-component>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="exibirDataPrevista">
+          <div class="form-group col-sm-2 col-xs-12">
+              <input-component
+                  label="{{ 'workup.recebimentoColeta.dataprevista' | translate }}:"
+                  formControlName="dataPrevistaInfusao"
+                  [control]="form().controls['dataPrevistaInfusao']"
+                  idd="txtDataPrevistaInfusao"
+                  [mascara]="maskData"
+                  placeholder="DD/MM/AAAA">
+              </input-component>
+          </div>
+          <div class="form-group col-sm-6 col-xs-12">
+            <input-component
+                    label="{{ 'workup.recebimentoColeta.justificativa' | translate }}:"
+                    formControlName="justificativaCongelamento"
+                    [control]="form().controls['justificativaCongelamento']"
+                    idd="txtJustificativaCongelamento">
+            </input-component>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="exibirDataDescarte">
+          <div class="form-group col-sm-2 col-xs-12">
+              <input-component
+                  label="{{ 'workup.recebimentoColeta.datadescarte' | translate }}:"
+                  formControlName="dataDescarte"
+                  [control]="form().controls['dataDescarte']"
+                  idd="txtDataDescarte"
+                  [mascara]="maskData"
+                  placeholder="DD/MM/AAAA">
+              </input-component>
+          </div>
+          <div class="form-group col-sm-6 col-xs-12">
+            <input-component
+                    label="{{ 'workup.recebimentoColeta.justificativa' | translate }}:"
+                    formControlName="justificativaDescarte"
+                    [control]="form().controls['justificativaDescarte']"
+                    idd="txtJustificativaDescarte">
+            </input-component>
+          </div>
+        </div>
+
+    </div>
+</div>

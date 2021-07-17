@@ -1,0 +1,69 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.resultadoworkup.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <!-- <div class="row">
+            <div class="col-sm-4 col-sm-offset-8 col-xs-12 centrotransplante">
+                <select-centros-component #selectCentros
+                    [showAvaliadorOption]="false"
+                    [showTransplantadorOption]="false"
+                    [showColetaOption] = "true"
+                    (change)="mudarCentroTransplante(selectCentros.value)">
+                </select-centros-component>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <h4>{{'avaliacao.resultadoworkup.resultados' | translate}}</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-1">{{'avaliacao.resultadoworkup.rmr' | translate}}</td>
+                            <td class="col-sm-3">{{'avaliacao.resultadoworkup.nomePaciente' | translate}}</td>
+                            <td class="col-sm-3">{{'avaliacao.resultadoworkup.idDoador' | translate}}</td>
+                            <td class="col-sm-3">{{'avaliacao.resultadoworkup.nomeDoador' | translate}}</td>
+                            <td class="col-sm-2">{{'avaliacao.resultadoworkup.aging' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let tarefa of paginacaoTarefas?.content; index as i" (click)="carregarResultadoWorkup(tarefa)"  >
+                            <td>{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.busca?.paciente?.rmr}}</td>
+                            <td>{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.busca?.paciente?.nome}}</td>
+                            <td>{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.doador?.dmr}}</td>
+                            <td>{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.doador?.nome}}</td>
+                            <td>{{tarefa?.aging}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoTarefas?.totalElements && paginacaoTarefas?.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoTarefas?.totalElements" [ngModel]="paginacaoTarefas?.number" [maxSize]="5" class="pagination-sm pagination-wrap"
+                    [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoTarefas?.quantidadeRegistro" (pageChanged)="mudarPaginaAvaliacoes($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}" previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>" lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroResultados" (change)="selecionaQuantidadeAvaliacoesPorPagina($event)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<modal mensagem="" #modalErro></modal>

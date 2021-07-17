@@ -1,0 +1,42 @@
+<div class="col-sm-12 col-xs-12 header-paciente">
+    <span>
+        <h4>
+            {{paciente ? ('RMR ' + paciente.rmr + ' : ' + (paciente.nome ? paciente.nome : paciente.nomeAbreviado) + '  | ') : '' }}
+        </h4>
+        <small>{{sexo ? sexo + ', ' : ''}}</small>
+        <small>{{idade ? idade + ', ' : ''}}</small>
+        <small>{{peso ? peso + ', ' : ''}}</small>
+        <small><span class="icon-sangue" *ngIf="paciente?.abo"></span>{{paciente?.abo}}</small>
+        <small class="header-cid" *ngIf="statusPaciente"><b>{{ 'header.situacao' | translate }}:</b> {{statusPaciente}}</small>
+        <small class="header-cid" *ngIf="cid && !exibirSomenteDadosPessoais">
+            <span class="mostraIconeCid icon-cid" [ngClass]="isContempladoPortaria"></span>{{cid}} - {{descricaoCid}}
+            <span><a *ngIf="exibirGenotipo" id="idSalvar" type="button" class="btn btn-setting btn-primary" style="border:none" (click)="exibirOcultarDivGenotipo()"><span class="icon-genotipo"></span></a></span>
+        </small>
+        <small *ngIf="nomeMedicoResponsavel && !exibirSomenteDadosPessoais">{{ 'header.medicoResponsavel' | translate }}: <b>{{ nomeMedicoResponsavel }}</b></small>        
+        <div  *ngIf="exibirGenotipo && exibirDivGenotipo" class="col-sm-9 col-xs-12 aleloContainer">
+                <div class="row">
+                    <div *ngFor="let locus of genotipoLista; index as i">
+                        <div class="box">
+                            <p>{{ locus.locus }}*</p>
+                            <small triggers="" container="body">
+                                {{ locus.primeiroAlelo }}
+                            </small>
+                            <small>
+                                {{ locus.segundoAlelo }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div  *ngIf="exibirGenotipo && exibirDivGenotipo" class="col-sm-9 col-xs-12" style="padding-left: 0;">    
+            <div class="row text-left">
+                <span *ngIf="deveExibirStatus" class="label label-success">{{ statusExame }}</span>
+                <a id="idSolicitarPedidoFase3" type="button" class="btn btn-setting btn-primary" (click)="exibirModalSolicitarFase3(1)" *ngIf="deveExibirBotaoFase3" ><span class="glyphicon icon-exames"></span> {{'botao.solicitar.exameFase3' | translate}}</a>
+                <a id="idSolicitarPedidoSwabFase3" type="button" class="btn btn-setting btn-primary" (click)="exibirModalSolicitarFase3(6)" *ngIf="deveExibirBotaoFase3" ><span class="glyphicon icon-exames"></span> {{'botao.solicitar.exameSwabFase3' | translate}}</a>                    
+                <a id="idSolicitarPedidoSangueSwabFase3" type="button" class="btn btn-setting btn-primary" (click)="exibirModalSolicitarFase3(5)" *ngIf="deveExibirBotaoFase3" ><span class="glyphicon icon-exames"></span> {{'botao.solicitar.exameSangueSwabFase3' | translate}}</a>
+            </div>
+        </div>
+
+    </span>
+</div>

@@ -1,0 +1,349 @@
+CREATE TABLE MODRED.RASCUNHO 
+(
+  RASC_ID NUMBER NOT NULL 
+, USUA_ID NUMBER NOT NULL 
+, RASC_TX_JSON BLOB NOT NULL 
+, CONSTRAINT PK_RASC PRIMARY KEY 
+  (
+    RASC_ID 
+  )
+);
+
+ALTER TABLE MODRED.RASCUNHO
+ADD CONSTRAINT FK_RASC_USUA FOREIGN KEY
+(
+  USUA_ID 
+)
+REFERENCES MODRED.USUARIO
+(
+  USUA_ID 
+)
+ENABLE;
+
+COMMENT ON TABLE MODRED.RASCUNHO IS 'Rascunho do cadastro de paciente por usuário.';
+
+COMMENT ON COLUMN MODRED.RASCUNHO.RASC_ID IS 'Identificação do rascunho ';
+
+COMMENT ON COLUMN MODRED.RASCUNHO.USUA_ID IS 'Referência do usuário que é dono do rascunho';
+
+COMMENT ON COLUMN MODRED.RASCUNHO.RASC_TX_JSON IS 'Objeto em formato JSON do paciente ';
+
+CREATE INDEX MODRED.IN_FK_RASC_USUA ON MODRED.RASCUNHO (USUA_ID ASC);
+
+
+CREATE SEQUENCE  "MODRED"."SQ_RASC_ID"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+
+/***** Configuração Draft ******/
+INSERT INTO MODRED.CONFIGURACAO (CONF_ID, CONF_TX_VALOR) VALUES ('tempoSalvarRascunhoEmSegundos', '60');
+COMMIT;
+
+
+/******* Auditoria do exame *****************/
+ALTER TABLE MODRED.EXAME 
+ADD (USUA_ID NUMBER );
+
+COMMENT ON COLUMN MODRED.EXAME.USUA_ID IS 'Referencia do usuario que cadastrou';
+
+UPDATE MODRED.EXAME SET USUA_ID = 1;
+
+ALTER TABLE MODRED.EXAME  
+MODIFY (USUA_ID NOT NULL);
+
+ALTER TABLE MODRED.EXAME
+ADD CONSTRAINT FK_EXAM_USUA FOREIGN KEY
+(
+  USUA_ID 
+)
+REFERENCES MODRED.USUARIO
+(
+  USUA_ID 
+)
+ENABLE;
+
+CREATE INDEX MODRED.IN_FK_EXAM_USUA ON MODRED.EXAME (USUA_ID ASC);
+
+/****** Auditoria Evolução *************/
+ALTER TABLE MODRED.EVOLUCAO 
+ADD (USUA_ID NUMBER );
+
+COMMENT ON COLUMN MODRED.EVOLUCAO.USUA_ID IS 'Chave estrangeira para o usuário';
+
+UPDATE MODRED.EVOLUCAO SET USUA_ID = 1;
+COMMIT;
+
+ALTER TABLE EVOLUCAO  
+MODIFY (USUA_ID NOT NULL);
+
+ALTER TABLE MODRED.EVOLUCAO
+ADD CONSTRAINT FK_EVOL_USUA FOREIGN KEY
+(
+  USUA_ID 
+)
+REFERENCES USUARIO
+(
+  USUA_ID 
+)
+ENABLE;
+
+CREATE INDEX MODRED.IN_FK_EVOL_USUA ON MODRED.EVOLUCAO (USUA_ID ASC);
+
+
+/******* Ajustando tempo de salvar draf para 30 segundos **********/
+UPDATE MODRED.CONFIGURACAO SET CONF_TX_VALOR = '30' WHERE CONF_ID = 'tempoSalvarRascunhoEmSegundos';
+commit;
+
+--------------------------------------------------------
+--  Inicio Script Auditoria   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table AUDITORIA
+--------------------------------------------------------
+
+  CREATE TABLE "MODRED"."AUDITORIA" 
+   (	"AUDI_ID" NUMBER, 
+	"AUDI_DT_DATA" TIMESTAMP (6), 
+	"AUDI_TX_USUARIO" VARCHAR2(20 BYTE)
+   );
+
+COMMENT ON TABLE MODRED.AUDITORIA IS 'Tabela que armazena dados de auditoria no sistema.';
+COMMENT ON COLUMN MODRED.AUDITORIA.AUDI_ID IS 'Identificador da auditoria';
+COMMENT ON COLUMN MODRED.AUDITORIA.AUDI_DT_DATA IS 'Data em que a ação foi efetuada.';
+COMMENT ON COLUMN MODRED.AUDITORIA.AUDI_TX_USUARIO IS 'Usuário que efetuou a ação.';
+--------------------------------------------------------
+--  DDL for Table CONTATO_TELEFONICO_AUD
+--------------------------------------------------------
+
+  CREATE TABLE "MODRED"."CONTATO_TELEFONICO_AUD" 
+   (	"COTE_ID" NUMBER, 
+	"AUDI_ID" NUMBER, 
+	"AUDI_TX_TIPO" NUMBER(3), 
+	"COTE_NR_COD_AREA" NUMBER(10), 
+	"COTE_NR_COD_INTER" NUMBER(10), 
+	"COTE_TX_COMPLEMENTO" VARCHAR2(255 BYTE), 
+	"COTE_TX_NOME" VARCHAR2(255 BYTE), 
+	"COTE_NR_NUMERO" NUMBER, 
+	"COTE_IN_PRINCIPAL" NUMBER(1), 
+	"COTE_IN_TIPO" NUMBER(1), 
+	"PACI_NR_RMR" NUMBER
+   );
+   
+   COMMENT ON TABLE MODRED.CONTATO_TELEFONICO_AUD IS 'Tabela de auditoria da tabela CONTATO_TELEFONICO.';
+--------------------------------------------------------
+--  DDL for Table DIAGNOSTICO_AUD
+--------------------------------------------------------
+
+  CREATE TABLE "MODRED"."DIAGNOSTICO_AUD" 
+   (	"PACI_NR_RMR" NUMBER, 
+	"AUDI_ID" NUMBER, 
+	"AUDI_TX_TIPO" NUMBER(3), 
+	"DIAG_DT_DIAGNOSTICO" DATE, 
+	"CID_ID" NUMBER
+   );
+   
+    COMMENT ON TABLE MODRED.DIAGNOSTICO_AUD IS 'Tabela de auditoria da tabela DIAGNOSTICO.';
+--------------------------------------------------------
+--  DDL for Table ENDERECO_CONTATO_AUD
+--------------------------------------------------------
+
+  CREATE TABLE "MODRED"."ENDERECO_CONTATO_AUD" 
+   (	"ENCO_ID" NUMBER, 
+	"AUDI_ID" NUMBER, 
+	"AUDI_TX_TIPO" NUMBER(3), 
+	"ENCO_TX_BAIRRO" VARCHAR2(255 BYTE), 
+	"ENCO_CEP" VARCHAR2(255 BYTE), 
+	"ENCO_TX_COMPLEMENTO" VARCHAR2(255 BYTE), 
+	"ENCO_TX_ENDERECO_ESTRANGEIRO" VARCHAR2(255 BYTE), 
+	"ENCO_TX_MUNICIPIO" VARCHAR2(255 BYTE), 
+	"ENCO_TX_NOME" VARCHAR2(255 BYTE), 
+	"ENCO_NR_NUMERO" NUMBER(10), 
+	"ENCO_TX_TIPO_LOGRADOURO" VARCHAR2(255 BYTE), 
+	"ENCO_TX_SIGLA_UF" VARCHAR2(2 BYTE), 
+	"ENCO_ID_PAIS" NUMBER
+   );
+   
+   COMMENT ON TABLE MODRED.ENDERECO_CONTATO_AUD IS 'Tabela de auditoria da tabela ENDERECO_CONTATO.';
+--------------------------------------------------------
+--  DDL for Table PACIENTE_AUD
+--------------------------------------------------------
+
+  CREATE TABLE "MODRED"."PACIENTE_AUD" 
+   (	"PACI_NR_RMR" NUMBER, 
+	"AUDI_ID" NUMBER, 
+	"AUDI_TX_TIPO" NUMBER(3), 
+	"PACI_TX_ABO" VARCHAR2(3 BYTE), 
+	"PACI_IN_ACEITA_MISMATCH" NUMBER(1), 
+	"PACI_TX_CNS" VARCHAR2(255 BYTE), 
+	"PACI_TX_CPF" VARCHAR2(255 BYTE), 
+	"PACI_DT_CADASTRO" TIMESTAMP (6), 
+	"PACI_DT_NASCIMENTO" DATE, 
+	"PACI_TX_EMAIL" VARCHAR2(255 BYTE), 
+	"PACI_IN_MOTIVO_CADASTRO" NUMBER(1), 
+	"PACI_TX_NOME" VARCHAR2(255 BYTE), 
+	"PACI_TX_NOME_FONETIZADO" VARCHAR2(255 BYTE), 
+	"PACI_TX_NOME_MAE" VARCHAR2(255 BYTE), 
+	"PACI_IN_SEXO" VARCHAR2(1 BYTE), 
+	"CETR_ID_AVALIADOR" NUMBER, 
+	"CETR_ID_TRANSPLANTADOR" NUMBER, 
+	"ENCO_ID" NUMBER, 
+	"ETNI_ID" NUMBER, 
+	"MEDI_ID_RESPONSAVEL" NUMBER, 
+	"UF_SIGLA" VARCHAR2(2 BYTE), 
+	"PAIS_ID" NUMBER, 
+	"RACA_ID" NUMBER, 
+	"RESP_ID" NUMBER, 
+	"USUA_ID" NUMBER
+   );
+   
+   COMMENT ON TABLE MODRED.PACIENTE_AUD IS 'Tabela de auditoria da tabela PACIENTE.';
+--------------------------------------------------------
+--  DDL for Table RESPONSAVEL_AUD
+--------------------------------------------------------
+
+  CREATE TABLE "MODRED"."RESPONSAVEL_AUD" 
+   (	"RESP_ID" NUMBER, 
+	"AUDI_ID" NUMBER, 
+	"AUDI_TX_TIPO" NUMBER(3), 
+	"RESP_TX_CPF" VARCHAR2(255 BYTE), 
+	"RESP_TX_NOME" VARCHAR2(255 BYTE), 
+	"RESP_TX_PARENTESCO" VARCHAR2(255 BYTE)
+   );
+   COMMENT ON TABLE MODRED.RESPONSAVEL_AUD IS 'Tabela de auditoria da tabela RESPONSAVEL.';
+--------------------------------------------------------
+--  DDL for Index PK_AUDI
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "MODRED"."PK_AUDI" ON "MODRED"."AUDITORIA" ("AUDI_ID");
+--------------------------------------------------------
+--  DDL for Index PK_COTA
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "MODRED"."PK_COTA" ON "MODRED"."CONTATO_TELEFONICO_AUD" ("COTE_ID", "AUDI_ID");
+--------------------------------------------------------
+--  DDL for Index PK_DIAU
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "MODRED"."PK_DIAU" ON "MODRED"."DIAGNOSTICO_AUD" ("PACI_NR_RMR", "AUDI_ID");
+--------------------------------------------------------
+--  DDL for Index PK_ENCA
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "MODRED"."PK_ENCA" ON "MODRED"."ENDERECO_CONTATO_AUD" ("ENCO_ID", "AUDI_ID");
+--------------------------------------------------------
+--  DDL for Index PK_PAAU
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "MODRED"."PK_PAAU" ON "MODRED"."PACIENTE_AUD" ("PACI_NR_RMR", "AUDI_ID");
+--------------------------------------------------------
+--  DDL for Index PK_REAU
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "MODRED"."PK_REAU" ON "MODRED"."RESPONSAVEL_AUD" ("RESP_ID", "AUDI_ID");
+--------------------------------------------------------
+--  Constraints for Table AUDITORIA
+--------------------------------------------------------
+
+  ALTER TABLE "MODRED"."AUDITORIA" ADD CONSTRAINT PK_AUDI PRIMARY KEY ("AUDI_ID") USING INDEX PK_AUDI ENABLE;
+  ALTER TABLE "MODRED"."AUDITORIA" MODIFY ("AUDI_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table CONTATO_TELEFONICO_AUD
+--------------------------------------------------------
+
+  ALTER TABLE "MODRED"."CONTATO_TELEFONICO_AUD" ADD CONSTRAINT PK_COTA PRIMARY KEY ("COTE_ID", "AUDI_ID") USING INDEX PK_COTA ENABLE;
+  ALTER TABLE "MODRED"."CONTATO_TELEFONICO_AUD" MODIFY ("AUDI_ID" NOT NULL ENABLE);
+  ALTER TABLE "MODRED"."CONTATO_TELEFONICO_AUD" MODIFY ("COTE_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table DIAGNOSTICO_AUD
+--------------------------------------------------------
+
+  ALTER TABLE "MODRED"."DIAGNOSTICO_AUD" ADD CONSTRAINT PK_DIAU PRIMARY KEY ("PACI_NR_RMR", "AUDI_ID") USING INDEX PK_DIAU ENABLE;
+  ALTER TABLE "MODRED"."DIAGNOSTICO_AUD" MODIFY ("AUDI_ID" NOT NULL ENABLE);
+  ALTER TABLE "MODRED"."DIAGNOSTICO_AUD" MODIFY ("PACI_NR_RMR" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table ENDERECO_CONTATO_AUD
+--------------------------------------------------------
+
+  ALTER TABLE "MODRED"."ENDERECO_CONTATO_AUD" ADD CONSTRAINT PK_ENCA PRIMARY KEY ("ENCO_ID", "AUDI_ID") USING INDEX PK_ENCA ENABLE;
+  ALTER TABLE "MODRED"."ENDERECO_CONTATO_AUD" MODIFY ("AUDI_ID" NOT NULL ENABLE);
+  ALTER TABLE "MODRED"."ENDERECO_CONTATO_AUD" MODIFY ("ENCO_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table PACIENTE_AUD
+--------------------------------------------------------
+
+  ALTER TABLE "MODRED"."PACIENTE_AUD" ADD CONSTRAINT PK_PAAU PRIMARY KEY ("PACI_NR_RMR", "AUDI_ID") USING INDEX PK_PAAU ENABLE;
+  ALTER TABLE "MODRED"."PACIENTE_AUD" MODIFY ("AUDI_ID" NOT NULL ENABLE);
+  ALTER TABLE "MODRED"."PACIENTE_AUD" MODIFY ("PACI_NR_RMR" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table RESPONSAVEL_AUD
+--------------------------------------------------------
+
+  ALTER TABLE "MODRED"."RESPONSAVEL_AUD" ADD CONSTRAINT PK_REAU PRIMARY KEY ("RESP_ID", "AUDI_ID") USING INDEX PK_REAU ENABLE;
+  ALTER TABLE "MODRED"."RESPONSAVEL_AUD" MODIFY ("AUDI_ID" NOT NULL ENABLE);
+  ALTER TABLE "MODRED"."RESPONSAVEL_AUD" MODIFY ("RESP_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Indexes
+--------------------------------------------------------
+
+ALTER TABLE MODRED.CONTATO_TELEFONICO_AUD
+ADD CONSTRAINT FK_COTA_AUDI FOREIGN KEY
+(
+  AUDI_ID 
+)
+REFERENCES MODRED.AUDITORIA
+(
+  AUDI_ID 
+)
+ENABLE;
+
+CREATE INDEX IN_FK_COTA_AUDI ON MODRED.CONTATO_TELEFONICO_AUD (AUDI_ID);
+
+ALTER TABLE MODRED.DIAGNOSTICO_AUD
+ADD CONSTRAINT FK_DIAU_AUDI FOREIGN KEY
+(
+  AUDI_ID 
+)
+REFERENCES MODRED.AUDITORIA
+(
+  AUDI_ID 
+)
+ENABLE;
+
+CREATE INDEX IN_FK_DIAU_AUDI ON MODRED.DIAGNOSTICO_AUD (AUDI_ID);
+
+ALTER TABLE MODRED.ENDERECO_CONTATO_AUD
+ADD CONSTRAINT FK_ENCA_AUDI FOREIGN KEY
+(
+  AUDI_ID 
+)
+REFERENCES MODRED.AUDITORIA
+(
+  AUDI_ID 
+)
+ENABLE;
+
+CREATE INDEX IN_FK_ENCA_AUDI ON MODRED.ENDERECO_CONTATO_AUD (AUDI_ID);
+
+ALTER TABLE MODRED.PACIENTE_AUD
+ADD CONSTRAINT FK_PAAU_AUDI FOREIGN KEY
+(
+  AUDI_ID 
+)
+REFERENCES MODRED.AUDITORIA
+(
+  AUDI_ID 
+)
+ENABLE;
+
+CREATE INDEX IN_FK_PAAU_AUDI ON MODRED.PACIENTE_AUD (AUDI_ID);
+
+ALTER TABLE MODRED.RESPONSAVEL_AUD
+ADD CONSTRAINT FK_REAU_AUDI FOREIGN KEY
+(
+  AUDI_ID 
+)
+REFERENCES MODRED.AUDITORIA
+(
+  AUDI_ID 
+)
+ENABLE;
+
+CREATE INDEX IN_FK_REAU_AUDI ON MODRED.RESPONSAVEL_AUD (AUDI_ID);

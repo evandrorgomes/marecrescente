@@ -1,0 +1,156 @@
+<div class="etapa4">
+    <div [formGroup]="evolucaoForm">
+        <div class="row">
+            <div class="form-group col-sm-3 col-xs-12" *ngIf="isMotivosVisiveis">
+                <label>{{getLabel('motivo')}}</label>
+                <select formControlName="motivo" class="form-control" tabindex="1" id="ddlMotivoEvolucao" (change)="setMensagemErroPorCampo('motivo')">
+                    <option selected></option>
+                    <option *ngFor="let c of motivos" value="{{c.id}}">{{c.descricao}}</option>
+                </select>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('motivo') }}"></msg>
+            </div>
+            <div class="form-group col-sm-3 col-xs-6">
+                <label for="txtPeso">{{getLabel('peso')}}</label>
+                <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', precision: '1' }" autocomplete="off" class="form-control" tabindex="2" id="txtPeso" type="text" placeholder="" name="peso" (blur)="setMensagemErroPorCampo('peso')" formControlName="peso" maxlength="5">
+                    <div *ngIf="exibirMensagemErrorPorCampo('peso') && evolucaoForm.get('peso').touched">
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('peso') }}"></msg>
+                    </div>
+            </div>
+            <div class="form-group col-sm-3 col-xs-6">
+                <label for="txtAltura">{{getLabel('altura')}}</label>
+                <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',' }" autocomplete="off" class="form-control" tabindex="3" id="txtAltura" type="text"
+                    (blur)="setMensagemErroPorCampo('altura')"
+                    placeholder="" formControlName="altura" maxlength="3">
+                <div *ngIf="exibirMensagemErrorPorCampo('altura') && evolucaoForm.get('altura').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('altura') }}"></msg>
+                </div>
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+                <label>{{getLabel('resultadoCMV')}}</label>
+                <select formControlName="resultadoCMV" class="form-control" tabindex="4" id="ddlCmv">
+                    <option selected></option>
+                    <option value="true">Positivo</option>
+                    <option value="false">Negativo</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-3 col-xs-12" *ngIf="isEstagiosVisiveis">
+                <label for="ddlEstagioDoenca">{{getLabel('estagioDoenca')}}</label>
+                <select class="form-control" tabindex="5" id="ddlEstagioDoenca" formControlName="estagioDoenca"
+                    (change)="setMensagemErroPorCampo('estagioDoenca')">
+                        <option value=""></option>
+                        <option *ngFor="let c of estagios" value="{{c.id}}">{{c.descricao}}</option>
+                </select>
+                <div *ngIf="exibirMensagemErrorPorCampo('estagioDoenca') && evolucaoForm.get('estagioDoenca').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('estagioDoenca') }}"></msg>
+                </div>
+            </div>
+            <div class="form-group col-sm-3 col-xs-12">
+                <label for="ddlEvolucaoPaciente">{{getLabel('evolucao')}}</label>
+                <select class="form-control" tabindex="7" id="ddlEvolucaoPaciente" (change)="setMensagemErroPorCampo('evolucao')" formControlName="evolucao">
+                    <option value=""></option>
+                    <option *ngFor="let c of condicoesPaciente" value="{{c.id}}">{{c.descricao}}</option>
+                </select>
+                <div *ngIf="exibirMensagemErrorPorCampo('evolucao') && evolucaoForm.get('evolucao').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('evolucao') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12" formArrayName="checkTransplanteAnterior">
+                <label>{{getLabel('tipoTransplanteAnterior')}}</label>
+                <div class="radio-group">
+                    <div *ngFor="let tipo of transplantesAnterioresFormArray.controls; index as i">
+                        <div [formGroupName]="i">
+                          <input type="checkbox" id="rdCMVPositivo{{i}}" value="true" formControlName="check" (click)="habilitarDataUltimoTransplante($event, i)" />
+                          <label for="rdCMVPositivo{{i}}" ><span></span>{{tipo.get('descricao').value}}</label>
+                        </div>
+                    </div>
+                    <div *ngIf="exibirMensagemErrorPorCampo('tipoTransplanteAnterior') && evolucaoForm.get('tipoTransplanteAnterior').touched">
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('tipoTransplanteAnterior') }}"></msg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="_exibirCamposDataUltimoTransplante">
+          <div class="form-group col-sm-3 col-xs-12">
+              <label for="txtDataDiagnóstico">{{getLabel('dataUltimoTransplante')}}</label>
+              <input [textMask]="{mask: _data}" [disabled]="true" class="form-control" tabindex="1" id="txtDataUltimoTransplante" type="text" placeholder="DD/MM/AAAA" formControlName="dataUltimoTransplante" (blur)="setMensagemErroPorCampo('dataUltimoTransplante')" maxlength="11">
+              <msg mensagem="{{ exibirMensagemErrorPorCampo('dataUltimoTransplante') }}"></msg>
+          </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-12 col-xs-12">
+                <label>{{getLabel('exameAnticorpo')}}:</label>
+                <div class="radio-group">
+                    <input id="anticorpoSim" type="radio" value="1"  formControlName="exameAnticorpo" (change)="adicionarObrigatoriedadeAnticorpo(true)">
+                    <label for="anticorpoSim" class="radio-inline">
+                        <span></span>{{ 'textosGenericos.sim' | translate }}
+                    </label>
+
+                    <input id="anticorpoNao" type="radio" value="0" formControlName="exameAnticorpo" (change)="adicionarObrigatoriedadeAnticorpo(false)">
+                    <label for="anticorpoNao" class="radio-inline">
+                        <span></span>{{ 'textosGenericos.nao' | translate }}
+                    </label>
+                </div>
+                <div *ngIf="exibirMensagemErrorPorCampo('exameAnticorpo') && form().get('exameAnticorpo').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('exameAnticorpo') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="_exibirCamposAnticorpo">
+            <div class="row">
+                <div class="form-group col-sm-3 col-xs-12">
+                    <label>{{getLabel('dataExameAnticorpo')}}:</label>
+                    <input class="form-control" formControlName="dataExameAnticorpo"  [textMask]="{mask: _data}" tabindex="" id="data" type="text" maxlength="11" placeholder="DD/MM/AAAA"  (blur)="setMensagemErroPorCampo('dataExameAnticorpo')">
+                    <div *ngIf="exibirMensagemErrorPorCampo('dataExameAnticorpo') && form().get('dataExameAnticorpo').touched">
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataExameAnticorpo') }}"></msg>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <label>{{getLabel('resultadoExameAnticorpo')}}:</label>
+                    <textarea class="form-control"  formControlName="resultadoExameAnticorpo" rows="3" id="" maxlength="255"  (blur)="setMensagemErroPorCampo('resultadoExameAnticorpo')"></textarea>
+                    <div *ngIf="exibirMensagemErrorPorCampo('resultadoExameAnticorpo') && form().get('resultadoExameAnticorpo').touched">
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('resultadoExameAnticorpo') }}"></msg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label for="areaTratamentoAnterior">{{getLabel('tratamentoAnterior')}}</label>
+                <textarea class="form-control" rows="3" id="areaTratamentoAnterior" (blur)="setMensagemErroPorCampo('tratamentoAnterior')" formControlName="tratamentoAnterior" maxlength="4000"></textarea>
+                <div *ngIf="exibirMensagemErrorPorCampo('tratamentoAnterior') && evolucaoForm.get('tratamentoAnterior').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('tratamentoAnterior') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label for="areaTratamentoAtual">{{getLabel('tratamentoAtual')}}</label>
+                <textarea class="form-control" rows="3" id="areaTratamentoAtual" (blur)="setMensagemErroPorCampo('tratamentoAtual')" formControlName="tratamentoAtual" maxlength="4000"></textarea>
+                <div *ngIf="exibirMensagemErrorPorCampo('tratamentoAtual') && evolucaoForm.get('tratamentoAtual').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('tratamentoAtual') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label for="areaCondicaoAtual">{{getLabel('condicaoAtual')}}</label>
+                <textarea class="form-control" rows="3" id="areaCondicaoAtual" (blur)="setMensagemErroPorCampo('condicaoAtual')" formControlName="condicaoAtual" maxlength="4000"></textarea>
+                <div *ngIf="exibirMensagemErrorPorCampo('condicaoAtual') && evolucaoForm.get('condicaoAtual').touched">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('condicaoAtual') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label>{{getLabel('arquivo')}}:</label>
+                <br>
+                <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+            </div>
+        </div>
+
+    </div>
+</div>

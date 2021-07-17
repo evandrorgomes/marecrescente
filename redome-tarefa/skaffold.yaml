@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: redome-tarefa
+build:
+  artifacts:
+  - image: localhost:32000/redome-tarefa
+    docker:
+      dockerfile: local-Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - local-deployment.yml
+portForward:
+  - resourceType: service
+    resourceName: redome-tarefa-svc
+    port: 9001
+    localPort: 9001

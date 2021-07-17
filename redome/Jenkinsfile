@@ -1,0 +1,124 @@
+pipeline {
+    agent any
+    
+    environment {
+      DOCKER_REGISTRY = "sr-vmlxapp26.inca.local:5000" 
+      IMAGE_NAME = "${DOCKER_REGISTRY}/redome:${BUILD_NUMBER}_${BUILD_TIMESTAMP}"      
+    }
+    
+    stages {
+        stage('Build and install RedomeLib') {
+	       steps {
+	          sh(returnStdout: true, script: '''#!/bin/bash
+            		if [ -d "redomelib" ];then
+            			cd redomelib
+            		else	
+            			mkdir redomelib
+            			cd redomelib
+            		fi
+        		'''.stripIndent())	          
+	          git credentialsId: 'RedomeLib', poll: false, url: 'https://us-south.git.cloud.ibm.com/sheila.prado/redomelib.git'
+			  sh 'mvn -f pom.xml -B package -Dmaven.test.skip=true'
+              sh 'mvn install:install-file -Dfile=target/RedomeLib-0.0.1-SNAPSHOT.jar -DgroupId=br.org.cancer.modred -DartifactId=RedomeLib -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar'
+              sh 'cd ..'
+	       }             
+	    }
+	    stage('Fetch project') {
+	       steps {
+	          git branch: 'tarefaNotificacao', changelog: false, credentialsId: 'git-redome', poll: false, url: 'https://us-south.git.cloud.ibm.com/sheila.prado/redome.git'
+	       }
+	    }	    
+	    stage('install ojdbc in local maven repository') {
+	       steps {
+	          sh 'mvn install:install-file -Dfile=lib/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar'
+	       }             
+	    }
+	    stage('Unit Test') {
+	       steps {
+              sh 'mvn test'
+	       }             
+	    }
+	    stage('Build Project') {
+	       steps {
+	          sh 'mvn -f pom.xml -P buildCompleto -Dmaven.test.skip'	          
+	       }      
+	    }
+	    stage('Build Image and Push') {	       
+	       steps {
+	          sh 'docker build -t ${IMAGE_NAME} .'
+	          sh 'docker push ${IMAGE_NAME}'	          
+	       }
+	    }
+	    stage('deploy') {
+	       steps {
+	          withKubeConfig([credentialsId: 'inca-dev']) {
+                /**  sh 'kubectl version --insecure-skip-tls-verify' */
+                
+                sh """ cat <<EOF > deployment.yaml   
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-svc
+  namespace: hml 
+spec:
+  type: NodePort
+  selector:
+    app: redome
+    namespace: hml
+  ports:
+    - protocol: TCP
+      port: 9080
+      targetPort: 9080
+      nodePort: 31549
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-deployment
+  namespace: hml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome
+      namespace: hml
+  template:
+    metadata:
+      labels:
+        app: redome
+        namespace: hml
+    spec:
+      hostname: redome
+      subdomain: redome-svc      
+      containers:
+      - name: redome
+        image: $IMAGE_NAME
+        env:
+          - name: profile
+            value: hml
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "768Mi"
+          limits:
+            cpu: "100m"
+            memory: "1536Mi"
+        volumeMounts:
+          - mountPath: "/logs"
+            name: apilog      
+      volumes:
+        - name: apilog
+          persistentVolumeClaim:
+            claimName: inca-pvc 
+                """
+            sh 'kubectl apply --insecure-skip-tls-verify -n hml -f deployment.yaml'
+              }
+	       }
+	    }
+	}
+	post {
+	  always {
+	    junit skipPublishingChecks: true, testResults: 'target/surefire-reports/*.xml'
+	  }
+	}
+}

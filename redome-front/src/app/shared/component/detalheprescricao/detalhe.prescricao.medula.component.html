@@ -1,0 +1,218 @@
+<div class="row wrap-bloco">
+   <div class="col-sm-2 col-xs-12">
+      <h3>{{'prescricao.detalhe.data' | translate}}</h3>
+   </div>
+   <div class="col-sm-10 col-xs-12 dados-bloco">
+      <p>
+         <small>{{'prescricao.detalhe.dataLimite1' | translate}}: </small>
+         {{prescricaoMedula?.dataLimiteWorkup1 | date:'dd/MM/yyyy'}}
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <small>{{'prescricao.detalhe.dataColeta1' | translate}}: </small>
+         {{prescricaoMedula?.dataColeta1 | date:'dd/MM/yyyy'}}
+      </p>
+      <p>
+         <small>{{'prescricao.detalhe.dataLimite2' | translate}}: </small>
+         {{prescricaoMedula?.dataLimiteWorkup2 | date:'dd/MM/yyyy'}}
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <small>{{'prescricao.detalhe.dataColeta2' | translate}}: </small>
+         {{prescricaoMedula?.dataColeta2 | date:'dd/MM/yyyy'}}
+      </p>
+   </div>
+</div>
+
+<div class="row wrap-bloco">
+   <div class="col-sm-2 col-xs-12">
+      <h3>{{'prescricao.detalhe.doador' | translate}}</h3>
+   </div>
+   <div class="col-sm-10 col-xs-12 dados-bloco">
+      <p>
+         <small>{{'prescricaoComponent.doador.identificacao'| translate }}:</small>
+         {{ doadorMedula?.identificacao }}
+      </p>
+      <p>
+         <small>{{'prescricaoComponent.doador.abo'| translate }}:</small>
+         {{ doadorMedula?.abo }}
+
+         <small style="margin-left:  15px;">{{'prescricaoComponent.doador.sexo'| translate }}:</small>
+         {{ (doadorMedula?.sexo === 'F' ? 'sexo.feminino' : 'sexo.masculino') | translate }}
+
+         <small *ngIf="doadorMedula?.peso" style="margin-left:  15px;">{{'prescricaoComponent.doador.peso'| translate }}:</small>
+         <span *ngIf="doadorMedula?.peso">{{obterPesoFormatado()}}</span>
+      </p>
+   </div>
+</div>
+
+<div class="row wrap-bloco">
+   <div class="col-sm-2 col-xs-12">
+      <h3>{{'prescricao.detalhe.fontes' | translate}}</h3>
+   </div>
+   <div class="col-sm-10 col-xs-12 dados-bloco">
+      <div [ngClass]="estiloFonteCelulaOpcao1"  *ngIf="prescricaoMedula?.fonteCelulaOpcao1">
+         <p>
+            <small>{{'prescricao.detalhe.fonte' | translate}}: </small>{{prescricaoMedula?.fonteCelulaOpcao1?.descricao}}
+         </p>
+
+         <p>
+            <small>
+               <label style="display: block;float: left;">
+                  {{ 'prescricaoComponent.quantidade'| translate }} {{ 'prescricaoComponent.x10'| translate }}
+               </label>
+               <label *ngIf="ehFonteCelulaMedula(prescricao?.fonteCelulaOpcao1?.id); else elseSanguePeriferico" style="display: block;float: left;">
+                  <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                  <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}:</span>
+               </label>
+               <ng-template #elseSanguePeriferico>
+                  <label>
+                     <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                     <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}:</span>
+                  </label>
+               </ng-template>
+            </small>{{prescricaoMedula?.quantidadeTotalOpcao1}}
+         </p>
+         <p>
+            <small>
+               <label style="display: block;float: left;">
+                  {{ 'prescricaoComponent.quantidade'| translate }} {{ 'prescricaoComponent.x10'| translate }}
+               </label>
+               <label *ngIf="ehFonteCelulaMedula(prescricao?.fonteCelulaOpcao1?.id); else elseSanguePeriferico2" style="display: block;float: left;">
+                  <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                  <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                  <span style="display: block;float:  left;margin-left:  4px;"> /{{ 'textosGenericos.kilograma'| translate }}:</span>
+               </label>
+               <ng-template #elseSanguePeriferico2>
+                  <label>
+                     <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                     <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                     <span style="display: block;float:  left;margin-left:  4px;"> +/{{ 'textosGenericos.kilograma'| translate }}:</span>
+                  </label>
+               </ng-template>
+            </small>{{prescricaoMedula?.quantidadePorKgOpcao1}}
+         </p>
+
+         <p *ngIf="exibirBotoesDescarteEAprovacao()">
+            <a class="btn btn-setting btn-defaut btn-sm" title="{{'botao.descartar' | translate}}" (click)="removerEstiloFonteCelulaOpcao1()">
+               <i class="glyphicon glyphicon-remove"></i> {{'botao.descartar' | translate}}</a>
+            <a class="btn btn-setting btn-primary btn-sm" title="{{'botao.aceitar' | translate}}" (click)="aceitarEstiloFonteCelulaOpcao1()">
+               <i class="glyphicon glyphicon-ok"></i> {{'botao.aceitar' | translate}}</a>
+         </p>
+      </div>
+
+      <div [ngClass]="estiloFonteCelulaOpcao2" *ngIf="prescricaoMedula?.fonteCelulaOpcao2">
+         <p>
+            <small>{{'prescricao.detalhe.fonte' | translate}}: </small>{{prescricaoMedula?.fonteCelulaOpcao2?.descricao}}
+         </p>
+
+         <p>
+            <small>
+               <label style="display: block;float: left;">
+                  {{ 'prescricaoComponent.quantidade'| translate }} {{ 'prescricaoComponent.x10'| translate }}
+               </label>
+               <label *ngIf="ehFonteCelulaMedula(prescricao?.fonteCelulaOpcao2?.id); else elseFonteCelulaSanguePeriferico" style="display: block;float: left;">
+                  <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                  <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}:</span>
+               </label>
+               <ng-template #elseFonteCelulaSanguePeriferico>
+                  <label>
+                     <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                     <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}:</span>
+                  </label>
+               </ng-template>
+            </small>{{prescricaoMedula?.quantidadeTotalOpcao2}}
+         </p>
+         <p>
+            <small>
+               <label style="display: block;float: left;">
+                  {{ 'prescricaoComponent.quantidade'| translate }} {{ 'prescricaoComponent.x10'| translate }}
+               </label>
+               <label *ngIf="ehFonteCelulaMedula(prescricao?.fonteCelulaOpcao2?.id); else elseFonteCelulaSanguePeriferico2" style="display: block;float: left;">
+                  <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                  <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                  <span style="display: block;float:  left;margin-left:  4px;"> /{{ 'textosGenericos.kilograma'| translate }}:</span>
+               </label>
+               <ng-template #elseFonteCelulaSanguePeriferico2>
+                  <label>
+                     <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                     <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                     <span style="display: block;float:  left;margin-left:  4px;"> +/{{ 'textosGenericos.kilograma'| translate }}:</span>
+                  </label>
+               </ng-template>
+            </small>{{prescricaoMedula?.quantidadePorKgOpcao2}}
+         </p>
+         <p *ngIf="exibirBotoesDescarteEAprovacao()">
+            <a class="btn btn-setting btn-defaut btn-sm" title="{{'botao.descartar' | translate}}" (click)="removerEstiloFonteCelulaOpcao2()">
+               <i class="glyphicon glyphicon-remove"></i> {{'botao.descartar' | translate}}</a>
+            <a class="btn btn-setting btn-primary btn-sm" title="{{'botao.aceitar' | translate}}" (click)="aceitarEstiloFonteCelulaOpcao2()">
+               <i class="glyphicon glyphicon-ok"></i> {{'botao.aceitar' | translate}}</a>
+         </p>
+      </div>
+   </div>
+</div>
+
+<div class="row wrap-bloco">
+   <div class="col-sm-2 col-xs-12">
+      <h3>{{'prescricao.detalhe.arquivos' | translate}}</h3>
+   </div>
+   <div class="col-sm-10 col-xs-12 dados-bloco">
+      <div>
+         <div class="listaLaudos" *ngFor="let arquivo of arquivos; index as i">
+            <a href="javascript:void(0)" (click)="baixarArquivo(arquivo)" title="{{'botao.download' | translate}}">
+               <span>{{arquivo.nomeSemTimestamp}}</span>
+               &nbsp;&nbsp;
+               <span class="icon-download "></span>
+            </a>
+         </div>
+         <p *ngIf="arquivos && arquivos.length == 0">
+            <small> {{ 'mensagem.nenhumarquivoinformado' | translate }} </small>
+         </p>
+      </div>
+   </div>
+</div>
+
+<div class="row wrap-bloco">
+   <div class="col-sm-2 col-xs-12">
+      <h3>{{'prescricao.detalhe.justificativas' | translate}}</h3>
+   </div>
+   <div class="col-sm-10 col-xs-12 dados-bloco">
+      <div>
+         <div class="listaLaudos" *ngFor="let arquivo of arquivosJustificativa; index as i">
+            <a href="javascript:void(0)" (click)="baixarArquivo(arquivo)" title="{{'botao.download' | translate}}" >
+               <span>{{arquivo.nomeSemTimestamp}}</span>
+               &nbsp;&nbsp;
+               <span class="icon-download "></span>
+            </a>
+         </div>
+         <p *ngIf="arquivosJustificativa && arquivosJustificativa.length == 0">
+            <small> {{ 'mensagem.nenhumarquivoinformado' | translate }} </small>
+         </p>
+      </div>
+   </div>
+</div>
+
+<div class="row wrap-bloco" *ngIf="prescricaoMedula?.amostras?.length > 0">
+      <div class="col-sm-2 col-xs-12">
+         <h3>{{'prescricao.detalhe.tiposAmostra' | translate}}</h3>
+      </div>
+      <div class="col-sm-10 col-xs-12 dados-bloco">
+         <div>
+            <div class="listaTiposAmostra" *ngFor="let amostra of prescricaoMedula?.amostras; index as i">
+               <small>{{'prescricao.detalhe.tipoAmostraDescricao' | translate}}: </small>{{amostra.tipoAmostra.descricao}} {{amostra?.descricaoOutrosExames}} {{amostra.ml}} ml
+            </div>
+        </div>
+      </div>
+</div>
+
+<div class="row wrap-bloco" *ngIf="evolucao?.tiposTransplante?.length > 0">
+      <div class="col-sm-2 col-xs-12">
+         <h3>{{'prescricao.detalhe.tiposTransplante' | translate}}</h3>
+      </div>
+      <div class="col-sm-10 col-xs-12 dados-bloco">
+         <div>
+            <div class="listaTiposAmostra" *ngFor="let tipoTransplante of evolucao?.tiposTransplante; index as i">
+               <small>{{tipoTransplante.descricao}}</small>
+            </div>
+            <div>
+                  <small>{{'prescricao.detalhe.dataUltimoTransplante' | translate}}: </small>{{evolucao?.dataUltimoTransplanteFormatada}}
+            </div>
+         </div>
+      </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <h3 class="text-center">{{ 'prescricao.autorizacaopaciente.modalupload.titulo' | translate }}</h3>
+    </div>
+</div>
+
+<div class="row wrap-bloco">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'prescricao.autorizacaopaciente.modalupload.detalhepaciente' | translate}}</h3>      
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco">
+        <p><small>{{'prescricao.autorizacaopaciente.modalupload.rmr' | translate}}: </small>{{ data?.rmr }}</p>
+        <p><small>{{'prescricao.autorizacaopaciente.modalupload.nome' | translate}}: </small>{{ data?.nome }}</p>
+        <p><small>{{'prescricao.autorizacaopaciente.modalupload.dtNascimento' | translate}}: </small>{{ data?.dataNascimento | date: 'dd/MM/yyyy' }}</p>
+    </div>
+</div>
+
+<div class="row" >
+    <div class="col-sm-12 col-xs-12">
+        <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-sm-12  col-xs-12">
+        <br />
+        <button type="button" class="btn btn-default btn-lg floatL" (click)="fechar()">
+            {{'botao.cancelar' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary btn-lg floatR" (click)="cancelarPedidoWorkup()">
+            {{'botao.salvar' | translate}}
+        </button>
+    </div>
+</div>

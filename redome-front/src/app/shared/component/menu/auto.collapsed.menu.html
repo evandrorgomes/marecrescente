@@ -1,0 +1,17 @@
+<div class="row menu-btn">
+    <div class="col-sm-12 col-xs-12">
+        <ng-template *ngFor="let item of normalItemns" [ngTemplateOutlet]="item"></ng-template>
+
+        <div class="btn-group" dropdown container="body" *ngIf="hasCollapsedItemns">
+            <button id="MaisBotoes" type="button" dropdownToggle class="btn btn-setting btn-primary dropdown-toggle" 
+                    aria-controls="dropdown-mais">
+                <span class="caret"></span>
+            </button>
+            <ul id="dropdown-mais" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="MaisBotoes">
+                <li role="menuitem" *ngFor="let collapsedItem of collapsedItemns">
+                    <ng-template [ngTemplateOutlet]="collapsedItem"></ng-template>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

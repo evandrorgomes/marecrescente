@@ -1,0 +1,7 @@
+spring:
+  profiles: hml
+  cloud:
+    config: 
+      uri: http://redome-cloud.redome-cloud-svc.hml.svc.cluster.local:9081
+      username: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P

@@ -1,0 +1,295 @@
+<modal mensagem="" #modalErro ></modal>
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'analisematch.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <card-checklist [value]="analiseMatchDTO?.buscaChecklist" class="checklist-header-paciente" >
+            <header-paciente></header-paciente>
+        </card-checklist>
+    </div>
+    <auto-collapsed-menu>
+        <menu-item>
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a class="btn btn-setting btn-primary" (click)="exibirJanelaChecklist()" *permissoes="'VISTAR_CHECKLIST'">
+                <span class="far fa-list-alt"></span> {{'botao.checklist' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a class="btn btn-setting btn-primary" (click)="compararDoadores()">
+                <span class="icon-genotipo"></span> {{'botao.comparar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary"
+                    (click)="verHistoricoBusca()" *permissoes="'PACIENTES_PARA_PROCESSO_BUSCA'">
+                <span class="glyphicon glyphicon-time"></span> {{'botao.historicoBusca' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary"
+                    (click)="irParaTelaPedidoExame()" *permissoes="'PACIENTES_PARA_PROCESSO_BUSCA'">
+                <span class="icon-exames"></span> {{'botao.pedidoExameDoador' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary"
+                    (click)="irParaTelaPedidoExamePaciente()" *permissoes="'PACIENTES_PARA_PROCESSO_BUSCA'">
+                <span class="icon-exames"></span> {{'botao.pedidoExamePaciente' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a id="idCadastrarNovoDoador" type="button" class="btn btn-setting btn-primary"
+                    (click)="cadastrarNovoDoadorInternacional()" *permissoes="'CADASTRAR_DOADOR_INTERNACIONAL'" >
+                <span class="icon-doador-inter"></span> {{'botao.novoDoador' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a id="idDialogo" type="button" class="btn btn-setting btn-primary" (click)="abrirModalDialogo()">
+                <span class="glyphicon glyphicon-comment"></span> {{'botao.dialogo' | translate}}
+            </a>
+        </menu-item>
+        <menu-item *ngIf="temPerfilAnalistaDeBusca()">
+            <a id="idPedidoEnvioEmdis" type="button" class="btn btn-setting btn-primary" (click)="enviarPacienteParaEmdis()">
+                <span class="glyphicon glyphicon-globe"></span> {{'botao.enviarPacienteParaEmdis' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary"
+                    (click)="irParaTelaDetalhePaciente()" *permissoes="'PACIENTES_PARA_PROCESSO_BUSCA'">
+                <span class="icon-exames"></span> {{'botao.detalhepaciente' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary"
+                    (click)="irParaTelaBuscaInternacional()" *permissoes="'ANALISE_MATCH'">
+                <span class="icon-globo"></span> {{'botao.buscainternacional' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary"
+                    (click)="analisarBuscaViaItemCheckList()" *permissoes="'VISTAR_CHECKLIST'">
+                <span class="icon-avaliacao"></span> {{'botao.analisarBusca' | translate}}
+            </a>
+        </menu-item>
+    </auto-collapsed-menu>
+</div>
+<div class="page-content">
+    <sub-header-paciente #subHeaderPaciente></sub-header-paciente>
+    <div class="row filtra-match">
+        <div class="col-sm-8 col-xs-12 rdMedCord">
+            <label>{{ 'textosGenericos.visualizar.titulo' | translate }}: </label><br/>
+            <input type="radio" id="rdMedula" name="visualizar" [checked]="filtroMatch == 0" (change)="mudarVisualizacao($event)" />
+            <label for="rdMedula">
+                <span></span>
+                {{ 'textosGenericos.visualizar.medula' | translate:{quantidade: quantidadeTotalSolicitacaoMedula() + ' / I:' +  qtdMatchWmdaMedulaImportado()  + ' / T:' + qtdMatchWmdaMedula() } }}
+            </label>
+            <input type="radio" id="rdCordao" name="visualizar" [checked]="filtroMatch == 1" (change)="mudarVisualizacao($event)" />
+            <label for="rdCordao">
+                <span></span>
+                {{ 'textosGenericos.visualizar.cordao' | translate:{quantidade: quantidadeTotalSolicitacaoCordao() + ' / I:' + qtdMatchWmdaCordaoImportado() + ' / T:' + qtdMatchWmdaCordao()} }}
+            </label>
+            <div><label> {{ 'textosGenericos.visualizar.legendaMedulaCordao' | translate:{} }}</label></div>
+        </div>
+
+        <div class="col-sm-4 col-xs-12 floatR" [hidden]="filtroMatch == 1"  >
+            <div class="ordena-match">
+                <p>{{'analisematch.ordenacao' | translate}} <span class="glyphicon glyphicon-chevron-down"></span></p>
+                <bs-sortable
+                [(ngModel)]="atributosOrdenacao"
+                [itemTemplate]="itemTemplate"
+                itemClass="sortable-item"
+                itemActiveClass="sortable-item-active"
+                placeholderItem="Drag here"
+                placeholderClass="placeholderStyle"
+                wrapperClass="sortable-wrapper"
+                (onChange)="ordenarListas($event)"
+                ></bs-sortable>
+            </div>
+        </div>
+    </div>
+
+    <div class="lista-carrossel">
+        <ngx-carousel
+            [inputs]="carouselOne"
+            (onMove)="onmoveFn($event)"
+            (carouselLoad)="myfunc($event)">
+                <ngx-tile NgxCarouselItem>
+                    <div class="lista-match">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >
+                                <h4 class="text-center">{{ getTitulo('F1') }}</h4>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="exibeMensagemNenhumDoador(analiseMatchDTO.listaFase1)">
+                            <div class="col-sm-12 col-xs-12" >
+                                <p class="text-center lista-match-vazia">{{ 'mensagem.nenhumdoadornafase' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!exibeMensagemNenhumDoador(analiseMatchDTO.listaFase1)" >
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <lista-match #listaMatchFase1 [lista]="analiseMatchDTO.listaFase1"  [filtroMatch]="filtroMatch"></lista-match>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >
+                                <a class="doadores-descartados" (click)="togleDoadoresDescartadosFase1()">{{ 'listamatchcomponent.historico' | translate }} {{ obterTotalHistorico('F1') }}
+                                    <span class="glyphicon glyphicon-triangle-bottom" *ngIf="_collapsedMatchsInativosFase1" ></span>
+                                    <span class="glyphicon glyphicon-triangle-top" *ngIf="!_collapsedMatchsInativosFase1" ></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" [collapse]="_collapsedMatchsInativosFase1">
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <lista-match #listaMatchFase1Descartados [exibirStatusDoadorNoHistorico]="_exibirStatusDoadorNoHistorico" [filtroMatch]="filtroMatch" ></lista-match>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tile>
+                <ngx-tile NgxCarouselItem>
+                    <div class="lista-match">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >
+                                <h4 class="text-center">{{ getTitulo('F2') }}</h4>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="exibeMensagemNenhumDoador(analiseMatchDTO.listaFase2)">
+                            <div class="col-sm-12 col-xs-12" >
+                                <p class="text-center  lista-match-vazia">{{ 'mensagem.nenhumdoadornafase' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!exibeMensagemNenhumDoador(analiseMatchDTO.listaFase2)" >
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <lista-match #listaMatchFase2 [lista]="analiseMatchDTO.listaFase2" [filtroMatch]="filtroMatch"></lista-match>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >
+                                <a class="doadores-descartados" (click)="togleDoadoresDescartadosFase2()">{{ 'listamatchcomponent.historico' | translate }} {{ obterTotalHistorico('F2') }}
+                                    <span class="glyphicon glyphicon-triangle-bottom" *ngIf="_collapsedMatchsInativosFase2" ></span>
+                                    <span class="glyphicon glyphicon-triangle-top" *ngIf="!_collapsedMatchsInativosFase2" ></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" [collapse]="_collapsedMatchsInativosFase2">
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <lista-match [filtroMatch]="filtroMatch"  #listaMatchFase2Descartados   ></lista-match>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tile>
+                <ngx-tile NgxCarouselItem>
+                    <div class="lista-match">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >
+                                <h4 class="text-center">{{ getTitulo('F3') }}</h4>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="exibeMensagemNenhumDoador(analiseMatchDTO.listaFase3)">
+                            <div class="col-sm-12 col-xs-12" >
+                                <p class="text-center  lista-match-vazia">{{ 'mensagem.nenhumdoadornafase' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!exibeMensagemNenhumDoador(analiseMatchDTO.listaFase3)" >
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <lista-match #listaMatchFase3 [lista]="analiseMatchDTO.listaFase3" [filtroMatch]="filtroMatch" ></lista-match>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >
+                                <a class="doadores-descartados" (click)="togleDoadoresDescartadosFase3()">{{ 'listamatchcomponent.historico' | translate }} {{ obterTotalHistorico('F3') }}
+                                    <span class="glyphicon glyphicon-triangle-bottom" *ngIf="_collapsedMatchsInativosFase3" ></span>
+                                    <span class="glyphicon glyphicon-triangle-top" *ngIf="!_collapsedMatchsInativosFase3" ></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" [collapse]="_collapsedMatchsInativosFase3">
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <lista-match #listaMatchFase2Descartados [filtroMatch]="filtroMatch" ></lista-match>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tile>
+                <ngx-tile NgxCarouselItem>
+                    <div class="lista-match">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12" >
+                                <h4 class="text-center">{{ getTitulo('D') }}</h4>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="exibeMensagemNenhumDoador(analiseMatchDTO.listaDisponibilidade)">
+                            <div class="col-sm-12 col-xs-12" >
+                                <p class="text-center  lista-match-vazia">{{ 'mensagem.nenhumdoadornafase' | translate }}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!exibeMensagemNenhumDoador(analiseMatchDTO.listaDisponibilidade)" >
+                            <div class="col-sm-12 col-xs-12" >
+                                <ul class="lista-doador">
+                                    <lista-match [lista]="analiseMatchDTO.listaDisponibilidade" [possuiPrescricao]="analiseMatchDTO.temPrescricao" [quantidadePrescricoes]="analiseMatchDTO.quantidadePrescricoes"
+                                      [tipoDoadorComPrescricao]="analiseMatchDTO.tipoDoadorComPrescricao" [filtroMatch]="filtroMatch" ></lista-match>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </ngx-tile>
+                <button NgxCarouselPrev class='leftRs'><i class="icon icon-seta-esquerda"></i></button>
+                <button NgxCarouselNext class='rightRs'><i class="icon icon-seta-direita"></i></button>
+        </ngx-carousel>
+    </div>
+</div>
+<modal-comentario-match #modalComentario  (fecharComentarioMatch)="fecharComentario($event)"  ></modal-comentario-match>
+<ressalva-doador #ressalvaDoadorModal></ressalva-doador>
+<modal #modalFavorito ></modal>
+
+<!-- Modal para exibir diálogo -->
+<div class="modal fade"  bsModal #modalDialogo="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
+        tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="close" type="button" class="close" (click)="fecharModalDialogo()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <dialogo-busca #dialogoBusca></dialogo-busca>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<confirmar-centro-transplante-popup #confirmarCT></confirmar-centro-transplante-popup>
+
+<ng-template #itemTemplate let-item="item" >
+    <span *ngIf="item.value != 'Nacional' && item.value != 'Internacional'" >{{item.value}}</span>
+    <span *ngIf="item.value == 'Nacional' || item.value == 'Internacional'" >
+        <input #rdNacional id="nacional" name="item" type="radio" [checked]="item.value == 'Nacional'" value="Nacional" (change)="aplicarOrdenacaoTipoDoador(rdNacional.value)"  />
+        <label for="nacional" class="radio-inline">
+            <span></span>{{ 'analisematch.atributosOrder.nacional' | translate }}
+        </label>
+        <input #rdInternacional id="internacional" name="item" type="radio" [checked]="item.value == 'Internacional'" value="Internacional" (change)="aplicarOrdenacaoTipoDoador(rdInternacional.value)"/>
+        <label for="internacional" class="radio-inline">
+            <span></span>{{ 'analisematch.atributosOrder.internacional' | translate }}
+        </label>
+    </span>
+</ng-template>
+
+<window-view-outlet></window-view-outlet>

@@ -1,0 +1,214 @@
+.dashboard {
+    background: #fff;
+    padding: 7px 10px;
+}
+
+.pull-right {
+    margin: 10px 0;
+}
+
+.x_title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px;
+}
+.x_title .filter {
+    width: 40%;
+    float: right;
+}
+.x_title h2 {
+    margin: 5px 0 6px;
+    float: left;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 62%;
+    font-size: 17px;
+}
+.x_title h2 small {
+    margin-left: 10px;
+}
+.x_title span {
+    color: #BDBDBD;
+}
+
+.x_title_top {
+    padding-top: 20px;
+    border-bottom: none;
+    border-top: 2px solid #E6E9ED;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+.top_tiles {
+    margin-bottom: 0;
+}
+
+/** tile stats **/
+.tile-stats {
+    position: relative;
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid #E4E4E4;
+    -webkit-border-radius: 5px;
+    overflow: hidden;
+    padding-bottom: 5px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 5px;
+    -moz-background-clip: padding;
+    border-radius: 5px;
+    background-clip: padding-box;
+    background: #FFF;
+    -moz-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+    cursor: pointer;
+  }
+  
+  .tile-stats:hover .icon i {
+    animation-name: tansformAnimation;
+    animation-duration: .5s;
+    animation-iteration-count: 1;
+    color: rgba(58, 58, 58, 0.41);
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: tansformAnimation;
+    -webkit-animation-duration: .5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-name: tansformAnimation;
+    -moz-animation-duration: .5s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease;
+    -moz-animation-fill-mode: forwards;
+  }
+  
+  .tile-stats .icon {
+    width: 20px;
+    height: 20px;
+    color: #BAB8B8;
+    position: absolute;
+    right: 23px;
+    top: 22px;
+    z-index: 1;
+  }
+  
+  .tile-stats .icon i {
+    margin: 0;
+    font-size: 60px;
+    line-height: 0;
+    vertical-align: bottom;
+    padding: 0;
+  }
+  
+  .tile-stats .count {
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 1.65857143
+  }
+  
+  .tile-stats .count, .tile-stats h3, .tile-stats p {
+    position: relative;
+    margin: 0;
+    margin-left: 10px;
+    z-index: 1;
+    padding: 0;
+  }
+  
+  .tile-stats h3 {
+    color: #BAB8B8;
+    font-size: 17px;
+  }
+  
+  .tile-stats p {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  .dashboard-rangedate {
+    z-index: -1;
+    color: transparent;
+    border: none;
+    position: relative;
+    float: right;
+    clear: right;
+    top: -33px;
+    width: 598px;
+  }
+  
+
+/*
+.tile_count {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-bottom: 2px solid #E6E9ED;
+}
+
+.tile_count .tile_stats_count {
+    border-bottom: 1px solid #D9DEE4;
+    padding: 0 10px 0 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+@media (min-width: 992px) {
+    .tile_count .tile_stats_count {
+        margin-bottom: 10px;
+        border-bottom: 0;
+        padding-bottom: 10px;
+    }
+}
+
+.tile_count .tile_stats_count:before {
+    content:""; 
+    position: absolute; 
+    left: 0; 
+    height: 65px;
+    border-left: 2px solid #ADB2B5;
+    margin-top: 10px;
+}
+
+@media (min-width:992px) {
+    .tile_count .tile_stats_count:first-child:before {
+        border-left: 0;
+    }
+}
+
+.tile_count .tile_stats_count .count {
+    font-size: 30px;
+    line-height: 47px;
+    font-weight: 600;
+}
+
+@media (min-width:768px) {
+    .tile_count .tile_stats_count .count {
+        font-size: 40px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1100px) {
+    .tile_count .tile_stats_count .count {
+        font-size: 30px;
+    }
+}
+
+.tile_count .tile_stats_count span {
+    font-size: 12px;
+}
+
+@media (min-width:768px) {
+    .tile_count .tile_stats_count span {
+        font-size: 13px;
+    }
+}
+
+.tile_count .tile_stats_count .count_bottom i {
+    width: 12px;
+}
+
+*/

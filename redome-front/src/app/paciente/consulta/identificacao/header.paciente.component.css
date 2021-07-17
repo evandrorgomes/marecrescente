@@ -1,0 +1,84 @@
+/* Consulta de evolução e exame do paciente */
+:host /deep/ .tituloIdPaciente {
+    color: inherit;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+:host /deep/ .tituloIdPaciente, 
+:host /deep/ .infoIdPaciente {
+    display: inline;
+}
+
+:host /deep/ .infoIdPaciente {
+    margin-bottom: 6px;
+}
+
+:host /deep/ .infoIdPaciente small {
+    font-size: 100%;
+}
+
+:host /deep/ .infoIdPaciente small span.glyphicon {
+    position: relative;
+    right: 0;
+    top: 0;
+}
+
+:host /deep/ .infoPaciente {
+    margin-bottom: 20px;
+}
+
+:host /deep/ .infoPaciente > div:first-child {
+    border-right: 2px solid #eee;
+}
+
+:host /deep/ .infoPaciente div div {
+    margin-bottom:8px
+}
+
+:host /deep/ .infoPaciente label {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    margin-bottom: 8px;
+}
+
+:host /deep/ .infoPaciente form select {
+    margin-bottom: 4px;
+}
+
+:host /deep/ .infoPaciente .subTitulo {
+    color: #FF9900;
+    font-weight: bold;
+}
+
+:host /deep/ .infoPaciente p {
+    line-height: 1.8em;
+    margin-bottom: 16px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+:host /deep/ .infoPaciente ul {
+    list-style: none;
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+:host /deep/ .infoPaciente .infoMetodologia .glyphicon {
+    color: limegreen;
+    cursor: initial;
+}
+
+:host /deep/ .infoPaciente .infoMetodologia {
+    margin-right: 10px;
+}
+
+/* :host /deep/ .azul {
+    color: blue;
+}
+
+:host /deep/ .amarelo {
+    color: gold;
+} */

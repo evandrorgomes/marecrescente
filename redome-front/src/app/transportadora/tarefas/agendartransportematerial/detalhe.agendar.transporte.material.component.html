@@ -1,0 +1,215 @@
+<div [formGroup]="agendarTransporteForm">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'transporteMaterial.titulo.agendar' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <span>
+                    <a id="idConfirmarAgendamento" type="button" class="btn btn-setting btn-primary" (click)="confirmarAgendamento()">
+                        {{'botao.salvar' | translate}}</a>
+                </span>
+                <span>
+                    <a id="idimprimirCarta" type="button" class="btn btn-setting btn-primary" (click)="imprimirCartaMO()" *ngIf="exibirCamposDownload()">
+                        {{'transporteMaterial.cartaMo' | translate}}</a>
+                </span>
+                <span>
+                    <a id="idimprimirRelatorioTransporte" type="button" class="btn btn-setting btn-primary" (click)="imprimirRelatorioTransporte()" *ngIf="exibirCamposDownload()">
+                        {{'transporteMaterial.transporteRel' | translate}}</a>
+                </span>
+                <span>
+                    <a id="iddownloadVoucherCNT" type="button" class="btn btn-setting btn-primary"
+                        (click)="downloadVoucherCNT()" *ngIf="exibirCamposDownload()">
+                        {{'transporteMaterial.voucherCnt' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'transporteMaterial.tarefas.id' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                {{detalhePedidoTransporteDTO?.identificacaoDoador}}
+            </div>
+        </div>
+        
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'transporteMaterial.tarefas.rmr' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                {{detalhePedidoTransporteDTO?.rmr}}
+            </div>
+        </div>
+
+        <div>
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'transporteMaterial.tarefas.localRetirada' | translate}}</h3>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                    {{detalhePedidoTransporteDTO?.nomeLocalRetirada}}
+                    <ul>
+                        <li>
+                            <p>
+                            <label *ngIf="detalhePedidoTransporteDTO?.enderecoLocalRetirada; else elseBancoSangue;">
+                                    {{ detalhePedidoTransporteDTO?.enderecoLocalRetirada.tipoLogradouro}} {{ detalhePedidoTransporteDTO?.enderecoLocalRetirada.nomeLogradouro}},
+                                    {{ detalhePedidoTransporteDTO?.enderecoLocalRetirada.numero}} - {{ detalhePedidoTransporteDTO?.enderecoLocalRetirada.bairro}} - {{ detalhePedidoTransporteDTO?.enderecoLocalRetirada?.municipio?.descricao}}
+                                <br/>{{ detalhePedidoTransporteDTO?.enderecoLocalRetirada?.municipio?.uf?.sigla}} - {{ detalhePedidoTransporteDTO?.enderecoLocalRetirada.pais.nome}} - CEP {{ detalhePedidoTransporteDTO?.enderecoLocalRetirada.cep}}
+                            </label>
+                            <ng-template #elseBancoSangue>
+                                <label>
+                                    {{ detalhePedidoTransporteDTO?.enderecoLocalRetiradaBancoCordao}}
+                                </label>
+                            </ng-template>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'transporteMaterial.tarefas.localEntrega' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                {{detalhePedidoTransporteDTO?.nomeCentroTransplante}}
+                <ul>
+                    <li>
+                        <p>
+                        <label>
+                                {{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.tipoLogradouro}} {{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.nomeLogradouro}},
+                                {{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.numero}} - {{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.bairro}} - {{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.municipio?.descricao}}
+                            <br/>{{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.municipio?.uf?.sigla}} - {{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.pais?.nome}} - CEP {{ detalhePedidoTransporteDTO?.enderecoCentroTransplante?.cep}}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'transporteMaterial.tarefas.fonteCelula' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco" *ngIf="detalhePedidoTransporteDTO?.nomeFonteCelula; else elseCordao">
+                {{detalhePedidoTransporteDTO?.nomeFonteCelula}}
+            </div>
+            <ng-template #elseCordao>
+                <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                        {{'transporteMaterial.tarefas.cordaoUmbilical' | translate}}
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="row wrap-bloco" *ngIf="!exibirCamposDownload()">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'transporteMaterial.courier' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <div class="row">
+                        <label>{{'transporteMaterial.nomeCourier' | translate}}</label>
+                        <select formControlName="dadosCourier" class="form-control" id="ddlCourier" 
+                            (blur)="setMensagemErroPorCampo('nomeCourier');">
+                            <option value=""></option>
+                            <option *ngFor="let courier of listaCourier; index as i" value="{{courier?.id}}">{{courier?.nome}}</option>
+                        </select>
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('dadosCourier') }}"></msg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco" *ngIf="!exibirCamposDownload()">
+            <div class="col-sm-2 col-xs-12">
+            </div>
+            <div class="col-sm-10 col-xs-12 textarea-bloco">
+                <div class="checkbox-group">
+                    <input id="ckNecessitaLogistica" formControlName="temVoo" type="checkbox" 
+                        (click)="marcarNecessidadeVoo($event)">
+                    <label for="ckNecessitaLogistica">
+                        <span></span>{{ 'transporteMaterial.temVoo'| translate }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco" *ngIf="exibirCamposVoo">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'transporteMaterial.dadosVoo' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <div class="row">
+                        <label>{{'transporteMaterial.informacoesDeslocamento' | translate}}</label>
+                        <input class="form-control" tabindex="2" formControlName="dadosVoo" id="txtDadosVoo" 
+                            type="text" (blur)="setMensagemErroPorCampo('dadosVoo')">
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('dadosVoo') }}"></msg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco" *ngIf="exibirCamposDownload()">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'transporteMaterial.courier' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco">
+                <p>
+                    <small>{{ 'logisticaMaterial.nomeCourier' | translate }}: </small>{{detalhePedidoTransporteDTO?.courier?.nome}}</p>
+                <p>
+                    <small>{{ 'logisticaMaterial.rgCourier' | translate }}: </small>{{detalhePedidoTransporteDTO?.courier?.rg}}</p>
+                <p>
+                    <small>{{ 'logisticaMaterial.cpfCourier' | translate }}: </small>{{detalhePedidoTransporteDTO?.courier?.cpf}}</p>
+
+                <ul>
+                    <li *ngFor=" let contatoTelefonico of detalhePedidoTransporteDTO?.courier?.contatosTelefonicos; index as i">
+                        <p id="">
+                            <small>{{'DoadorContatoTelefone.telefone' | translate}} {{ i+1 }}: </small>
+                            <span class="texto-bloco">
+                                <div *ngIf="contatoTelefonico.tipo == 2">
+                                    <i class="icon-celular"></i>
+                                    {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento
+                                    != null && contatoTelefonico.complemento != undefined ? ' | ' + contatoTelefonico.complemento
+                                    : '' }} {{" | " + contatoTelefonico.nome }}
+                                </div>
+                                <div *ngIf="contatoTelefonico.tipo == 1">
+                                    <i class="icon-telefone"></i>
+                                    {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{" | " + contatoTelefonico.complemento
+                                    != undefined?contatoTelefonico.complemento:''}} {{" (" + contatoTelefonico.nome + ")"}}
+                                </div>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row wrap-bloco" *ngIf="exibirCamposDownload()">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'transporteMaterial.dadosVoo' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                {{detalhePedidoTransporteDTO?.dadosVoo}}
+            </div>
+        </div>
+
+        <div class="row wrap-bloco" *ngIf="exibirCamposDownload() && detalhePedidoTransporteDTO?.arquivos">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'transporteMaterial.cnt' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco"
+                *ngFor="let arquivo of detalhePedidoTransporteDTO.arquivos">
+                    {{arquivo}}
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div #navbar id="navbar-custom">
+
+    <ul #navbaritem class="nav navbar-nav-custom">
+        <li *ngFor="let item of _navBarItens"><a [id]="item.id" (click)="executeClick(item)"><span
+                    [ngClass]="item.icone" aria-hidden="true"></span><b>{{ item.descricao }}</b></a></li>
+    </ul>
+
+    <div class="navbar-right-custom">
+
+        <div class="btn-group navbar-toggle-custom nav" dropdown *ngIf="_exibirBotaoMenu">
+            <button dropdownToggle type="button" class="navbar-button dropdown-toggle">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu navbar-nav-lista" role="menu">
+                <li role="menuitem" *ngIf="!_exibirDropdownUsuario && _temUsuarioItens">
+                    <a href (click)="isCollapsed = !isCollapsed; $event.stopPropagation(); false">{{ nomeUsuario }}</a>
+                    <ul [collapse]="isCollapsed" class="navbar-nav-lista navbar-nav-sublista ">
+                        <li *ngFor="let item of usuarioItens"><a href="javascript:void(0);" class="dropdown-item"
+                                [title]="item.descricao" (click)="executeClick(item)"><span
+                                    [ngClass]="item.icone"></span>{{ item.descricao }} </a></li>
+                    </ul>
+                </li>
+                <li role="menuitem" *ngFor="let item of _nabBarButtonItens"><a href class="dropdown-item"
+                        (click)="executeClick(item)"><span [ngClass]="item.icone"
+                            aria-hidden="true"></span>{{ item.descricao }}</a></li>
+            </ul>
+        </div>
+
+        <ul class="nav navbar-nav-custom navbar-right-custom" *ngIf="_exibirDropdownUsuario && _temUsuarioItens">
+            <li dropdown class="dropdown">
+                <a href dropdownToggle (click)="false" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                    aria-haspopup="true" aria-expanded="false">{{ nomeUsuario }}</a>
+                <ul *dropdownMenu class="dropdown-menu">
+                    <li *ngFor="let item of usuarioItens"><a href class="dropdown-item" [title]="item.descricao"
+                            (click)="executeClick(item)"><span [ngClass]="item.icone"></span>{{ item.descricao }} </a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
+</div>

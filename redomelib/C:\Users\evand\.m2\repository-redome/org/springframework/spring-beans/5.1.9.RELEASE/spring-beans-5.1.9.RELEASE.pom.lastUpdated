@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:23:51 BRT 2021
+https\://jcenter.bintray.com/.lastUpdated=1625250231593
+@default-io.spring.repo.maven.release-http\://repo.spring.io/release/.lastUpdated=1625250230875
+http\://repo.spring.io/release/.error=Could not transfer artifact org.springframework\:spring-beans\:pom\:5.1.9.RELEASE from/to io.spring.repo.maven.release (http\://repo.spring.io/release/)\: Transfer failed for http\://repo.spring.io/release/org/springframework/spring-beans/5.1.9.RELEASE/spring-beans-5.1.9.RELEASE.pom 308 Permanent Redirect
+http\://repo.springsource.org/milestone/.error=
+http\://repo.springsource.org/milestone/.lastUpdated=1625250231172

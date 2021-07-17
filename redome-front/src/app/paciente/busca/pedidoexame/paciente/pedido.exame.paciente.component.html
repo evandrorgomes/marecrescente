@@ -1,0 +1,46 @@
+<div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'pedidoexamepaciente.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <a id="idSolicitarPedidoFase3" type="button" class="btn btn-setting btn-primary" (click)="solicitarFase3(0)"
+                    *ngIf="deveExibirBotaoSolicitarExame()"><span class="glyphicon icon-exames"></span> {{'botao.solicitar.exameFase3' | translate}}</a>
+                <a id="idSolicitarPedidoSwabFase3" type="button" class="btn btn-setting btn-primary" (click)="solicitarFase3(1)" *ngIf="deveExibirBotaoSolicitarExame()" >
+                    <span class="glyphicon icon-exames"></span> {{'botao.solicitar.exameSwabFase3' | translate}}</a>
+                <a id="idSolicitarPedidoSangueSwabFase3" type="button" class="btn btn-setting btn-primary" (click)="solicitarFase3(2)" *ngIf="deveExibirBotaoSolicitarExame()" >
+                    <span class="glyphicon icon-exames"></span> {{'botao.solicitar.exameSangueSwabFase3' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <alert show="exibirAlerta" id="mensagemnenhumpedido" *ngIf="pedidoExame == null">
+            {{ 'pedidoexamepaciente.mensagemnenhumpedido' | translate }}
+        </alert>
+        <br>
+        <div *ngIf="pedidoExame != null">
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>Dados do Exame</h3>
+                    <a href="javascript:void(0)" id="idCancelarPedidoFase3" class="editar-bloco" (click)="cancelarFase3()" *ngIf="deveExibirBotaoCancelarExame()"><span class="glyphicon glyphicon-remove-circle"></span>{{'botao.cancelarsolicitacao.exameFase3' | translate}}</a>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco">
+                    <p><small>{{ 'pedidoexamepaciente.status' | translate }}: </small><span class="label label-primary">{{ pedidoExame?.statusPedidoExame?.descricao }}</span></p>
+                    <p *ngIf="pedidoExame?.justificativa"><small>{{ 'pedidoexamepaciente.justificativa' | translate }}: </small>{{ pedidoExame?.justificativa }}</p>
+                    <p *ngIf="pedidoExame?.dataColetaAmostra"><small>{{ 'pedidoexamepaciente.datacoleta' | translate }}: </small> {{ pedidoExame?.dataColetaAmostra | date:'dd/MM/yyyy' }}</p>
+                    <p *ngIf="pedidoExame?.dataRecebimentoAmostra"><small>{{ 'pedidoexamepaciente.datarecebimento' | translate }}: </small>{{ pedidoExame?.dataRecebimentoAmostra | date:'dd/MM/yyyy' }}</p>
+                    <p *ngIf="descricaoTipoAmostra"><small>{{ 'pedidoexamepaciente.tipoAmostra' | translate }}: </small>{{ descricaoTipoAmostra }} </p>
+                    <p><small>{{ 'pedidoexamepaciente.tipo' | translate }}: </small>{{ pedidoExame?.tipoExame?.descricao }} </p>
+                    <p><small>{{ 'pedidoexamepaciente.laboratorio' | translate }}: </small>{{ pedidoExame?.laboratorio?.nome }}
+                        <a class="btn-dadosinline" id="idAlterarPedidoFase3" (click)="alterarFase3()" *ngIf="deveExibirBotaoAlterarExame()"><span class="glyphicon icon-editar"></span></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

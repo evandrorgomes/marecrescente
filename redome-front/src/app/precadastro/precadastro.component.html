@@ -1,0 +1,156 @@
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">                       
+                <a class="navbar-brand" id="logo-redome" href="#">Redome - Plataforma Tecnológica</a>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'precadastro.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <span>
+                    <a href="javascript:void(0)" id="idVoltaConsulta" type="button" class="btn btn-setting btn-primary" (click)="abrirTelaLogin()"><span class="icon-seta-esquerda"></span> {{'botao.login' | translate}}</a>
+                </span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <!-- Sinaliza as etapas de preenchimento do form -->
+                <ol class="etapaContainer etapaContainer-precadastro">
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(1)" (click)="habilitarEtapa(1)"><b> {{ 'precadastro.etapa.identificacao' | translate }}</b></li>
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(2)" (click)="habilitarEtapa(2)"><b>{{ 'precadastro.etapa.contato' | translate }} </b></li>
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(3)" (click)="habilitarEtapa(3)"><b>{{ 'precadastro.etapa.centrosreferencia' | translate }}</b></li>
+                </ol>
+            </div>
+            <div class="col-xs-12">
+                <div class="floatL" [hidden]="escondeSeEtapa1()">
+                    <a href="javascript:void(0)" title="{{ 'textosGenericos.etapa.anterior' | translate }}" id="idEtapaAnterior" class="btn-controle" (click)="habilitarEtapaAnterior()"><span class="glyphicon glyphicon-circle-arrow-left"></span> {{ 'link.anterior' | translate }}</a>
+                </div>
+                <div class="floatR" [hidden]="escondeSeUltimaEtapa()">
+                    <a href="javascript:void(0)" title="{{ 'textosGenericos.etapa.proxima' | translate }}" id="idProximaEtapa" class="btn-controle" (click)="habilitarProximaEtapa()">{{ 'link.proximo' | translate }} <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+                </div>
+                <div class="floatR" [hidden]="habilitarSalvarSeEhUltimaEtapa()">
+                    <a href="javascript:void(0)" title="{{ 'textosGenericos.finalizar' | translate }}" id="salvarCadastro"(click)="salvarPreCadastro()" class="btn-controle">{{ 'link.finalizar' | translate }} <span class="glyphicon glyphicon-ok-sign"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content dadosGeraisPaciente">
+        <div [hidden]="esconderEtapa(1)" [formGroup]="form()">        
+            <div class="row" >
+                <div class="form-group col-sm-6 col-xs-12">
+                    <input-component 
+                        label="{{'precadastro.crm' | translate}}:" 
+                        formControlName="crm" 
+                        [control]="form().controls['crm']" 
+                        idd="txtCRM" 
+                        placeholder="" >
+                    </input-component>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group  col-sm-6 col-xs-12">
+                    <input-component 
+                        label="{{'precadastro.nome' | translate}}:" 
+                        formControlName="nome" 
+                        [control]="form().controls['nome']" 
+                        idd="txtNome" 
+                        [allowAllUpperCase]="true"
+                        placeholder="" >
+                    </input-component>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group col-sm-6 col-xs-12">
+                    <input-component 
+                        label="{{'precadastro.login' | translate}}:" 
+                        formControlName="login" 
+                        [control]="form().controls['login']" 
+                        idd="txtLogin" 
+                        placeholder="" >
+                    </input-component>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <label>{{ 'precadastro.arquivocrm' | translate }}: </label>
+                    <br>
+                    <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="esconderEtapa(2)">
+            <div class="row" >
+                <div class="form-group col-sm-12 col-xs-12">
+                    <h4>{{ 'precadastro.endereco' | translate }}  </h4>
+                    <endereco-contato #endereco esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" ></endereco-contato>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group col-sm-12 col-xs-12">
+                    <h4>{{ 'precadastro.telefone' | translate }}  </h4>
+                    <contato-telefone validarPrincipal="true" #contatoTelefoneComponent></contato-telefone>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group col-sm-12 col-xs-12">
+                    <h4>{{ 'precadastro.email' | translate }}  </h4>
+                    <contato-email #emailContatoComponente [esconderBotaoAdicionarEmail]="false" esconderCampoPrincipal="false" validarPrincipal="true"></contato-email>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="esconderEtapa(3)">
+            <div class="row">        
+                <div class="form-group box-selectlist col-sm-5 col-xs-12" [formGroup]="formCentrosDisponiveis()">            
+                    <select-component 
+                        label="{{'precadastro.centros.disponiveis' | translate}}:" 
+                        formControlName="selecionados" 
+                        [control]="formCentrosDisponiveis().controls['selecionados']" 
+                        idd="txtCentroDisponiveis"
+                        [options]="listaCentrosDisponiveis"
+                        fieldOptionValue="id"
+                        fieldOptionText="nome"
+                        [showBlankOption]="false"
+                        [multipleSelect]="true">
+                    </select-component>        
+                </div>
+                <div class="form-group btn-selectlist col-sm-2 col-xs-12">            
+                    <button id="idAdicionarCentros" type="button" class="btn btn-setting btn-primary"
+                        (click)="adicionarCentros()" [disabled]="habiltaBotaoAdicionar()"  ><span class="glyphicon glyphicon-arrow-right"></span></button>
+                    <button id="idRemoverCentros" type="button" class="btn btn-setting btn-primary"
+                        (click)="removerCentros()" [disabled]="habiltaBotaoRemover()" ><span class="glyphicon glyphicon-arrow-left"></span></button>            
+        
+                </div>
+                <div class="form-group box-selectlist col-sm-5 col-xs-12" [formGroup]="formCentrosSelecionados()">            
+                    <select-component 
+                        label="{{'precadastro.centros.selecionados' | translate}}:" 
+                        formControlName="selecionados" 
+                        [control]="formCentrosSelecionados().controls['selecionados']" 
+                        idd="txtCentroSelecionados"
+                        [options]="listaCentrosSelecionados"
+                        fieldOptionValue="id"
+                        fieldOptionText="nome"
+                        [showBlankOption]="false"
+                        [multipleSelect]="true">
+                    </select-component>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <div [formGroup]="formCentrosSelecionados()" class="wrap-recaptcha">
+                        <re-captcha formControlName="recaptcha"></re-captcha>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

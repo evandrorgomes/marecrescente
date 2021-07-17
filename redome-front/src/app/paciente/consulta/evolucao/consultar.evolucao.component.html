@@ -1,0 +1,78 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2> {{ 'pacienteForm.evolucaoGroup.titulo' | translate }} </h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            <span *ngIf="temPermissaoNovaEvolucao">
+                <a id="btnNovaEvolucao" type="button" class="btn btn-setting btn-primary" [routerLink]="['/pacientes/' + rmrSelecionado + '/evolucoes','nova']"><span class="icon-mais"></span> {{'botao.nova.evolucao' | translate}}</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="page-content dadosGeraisEvolucao">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 col-xs-12"> 
+            <form>
+                <div class="form-group">
+                    <label> {{ 'pacienteForm.evolucaoGroup.descricaoCombo' | translate }}</label>
+                    <select id="ddlComboEvolucao" #comboEvolucoes class="form-control" [value]="evolucaoSelecionada?.id"
+                            (change)="selecionarEvolucao(comboEvolucoes.value)">
+                        <option *ngFor="let evol of evolucoes" value="{{evol.id}}">
+                            {{evolucaoDecorator(evol)}}
+                        </option>
+                    </select>
+                </div>
+            </form>
+            <br />            
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'pacienteForm.evolucaoGroup.dadosPaciente' | translate }}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+                <p id="lbPeso"><small>{{ 'pacienteForm.evolucaoGroup.peso' | translate }}: </small>{{evolucaoSelecionada?.peso}} Kg</p>
+                <p id="lbAltura"><small>{{ 'pacienteForm.evolucaoGroup.altura' | translate }}: </small>{{evolucaoSelecionada?.altura}} m</p>
+                <p id="lbCMV"><small>{{ 'pacienteForm.evolucaoGroup.resultadoCMV' | translate }}: </small>{{cmvDecorator()}}</p>
+                <p id="lbTransplanteAnt"><small>{{ 'pacienteForm.evolucaoGroup.tipoTransplanteAnterior' | translate }}: </small><span *ngIf="evolucaoSelecionada?.tiposTransplante?.length < 1">{{ 'textosGenericos.nao' | translate }}</span></p>
+                <div *ngFor="let t of evolucaoSelecionada?.tiposTransplante">
+                    <p>{{t.descricao}}</p>
+                </div>
+                <p id="lbDataUltimoTransplante"   *ngIf="evolucaoSelecionada?.tiposTransplante?.length > 0"><small>{{ 'pacienteForm.evolucaoGroup.dataUltimoTransplante' | translate }}: </small>{{ evolucaoSelecionada?.dataUltimoTransplanteFormatada}}</p>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'pacienteForm.evolucaoGroup.evolucaoDoPaciente' | translate }}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <p id="lbCondicaoPaci"><small>{{ 'pacienteForm.evolucaoGroup.evolucao' | translate }}: </small><span class="texto-bloco">{{evolucaoSelecionada?.condicaoPaciente.descricao}}</span></p>
+            <p id="lbTratamentoAnt"><small>{{ 'pacienteForm.evolucaoGroup.tratamentoAnterior' | translate }}: </small><span class="texto-bloco">{{evolucaoSelecionada?.tratamentoAnterior}}</span></p>
+            <p id="lbTratamentoAtu"><small>{{ 'pacienteForm.evolucaoGroup.tratamentoAtual' | translate }}: </small><span class="texto-bloco">{{evolucaoSelecionada?.tratamentoAtual}}</span></p>
+            <p id="lbCondicaoAtu"><small>{{ 'pacienteForm.evolucaoGroup.condicaoAtual' | translate }}: </small><span class="texto-bloco">{{evolucaoSelecionada?.condicaoAtual}}</span></p>
+            <p id="lbPossuiExameAnticorpo" *ngIf="!evolucaoSelecionada?.exameAnticorpo " ><small>{{ 'pacienteForm.evolucaoGroup.exameAnticorpo' | translate }}: </small><span class="texto-bloco">{{ 'textosGenericos.nao' | translate }}</span></p>
+            <p id="lbPossuiExameAnticorpo" *ngIf="evolucaoSelecionada?.exameAnticorpo" ><small>{{ 'pacienteForm.evolucaoGroup.exameAnticorpo' | translate }}: </small><span class="texto-bloco">{{ 'textosGenericos.sim' | translate }}</span></p>
+            <p id="lbDataExameAnticorpo" *ngIf="evolucaoSelecionada?.exameAnticorpo"><small>{{ 'pacienteForm.evolucaoGroup.dataExameAnticorpo' | translate }}: </small><span class="texto-bloco">{{evolucaoSelecionada?.dataExameAnticorpo | date:'dd/MM/yyyy' }}</span></p>
+            <p id="lbResultadoExameAnticorpo" *ngIf="evolucaoSelecionada?.exameAnticorpo"><small>{{ 'pacienteForm.evolucaoGroup.resultadoExameAnticorpo' | translate }}: </small><span class="texto-bloco">{{evolucaoSelecionada?.resultadoExameAnticorpo}}</span></p>
+        </div>
+    </div>
+    
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'pacienteForm.evolucaoGroup.arquivosComplementares' | translate }}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <p *ngFor="let arquivo of evolucaoSelecionada?.arquivosEvolucao">
+               <a href="javascript:void(0)"  (click)="baixarArquivo(arquivo)">{{ obterNomeArquivoSemTimeStamp(arquivo.caminhoArquivo)}}</a>
+            </p>
+        </div>
+    </div>
+</div>

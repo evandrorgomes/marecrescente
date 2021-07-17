@@ -1,0 +1,103 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'doadorForm.edicao.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <small class="vinculado">{{'doadorForm.vinculo' | translate}}: {{rmrAssociado}}</small> 
+            </div>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <a id="idExames" type="button" class="btn btn-setting btn-primary" (click)="visualizarExames()"><span class="icon-exames"></span> {{'botao.exames' | translate}}</a>  
+                <a id="idInativar" type="button" class="btn btn-setting btn-primary" (click)="abrirModalInativarDoador()"><span class="icon-proibido"></span> {{'botao.inativarDoador' | translate}}</a>              
+                
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12"> 
+                <h3>{{ 'doadorForm.dados' | translate }}</h3>
+                <!-- <a href="javascript:void(0)" class="editar-bloco" (click)="editarDados()">
+            <span class="icon-editar"></span> {{ 'link.editar' | translate }}</a> -->
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div> 
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.id'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.id}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.grid'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.grid}}</span>
+                    </p>
+                    <p *ngIf="doador?.idade">
+                        <small>{{ 'doadorForm.cadastro.idade'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.idade}} {{ 'doadorForm.cadastro.anos'| translate }}</span>
+                    </p>
+                    <p *ngIf="doador?.dataNascimento">
+                        <small>{{ 'doadorForm.cadastro.dataNascimento'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.dataNascimento | date:'dd/MM/yyyy'}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.peso'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.peso}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.abo'| translate }}: </small>
+                        <span class="texto-bloco RgSpace">{{doador?.abo}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.sexo'| translate }}: </small>
+                        <span *ngIf="doador?.sexo == 'F'">{{ 'doadorForm.cadastro.fem'| translate }}</span>
+                        <span *ngIf="doador?.sexo == 'M'">{{ 'doadorForm.cadastro.masc'| translate }}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.status'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.statusDoador?.descricao }}</span>
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'doadorForm.origpag' | translate }}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.origem'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.registroOrigem?.nome}}</span>
+                    </p>
+                    <p id="">
+                        <small>{{ 'doadorForm.cadastro.pagamento'| translate }}: </small>
+                        <span class="texto-bloco">{{doador?.registroPagamento?.nome}}</span>
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'doadorForm.hla' | translate }}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div>
+                    <p id="">
+                        <hla-viewer-component #hlaComponent></hla-viewer-component>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <ressalva #ressalva esconderLinkIncluirRessalva="true"></ressalva>
+    </div>
+</div>

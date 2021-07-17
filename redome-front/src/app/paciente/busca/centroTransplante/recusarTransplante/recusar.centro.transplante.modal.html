@@ -1,0 +1,17 @@
+<div class="row">
+    <div [formGroup]="recusarCentroGroup"
+        class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+        <label for="txtDescricao">{{'recusarCentroTransplante.justificativa' | translate}}:</label>
+        <textarea class="form-control modal-dialogo" tabindex="5" rows="3"
+            (blur)="setMensagemErroPorCampo('justificativa');" 
+            formControlName="justificativa"
+            maxlength="255">
+        </textarea>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('justificativa') }}"></msg>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+        <button type="button" class="btn btn-primary floatR" (click)="confirmar()">
+            {{'botao.confirmar' | translate}}
+        </button>
+    </div>
+</div>

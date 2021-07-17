@@ -1,0 +1,130 @@
+<modal mensagem="" #modalMsg (fecharModal)="voltarSemCancelarTarefa()"></modal>
+<div class="container conteudo" [formGroup]="formularioRecebimento">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.recebimentoColeta.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div> 
+        <div class="row menu-btn">
+                <div class="col-sm-12 col-xs-12">
+                    <span>
+                        <a id="" type="button" class="btn btn-setting btn-default" (click)="voltar()">
+                            <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                    </span>
+                    <span>
+                        <a id="" type="button" class="btn btn-setting btn-primary"  (click)="salvarRecebimentoColeta()">
+                           <span class="glyphicon glyphicon-ok"></span> {{'botao.salvar' | translate}}</a>
+                    </span>
+                </div>
+            </div>
+    </div>
+    <div class="page-content">     
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h4>
+                    {{ dmr? ('workup.recebimentoColeta.dmr' | translate) : ('workup.recebimentoColeta.idRegistro' | translate)  }}: 
+                    {{dmr?dmr:idRegistro}}
+                </h4>
+            </div>
+        </div>   
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-12">
+                <label>{{ 'workup.recebimentoColeta.recebeuColeta' | translate  }}:</label>
+                <div class="radio-group">
+                    <input formControlName="recebeu" id="rdRecebeuSim" type="radio" value="1" (click)="radioButtonRecebeuColeta()">
+                    <label for="rdRecebeuSim" class="radio-inline">
+                        <span></span>{{'workup.recebimentoColeta.sim' | translate}}
+                    </label>
+                    <input formControlName="recebeu" id="rdRecebeuNao" type="radio" value="0" (click)="radioButtonNaoRecebeuColeta()">
+                    <label for="rdRecebeuNao" class="radio-inline">
+                        <span></span>{{'workup.recebimentoColeta.nao' | translate}}
+                    </label>
+                </div>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('recebeu') }}"></msg> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-12 col-sm-4">
+                <label>{{ 'workup.recebimentoColeta.fonte' | translate  }}:</label>
+                <p><b>{{ recebimentoColeta?.fonteCelula?.descricao }}</b></p>
+            </div>
+            <div class="form-group col-xs-12 col-sm-4">
+                <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcaoMedula" style="display: block;float: left;" >
+                    <span style="display: block;float:  left;margin-left:  4px;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                </label>
+                <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcaoMedula" style="display: block;float: left;" >
+                    <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                </label>
+                <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcaoMedula" style="display: block;float: left;">
+                    <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                </label>                    
+
+                <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcaoSanguePeriferico">
+                    <span style="display: block;float:  left;margin-left:  4px;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                    <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                </label>                    
+                <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcaoSanguePeriferico" >
+                    <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                </label>
+
+                <div>
+                    <input type="text" maxlength="8" [disableControl]="desabilitarCampos"  
+                    formControlName="total" class="form-control" 
+                    currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: '' }"
+                    id="total" (blur)="setMensagemErroPorCampo('total')" />
+                </div>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('total') }}"></msg> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-12 col-sm-12">
+                <label>Destino:</label>
+                <div class="radio-group">
+                    <input formControlName="destino" id="rdDestinoInfusao" type="radio" value="1"
+                     (click)="destinoInfusao()"
+                     [disableControl]="desabilitarCampos">
+                    <label for="rdDestinoInfusao" class="radio-inline">
+                        <span></span>{{'workup.recebimentoColeta.infusao' | translate}}
+                    </label>
+                    <input formControlName="destino" id="rdDestinoCongelamento" type="radio" value="2"
+                     (click)="destinoCongelamento()"
+                     [disableControl]="desabilitarCampos">
+                    <label for="rdDestinoCongelamento" class="radio-inline">
+                        <span></span>{{'workup.recebimentoColeta.congelamento' | translate}}
+                    </label>
+                    <input formControlName="destino" id="rdDestinoDesprezado" type="radio" value="3"
+                     (click)="destinoDescarte()"
+                     [disableControl]="desabilitarCampos">
+                    <label for="rdDestinoDesprezado" class="radio-inline">
+                        <span></span>{{'workup.recebimentoColeta.desprezado' | translate}}
+                    </label>
+                </div>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('destino') }}"></msg> 
+            </div>
+        </div>
+        <div class="row"   *ngIf="labelData">
+            <div class="form-group col-xs-12 col-sm-3" >
+                <label>{{ labelData }}:</label>
+                <div>
+                    <input type="text"  formControlName="data" class="form-control" 
+                    [disableControl]="desabilitarCampos"
+                    [textMask]="{mask: data}"
+                    id="total" (blur)="setMensagemErroPorCampo('data')" />
+                </div>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('data') }}"></msg> 
+            </div>
+            <div class="form-group col-xs-12 col-sm-5" *ngIf="justificativa" >
+                    <label>{{ 'workup.recebimentoColeta.justificativa' | translate  }}:</label>
+                    <div>
+                        <input type="text" maxlength="255"  formControlName="justificativa" class="form-control" 
+                        [disableControl]="desabilitarCampos"
+                        id="justificativa" (blur)="setMensagemErroPorCampo('justificativa')" />
+                    </div>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('justificativa') }}"></msg> 
+                </div>
+        </div>
+    </div>

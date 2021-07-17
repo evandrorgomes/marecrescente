@@ -1,0 +1,11 @@
+version: "3"
+services:
+    courier:
+        build:
+            context: ./redome-courier
+            dockerfile: ./.devcontainer/Dockerfile
+        ports:
+            - "9005:9005"
+        volumes:
+            - .:/workspace:cached
+        command: /bin/sh -c "while sleep 1000; do :; done"

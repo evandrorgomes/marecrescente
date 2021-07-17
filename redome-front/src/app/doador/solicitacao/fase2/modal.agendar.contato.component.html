@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+            <h2 class="text-center"> {{ 'modalAgendarContato.titulo' | translate }} <br/> </h2>
+    </div>
+</div>
+<div class="" [formGroup]="form()">
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <select-component 
+                label="{{'modalAgendarContato.telefones' | translate}}:" 
+                formControlName="telefone" 
+                [control]="form().controls['telefone']" 
+                idd="cmbTelefones"
+                [options]="data.telefones"
+                fieldOptionValue="id"
+                fieldOptionText="telefoneFormatado">
+            </select-component>             
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <group-radio-component label= "{{'modalAgendarContato.atribuirParaMeuUsuario' | translate}}"
+                formControlName="atribuirParaMeuUsuario"
+                [control]="form().controls['atribuirParaMeuUsuario']"
+                [optionsLabel]="labelAtribuicao"
+                [optionsValue]="opcoesAtribuicao">
+            </group-radio-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="text"
+                label="{{'modalAgendarContato.data' | translate}}:" 
+                formControlName="data" 
+                [control]="form().controls['data']" 
+                idd="txtData" 
+                placeHolder="DD/MM/AAAA"
+                [mascara]="_dataMask" >
+            </input-component>
+        </div>
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="text"
+                label="{{'modalAgendarContato.horaInicio' | translate}}:" 
+                formControlName="horaInicio" 
+                [control]="form().controls['horaInicio']" 
+                idd="txtHoraInicio" 
+                placeHolder="HH:MM"
+                [mascara]="_horaMask" >
+            </input-component>
+        </div>
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="text"
+                label="{{'modalAgendarContato.horaFim' | translate}}:" 
+                formControlName="horaFim" 
+                [control]="form().controls['horaFim']" 
+                idd="txtHoraFim" 
+                placeHolder="HH:MM"
+                [mascara]="_horaMask" >
+            </input-component>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-sm-offset-4 col-sm-5 col-xs-12 modal-btn" style="padding: 30px 0 0 0">
+            <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()" ><span class=""></span> {{ 'botao.confirmar' | translate }}  </a>
+        </div>
+    </div>
+</div>

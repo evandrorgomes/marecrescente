@@ -1,0 +1,72 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.recebimentoColeta.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-8 col-xs-12">
+                <select-centros-component #selectCentros
+                    [showAvaliadorOption]="false"
+                    (change)="mudouCentro(selectCentros.value)">
+                </select-centros-component> 
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+               <!-- <h4>{{'avaliacao.resultadoworkup.resultados' | translate}}</h4>-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-1">{{'workup.recebimentoColeta.dmrId' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.recebimentoColeta.rmr' | translate}}</td>
+                            <td class="col-sm-3">{{'workup.recebimentoColeta.nome' | translate}}</td>
+                            <td class="col-sm-2">{{'workup.recebimentoColeta.dataRecebimento' | translate}}</td>
+                            <td class="col-sm-2">{{'workup.recebimentoColeta.aging' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let tarefa of paginacaoAvaliacoes.content; index as i" (click)="carregarRecebimentoColeta(tarefa.objetoRelacaoEntidade.id, tarefa)"  >
+                            <td>{{tarefa.objetoRelacaoEntidade.pedidoColeta.pedidoWorkup.solicitacao.doador.dmr?
+                                (tarefa.objetoRelacaoEntidade.pedidoColeta.pedidoWorkup.solicitacao.doador.dmr):
+                                (tarefa.objetoRelacaoEntidade.pedidoColeta.pedidoWorkup.solicitacao.doador.idRegistro)}}
+                            </td>
+                            <td>{{tarefa.objetoRelacaoEntidade.pedidoColeta.pedidoWorkup.solicitacao.paciente.rmr}}</td>
+                            <td>{{tarefa.objetoRelacaoEntidade.pedidoColeta.pedidoWorkup.solicitacao.paciente.nome}}</td>
+                            <td>{{tarefa.objetoRelacaoEntidade.dataPrevistaInfusao? (tarefa.objetoRelacaoEntidade.dataPrevistaInfusao  | date: 'dd/MM/yyyy') : (tarefa.objetoRelacaoEntidade.dataRecebimento | date: 'dd/MM/yyyy') }}
+                                <span *ngIf="tarefa.objetoRelacaoEntidade.dataPrevistaInfusao">({{'workup.recebimentoColeta.infusao' | translate : ""}})</span>
+                            </td>
+                            <td>{{tarefa.aging}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoAvaliacoes.totalElements && paginacaoAvaliacoes.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoAvaliacoes.totalElements" [ngModel]="paginacaoAvaliacoes.number" [maxSize]="5" class="pagination-sm pagination-wrap"
+                    [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoAvaliacoes.quantidadeRegistro" (pageChanged)="mudarPaginaRecebimento($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}" previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>" lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroRecebimento" (change)="selecionaQuantidadeAvaliacoesPorPagina($event)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<modal mensagem="" #modalErro></modal>

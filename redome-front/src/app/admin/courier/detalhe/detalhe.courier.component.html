@@ -1,0 +1,160 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'manterCourier.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span
+                    class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            <a type="button" class="btn btn-setting btn-default"
+            *ngIf="_courier?.id" (click)="inativarCourier()">
+                    <span class="icon-proibido"></span> {{'manterUsuario.inativar' | translate}}
+                </a>                        
+            <a id="idSalvar" type="button" class="btn btn-setting btn-primary" *ngIf="!_courier?.id" (click)="salvarNovo()"><span
+                    class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}</a>
+        </div>
+    </div>
+</div>
+<div class="page-content dadosGeraisPaciente">
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'manterCourier.campos.dadosPessoais' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarDadosBasicos()" *ngIf="_exibirLinkEditarDadosBasicos"><span
+                    class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div [ngClass]="_mostraDadosBasicos">
+                <p><small>{{'manterCourier.campos.nome' | translate}}:{{_courier?.nome}} </small></p>
+                <p><small>{{'manterCourier.campos.CPF' | translate}}: {{_courier?.cpf}}</small></p>
+                <p><small>{{'manterCourier.campos.RG' | translate}}: {{_courier?.rg}}</small></p>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioDadosBasicos" [formGroup]="form()">
+                <div class="row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        <input-component 
+                            label="{{'manterCourier.campos.nome' | translate}}:" 
+                            formControlName="nome"
+                            [control]="form().controls['nome']"
+                            idd="txtNome" placeholder="">
+                        </input-component>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <input-component 
+                            label="{{'manterCourier.campos.CPF' | translate}}:"
+                            formControlName="CPF"
+                            [control]="form().controls['CPF']"
+                            idd="txtCpf"
+                            [mascara]="maskCpf"
+                            placeholder="">
+                        </input-component>
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <input-component
+                            label="{{'manterCourier.campos.RG' | translate}}:"
+                            formControlName="RG"
+                            [control]="form().controls['RG']"
+                            idd="txtRG"
+                            placeholder="">
+                        </input-component>
+                    </div>
+                </div>
+                <div class="row" *ngIf="_exibirBotoesEditarDadosBasicos">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoDadosBasicos()">{{'botao.cancelar'
+                            | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarDadosBasicos()">{{'botao.salvar'
+                            | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Telefones -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+                <h3>{{ 'manterCourier.campos.contatosTelefonicos' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirTelefone()"
+                *ngIf="_exibirLinkInserirTelefone" ><span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraTelefone" >
+                    <li *ngFor=" let contatoTelefonico of _courier?.contatosTelefonicos; index as i">        
+                    <p id="">
+                            <small>{{'manterCourier.campos.telefone' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div *ngIf= "contatoTelefonico.tipo == 2" >
+                                <i class="icon-celular"></i> 
+                                {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}                             
+                                <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                <a class="btn-dadosinline"
+                                    title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}" 
+                                        (click)="excluirTelefone(contatoTelefonico)">
+                                <i class="glyphicon glyphicon-trash"></i></a>   
+                            </div>
+                            <div *ngIf= "contatoTelefonico.tipo == 1" >
+                                <i class="icon-telefone"></i> 
+                                {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{" | " + contatoTelefonico.complemento }} {{" (" +  contatoTelefonico.nome + ")"}} 
+                                <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                <a class="btn-dadosinline" 
+                                    title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}" 
+                                    (click)="excluirTelefone(contatoTelefonico)">
+                                <i class="glyphicon glyphicon-trash"></i></a>  
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioTelefone">
+                <contato-telefone [esconderBotaoAdicionarTelefone]="_esconderBotaoAdicionarTelefone" validarPrincipal="false"  #contatoTelefoneComponent></contato-telefone>
+                <div class="row" *ngIf="_exibirBotoesInserirTelefone" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoTelefone()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarTelefone()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Emails -->
+  <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'manterCourier.campos.email' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirEmail()"
+            *ngIf="_mostraLinkInserirEmail">
+                <span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEmail">
+                <li *ngFor=" let email of _courier?.emails; index as i">                
+                    <p id="">
+                        <small>{{'manterCourier.campos.email' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div>                                    
+                                {{ email.email }}&nbsp;
+                                <i class="icon-favorito laranja" *ngIf="email.principal"></i>
+                                <a class="btn-dadosinline" *ngIf="!email.principal"
+                                    title="{{ 'medico.detalhe.email.excluir' | translate}}" 
+                                    (click)="excluirEmail(email)">
+                                    <i class="glyphicon glyphicon-trash"></i></a>  
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioEmail">
+                <contato-email [esconderBotaoAdicionarEmail]="_esconderBotaoAdicionarEmail" [validarPrincipal]="_validarEmailPrincipal"  #emailContatoComponent></contato-email>
+                <div class="row" *ngIf="_exibirBotoesEditarEmail" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEmail()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarContatoEmail()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

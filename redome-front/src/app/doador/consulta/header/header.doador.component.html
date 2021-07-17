@@ -1,0 +1,15 @@
+<div class="col-sm-12 col-xs-12 header-doador">
+    <h4>{{identificacao}}</h4>
+    <small>{{sexo ? sexo + ', ' : ''}}</small>
+    <small>{{idade ? idade + ', ' : ''}}</small>
+    <span [class]="obterClasseCSS()">{{doador?.statusDoador ? doador.statusDoador.descricao : ''}}</span>
+    <p *ngIf="centroColeta != null" >
+        <small>{{centroColeta}} | </small>
+        <small>{{'textosGenericos.dataLimite' | translate}}: {{dataLimite | date:'dd/MM/yyyy'}}</small>
+    </p>
+    <p *ngIf="_dataPedidoContato != null || _dataUltimoPedidoContato != null" >
+        <small *ngIf="_dataUltimoPedidoContato != null">{{'textosGenericos.dataUltimoPedidoContato' | translate}}: {{_dataUltimoPedidoContato | date:'dd/MM/yyyy'}}</small>
+        <small *ngIf="_dataPedidoContato != null">{{'textosGenericos.dataPedidoContato' | translate}}: {{_dataPedidoContato | date:'dd/MM/yyyy'}}</small>
+    </p>
+
+</div>

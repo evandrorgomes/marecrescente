@@ -1,0 +1,98 @@
+<div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h2 class="text-center">{{'genotipodivergente.modaleditartextoemaillaboratorio.titulo' | translate}}</h2>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-sm-12  col-xs-12">
+            <h5 *ngIf="data?.exameSelecionado?.exameDoGenotipo" > {{ 'genotipodivergente.examedogenotipo' | translate }}</h5>
+            <h5 *ngIf="data?.exameSelecionado?.exameDivergente"> {{ 'genotipodivergente.examedivergente' | translate }}</h5>
+            <h5 *ngIf="!data?.exameSelecionado?.exameDoGenotipo && !data?.exameSelecionado?.exameDivergente"  >{{ 'genotipodivergente.examePedidoCT' | translate:{'index': index} }} </h5>
+             
+            <div class="row">
+                <div class="col-sm-2 col-xs-2 col-no-gutter-right">
+                    <small>{{ 'textosGenericos.locus' | translate }} : </small>                        
+                </div>
+                <div class="col-xs-3 col-md-3 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado.locus }}</span>
+                </div>
+            
+                <div class="col-sm-2 col-xs-2 col-no-gutter-right">
+                    <small>{{ 'textosGenericos.alelo1' | translate }}: </small>                        
+                </div>
+                <div class="col-sm-2 col-xs-2 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado?.primeiroAlelo }}</span>
+                </div>
+                <div class="col-sm-1 col-xs-1 col-no-gutter-right">
+                    <small>{{ 'textosGenericos.alelo2' | translate }}: </small>
+                </div>
+                <div class="col-sm-2 col-xs-2 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado.segundoAlelo }}</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2 col-xs-2 col-no-gutter-right">
+                    <small>{{ 'genotipodivergente.dataexame' | translate }}: </small>
+                </div>
+                <div class="col-sm-3 col-xs-3 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado.dataExame | date : 'dd/MM/yyyy' }}</span>
+                </div>                    
+
+                <div class="col-sm-2 col-xs-2 col-no-gutter-right">
+                    <small>{{ 'genotipodivergente.metodologias' | translate }}: </small>
+                </div>
+                <div class="col-sm-5 col-xs-5 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado?.metodologias }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 col-xs-2 col-no-gutter-right">
+                    <small>{{ 'genotipodivergente.laboratorio' | translate }}: </small>
+                </div>
+                <div class="col-sm-10 col-xs-10 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado?.laboratorio?.nome }}</span>
+                </div>                    
+            </div>
+            <div class="row" *ngIf="data?.exameSelecionado?.primeiroAleloComposicao">
+                <div class="col-sm-2 col-xs-2 col-no-gutter-right">
+                    <small>{{ 'genotipodivergente.composicaoalelo1' | translate }}: </small>
+                </div>
+                <div class="col-sm-10 col-xs-10 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado?.primeiroAleloComposicao }}</span>
+                </div>                                        
+            </div>
+            <div class="row" *ngIf="data?.exameSelecionado?.segundoAleloComposicao">
+                <div class="col-sm-2 col-xs-2 col-no-gutter-right">
+                    <small>{{ 'genotipodivergente.composicaoalelo2' | translate }}: </small>
+                </div>
+                <div class="col-sm-10 col-xs-10 col-no-gutter-left">
+                    <span class="texto-bloco">{{ data?.exameSelecionado?.segundoAleloComposicao }}</span>
+                </div>                                        
+            </div>
+        </div>    
+    </div>
+    <div class="row" [formGroup]="form()">
+        <div class="col-sm-12 col-xs-12 form-group">
+            <input-component 
+                label="{{'genotipodivergente.modaleditartextoemaillaboratorio.destinatarios' | translate}}:" 
+                formControlName="destinatarios" 
+                [control]="form().controls['destinatarios']" 
+                idd="txtNome" 
+                placeholder="" >
+            </input-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 form-group">
+            <ckeditor #ckEditor [(ngModel)]="textoEmail" [config]="{uiColor: '#99000', extraPlugins: 'divarea'}" [readonly]="false" debounce="300">
+            </ckeditor>
+        </div> 
+    </div>    
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 modal-btn">
+            <button id="btnConfirmarAprovacao" class="btn btn-lg btn-primary" (click)="enviarEmail()">{{'botao.enviaremail' | translate}}</button>            
+        </div>
+    </div>
+</div>

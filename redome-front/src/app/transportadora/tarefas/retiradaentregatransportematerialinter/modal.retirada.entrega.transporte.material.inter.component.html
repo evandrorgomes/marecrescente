@@ -1,0 +1,35 @@
+<div [formGroup]="form()">
+    <div class="row" *ngIf="!exibirDataRetirada()">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label for="dataRetirada">{{ 'transporteMaterial.retiradaentrega.label.dataRetirada' | translate }}</label> 
+            <label class="form-control">{{ exibirDataPrevistaRetirada() | date: 'dd/MM/yyyy HH:mm' }}</label>
+        </div>
+    </div>
+    <div class="row" *ngIf="exibirDataRetirada()">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label for="dataRetirada">{{ 'transporteMaterial.retiradaentrega.label.dataRetirada' | translate }}</label>
+            <input class="form-control" id="dataRetirada"
+                [textMask]="{mask: maskData}" 
+                type="text" maxlength="17" placeholder="DD/MM/AAAA HH:MM"
+                formControlName="dataRetirada" (blur)="setMensagemErroPorCampo('dataRetirada');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataRetirada') }}"></msg>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="exibirDataEntrega()"> 
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label for="dataEntrega">{{ 'transporteMaterial.retiradaentrega.label.dataEntrega' | translate }}</label>
+            <input class="form-control" id="dataEntrega"
+                [textMask]="{mask: maskData}"
+                type="text" maxlength="17" placeholder="DD/MM/AAAA HH:MM"
+                formControlName="dataEntrega" (blur)="setMensagemErroPorCampo('dataEntrega');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataEntrega') }}"></msg>
+        </div>
+    </div>
+    <p></p>
+    <div class="row">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12 modal-btn">
+            <button id="btnComentarPendencia" (click)="confirmar()" class="btn btn-primary btn-lg">{{ 'botao.confirmar' | translate }}</button>
+        </div>
+    </div>
+</div>

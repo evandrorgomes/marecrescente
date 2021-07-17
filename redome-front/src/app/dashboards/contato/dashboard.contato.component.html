@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+            
+        <div class="dashboard">
+            <div class="row x_title">
+                <div class="col-md-5">
+                    <h3>{{ 'dashboard.contato.titulo' | translate}} </h3>
+                </div>
+                <div class="col-md-6">
+                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>                    
+                        <span (click)="rangePicker.toggle()" >{{ _dataInicial() }} - {{ _dataFinal() }}</span> <b class="caret"></b>                        
+                    </div>
+                    
+                    <input  class="dashboard-rangedate" bsDaterangepicker [(ngModel)]="_range" [maxDate]="_maxDate"
+                        [bsConfig]="bsConfig" placement="bottom" #rangePicker="bsDaterangepicker" (onShown)="onDateRangePickerShow()">
+                </div>
+                <div class="col-md-1">
+                    <a  type="button" id="btnRefresh" class="btn btn-lg btn-primary" style="margin: 5px 0 0;" (click)="recarregarDados()" ><span class="fa fa-sync-alt"></span> </a>
+                </div>
+            </div>        
+        </div>
+    </div>
+</div>
+
+<div class="row top_tiles">
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats" (click)="listarPedidosPorQuadro(0)">
+            <div class="icon"><i class="icon icon-enriquecimento"></i></div>
+            <div class="count">{{ _contatoVo?.totalEnriquecimentoFase2 }} </div>
+            <h3>{{ 'dashboard.contato.enriquecimento.fase2' | translate}} </h3>
+            <p>{{ 'dashboard.contato.fechados' | translate }}: {{ _contatoVo?.totalFechadoEnriquecimentoFase2}} </p>
+        </div>
+    </div>
+
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats" (click)="listarPedidosPorQuadro(1)">
+            <div class="icon"><i class="icon icon-contato-fase2"></i></div>
+            <div class="count">{{ _contatoVo?.totalContatoFase2 }} </div>
+            <h3>{{ 'dashboard.contato.fase2' | translate}} </h3>
+            <p>{{ 'dashboard.contato.fechados' | translate }}: {{ _contatoVo?.totalFechadoContatoFase2 }}</p>
+        </div>
+    </div>
+
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats" (click)="listarPedidosPorQuadro(2)">
+            <div class="icon"><i class="icon icon-enriquecimento"></i></div>
+            <div class="count">{{ _contatoVo?.totalEnriquecimentoFase3 }} </div>
+            <h3>{{ 'dashboard.contato.enriquecimento.fase3' | translate}} </h3>
+            <p>{{ 'dashboard.contato.fechados' | translate }}: {{ _contatoVo?.totalFechadoEnriquecimentoFase3 }}</p>
+        </div>
+    </div>
+
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats" (click)="listarPedidosPorQuadro(3)">
+            <div class="icon"><i class="icon icon-fase3"></i></div>
+            <div class="count">{{ _contatoVo?.totalContatoFase3 }} </div>
+            <h3>{{ 'dashboard.contato.fase3' | translate}} </h3>
+            <p>{{ 'dashboard.contato.fechados' | translate }}: {{ _contatoVo?.totalFechadoContatoFase3 }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard">
+            <div class="row x_title x_title_top">
+                <div class="col-md-6">
+                    <h2>{{ obterTitulo() }} </h2>
+                </div>                
+            </div>        
+        </div>
+    </div>
+</div>
+<div class="row" >
+    <div class="col-sm-12 col-xs-12 wrap-table">
+        <table id="tblConsultaPaciente" class="table">
+            <thead>
+                <tr>
+                    <th>{{ 'dashboard.contato.dmr' | translate}}</th>
+                    <th>{{ 'dashboard.contato.nome' | translate}}</th>
+                    <th>{{ 'dashboard.contato.iniciocontato' | translate}}</th>
+                    <th *ngIf="_quadroAtual != 0 && _quadroAtual != 2">{{ 'dashboard.contato.numerotentativas' | translate}}</th>
+                    <th *ngIf="_quadroAtual != 0 && _quadroAtual != 2">{{ 'dashboard.contato.ultimatentativa' | translate}}</th>
+                    <th>{{ 'dashboard.contato.status' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of _paginacao.content; index as i" >
+                    <td>{{item.dmr}}</td>
+                    <td>{{item.nome}} </td>
+                    <td>{{item.dataCriacao | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                    <td *ngIf="_quadroAtual != 0 && _quadroAtual != 2">{{item.numeroTentativas }}</td>
+                    <td *ngIf="_quadroAtual != 0 && _quadroAtual != 2">{{item.ultimaTentativa | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td *ngIf="item.aberto" >{{ 'dashboard.contato.aberto' | translate}}</td>
+                    <td *ngIf="!item.aberto" >{{ 'dashboard.contato.fechado' | translate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Paginação e quantidade de registros -->
+<div class="row paginaConsultaPaciente" *ngIf="_paginacao.totalElements && _paginacao.totalElements != 0">
+    <div class="col-sm-12 col-xs-12">
+        <pagination [totalItems]="_paginacao.totalElements" [ngModel]="_paginacao.number" [maxSize]="5" class="pagination-sm pagination-wrap"
+            [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="_paginacao.quantidadeRegistro" (pageChanged)="mudarPagina($event)"
+            firstText="{{'paginacao.primeiro' | translate}}" previousText="<span class='icon-seta-esquerda'></span>"
+            nextText="<span class='icon-seta-direita'></span>" lastText="{{'paginacao.ultimo' | translate}}">
+        </pagination>
+    </div>
+    <div class="col-sm-12 col-xs-12 pull-right">
+        <div class="form-group porpagina">
+            <label>Por Página:</label>
+            <select class="form-control" [(ngModel)]="_qtdRegistro" (change)="selecinaQuantidadePorPagina($event)">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+</div>

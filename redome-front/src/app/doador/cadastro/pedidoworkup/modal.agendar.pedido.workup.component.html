@@ -1,0 +1,118 @@
+<div class="row" [formGroup]="form()">
+
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <label>{{'workup.pedido.observacao' | translate}}:</label>
+        <textarea class="form-control" readonly="true" [value]="data.observacao"
+            rows="4" cols="40" style="background-color: #fff;"></textarea>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12" *ngIf="isDoadorNacional()">
+        <label for="ddlCentroAvaliador">{{'workup.pedido.selecioneCcentroColeta' | translate}}:</label>
+        <select formControlName="centroColeta" class="form-control" id="ddlCentroColeta"
+                (blur)="setMensagemErroPorCampo('centroColeta')">
+            <option value=""></option>
+            <option *ngFor="let c of centrosColetores" value="{{c.id}}">{{c.nome}}</option>
+        </select>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('centroColeta') }}"></msg>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12" *ngIf="isDoadorNacional()">
+        <label>{{'workup.pedido.dataInicioWorkup' | translate}}:</label>
+        <input class="form-control"
+                [textMask]="{mask: regexpData}"
+                type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                formControlName="dataInicioWorkup"
+                (blur)="setMensagemErroPorCampo('dataInicioWorkup');sugerirDataFim()">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataInicioWorkup') }}"></msg>
+
+    </div>
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12" *ngIf="isDoadorNacional()">
+        <label>{{'workup.pedido.dataFinalWorkup' | translate: {complemento: ' 2'} }}:</label>
+        <input class="form-control"
+                [textMask]="{mask: regexpData}"
+                type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                formControlName="dataFinalWorkup"
+                (blur)="setMensagemErroPorCampo('dataFinalWorkup');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataFinalWorkup') }}"></msg>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12" *ngIf="isDoadorInternacional()">
+        <label>{{'workup.pedido.dataFinalWorkup' | translate: {complemento: ''} }}:</label>
+        <input class="form-control"
+               [textMask]="{mask: regexpData}"
+               type="text" maxlength="11" placeholder="DD/MM/AAAA"
+               formControlName="dataFinalWorkup"
+               (blur)="setMensagemErroPorCampo('dataFinalWorkup');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataFinalWorkup') }}"></msg>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <label>{{'workup.pedido.dataLimiteResult' | translate}}:</label>
+        <input class="form-control"
+                [textMask]="{mask: regexpData}"
+                type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                formControlName="dataLimiteResult"
+                (blur)="setMensagemErroPorCampo('dataLimiteResult');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataLimiteResult') }}"></msg>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <label>{{'workup.pedido.fonteCelula' | translate}}:</label>
+        <select formControlName="fonteCelula" class="form-control" id="ddlFonteCelula"
+                (blur)="setMensagemErroPorCampo('fonteCelula')" [attr.disabled]="isFonteCelulaDisabled()">
+            <option value=""></option>
+            <option *ngFor="let f of fontesCelulas" value="{{f.id}}">{{f.descricao}}</option>
+        </select>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('fonteCelula') }}"></msg>
+    </div>
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <label>{{'workup.pedido.dataFinalColeta' | translate}}:</label>
+        <input class="form-control"
+                [textMask]="{mask: regexpData}"
+                type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                formControlName="dataFinalColeta"
+                (blur)="setMensagemErroPorCampo('dataFinalColeta');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataFinalColeta') }}"></msg>
+
+    </div>
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12" *ngIf="isDoadorNacional()">
+        <label>{{'workup.pedido.dataPrevistaDisponibilidadeDoador' | translate}}:</label>
+        <input class="form-control"
+                [textMask]="{mask: regexpData}"
+                type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                formControlName="dataPrevistaDisponibilidadeDoador"
+                (blur)="setMensagemErroPorCampo('dataPrevistaDisponibilidadeDoador');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataPrevistaDisponibilidadeDoador') }}"></msg>
+    </div>
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12"  *ngIf="isDoadorNacional()">
+        <label>{{'workup.pedido.dataPrevistaLiberacaoDoador' | translate}}:</label>
+        <input class="form-control"
+                [textMask]="{mask: regexpData}"
+                type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                formControlName="dataPrevistaLiberacaoDoador"
+                (blur)="setMensagemErroPorCampo('dataPrevistaLiberacaoDoador');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataPrevistaLiberacaoDoador') }}"></msg>
+    </div>
+
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12"  *ngIf="isDoadorNacional()">
+        <div class="checkbox-group">
+            <input id="ckNecessitaLogistica" formControlName="necessitaLogistica"
+                type="checkbox">
+            <label for="ckNecessitaLogistica">
+                <span></span>{{ 'workup.pedido.necessitaLogistica'| translate }}?
+            </label>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <br>
+        <button type="button" class="btn btn-default btn-lg floatL" (click)="fechar()">
+            {{'botao.cancelar' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary btn-lg floatR" (click)="agendarPedidoWorkup()">
+            {{'botao.agendar' | translate}}
+        </button>
+    </div>
+</div>

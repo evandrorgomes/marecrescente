@@ -1,0 +1,26 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'editarContato.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltarEditarContato" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content dadosGeraisPaciente">
+    <contato-paciente></contato-paciente>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 text-center-mobile">
+            <button id="btnSalvarEditarContato" class="btn btn-primary btn-lg" (click)="salvarEdicao()">{{ 'botao.salvarContato' | translate }}</button>
+        </div>
+    </div>
+</div>
+
+<modal mensagem="{{ mensagemSucesso }}" (fecharModal)="voltar()" #sucessoModal></modal>

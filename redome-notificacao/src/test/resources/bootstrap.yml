@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: redome-notificacao
+
+---
+spring:
+  profiles: default
+  cloud:
+    config: 
+      uri: http://localhost:9081
+      username: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P
+    
+---
+
+spring:
+  profiles: dev
+  cloud:
+    config: 
+      uri: https://dev-redome-cloud.mybluemix.net/
+      username: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P
+
+---
+spring:
+  profiles: hml
+  cloud:
+    config: 
+      uri: https://hml-redome-cloud.cancer.org.br/
+      username: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P

@@ -1,0 +1,76 @@
+<div class="container conteudo">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <h2>{{'doadorForm.edicao.titulo' | translate}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <header-doador-internacional #headdoadorinternacional></header-doador-internacional>
+            </div>
+            <div class="row menu-btn">
+                <div class="col-sm-12 col-xs-12">
+                    <a *ngIf="!statusInativoDoador" id="idNovoExame" type="button" class="btn btn-setting btn-primary" (click)="abrirNovoExame()" ><span class="icon-exames"></span> {{'botao.novo.exame' | translate}}</a>
+                    <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="page-content dadosGeraisExame">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12" *ngIf="!temExamesParaExibicao">
+                        <!-- Exibe a mensagem de "exames não existem" quando não há exames válidos para o paciente -->
+                        <h3 class="text-center">{{'mensagem.paciente_nao_possui_exames_cadastrados' | translate}}</h3>
+                    </div>
+                </div>
+                <div class="row" *ngIf="temGenotipoParaExibicao">
+                    <div class="form-group col-sm-12 col-xs-12">
+                        <h4>{{'consultaExame.genotipo' | translate}}:</h4>
+                        <div class="genotipo aleloContainer">
+                            <div class="box melhorResolucao" data-toggle="tooltip" data-placement="bottom" *ngFor="let genotipo of genotipoDTO">
+                                <p>{{genotipo.locus}}*</p>
+                                <h5 title="{{genotipo.examePrimeiroAlelo}}">{{genotipo.primeiroAlelo}}</h5>
+                                <h5 title="{{genotipo.exameSegundoAlelo}}">{{genotipo.segundoAlelo}}</h5>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngIf="temExamesParaExibicao" class="col-sm-offset-3 col-sm-6 col-xs-12">
+                        <!-- Exibe a tela com os exames válidos para o paciente -->
+                        <form>
+                            <label>{{'consultaExame.descricaoCombo' | translate}}</label>
+                            <select id="ddlComboExames" class="form-control" #comboExames [(ngModel)]="exameSelecionado" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let exame of examesDoador" [ngValue]="exame">{{formatarExame(exame)}}</option>
+                            </select>
+                        </form>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+                <div class="row wrap-bloco">
+                    <div class="col-sm-2 col-xs-12">
+                        <h3>Dados do Exame</h3>
+                    </div>
+                    <div *ngIf="temExamesParaExibicao"  class="col-sm-10 col-xs-12 dados-bloco">
+                        <p *ngIf="exameSelecionado.tipoExame == 2 && exameSelecionado.caminhoArquivo" id="dataColetaAmostra"><small>{{'consultaExame.dataCadastro' | translate }}:</small> {{exameSelecionado?.dataCriacao | date: "dd/MM/yyyy" }}</p>
+                        <div *ngIf="temExamesParaExibicao  && exameSelecionado.tipoExame == 1 ">
+                            <p><small>{{'consultaExame.hla' | translate }}: </small></p>
+                            <div class="aleloContainer">
+                                <div class="box" *ngFor="let locusExame of exameSelecionado.locusExames">
+                                    <p>{{locusExame.id.locus.codigo}}*</p>
+                                    <h5>{{locusExame.primeiroAlelo}}</h5>
+                                    <h5>{{locusExame.segundoAlelo}}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="temExamesParaExibicao  && exameSelecionado.tipoExame == 2">
+                            <div *ngIf="!exameSelecionado.caminhoArquivo">{{'consultaExame.exameSemResultado' | translate }}  </div>
+                            <a  *ngIf="exameSelecionado.caminhoArquivo" href="javascript:void(0)" class="link" title="{{ 'textosGenericos.baixararquivo' | translate }} " (click)="baixarArquivo(exameSelecionado)">
+                                {{ obterNomeArquivo(exameSelecionado?.caminhoArquivo) }} <span class="icon icon-download"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>

@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:24:41 BRT 2021
+javax.activation-api-1.2.0.jar>jcenter-snapshots=
+javax.activation-api-1.2.0.pom>jcenter-snapshots=

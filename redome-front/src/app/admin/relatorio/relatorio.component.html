@@ -1,0 +1,72 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2> {{'admin.relatorio' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="close" class="btn btn-setting btn-default" (click)="limpar()">
+                    <span class="glyphicon glyphicon-file"></span> {{'admin.novo' | translate}}
+                </a>
+                <a id="idIncluir" class="btn btn-setting btn-primary" (click)="incluir()">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> {{'admin.salvar' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-9 col-xs-12">
+                <div class="form-group" [formGroup]="formRelatorio">
+                    <label for="fileName">{{'admin.codigo' | translate}}: </label>
+                    <input id="fileName" type="text" value="" formControlName="codigo" style="width: 100%;" (blur)="setMensagemErroPorCampo('codigo')">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('codigo') }}"></msg>
+                </div>
+                <ckeditor #ckEditor [(ngModel)]="ckeditorContent" [config]="{uiColor: '#99000'}" [readonly]="false" debounce="500">
+                </ckeditor>
+            </div>
+            <div class="col-sm-3 col-xs-12">
+                <div class="lista-relatorios">
+                    <small>Relatórios:</small>
+                    <ul>
+                        <li *ngFor="let relatorio of relatorios; index as i">
+                            <a (click)="editar(relatorio)">{{relatorio.codigo}}</a>
+                            <a href="javascript:void(0)" class="floatR" (click)="baixarArquivo(relatorio)" title="{{'botao.download' | translate}}">
+                                <!-- <span>{{arquivo.nomeSemTimestamp}}</span> -->
+                                <!-- &nbsp;&nbsp; -->
+                                <span class="icon-download "></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lista-parametros">
+                    <small>{{'admin.img' | translate}}:</small>
+                    <select size="5" #parametroImgSelecionado>
+                        <option >{{'admin.imgLogoRedomeExt' | translate}}</option>
+                        <option >{{'admin.imgLogoRedome' | translate}}</option>
+                        <option >{{'admin.imgAssinatura' | translate}}</option>
+                        <option >{{'admin.imgLogoInca' | translate}}</option>
+                    </select>
+                    <button class="btn btn-setting btn-primary" (click)="copiarTexto(parametroImgSelecionado.value)">Copiar Texto</button>
+                </div>
+                <div class="lista-parametros">
+                    <small>{{'admin.params' | translate}}:</small>
+                    <select size="5" #parametroSelecionado>
+                        <option *ngFor="let param of parametros; index as i" >{{param}}</option>
+                    </select>
+                    <button class="btn btn-setting btn-primary" (click)="copiarTexto(parametroSelecionado.value)">Copiar Texto</button>
+                    
+                </div>
+                <div class="lista-parametros">
+                    <small>{{'admin.consts' | translate}}:</small>
+                    <select size="5" #constanteSelecionada  (dblclick)="abrirModalAlterarConstante($event)">
+                        <option *ngFor="let constante of constantes; index as i" >{{constante}}</option>
+                    </select>
+                    <button class="btn btn-setting btn-primary" (click)="copiarTexto(constanteSelecionada.value)">Copiar Texto</button>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

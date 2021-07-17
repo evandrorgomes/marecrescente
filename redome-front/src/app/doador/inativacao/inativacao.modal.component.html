@@ -1,0 +1,32 @@
+<modal mensagem="" #modalMsg></modal>
+<modal mensagem="" #modalError></modal>
+
+<div class="modal fade" bsModal #modal="bs-modal" [config]="{backdrop: 'static', keyboard: false}" 
+    tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="cancelar()" >&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <h3 class="text-center">{{'inativarDoador.titulo' | translate}}</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <inativacao-doador #inativarDoador></inativacao-doador>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12-3 col-xs-12 modal-btn">
+                        <button id="btnCancelar" class="btn btn-lg btn-default floatL" (click)="cancelar()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="btnConfirmar" class="btn btn-lg btn-primary floatR" (click)="confirmar()">
+                            <i class="glyphicon glyphicon-ok-circle"></i> {{ 'botao.confirmar' | translate }} </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

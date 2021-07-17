@@ -1,0 +1,70 @@
+
+<div [formGroup]="identificacaoForm">
+    <div class="etapa1" #etapa>
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-12">
+                <label for="txtDataNascimento">{{getLabel('dataNascimento')}}</label>
+                <input [textMask]="{mask: data}" class="form-control" tabindex="1" formControlName="dataNascimento" id="txtDataNascimento" type="text" maxlength="11" placeholder="DD/MM/AAAA" (blur)="verificaMenorIdade();validarDadosJaCadastrado(modalMsgDadosUtilizados);calcularIdadeEmit();verficarMensagemCid()">
+                <!-- Aqui entra a mensagem de erro de cada campo -->
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('dataNascimento') }}"></msg>
+            </div>
+            <div class="form-group col-sm-4 col-xs-12">
+                <label for="txtCPF">{{getLabel('cpf')}}</label>
+                <input class="form-control" [textMask]="{mask: mask}" tabindex="2" id="txtCPF" type="text" maxlength="15" placeholder="Apenas números" formControlName="cpf" maxlength="15" #cpf (blur)="validarCpfJaCadastrado(modalMsgCpf);verificaMenorIdade();">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('cpf') }}"></msg>
+            </div>
+            <div class="form-group col-sm-4 col-xs-12">
+                <label for="txtCNS">{{getLabel('cns')}}</label>
+                <input class="form-control input-sm" id="txtCNS" formControlName="cns" tabindex="3" maxlength="15" type="text" maxlength="15" placeholder="Apenas números"  Filtro padrao="onlyNumber"  #cns (blur)="validarCnsJaCadastrado(modalMsgCns);verificaMenorIdade();">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('cns') }}"></msg>
+            </div>
+        </div>
+        <!--TODO Alterar Nome para Nome completo-->
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label for="txtNome">{{getLabel('nome')}}</label>
+                <input class="form-control" id="txtNome" tabindex="4" formControlName="nome" maxlength="255" type="text"  oninput="this.value = this.value.toUpperCase()"  #nome (blur)="setMensagemErroPorCampo('nome');validarDadosJaCadastrado(modalMsgDadosUtilizados);">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('nome') }}"></msg>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12">
+                <label for="txtNomeMae">{{getLabel('nomeMae')}}</label>
+                <input class="form-control" tabindex="5" (blur)="setMensagemErroPorCampo('nomeMae');validarDadosJaCadastrado(modalMsgDadosUtilizados)" id="txtNomeMae" type="text" formControlName="nomeMae" [readonly]="maeDesconhecida" maxlength="255" oninput="this.value = this.value.toUpperCase()" #nomeMae>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeMae') }}"></msg>
+            </div>
+        </div>
+        <div class="row">
+            <div class="checkbox-group col-sm-12 col-xs-12">
+                <input id="ckMae" formControlName="maeDesconhecida" 
+                    type="checkbox" tabindex="6" [checked]="maeDesconhecida" 
+                    (click)="marcarMaeDesconhecida()">
+                <label for="ckMae">
+                    <span></span>{{ getLabel('maeDesconhecida') }} 
+                </label>
+            </div>
+        </div>
+
+        <div class="row" [formGroup]="groupResponsavel" *ngIf="isMenorIdade">
+            <div class="form-group col-sm-3 col-xs-12">
+                <label for="txtCPFResponsavel">{{getLabel('responsavel.cpf')}}</label>
+                <input [textMask]="{mask: mask}" class="form-control" tabindex="7" formControlName="cpf" maxlength="15" id="txtCPFResponsavel" type="text" placeholder="Apenas números" (blur)="setMensagemErroPorCampo('responsavel.cpf')">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('responsavel.cpf') }}"></msg>
+            </div>
+            <div class="form-group col-sm-7 col-xs-12">
+                <label for="txtNomeResponsavel">{{getLabel('responsavel.nome')}}</label>
+                <input class="form-control" tabindex="8" formControlName="nome" maxlength="255" id="txtNomeResponsavel" type="text" (blur)="setMensagemErroPorCampo('responsavel.nome')" #responsavelNome oninput="this.value = this.value.toUpperCase()" >
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('responsavel.nome') }}"></msg>
+            </div>
+            <div class="form-group col-sm-2 col-xs-12">
+                <label for="txtParentesco">{{getLabel('responsavel.parentesco')}}</label>
+                <input class="form-control" tabindex="9" id="txtParentesco" type="text" formControlName="parentesco" maxlength="20" (blur)="setMensagemErroPorCampo('responsavel.parentesco')" oninput="this.value = this.value.toUpperCase()">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('responsavel.parentesco') }}"></msg>
+            </div>
+        </div>
+    </div>    
+    <modal (fecharModal)="setarFocus(cpf)" mensagem="{{ exibirMensagemErrorPorCampo('cpfUtilizado') }}" #modalMsgCpf></modal>
+    <modal (fecharModal)="setarFocus(cns)" mensagem="{{ exibirMensagemErrorPorCampo('cnsUtilizado') }}" #modalMsgCns></modal>
+    <modal mensagem="{{ exibirMensagemErrorPorCampo('dadosUtilizados') }}" #modalMsgDadosUtilizados></modal>
+</div>
+

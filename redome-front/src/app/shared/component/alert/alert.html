@@ -1,0 +1,7 @@
+<div class="alert alert-warning alert-dismissible" role="alert" *ngIf="show">
+    <span class="glyphicon glyphicon-warning-sign"></span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="show = false" >
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <ng-content></ng-content>
+</div>

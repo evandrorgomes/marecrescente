@@ -1,0 +1,162 @@
+pipeline {
+    agent any
+    
+    environment {
+      DOCKER_REGISTRY = "sr-vmlxapp26.inca.local:5000" 
+      IMAGE_NAME = "${DOCKER_REGISTRY}/redome-discovery:${BUILD_NUMBER}_${BUILD_TIMESTAMP}"
+      
+    }
+    
+    stages {
+	    stage('Unit Test') {
+	       steps {
+	          sh 'mvn test'
+	       }             
+	    }
+	    stage('Build Project') {
+	       steps {
+	          sh 'mvn -f pom.xml package -Dmaven.test.skip package'	          
+	       }      
+	    }
+	    stage('Build Image and Push') {	       
+	       steps {
+	          sh 'docker build -t ${IMAGE_NAME} .'
+	          sh 'docker push ${IMAGE_NAME}'	          
+	       }
+	    }
+	    stage('deploy hml') {
+	       steps {
+	          withKubeConfig([credentialsId: 'inca-dev']) {
+                sh """ cat <<EOF > deployment.yaml   
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-discovery-svc
+  namespace: hml
+spec:
+  type: NodePort
+  selector:
+    app: redome-discovery-hml
+    namespace: hml
+  ports:
+  - protocol: TCP
+    port: 9082
+---    
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-discovery-hml-deployment
+  namespace: hml
+  labels:
+    node: worker01
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-discovery-hml      
+      namespace: hml      
+  template:
+    metadata:
+      labels:
+        app: redome-discovery-hml
+        namespace: hml        
+    spec:
+      hostname: redome-discovery
+      subdomain: redome-discovery-svc
+      containers:
+      - name: redome-discovery
+        image: $IMAGE_NAME
+        env:
+          - name: profile
+            value: hml
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "768Mi"
+          limits:
+            cpu: "100m"
+            memory: "1536Mi"
+        volumeMounts:
+          - mountPath: "/logs"
+            name: apilog            
+      volumes:
+        - name: apilog
+          persistentVolumeClaim:
+            claimName: inca-pvc
+                """
+            sh 'kubectl apply --insecure-skip-tls-verify -n hml -f deployment.yaml'
+              }
+	       }
+	    }
+	    stage('deploy hml 1') {
+	       steps {
+	          withKubeConfig([credentialsId: 'inca-dev']) {
+                sh """ cat <<EOF > deployment1.yaml   
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-discovery-svc1
+  namespace: hml
+spec:
+  type: NodePort
+  selector:
+    app: redome-discovery-hml1
+    namespace: hml
+  ports:
+  - protocol: TCP
+    port: 9082
+---    
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-discovery-hml1-deployment
+  namespace: hml  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-discovery-hml1      
+      namespace: hml      
+  template:
+    metadata:
+      labels:
+        app: redome-discovery-hml1
+        namespace: hml        
+    spec:
+      hostname: redome-discovery-hml1
+      subdomain: redome-discovery-svc1
+      containers:
+      - name: redome-discovery
+        image: $IMAGE_NAME
+        env:
+          - name: profile
+            value: hml1
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "768Mi"
+          limits:
+            cpu: "100m"
+            memory: "1536Mi"
+        volumeMounts:
+          - mountPath: "/logs"
+            name: apilog            
+      volumes:
+        - name: apilog
+          persistentVolumeClaim:
+            claimName: inca-pvc
+                """
+            sh 'kubectl apply --insecure-skip-tls-verify -n hml -f deployment1.yaml'
+              }
+	       }
+	    }
+	}
+	
+	post {
+	  always {
+	    junit skipPublishingChecks: true, testResults: 'target/surefire-reports/*.xml'
+	  }
+	}
+}
+
+

@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:24:20 BRT 2021
+https\://jcenter.bintray.com/.lastUpdated=1625250260365
+@default-io.spring.repo.maven.release-http\://repo.spring.io/release/.lastUpdated=1625250259933
+http\://repo.spring.io/release/.error=Could not transfer artifact org.apache\:apache\:pom\:21 from/to io.spring.repo.maven.release (http\://repo.spring.io/release/)\: Transfer failed for http\://repo.spring.io/release/org/apache/apache/21/apache-21.pom 308 Permanent Redirect
+http\://repo.springsource.org/milestone/.error=
+http\://repo.springsource.org/milestone/.lastUpdated=1625250260111

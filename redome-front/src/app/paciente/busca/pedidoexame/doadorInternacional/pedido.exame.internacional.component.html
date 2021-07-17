@@ -1,0 +1,38 @@
+
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'pedidoFase2.internacional.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a class="btn btn-setting btn-default" (click)="voltar()" tabindex="13">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+                </a>
+                <a id="" type="button" class="btn btn-setting btn-primary" (click)="salvar()">
+                    <span class="glyphicon glyphicon-ok-circle" tabindex="12"></span> {{'botao.salvar' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'pedidoFase2.internacional.locus' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div class="form-bloco">
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <locus-component #locusComponent></locus-component>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    

@@ -1,0 +1,13 @@
+version: "3"
+services:
+    auth:
+        build:
+            context: ./redome-auth
+            dockerfile: ./.devcontainer/Dockerfile
+        container_name: redome-auth-cont
+        ports:
+            - "9000:9000"
+        volumes:
+            - .:/workspace:cached
+        command: /bin/sh -c "while sleep 1000; do :; done"
+

@@ -1,0 +1,178 @@
+
+<div class="page-title">
+    <!-- <div class="row">
+            <ol class="col-xs-12 col-sm-12 breadcrumb">
+                <li><a href="#"><span class="icon-home"></span></a></li>
+                <li><a href="#">Link 01</a></li>
+                <li class="active">Atual</li>
+            </ol>
+    </div> -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!-- Título da seção -->
+            <h2>Cadastrar Paciente</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <!-- Sinaliza as etapas de preenchimento do form -->
+            <ol class="etapaContainer">
+                <li [class]="getEstiloDoLinkDaMigalhaDePao(1)" (click)="habilitarEtapa(1)"><b>Identificação</b></li>
+                <li [class]="getEstiloDoLinkDaMigalhaDePao(2)" (click)="habilitarEtapa(2)"><b>Dados pessoais</b></li>
+                <li [class]="getEstiloDoLinkDaMigalhaDePao(3)" (click)="habilitarEtapa(3)"><b>Contato</b></li>
+                <li [class]="getEstiloDoLinkDaMigalhaDePao(4)" (click)="habilitarEtapa(4)"><b>Diagnóstico</b></li>
+                <li [class]="getEstiloDoLinkDaMigalhaDePao(5)" (click)="habilitarEtapa(5)"><b>Evolução</b></li>
+                <li [class]="getEstiloDoLinkDaMigalhaDePao(6)" (click)="habilitarEtapa(6)"><b>Exame</b></li>
+                <li [class]="getEstiloDoLinkDaMigalhaDePao(7)" (click)="habilitarEtapa(7)"><b>Avaliação</b></li>
+            </ol>
+        </div>
+        <div class="col-xs-12">
+            <div class="floatL" [hidden]="escondeSeEtapa1()">
+                <a href="javascript:void(0)" title="Etapa Anterior" id="idEtapaAnterior" class="btn-controle" (click)="habilitarEtapaAnterior()"><span class="glyphicon glyphicon-circle-arrow-left"></span> Anterior</a>
+            </div>
+            <div class="floatR" [hidden]="escondeSeUltimaEtapa()">
+                <a href="javascript:void(0)" title="Próxima Etapa" id="idProximaEtapa" class="btn-controle" (click)="habilitarProximaEtapa()">Próximo <span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            </div>
+            <div class="floatR" [hidden]="habilitarSalvarSeEhUltimaEtapa()">
+                <a href="javascript:void(0)" title="Finalizar" id="salvarCadastro"(click)="onSubmit(pacienteForm, sucessoModal)" class="btn-controle">Finalizar <span class="glyphicon glyphicon-ok-sign"></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <form [formGroup]="pacienteForm" (ngSubmit)="onSubmit(pacienteForm, sucessoModal)">
+        <a href="javascript:void(0)" class="btn btn-primary" *ngIf="exibeBotaoPopularPaciente" (click)="popularPacienteParaTestar()">Popular paciente</a>
+        <p *ngIf="mensagem.length">{{mensagem}}</p>
+
+        <div *ngFor="let mensagem of listaCampoMensagem">
+            <div>{{mensagem.mensagem}}</div>
+            <br />
+        </div>
+
+        <div [hidden]="esconderEtapa(1)">
+            <identificacao (changeMessagem)="alterarMensagem($event)" (calcularIdade)="enviarIdadeParaDiagnostico($event)"></identificacao>
+        </div>
+
+        <div [hidden]="esconderEtapa(2)">
+            <dados-pessoais></dados-pessoais>
+        </div>
+        <div [hidden]="esconderEtapa(3)">
+            <contato-paciente></contato-paciente>
+        </div>
+        <div [hidden]="esconderEtapa(4)">
+            <diagnostico-paciente></diagnostico-paciente>
+        </div>
+        <div [hidden]="esconderEtapa(5)">
+            <evolucao></evolucao>
+        </div>
+        <div [hidden]="esconderEtapa(6)">
+            <exame  (alterarMensagemErro)="alterarMensagemErro($event)" 
+                    (limparMensagemErro)="limparMensagemErro()"> 
+            </exame>
+        </div>
+        <div [hidden]="esconderEtapa(7)">
+            <avaliacao></avaliacao>
+        </div>
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade"
+    bsModal 
+    #sucessoModal="bs-modal" 
+    [config]="{backdrop: 'static', keyboard: false}" 
+    tabindex="-1" 
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="fecharSucessoModal(sucessoModal)">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <h3 class="text-center">{{ mensagemSucesso }}</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 modal-btn">
+                        <button id="modalSucesso" type="button" class="btn btn-lg btn-primary" (click)="fecharSucessoModal(sucessoModal)">
+                            Ok
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade"
+    bsModal #erroModal="bs-modal" 
+    [config]="{backdrop: 'static', keyboard: false}" 
+    tabindex="-1" 
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="fecharErroModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <h3 class="text-center">{{ mensagemErroModal }}</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 modal-btn">
+                        <button id="modalSucesso" type="button" class="btn btn-lg btn-primary" (click)="fecharSucessoModal(sucessoModal)">
+                            Ok
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" 
+    bsModal 
+    #confirmacaoModal="bs-modal" 
+    [config]="{backdrop: 'static', keyboard: false}" 
+    tabindex="-1" 
+    role="dialog"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="confirmacaoModal.hide()">&times;</button>
+            </div> 
+            
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <h3 class="text-center">{{existeRascunhoDisponivelLabel}}</h3>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12 modal-btn">
+                        <button type="button" class="btn btn-lg btn-default confirmation-cancel" 
+                            (click)="fecharModal(confirmacaoModal); recusarDraft()">
+                            {{naoLabel}}
+                        </button>
+                        <button type="button" class="btn btn-lg btn-primary confirmation-yes" 
+                            (click)="fecharModal(confirmacaoModal); aceitarDraft();">
+                            {{simLabel}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<div [formGroup]="dadosPessoaisForm">
+    <div class="etapa1">
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-12">
+                <label>{{getLabel('sexo')}}</label>
+                <div class="radio-group">
+                    <input id="ddlSexoF" tabindex="1" type="radio" value="F" formControlName="sexo" (change)="setMensagemErroPorCampo('sexo');">
+                    <label for="ddlSexoF" class="radio-inline">
+                        <span></span> Feminino
+                    </label>
+
+                    <input id="ddlSexoM" tabindex="2" type="radio" value="M" formControlName="sexo" (change)="setMensagemErroPorCampo('sexo');">
+                    <label for="ddlSexoM" class="radio-inline">
+                        <span></span> Masculino
+                    </label>
+                </div>
+                <div class="clearfix"></div>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('sexo') }}"></msg>
+            </div>
+            <div [formGroup]="groupPais">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="ddlNacionalidade">{{ getLabel('pais.id') }}</label>
+                    <select class="form-control" tabindex="3" id="ddlNacionalidade" formControlName="id" #pais (change)="retornarTrueSeNacionalidadeBrasil();" (blur)="setMensagemErroPorCampo('pais.id');">
+                        <option value=""></option>
+                        <option *ngFor="let pais of paises" value="{{pais.id}}">{{pais.nome}}</option>
+                    </select>
+                    <div class="clearfix"></div>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('pais.id') }}"></msg>
+                </div>
+            </div>
+            <div [formGroup]="groupUf">
+                <div class="form-group col-sm-4 col-xs-12" [hidden]="!nacionalidadeBrasilSelecionada">
+                    <label for="ddlNaturalidade">{{ getLabel('uf.sigla') }}</label>
+                    <select class="form-control" tabindex="4" id="ddlNaturalidade" formControlName="sigla" #naturalidade (blur)="setMensagemErroPorCampo('uf.sigla');">
+                        <option value=""></option>
+                        <option *ngFor="let uf of ufs" value="{{uf.sigla}}">{{uf.nome}}</option>
+                    </select>
+                    <div class="clearfix"></div>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('uf.sigla') }}"></msg>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-12">
+                <label for="ddlABO">{{getLabel('abo')}}</label>
+                <select class="form-control" tabindex="5" id="ddlABO" formControlName="abo" (blur)="setMensagemErroPorCampo('abo');">
+                    <option value=""></option> 
+                    <option value="A-">A-</option> 
+                    <option value="B-">B-</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O-">O-</option>
+                    <option value="A+">A+</option>
+                    <option value="B+">B+</option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                </select>
+                <div class="clearfix"></div>
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('abo') }}"></msg>
+            </div>
+            <div [formGroup]="groupRaca">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="ddlRaca">{{getLabel('raca.id')}}</label>
+                    <select class="form-control" tabindex="6" id="ddlRaca" formControlName="id" #raca (change)="retornarTrueSeRacaIndigena();" (blur)="setMensagemErroPorCampo('raca.id');">
+                        <option value=""></option> 
+                        <option *ngFor="let raca of racas" value="{{raca.id}}">{{raca.nome}}</option>
+                    </select>
+                    <div class="clearfix"></div>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('raca.id') }}"></msg>
+                </div>
+            </div>
+            <div [formGroup]="groupEtnia">
+                <div class="form-group col-sm-4 col-xs-12" [hidden]="!racaIndigenaSelecionada">
+                    <label for="ddlEtnia">{{getLabel('etnia.id')}}</label>
+                    <select class="form-control" tabindex="7" id="ddlEtnia" formControlName="id" (blur)="setMensagemErroPorCampo('etnia.id');">
+                        <option value=""></option>
+                        <option *ngFor="let etnia of etnias" value="{{etnia.id}}">{{etnia.nome}}</option>
+                    </select>
+                    <div class="clearfix"></div>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('etnia.id') }}"></msg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+<div class="container conteudo" >
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12" *ngIf="isMedula(); else elseCordao">
+                <h2>{{'logisticaMaterial.titulomedulanacional' | translate}}</h2>
+            </div>
+            <ng-template #elseCordao>
+                <div class="col-xs-12 col-sm-12">
+                    <h2>{{'logisticaMaterial.titulocordaonacional' | translate}}</h2>
+                </div>
+            </ng-template>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+                </a>
+                <a id="btnConfirmarDados" *ngIf="prosseguirComPedidoLogistica" type="button" class="btn btn-setting btn-primary"
+                    (click)="salvarLogistica()"><span class="icon-salvar"></span>
+                    {{'workup.logistica.acoes.salvar' | translate}}
+                </a>
+                <a id="" type="button" class="btn btn-setting btn-primary" (click)="finalizarLogistica()" >
+                    <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.confirmar' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <form [formGroup]="logisticaMaterialGroup">
+
+            <div class="row">
+              <div  class="form-group col-sm-3 col-sm-offset-2 col-xs-12">
+                  <group-radio-component label="{{'logisticaMaterial.necessidadelogistica' | translate}}"
+                      id="prosseguirComPedidoLogistica"
+                      formControlName="prosseguirComPedidoLogistica"
+                      [control]="form().controls['prosseguirComPedidoLogistica']"
+                      [optionsLabel]="labelsSimNao"
+                      [optionsValue]="opcoesSimNao"
+                      (change)="isProsseguirComPedidoLogistica(form().controls['prosseguirComPedidoLogistica'].value)"
+                      columnClass="radio-group col-sm-3 col-xs-12">
+                  </group-radio-component>
+              </div>
+            </div>
+            <div class="row" *ngIf="!prosseguirComPedidoLogistica" >
+              <div class="form-group col-sm-6 col-sm-offset-2 col-xs-12">
+                  <textarea-component
+                      label="{{'logisticaMaterial.justificativa' | translate}}:"
+                      formControlName="justificativa"
+                      [control]="form().controls['justificativa']"
+                      rows="2"
+                      idd="txtJustificativa">
+                  </textarea-component>
+              </div>
+            </div>
+            <br/>
+            <br/>
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{'workup.logistica.informacoesDoador' | translate }}</h3>
+                </div>
+
+                <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+
+                    <!-- NOME DO DOADOR -->
+                    <ul>
+                        <li>
+                            <p id="">
+                                <small>{{'workup.logistica.idDoador' | translate }}:</small>
+                                <span class="texto-bloco">{{detalhe?.idDoador}}</span>
+                            </p>
+                            <p id="">
+                                <small>Nome:</small>
+                                <span class="texto-bloco">{{detalhe?.nomeDoador}}</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.dadosRetirada' | translate }}</h3>
+                </div>
+                <div class="form-group col-sm-10 col-xs-12 dados-bloco">
+                    <div *ngIf="isMedula(); else retiradaBancoSangue">
+                        <label>{{ 'logisticaMaterial.centroColeta' | translate }}:</label>
+                        <p class="form-control label-input">{{detalhe?.nomeLocalRetirada}}</p>
+                        <label>{{ 'logisticaMaterial.enderecoRetirada' | translate }}: </label>
+                        <p>
+                          {{ detalhe?.enderecoLocalRetirada?.tipoLogradouro}} {{ detalhe?.enderecoLocalRetirada?.nomeLogradouro}}, {{ detalhe?.enderecoLocalRetirada?.numero}} - {{ detalhe?.enderecoLocalRetirada?.bairro}} - {{ detalhe?.enderecoLocalRetirada?.municipio?.descricao }}<br/>{{ detalhe?.enderecoLocalRetirada?.municipio?.uf?.sigla}} - {{ detalhe?.enderecoLocalRetirada?.pais?.nome}} - CEP {{ detalhe?.enderecoLocalRetirada?.cep}}
+                       </p>
+                   </div>
+
+                    <ng-template #retiradaBancoSangue>
+                      <div>
+                          <label>{{ 'logisticaMaterial.bscup' | translate }}:</label>
+                          <p class="form-control label-input">{{ detalhe?.nomeLocalRetirada }}</p>
+                          <label>{{ 'logisticaMaterial.enderecoRetirada' | translate }}:</label>
+                          <p class="form-control label-input">{{ detalhe?.enderecoRetiradaBancoSangueCordao }}</p>
+                          <label>{{ 'logisticaMaterial.contatos' | translate }}:</label>
+                          <p class="form-control label-input">{{ detalhe?.contatosLocalRetirada }}</p>
+                      </div>
+                    </ng-template>
+                </div>
+            </div>
+
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.dadosCT' | translate }}</h3>
+                </div>
+                <div class="form-group col-sm-10 col-xs-12 dados-bloco">
+                    <div>
+                      <label>{{ 'logisticaMaterial.centroTransplante' | translate }}: </label>
+                      <p class="form-control label-input">{{detalhe?.nomeCentroTransplante}}</p>
+                      <label>{{ 'logisticaMaterial.enderecodoCT' | translate }}: </label>
+                      <p>
+                          {{ detalhe?.enderecoLocalEntrega?.tipoLogradouro}} {{ detalhe?.enderecoLocalEntrega?.nomeLogradouro}}, {{ detalhe?.enderecoLocalEntrega?.numero}} - {{ detalhe?.enderecoLocalEntrega?.bairro}} - {{ detalhe?.enderecoLocalEntrega?.municipio?.descricao }}<br/>{{ detalhe?.enderecoLocalEntrega?.municipio?.uf?.sigla}} - {{ detalhe?.enderecoLocalEntrega?.pais?.nome}} - CEP {{ detalhe?.enderecoLocalEntrega?.cep}}
+                      </p>
+                      <!-- <label>{{ 'logisticaMaterial.telefones' | translate }}: </label>
+                      <p class="form-control label-input"><label *ngFor="let contato of detalhe?.contatosCentroTransplante">{{contato}}</label></p> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row wrap-bloco" *ngIf="prosseguirComPedidoLogistica">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.transportadora' | translate }}</h3>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                    <div class="form-bloco">
+                        <div class="row">
+                            <div class="form-group col-sm-6 col-xs-12">
+                                <label>{{ 'logisticaMaterial.transportadora' | translate }}:</label>
+                                <select  class="form-control" #cbTransportadora
+                                        (blur)="setMensagemErroPorCampo('transportadora');"
+                                        formControlName="transportadora">
+                                    <option value=""></option>
+                                    <option *ngFor="let transportadora of listaTransportadoras; index as i"
+                                        value="{{transportadora?.id}}">{{transportadora?.nome}}</option>
+                                </select>
+                                <msg mensagem="{{ exibirMensagemErrorPorCampo('transportadora') }}"></msg>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-3 col-xs-12">
+                                <label>{{ 'logisticaMaterial.fonteCelula' | translate }}:</label>
+                                <p class="form-control label-input">{{detalhe?.nomeFonteCelula}}</p>
+                            </div>
+                            <div class="form-group col-sm-3 col-xs-12">
+                                <label>{{ 'logisticaMaterial.dataColeta' | translate }}:</label>
+                                <p class="form-control label-input">{{detalhe?.dataColeta}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-3 col-xs-12">
+                                <label>{{ 'logisticaMaterial.horaRetirada' | translate }}:</label>
+                                <input class="form-control"
+                                    [textMask]="{mask: hora}"
+                                    type="text" maxlength="6" placeholder="HH:MM"
+                                    formControlName="horaPrevistaRetirada"
+                                    (blur)="setMensagemErroPorCampo('horaPrevistaRetirada');">
+                                <msg mensagem="{{ exibirMensagemErrorPorCampo('horaPrevistaRetirada') }}"></msg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

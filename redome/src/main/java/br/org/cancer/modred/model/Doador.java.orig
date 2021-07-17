@@ -1,0 +1,655 @@
+package br.org.cancer.modred.model;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
+import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.org.cancer.modred.controller.view.AvaliacaoPrescricaoView;
+import br.org.cancer.modred.controller.view.BuscaView;
+import br.org.cancer.modred.controller.view.DisponibilidadeView;
+import br.org.cancer.modred.controller.view.DoadorView;
+import br.org.cancer.modred.controller.view.PedidoColetaView;
+import br.org.cancer.modred.controller.view.PedidoExameView;
+import br.org.cancer.modred.controller.view.PedidoWorkupView;
+import br.org.cancer.modred.controller.view.RecebimentoColetaView;
+import br.org.cancer.modred.controller.view.TarefaLogisticaView;
+import br.org.cancer.modred.controller.view.TarefaView;
+import br.org.cancer.modred.controller.view.TransportadoraView;
+import br.org.cancer.modred.controller.view.WorkupView;
+import br.org.cancer.modred.model.annotations.CustomPast;
+import br.org.cancer.modred.model.annotations.EnumValues;
+import br.org.cancer.modred.model.domain.Abo;
+import br.org.cancer.modred.model.domain.Sexo;
+import br.org.cancer.modred.model.domain.TiposDoador;
+import br.org.cancer.modred.model.security.CriacaoAuditavel;
+import br.org.cancer.modred.model.security.Usuario;
+
+/**
+ * Classe de persistencia de doador para a tabela doador.
+ * 
+ * @author Fillipe Queiroz
+ * 
+ */
+@Entity
+@SequenceGenerator(name = "SQ_DOAD_ID", sequenceName = "SQ_DOAD_ID", allocationSize = 1)
+@Table(name = "DOADOR")
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DOAD_IN_TIPO", discriminatorType = DiscriminatorType.INTEGER)
+public class Doador extends CriacaoAuditavel implements Serializable {
+
+	private static final long serialVersionUID = -2156041591313391511L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_DOAD_ID")
+	@Column(name = "DOAD_ID")
+	@JsonView({ BuscaView.Enriquecimento.class, DoadorView.AtualizacaoFase2.class, DoadorView.ContatoPassivo.class,
+			DoadorView.ContatoFase2.class,
+			DoadorView.IdentificacaoCompleta.class, PedidoWorkupView.DetalheWorkup.class, TarefaView.Listar.class, PedidoWorkupView.AgendamentoWorkup.class,
+			BuscaView.AvaliacaoPedidoColeta.class, WorkupView.Resultado.class,
+			PedidoColetaView.DetalheColeta.class, BuscaView.AvaliacaoWorkupDoador.class, TarefaLogisticaView.Listar.class,
+			RecebimentoColetaView.Detalhe.class, RecebimentoColetaView.ListarRecebimentos.class, TransportadoraView.Listar.class,
+			TransportadoraView.AgendarTransporte.class,
+			TransportadoraView.Listar.class, TransportadoraView.AgendarTransporte.class, TarefaLogisticaView.Listar.class,
+			PedidoExameView.ListarTarefas.class, PedidoColetaView.AgendamentoColeta.class })
+	private Long id;
+
+	@Column(name = "DOAD_DT_CADASTRO")
+	private LocalDateTime dataCadastro;
+
+	@Column(name = "DOAD_IN_SEXO")
+	@NotNull
+	@EnumValues(enumClass = Sexo.class, message = "{sexo.invalido}")
+	@JsonView({ BuscaView.Enriquecimento.class, DoadorView.AtualizacaoFase2.class, DoadorView.ContatoPassivo.class,
+			DoadorView.ContatoFase2.class, DoadorView.IdentificacaoCompleta.class, WorkupView.Resultado.class,
+			DoadorView.Internacional.class })
+	@Length(max = 1)
+	private String sexo;
+
+	@Column(name = "DOAD_TX_ABO")
+	@Length(max = 3)
+	@EnumValues(enumClass = Abo.class, message = "{abo.invalido}")
+	@JsonView({ DoadorView.AtualizacaoFase2.class, DoadorView.ContatoPassivo.class, DoadorView.Internacional.class })
+	private String abo;
+
+	@Column(name = "DOAD_DT_NASCIMENTO")
+	@CustomPast
+	@JsonView({ BuscaView.Enriquecimento.class, DoadorView.AtualizacaoFase2.class, DoadorView.ContatoPassivo.class,
+			DoadorView.ContatoFase2.class, DoadorView.IdentificacaoCompleta.class, WorkupView.Resultado.class,
+			DoadorView.Internacional.class })
+	private LocalDate dataNascimento;
+
+	@NotNull
+	@Column(name = "DOAD_DT_ATUALIZACAO")
+	private LocalDateTime dataAtualizacao;
+
+	@ManyToOne
+	@JoinColumn(name = "STDO_ID")
+	@NotNull
+	@JsonView({ DoadorView.IdentificacaoCompleta.class, TarefaView.Consultar.class, BuscaView.Enriquecimento.class,
+			WorkupView.Resultado.class, DoadorView.ContatoPassivo.class, DoadorView.Internacional.class })
+	private StatusDoador statusDoador;
+
+	@Column(name = "DOAD_DT_RETORNO_INATIVIDADE")
+	@JsonView({ DoadorView.ContatoPassivo.class })
+	private LocalDate dataRetornoInatividade;
+
+	@ManyToOne
+	@JoinColumn(name = "MOSD_ID")
+	@Fetch(FetchMode.JOIN)
+	@JsonView({ DoadorView.ContatoPassivo.class })
+	private MotivoStatusDoador motivoStatusDoador;
+
+	@OneToMany(mappedBy = "doador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonView({ DoadorView.AtualizacaoFase2.class, DoadorView.ContatoPassivo.class })
+	@NotAudited
+	private List<RessalvaDoador> ressalvas;
+
+	@OneToMany(mappedBy = "doador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@NotAudited
+	private List<Match> matchs;
+
+	@OneToOne(mappedBy = "doador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "GEDO_ID")
+	private GenotipoDoador genotipo;
+
+	@JsonView({ DoadorView.Internacional.class, PedidoExameView.ListarTarefas.class, 
+				DoadorView.IdentificacaoCompleta.class, DoadorView.IdentificacaoParcial.class,
+				PedidoWorkupView.CadastrarResultado.class, PedidoColetaView.AgendamentoColeta.class,
+				TarefaLogisticaView.Listar.class, TransportadoraView.Listar.class})
+	@ManyToOne
+	@JoinColumn(name = "REGI_ID_ORIGEM")
+	@NotNull
+	private Registro registroOrigem;
+
+	@ManyToOne
+	@JoinColumn(name = "USUA_ID")
+	private Usuario usuario;
+
+	@JsonView(DoadorView.Internacional.class)
+	@Column(name = "DOAD_NR_GRID")
+	private Long grid;
+
+	@EnumValues(enumClass = TiposDoador.class)
+	@Column(name = "DOAD_IN_TIPO", insertable = false, updatable = false)
+	@JsonView({	PedidoExameView.ListarTarefas.class, PedidoExameView.ObterParaEditar.class, 
+				AvaliacaoPrescricaoView.Detalhe.class, PedidoColetaView.AgendamentoColeta.class,
+				PedidoWorkupView.CadastrarResultado.class, PedidoColetaView.DetalheColeta.class,
+				TarefaLogisticaView.Listar.class, TransportadoraView.Listar.class, 
+				TransportadoraView.AgendarTransporte.class })
+	private Long tipoDoador;
+	
+
+	public Doador() {
+		super();
+	}
+
+	/**
+	 * Método construtor utilizado para a identificação do doador.
+	 * 
+	 * @param id - identificador do doador
+	 * @param sexo - sexo do doador
+	 * @param dataNascimento - Data de Nascimento do doador
+	 * @param statusDoador - Status do doador
+	 */
+	public Doador(Long id, String sexo, LocalDate dataNascimento, StatusDoador statusDoador) {
+		super();
+		this.id = id;
+		this.sexo = sexo;
+		this.dataNascimento = dataNascimento;
+		this.statusDoador = statusDoador;
+	}
+
+	/**
+	 * Construtor para facilitar a instanciação do objeto, a partir do seu identificador.
+	 * 
+	 * @param idDoador identificador da entidade.
+	 */
+	public Doador(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * Data de cadastro do doador.
+	 * 
+	 * @return
+	 */
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+	/**
+	 * Data de cadastro do doador.
+	 * 
+	 * @param dataCadastro
+	 */
+	protected void setDataCriacao(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	/**
+	 * Sexo do doador.
+	 * 
+	 * @return
+	 */
+	public String getSexo() {
+		return sexo;
+	}
+
+	/**
+	 * Sexo do doador.
+	 * 
+	 * @param sexo
+	 */
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	/**
+	 * Abo do doador.
+	 * 
+	 * @return
+	 */
+	public String getAbo() {
+		return abo;
+	}
+
+	/**
+	 * Abo do doador.
+	 * 
+	 * @param abo
+	 */
+	public void setAbo(String abo) {
+		this.abo = abo;
+	}
+
+	/**
+	 * Data de nascimento do doador.
+	 * 
+	 * @return
+	 */
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	/**
+	 * Data de nascimento do doador.
+	 * 
+	 * @param dataNascimento
+	 */
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	/**
+	 * Data de atualizacao do doador.
+	 * 
+	 * @return
+	 */
+	public LocalDateTime getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	/**
+	 * Data de atualizacao do doador.
+	 * 
+	 * @param dataAtualizacao
+	 */
+	public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	/**
+	 * Status do doador.
+	 * 
+	 * @return
+	 */
+	public StatusDoador getStatusDoador() {
+		return statusDoador;
+	}
+
+	/**
+	 * Status do doador.
+	 * 
+	 * @param statusDoador
+	 */
+	public void setStatusDoador(StatusDoador statusDoador) {
+		this.statusDoador = statusDoador;
+	}
+
+	/**
+	 * Motivo do status do doador.
+	 * 
+	 * @return
+	 */
+	public MotivoStatusDoador getMotivoStatusDoador() {
+		return motivoStatusDoador;
+	}
+
+	/**
+	 * Motivo do status do doador.
+	 * 
+	 * @param motivoStatusDoador
+	 */
+	public void setMotivoStatusDoador(MotivoStatusDoador motivoStatusDoador) {
+		this.motivoStatusDoador = motivoStatusDoador;
+	}
+
+	/**
+	 * Ressalvas do doador.
+	 * 
+	 * @return
+	 */
+	public List<RessalvaDoador> getRessalvas() {
+		return ressalvas;
+	}
+
+	/**
+	 * Ressalvas do doador.
+	 * 
+	 * @param ressalvas
+	 */
+	public void setRessalvas(List<RessalvaDoador> ressalvas) {
+		this.ressalvas = ressalvas;
+	}
+
+	public LocalDate getDataRetornoInatividade() {
+		return dataRetornoInatividade;
+	}
+
+	public void setDataRetornoInatividade(LocalDate dataRetornoInatividade) {
+		this.dataRetornoInatividade = dataRetornoInatividade;
+	}
+
+	/**
+	 * @return the genotipo
+	 */
+	public GenotipoDoador getGenotipo() {
+		return genotipo;
+	}
+
+	/**
+	 * @param genotipo the genotipo to set
+	 */
+	public void setGenotipo(GenotipoDoador genotipo) {
+		this.genotipo = genotipo;
+	}
+
+	/**
+	 * @return the matchs
+	 */
+	public List<Match> getMatchs() {
+		return matchs;
+	}
+
+	/**
+	 * @param matchs the matchs to set
+	 */
+	public void setMatchs(List<Match> matchs) {
+		this.matchs = matchs;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the registroOrigem
+	 */
+	public Registro getRegistroOrigem() {
+		return registroOrigem;
+	}
+
+	/**
+	 * @param registroOrigem the registroOrigem to set
+	 */
+	public void setRegistroOrigem(Registro registroOrigem) {
+		this.registroOrigem = registroOrigem;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ( ( abo == null ) ? 0 : abo.hashCode() );
+		result = prime * result + ( ( dataAtualizacao == null ) ? 0 : dataAtualizacao.hashCode() );
+		result = prime * result + ( ( dataCadastro == null ) ? 0 : dataCadastro.hashCode() );
+		result = prime * result + ( ( dataNascimento == null ) ? 0 : dataNascimento.hashCode() );
+		result = prime * result + ( ( dataRetornoInatividade == null ) ? 0 : dataRetornoInatividade.hashCode() );
+		result = prime * result + ( ( genotipo == null ) ? 0 : genotipo.hashCode() );
+		result = prime * result + ( ( id == null ) ? 0 : id.hashCode() );
+		result = prime * result + ( ( matchs == null ) ? 0 : matchs.hashCode() );
+		result = prime * result + ( ( motivoStatusDoador == null ) ? 0 : motivoStatusDoador.hashCode() );
+		result = prime * result + ( ( ressalvas == null ) ? 0 : ressalvas.hashCode() );
+		result = prime * result + ( ( sexo == null ) ? 0 : sexo.hashCode() );
+		result = prime * result + ( ( statusDoador == null ) ? 0 : statusDoador.hashCode() );
+		result = prime * result + ( ( registroOrigem == null ) ? 0 : registroOrigem.hashCode() );
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!( obj instanceof Doador )) {
+			return false;
+		}
+		Doador other = (Doador) obj;
+		if (abo == null) {
+			if (other.abo != null) {
+				return false;
+			}
+		}
+		else
+			if (!abo.equals(other.abo)) {
+				return false;
+			}
+		if (dataAtualizacao == null) {
+			if (other.dataAtualizacao != null) {
+				return false;
+			}
+		}
+		else
+			if (!dataAtualizacao.equals(other.dataAtualizacao)) {
+				return false;
+			}
+		if (dataCadastro == null) {
+			if (other.dataCadastro != null) {
+				return false;
+			}
+		}
+		else
+			if (!dataCadastro.equals(other.dataCadastro)) {
+				return false;
+			}
+		if (dataNascimento == null) {
+			if (other.dataNascimento != null) {
+				return false;
+			}
+		}
+		else
+			if (!dataNascimento.equals(other.dataNascimento)) {
+				return false;
+			}
+		if (dataRetornoInatividade == null) {
+			if (other.dataRetornoInatividade != null) {
+				return false;
+			}
+		}
+		else
+			if (!dataRetornoInatividade.equals(other.dataRetornoInatividade)) {
+				return false;
+			}
+		if (genotipo == null) {
+			if (other.genotipo != null) {
+				return false;
+			}
+		}
+		else
+			if (!genotipo.equals(other.genotipo)) {
+				return false;
+			}
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		}
+		else
+			if (!id.equals(other.id)) {
+				return false;
+			}
+		if (matchs == null) {
+			if (other.matchs != null) {
+				return false;
+			}
+		}
+		else
+			if (!matchs.equals(other.matchs)) {
+				return false;
+			}
+		if (motivoStatusDoador == null) {
+			if (other.motivoStatusDoador != null) {
+				return false;
+			}
+		}
+		else
+			if (!motivoStatusDoador.equals(other.motivoStatusDoador)) {
+				return false;
+			}
+		if (ressalvas == null) {
+			if (other.ressalvas != null) {
+				return false;
+			}
+		}
+		else
+			if (!ressalvas.equals(other.ressalvas)) {
+				return false;
+			}
+		if (sexo == null) {
+			if (other.sexo != null) {
+				return false;
+			}
+		}
+		else
+			if (!sexo.equals(other.sexo)) {
+				return false;
+			}
+		if (statusDoador == null) {
+			if (other.statusDoador != null) {
+				return false;
+			}
+		}
+		else
+			if (!statusDoador.equals(other.statusDoador)) {
+				return false;
+			}
+		if (registroOrigem == null) {
+			if (other.registroOrigem != null) {
+				return false;
+			}
+		}
+		else
+			if (!registroOrigem.equals(other.registroOrigem)) {
+				return false;
+			}
+		return true;
+	}
+
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	/**
+	 * @param usuario the usuario to set
+	 */
+	protected void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	/**
+	 * Identificador único internacional do doador.
+	 * 
+	 * @return valor numérico do código internacional.
+	 */
+	public Long getGrid() {
+		return grid;
+	}
+
+	public void setGrid(Long grid) {
+		this.grid = grid;
+	}
+
+	/**
+	 * @return the tipoDoador
+	 */
+	public TiposDoador getTipoDoador() {
+		if (tipoDoador != null) {
+			return TiposDoador.valueOf(tipoDoador);
+		}
+		return null;
+	}
+	
+	/**
+	 * @return the tipoDoador
+	 */
+	@JsonView({ AvaliacaoPrescricaoView.Detalhe.class, DisponibilidadeView.VisualizacaoCentroTransplante.class,
+				DoadorView.IdentificacaoCompleta.class, DoadorView.IdentificacaoParcial.class, 
+				TarefaLogisticaView.Listar.class, TransportadoraView.Listar.class, 
+				TransportadoraView.AgendarTransporte.class })
+	public Long getIdTipoDoador() {
+		return tipoDoador;
+	}
+
+	/**
+	 * @param tipoDoador the tipoDoador to set
+	 */
+	public void setTipoDoador(TiposDoador tipoDoador) {
+		if (tipoDoador != null) {
+			this.tipoDoador = tipoDoador.getId();
+		}
+
+	}
+
+	/**
+	 * @param dataCadastro the dataCadastro to set
+	 */
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	/**
+	 * Indica se o doador é nacional.
+	 * 
+	 * @return TRUE se for nacional.
+	 */
+	public boolean isNacional(){
+		return !isInternacional();
+	}
+	
+	/**
+	 * Indica se o doador é internacional.
+	 * 
+	 * @return TRUE se for internacional. 
+	 */
+	public boolean isInternacional(){
+		return TiposDoador.INTERNACIONAL.getId().equals(this.getIdTipoDoador()) || 
+					TiposDoador.CORDAO_INTERNACIONAL.getId().equals(this.getIdTipoDoador());
+	}
+	
+}

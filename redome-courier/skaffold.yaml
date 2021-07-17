@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: redome-courier
+build:
+  artifacts:
+  - image: localhost:32000/redome-courier
+    docker:
+      dockerfile: local-Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - local-deployment.yml
+portForward:
+  - resourceType: service
+    resourceName: redome-courier-svc
+    port: 9005
+    localPort: 9005

@@ -1,0 +1,64 @@
+<div class="{{markChecklistClass}}" *ngIf="_match" >
+    <div dropdown [isOpen]="_isOpen" container="body" *ngIf="value && value.length != 0" placement="bottom right" >
+        <button type="button" class="btn-checklistmenu dropdown-toggle" (click)=" _isOpen = !_isOpen" >
+            <i class="far fa-list-alt"></i>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu checklistmenu" role="menu" >
+            <li role="menuitem" *ngFor="let ocorrencia of value">
+                <a class="dropdown-item" href="javascript:void(0);" type="button" (click)="confirmarVisto(ocorrencia.id)" >
+                    {{ocorrencia.descricao}} {{ocorrencia.prazoEmDias != null ? ' - ' : ''}}
+                    <span *ngIf="ocorrencia.prazoEmDias != null" prazo="{{ocorrencia.prazoEmDias}}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</div>
+
+<div class="{{markChecklistClass}}" *ngIf="!_match && value && value.length != 0" >
+    <div dropdown [isOpen]="_isOpen" container="body" placement="bottom left" >
+        <div (click)=" _isOpen = !_isOpen">
+            <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+        </div>
+        <ul *dropdownMenu class="dropdown-menu checklistmenu checklistmenu-header" role="menu" >
+            <li role="menuitem" *ngFor="let ocorrencia of value">
+                <a class="dropdown-item" href="javascript:void(0);" type="button" (click)="confirmarVisto(ocorrencia.id)" >
+                    {{ocorrencia.descricao}} {{ocorrencia.prazoEmDias != null ? ' - ' : ''}}
+                    <span *ngIf="ocorrencia.prazoEmDias != null" prazo="{{ocorrencia.prazoEmDias}}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="{{markChecklistClass}}" *ngIf="!_match && (!value || value.length === 0)" >
+    <ng-container *ngTemplateOutlet="contentTpl"></ng-container>
+</div>
+
+
+<ng-template #contentTpl><ng-content></ng-content></ng-template>
+
+
+
+<!-- <div [tooltip]="tooltipTemplate" #tooltipComponent="bs-tooltip" container="body" (click)="isTooltipShow ? tooltipComponent.show() : null"
+        triggers="" class="{{markChecklistClass}}" placement="bottom">
+
+</div>
+<ng-template #tooltipTemplate style="background-color: white">
+    <div class="row" *ngFor="let ocorrencia of value">
+        <div class="col-sm-12 col-xs-12">
+            <p>{{ocorrencia.nome}} {{ocorrencia.prazoEmDias != null ? ' - ' : ''}}
+            <span *ngIf="ocorrencia.prazoEmDias != null" prazo="{{ocorrencia.prazoEmDias}}"></span></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 modal-btn">
+            <br />
+            <button type="button" class="btn btn-sm btn-primary" (click)="confirmarVisto()">
+                Ok
+            </button>
+            <br />
+        </div>
+    </div>
+</ng-template> -->

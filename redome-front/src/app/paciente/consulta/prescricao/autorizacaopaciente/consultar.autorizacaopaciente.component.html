@@ -1,0 +1,81 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'prescricao.autorizacaopaciente.consulta.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-8 col-xs-12 centrotransplante">
+                <select-centros-component #selectCentros
+                    [showAvaliadorOption]="false"
+                    [showColetaOption]="false"
+                    (change)="mudarCentroTransplante(selectCentros.value)">
+                </select-centros-component>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <input id="atribuidoAMim" type="checkbox" [(ngModel)]="atribuidoAMim" (change)="listarPrescricoesSemAutorizacaoPaciente(1)" >
+                <label for="atribuidoAMim">
+                    <span></span> {{'prescricao.autorizacaopaciente.consulta.atribuidoAMim' | translate}} 
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-2">{{'tabela.prescricao.autorizacaopaciente.rmr' | translate}}</td>
+                            <td class="col-sm-4">{{'tabela.prescricao.autorizacaopaciente.nome' | translate}}</td>
+                            <td class="col-sm-4">{{'tabela.prescricao.autorizacaopaciente.dataNascimento' | translate}}</td>
+                            <td class="col-sm-3">{{'tabela.prescricao.autorizacaopaciente.responsavel' | translate}}</td>
+                            <td class="col-sm-4">{{'tabela.prescricao.autorizacaopaciente.aging' | translate}}</td>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let item of paginacao.content; index as i" (click)="itemSelecionado(item)" >
+                            <td class="col-sm-2">{{ item?.rmr }}</td>
+                            <td class="col-sm-2">{{ item?.nomePaciente }}</td>
+                            <td class="col-sm-2">{{ item?.dataNascimento | date: 'dd/MM/yyyy' }}</td>
+                            <td class="col-sm-3">{{ item?.nomeUsuarioResponsavelTarefa }}</td>
+                            <td class="col-sm-2">{{ item?.agingTarefa }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaLogisticaWorkup" 
+                *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacao.totalElements" 
+                        [ngModel]="paginacao.number" [maxSize]="5" 
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true" 
+                        [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                        (pageChanged)="mudarPagina($event)" 
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>{{ 'textosGenericos.porpagina' | translate }}:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroPorPagina" 
+                            (change)="mudarQuantidadeRegistroPorPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

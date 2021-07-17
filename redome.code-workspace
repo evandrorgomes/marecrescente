@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "workup1"
+		}
+	],
+	"folders": [
+		{
+			"path": ".",
+			"name": "workup2"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}

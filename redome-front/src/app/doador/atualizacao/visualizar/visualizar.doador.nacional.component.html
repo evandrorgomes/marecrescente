@@ -1,0 +1,80 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'doadores.nacional.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <span>
+                    <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                            <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                </span>
+            </div>
+        </div>    
+    </div>
+   <div class="page-content">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>{{'pedidoexamedoador.tipo' | translate  }}</td>
+                            <td>{{'pedidoexamedoador.rmr' | translate  }}</td>
+                            <td>{{'pedidoexamedoador.nome' | translate  }}</td>
+                            <td>{{'pedidoexamedoador.laboratorio' | translate  }}</td>
+                            <td>{{'pedidoexamedoador.data' | translate}}</td>
+                            <td>{{'pedidoexamedoador.tipoExame' | translate}}</td>
+                            <td>{{'pedidoexamedoador.status' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody class="clicavel" *ngFor="let pedido of paginacaoDoadoresNacionais?.content; index as i" (click)="irParaBusca(pedido)">
+                        <tr>
+                            <td *ngIf="ehMedula(pedido?.tipoDoador)" > {{'textosGenericos.medula' | translate  }} </td>
+                            <td *ngIf="ehCordao(pedido?.tipoDoador)" > {{'textosGenericos.cordao' | translate  }} </td>
+                            <td>{{pedido.rmr}}</td>
+                            <td>{{pedido?.nomePaciente}}</td>
+                            <td>{{pedido?.nomeLaboratorio}}</td>
+                            <td>{{pedido?.dataCriacao | date:'dd/MM/yyyy' }}</td>
+                            <td><span>{{pedido.tipoExameDescricao}}</span> </td>
+                            <td><span>{{pedido.statusDescricao}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacaoDoadoresNacionais.totalElements && paginacaoDoadoresNacionais.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoDoadoresNacionais.totalElements"
+                    [ngModel]="paginacaoDoadoresNacionais.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" 
+                    [itemsPerPage]="paginacaoDoadoresNacionais.quantidadeRegistro"
+                    (pageChanged)="mudarPaginaNacionais($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>{{'textosGenericos.porpagina' | translate  }}</label>
+                <select class="form-control" [(ngModel)]="qtdRegistroDoadores" 
+                        (change)="selecionaQuantidadeRegistrosNacionais($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>   
+    
+</div>

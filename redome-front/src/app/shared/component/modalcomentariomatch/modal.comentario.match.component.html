@@ -1,0 +1,41 @@
+<!-- Modal -->
+<div class="modal fade"  bsModal #modalComentarioMatch="bs-modal" [config]="{backdrop: 'static', keyboard: false}"
+        tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="fecharComentario()">&times;</button>
+            </div>
+            <div class="modal-body" >
+                <div class="row wrap-bloco">
+                    <div class="col-sm-2 col-xs-12">
+                        <h3>{{'modalComentarioMatchComponent.comentario' | translate}}</h3>
+                        <a href="javascript:void(0)" class="editar-bloco" (click)="incluir()"
+                            *ngIf="!deveEsconderLinkIncluirComentario()"  ><span class="icon-editar"></span>{{'link.incluir' | translate}} </a>
+                    </div>
+                    <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                        <ul [ngClass]="mostraDados">
+                            <li *ngFor=" let comentario of lista; index as i">
+                                <p id=""><small>{{'modalComentarioMatchComponent.comentario' | translate}} {{ i + 1 }}: </small>
+                                <span class="texto-bloco"> {{ comentario.comentario }}                                    
+                                </span></p>
+                            </li>
+                        </ul>
+                        <div class="form-bloco" [ngClass]="mostraFormulario">
+                            <comentario-match #comentarioMatchComponent></comentario-match> 
+                            <div class="row">
+                                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                                    <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicao()" >{{'botao.cancelar' | translate}}</button>
+                                    <button id="alterarContato" class="btn btn-primary floatR" 
+                                        *ngIf="temPermissaoParaIncluirComentario()" (click)="salvarComentario()" >{{'botao.salvar' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+</div>
+
+<modal mensagem="" #modalErro></modal>

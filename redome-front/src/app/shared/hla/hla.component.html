@@ -1,0 +1,38 @@
+<div [formGroup]="formGroup">
+    <div formArrayName="listHLA" class="listHLA">
+        <!-- Seleciona os locus e alelos -->
+        <div class="genotipo aleloContainer">
+            <div class="box" *ngFor="let locus of controls; index as i">
+                <div *ngIf="readOnly; else elsePermiteEdicao" [formGroupName]="i">
+                    <p>{{obterCodigoLocus(locus)}}*</p>
+                    <input id="primeiroalelo{{i}}" class="form-control" formControlName="alelo1"/>
+                    <input id="segundoalelo{{i}}" class="form-control" formControlName="alelo2"/>
+                </div>
+                <ng-template #elsePermiteEdicao>
+                    <div [formGroupName]="i">
+                        <p>{{obterCodigoLocus(locus)}}*</p>
+                        <span *ngIf="!verificarLocusObrigatorio(locus)" 
+                            class="glyphicon glyphicon-remove-circle" 
+                            (click)="removerLocus(i)">
+                        </span>
+                        <input id="primeiroalelo{{i}}" class="form-control" type="text" 
+                            placeholder="Alelo 1" #alelo1 formControlName="alelo1" 
+                            (blur)="validarPrimeiroAlelo(obterCodigoLocus(locus), alelo1.value)"/>
+                        <input id="segundoalelo{{i}}" class="form-control" type="text" 
+                            placeholder="Alelo 2" #alelo2 formControlName="alelo2" 
+                            (blur)="validarSegundoAlelo(obterCodigoLocus(locus), alelo2.value)"/>
+                    </div>
+                </ng-template>
+            </div>
+            <div *ngIf="!readOnly" class="box addBox">
+                <select id="locusSelecionado" class="form-control" #locusSelecionado (change)="addLocus(locusSelecionado)">
+                    <option>{{'pacienteForm.exameGroup.locus' | translate}}</option> 
+                    <option *ngFor="let loci of listarLocusNaoSelecionados()" value="{{loci}}">
+                        {{loci}}*
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <msg class="msgHLA" mensagem="{{retornarMensagemErro()}}"></msg>
+</div>

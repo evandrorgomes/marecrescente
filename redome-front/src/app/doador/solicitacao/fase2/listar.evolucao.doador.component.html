@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="ddlEvolucao">{{ 'contato.evolucao' | translate }}:</label>
+        <select class="form-control" #cbEvolucao id="ddlEvolucao" (change)="mudarEvolucao(cbEvolucao.value)">
+            <option *ngIf="!_evolucoes || _evolucoes.length == 0" value="-1">{{ _semEvolucao }}</option>
+            <option *ngFor="let evolucao of _evolucoes" 
+                value="{{ evolucao.id }}">{{ evolucao.dataCriacaoEUsuarioFormatado() }} </option>
+        </select>        
+    </div>
+    <div class="form-group col-sm-6 col-xs-12">
+        <a class="btn btn-setting btn-primary" (click)="abrirModalEvolucaoDoador()"> 
+                <span class="icon-mais"></span>
+                {{'botao.nova.evolucao'| translate}}
+            </a>
+    </div>
+</div>
+
+<div class="row" *ngIf="_evolucao">
+    <div class="form-group col-sm-6 col-xs-12">
+        <label for="txtEvolucaoDescricao">{{ 'contato.evolucaodescricao' | translate }}:</label>
+        <textarea class="form-control" readonly="true" [value]="_evolucao.descricao" rows="11"  ></textarea>
+    </div>
+</div>

@@ -1,0 +1,151 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'precadastromedico.detalhe.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>                
+        </div>
+    </div>
+</div>
+<div class="page-content dadosGeraisPaciente"> 
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 col-xs-12">
+            <button id="btnNaoProsseguir" class="btn btn-lg btn-primary floatL" (click)="reprovarPreCadastro()">
+                <span class="glyphicon glyphicon-remove"></span> {{ 'botao.reprovar' | translate }}
+            </button>
+            <button id="btnProsseguir" class="btn btn-lg btn-primary floatR" (click)="aprovarPreCadastro()">
+                <span class="glyphicon glyphicon-ok"></span> {{ 'botao.aprovar' | translate }}
+            </button>
+            <br />
+            <br />
+        </div>
+    </div>   
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'precadastromedico.detalhe.dadosidentificacao.titulo' | translate}}</h3>                
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div>
+                <p><small>{{'precadastromedico.detalhe.dadosidentificacao.crm' | translate}}: </small>{{ preCadastroMedico?.crm }}</p>
+                <p><small>{{'precadastromedico.detalhe.dadosidentificacao.nome' | translate}}: </small>{{ preCadastroMedico?.nome }}</p>
+                <p><small>{{'precadastromedico.detalhe.dadosidentificacao.login' | translate}}: </small>{{ preCadastroMedico?.login }}</p>                    
+            </div>
+        </div>
+    </div>
+    
+    <!-- Endereço -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'precadastromedico.detalhe.endereco.titulo' | translate}}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul>
+                <li *ngIf="preCadastroMedico?.endereco">
+                    <p>
+                        <span class="texto-bloco" >{{ preCadastroMedico?.endereco.tipoLogradouro}} {{ preCadastroMedico?.endereco.nomeLogradouro}}
+                            , {{ preCadastroMedico?.endereco.numero}} - {{ preCadastroMedico?.endereco.complemento }} 
+                            {{ preCadastroMedico?.endereco.complemento ? " - " : "" }} {{ preCadastroMedico?.endereco.bairro}}
+                             - {{ preCadastroMedico?.endereco?.municipio?.descricao}}
+                             <br/>{{ preCadastroMedico?.endereco?.municipio?.uf?.sigla}}
+                              - {{ preCadastroMedico?.endereco.pais.nome}} - CEP {{ preCadastroMedico?.endereco.cep}}  
+                        </span>
+                    </p>
+                </li>
+            </ul>                
+        </div>
+    </div>
+
+    <!-- Telefones -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'precadastromedico.detalhe.telefone.titulo' | translate}}</h3>                
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul>
+                <li *ngFor=" let telefone of preCadastroMedico?.telefones; index as i">                
+                    <p id="">
+                        <small>{{'precadastromedico.detalhe.telefone.telefone' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div *ngIf= "telefone.tipo == 2" >
+                                <i class="icon-celular"></i> 
+                                {{ telefone.codInter }}&nbsp;{{ telefone.codArea }}&nbsp;{{ telefone.numero }} {{ telefone.complemento ? " | " + telefone.complemento : ''  }} {{" | " +  telefone.nome }}
+                                <i class="icon-favorito laranja" *ngIf="telefone.principal"></i>                                    
+                            </div>
+                            <div *ngIf= "telefone.tipo == 1" >
+                                <i class="icon-telefone"></i> 
+                                {{ telefone.codInter }}&nbsp;{{ telefone.codArea }}&nbsp;{{ telefone.numero }} {{ telefone.complemento ? " | " + telefone.complemento : ''  }} {{" | " +  telefone.nome }}
+                                <i class="icon-favorito laranja" *ngIf="telefone.principal"></i>                                    
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>                
+        </div>
+    </div>
+
+    <!-- Telefones -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'precadastromedico.detalhe.email.titulo' | translate}}</h3>                
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul>
+                <li *ngFor=" let email of preCadastroMedico?.emails; index as i">                
+                    <p id="">
+                        <small>{{'precadastromedico.detalhe.email.email' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div>                                    
+                                {{ email.email }}&nbsp;
+                                <i class="icon-favorito laranja" *ngIf="email.principal"></i>
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>                
+        </div>
+    </div>
+
+    <!-- Centro de Referência -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'precadastromedico.detalhe.centroreferencia.titulo' | translate}}</h3>                
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul>
+                <li *ngFor=" let centro of preCadastroMedico?.centrosReferencia; index as i">                
+                    <p id="">
+                        <small>{{'precadastromedico.detalhe.centroreferencia.centroreferencia' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div>                                    
+                                {{ centro.nome }}&nbsp;                                
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>                
+        </div>
+    </div>
+
+    <!-- Arquivo CRM -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'precadastromedico.detalhe.arquivocrm.titulo' | translate}}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">            
+            <div class="separaArquivosLaudo">
+                <div class="row listaLaudos">
+                    <div class="col-sm-8 col-xs-12">
+                        <p>
+                            <a href="javascript:void(0)" class="link" title="{{ 'textosGenericos.baixararquivo' | translate }} " (click)="baixarArquivo()">
+                                {{ obterNomeArquivo(preCadastroMedico?.arquivoCrm) }} <span class="icon icon-download"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

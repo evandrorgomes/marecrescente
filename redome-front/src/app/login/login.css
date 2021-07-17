@@ -1,0 +1,326 @@
+/* .conteudo  {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.containerLogin {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    padding: 40px 0 40px 0;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 30px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+.form-signin .checkbox {
+  font-weight: normal;
+}
+
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+
+.form-signin input {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-signin .input-group,
+.form-signin #mensagem {
+  margin-bottom: 6px;
+}
+
+.form-signin #loginError,
+.form-signin #senhaError,
+.form-signin #mensagem {
+  color: red;
+  margin-bottom: 6px;
+
+  } */
+
+/* Estilos do Angular */
+/* input.ng-invalid.ng-touched {
+  border:2px solid red;
+} */
+
+/* Tooltip */
+/* .tooltip.top .tooltip-arrow {
+  border-top-color: red !important;
+} */
+
+/* #### LOGIN #### */
+/* # Slideshow do background # */
+.bg-slideshow {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 210;
+    background: #FFF;
+}
+.bg-slideshow li {
+  list-style: none;
+}
+.bg-slideshow li span {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: transparent;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 0;
+
+    /*
+      evandro.gomes
+      12/04/2021
+      propriedades comentadas para resolver problema de lentidão em acesso remoto
+    */
+
+  	/* -webkit-backface-visibility: hidden;
+    -webkit-animation: imageAnimation 5s linear infinite 0s;
+    -moz-animation: imageAnimation 5s linear infinite 0s;
+    -o-animation: imageAnimation 5s linear infinite 0s;
+    -ms-animation: imageAnimation 5s linear infinite 0s;
+    animation: imageAnimation 5s linear infinite 0s; */
+}
+.bg-slideshow li:nth-child(1) span {
+    background-image: url(/assets/imagens/login-bg01.jpg);
+  }
+
+  /*
+    evandro.gomes
+    12/04/2021
+    propriedades comentadas para resolver problema de lentidão em acesso remoto
+  */
+
+ /* .bg-slideshow li:nth-child(2) span {
+    background-image: url(/assets/imagens/login-bg02.jpg);
+    -webkit-animation-delay: 5s;
+    -moz-animation-delay: 5s;
+    -o-animation-delay: 5s;
+    -ms-animation-delay: 5s;
+    animation-delay: 5s;
+} */
+@-webkit-keyframes imageAnimation {
+	0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  15% {
+      opacity: 1;
+      transform: scale(1.05);
+      animation-timing-function: ease-out;
+  }
+  45% {
+      opacity: 1;
+      transform: scale(1.1);
+  }
+  75% {
+      opacity: 0;
+      transform: scale(1.1);
+  }
+  100% {
+      opacity: 0;
+  }
+}
+@-moz-keyframes imageAnimation {
+	0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  15% {
+      opacity: 1;
+      transform: scale(1.05);
+      animation-timing-function: ease-out;
+  }
+  45% {
+      opacity: 1;
+      transform: scale(1.1);
+  }
+  75% {
+      opacity: 0;
+      transform: scale(1.1);
+  }
+  100% {
+      opacity: 0;
+  }
+}
+@-o-keyframes imageAnimation {
+	0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  15% {
+      opacity: 1;
+      transform: scale(1.05);
+      animation-timing-function: ease-out;
+  }
+  45% {
+      opacity: 1;
+      transform: scale(1.1);
+  }
+  75% {
+      opacity: 0;
+      transform: scale(1.1);
+  }
+  100% {
+      opacity: 0;
+  }
+}
+@-ms-keyframes imageAnimation {
+	0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  15% {
+      opacity: 1;
+      transform: scale(1.05);
+      animation-timing-function: ease-out;
+  }
+  45% {
+      opacity: 1;
+      transform: scale(1.1);
+  }
+  75% {
+      opacity: 0;
+      transform: scale(1.1);
+  }
+  100% {
+      opacity: 0;
+  }
+}
+@keyframes imageAnimation {
+	0% {
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  15% {
+      opacity: 1;
+      transform: scale(1.05);
+      animation-timing-function: ease-out;
+  }
+  45% {
+      opacity: 1;
+      transform: scale(1.1);
+  }
+  75% {
+      opacity: 0;
+      transform: scale(1.1);
+  }
+  100% {
+      opacity: 0;
+  }
+}
+.no-cssanimations .slideshow li span{
+	opacity: 1;
+}
+/* # Login box # */
+.containerLogin {
+  min-height: 320px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 220;
+}
+#loginBox {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #fff;
+  border-radius: 5px;
+  width: 300px;
+  height: 340px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.45);
+  position: absolute;
+  z-index: 100;
+  padding: 10px 35px;
+  margin: -160px 0 0 -150px;
+  top: 50%;
+  left: 50%;
+}
+#logo-loginbox {
+  width: 100%;
+}
+#logo-loginbox {
+  display: block;
+  margin: 0 auto 15px;
+  text-align: center;
+}
+#linkLembrarsenha {
+    color: #767676;
+    font-size: 12px;
+    text-align: center;
+    margin: 0px auto;
+    display: block;
+    padding: 10px;
+    width: 140px;
+}
+#linkLembrarsenha:hover {
+  color: #f38630;
+}
+#loginBox .input-group {
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: hidden;
+}
+#loginBox input, #loginBox .form-control {
+    border: none;
+    background: #fff !important;
+    height: 40px;
+}
+#loginBox .input-group-addon {
+    color: #a7a7a7;
+    background: transparent;
+    border: none;
+    padding: 11px 5px;
+    font-size: 16px;
+}
+#loginBox .input-group {
+    margin-bottom: 20px;
+    min-height: 40px;
+}
+#loginBox .btn {
+    font-size: 16px !important;
+}
+.link {
+    padding: 5px;
+    text-align: center;
+    margin-top: 10px;
+    color: #767676;
+    display: block;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: none;
+}
+.link:hover {
+    color: #f38630;
+    text-decoration: none;
+}

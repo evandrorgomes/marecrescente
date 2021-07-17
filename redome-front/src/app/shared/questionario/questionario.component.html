@@ -1,0 +1,69 @@
+<div class="row">
+    <alert *ngIf="temPaginasComErro()" type="danger" class="col-sm-offset-2 col-sm-8">
+        <h4 class="alert-heading"><strong>Pergunta(s) Obrigatória(s)</strong></h4>
+        <div *ngFor="let pagina of listarDeErrosPorPagina(); index as i">
+            <span *ngIf="exibirNaPagina();else semLink" (click)="obterListaDadosValidacao(pagina.identificador + 1)" class="alert-link">
+                <strong class="clicavel">(Página {{pagina.identificador + 1}})</strong>
+            </span> 
+            <ng-template #semLink>Página</ng-template> com <strong>{{pagina.qtdPerguntaComErro}}</strong> pergunta(s) obrigatória(s) sem preenchimento.
+        </div>
+    </alert>
+    
+    <div class="col-xs-12 col-sm-12">
+
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="totalElements && totalElements > 1">
+            <pagination [totalItems]="totalElements" [ngModel]="pagina" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="quantidadeRegistro"
+                    (pageChanged)="mudarPagina($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}"
+                    >
+            </pagination>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 questionario-pagina">        
+            <div>
+                <h4>{{tituloPagina}}</h4>
+            </div>
+            <ul>
+                <li class="col-xs-12 col-sm-12 questionario-secao" *ngFor=" let secao of secoes; index as idxSecao">
+                    <div>
+                        <h4>{{secao.titulo}}</h4>
+                    </div>
+                    <div class="questionario-pergunta">
+                        <accordion>
+                            <pergunta marcador="{{ perguntaAtual.marcador }}" id="{{ perguntaAtual.id }}"  tipo="{{ perguntaAtual.tipo }}" 
+                                descricao="{{ perguntaAtual.descricao }}" tamanho="{{ perguntaAtual.tamanho }}" [desabilita]= "desabilita"  
+                                [(comErro)]="perguntaAtual.comErro" [opcoes]="perguntaAtual.opcoes" [(valor)]="perguntaAtual.resposta" 
+                                [dependentes]="perguntaAtual.dependentes" [formatoNumerico]="perguntaAtual.formatoNumerico" [alinhamento]="perguntaAtual.alinhamento" 
+                                *ngFor="let perguntaAtual of secao.perguntas; index as i">
+                            </pergunta>
+        
+                        </accordion>
+                    </div>
+                </li>
+            </ul>        
+        </div>    
+
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="totalElements && totalElements > 1">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="totalElements" [ngModel]="pagina" [maxSize]="5" 
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="quantidadeRegistro"
+                        (pageChanged)="mudarPagina($event)" 
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}"
+                        >
+                </pagination>
+            </div>
+        </div>
+    </div>
+
+</div>
+ 
+

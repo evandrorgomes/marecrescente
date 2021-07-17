@@ -1,0 +1,58 @@
+security:  
+  oauth2:
+    client:        
+      clientId: redome-auth
+      clientSecret: 123456
+      accessTokenUri: http://localhost:9000/redome-auth/oauth/token
+      user-authorization-uri: http://localhost:9000/redome-auth/oauth/authorize      
+      grant-type: password, client_credentials
+      scope: read-redome-auth
+    resource:
+#      user-info-uri: http://localhost:9080/redome/user/current
+      token-info-uri: http://localhost:9000/redome-auth/oauth/check_token.json
+      prefer-token-info: true
+  
+jpa:
+  url: jdbc:oracle:thin:@169.57.173.77:1521/dev12c
+  password: euPwzh7F55
+  username: modred_aplicacao
+
+email:
+  servidor: smtp.gmail.com
+  porta: 587
+  usuario: redomenet.suporte@cancer.org.br
+  senha: "!redome!"
+
+# servidor=192.168.0.3
+# porta=25
+# usuario=sismatch@inca.gov.br
+# senha=SI160112
+
+ribbon:  
+  eureka:
+    enabled: true      
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+
+eureka:  
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+    serviceUrl: 
+      defaultZone: http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery.redome-discovery-svc.develop.svc.cluster.local:9082/eureka/, http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery-dev1.redome-discovery-svc1.develop.svc.cluster.local:9082/eureka/
+   
+spring:
+  sleuth:
+    enabled: true
+    sampler:
+      rate: 1
+      probability: 1.0  
+    web:      
+      additionalSkipPattern: "/redome-auth/oauth/.*"
+  zipkin:
+    sender:
+      type: web
+    baseUrl: http://redome-zipkin.redome-zipkin-svc.develop.svc.cluster.local:9441/
+    

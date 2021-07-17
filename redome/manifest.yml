@@ -1,0 +1,19 @@
+---
+applications:
+- name: dev-redome
+  routes:
+  - route: dev-redome.mybluemix.net
+  buildpacks: 
+    - https://github.com/cloudfoundry/java-buildpack.git
+  instances: 1   
+  path: 'redome.war'
+  random-route: false
+  memory: 2048M
+  health-check-timeout: 600
+  timeout: 600
+  env:
+    JBP_CONFIG_TOMCAT: '{ tomcat: { version: 9.0.+ } }'
+    JAVA_OPTS: '-Dhttps.protocols=TLSv1.2,TLSv1.1,TLSv1,SSLv3 -Dspring.profiles.active=dev'
+    TZ: America/Sao_Paulo    
+    'spring.profiles.active': 'dev'
+      

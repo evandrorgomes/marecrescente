@@ -1,0 +1,21 @@
+<div class="row" [formGroup]="form()" >
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12 ">
+        <label for="ddlCentroAvaliador">{{'workup.pedido.motivoCancelamento' | translate}}:</label>
+        <select formControlName="motivoCancelamento" class="form-control" id="ddlMotivoCancelamento" (blur)="setMensagemErroPorCampo('motivoCancelamento')">
+            <option value=""></option>
+            <option *ngFor="let c of motivosCancelamento" value="{{c.id}}">{{c.descricao}}</option>
+        </select>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('motivoCancelamento') }}"></msg>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <br />
+        <button type="button" class="btn btn-default btn-lg floatL" (click)="fechar()">
+            {{'botao.cancelar' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary btn-lg floatR" (click)="cancelarPedidoWorkup()">
+            {{'botao.salvar' | translate}}
+        </button>
+    </div>
+</div>

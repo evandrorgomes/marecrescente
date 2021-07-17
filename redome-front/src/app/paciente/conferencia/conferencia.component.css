@@ -1,0 +1,585 @@
+/* Estilos modificados do bootstrap */
+.checkbox, .radio {
+    margin-top: 0px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group.col-xs-1 small,
+.form-group.col-xs-2 small,
+.form-group.col-xs-3 small,
+.form-group.col-xs-4 small {
+    width: 120%;
+}
+
+.form-group.col-xs-5 small,
+.form-group.col-xs-6 small,
+.form-group.col-xs-7 small,
+.form-group.col-xs-8 small,
+.form-group.col-xs-9 small,
+.form-group.col-xs-10 small,
+.form-group.col-xs-11 small,
+.form-group.col-xs-12 small {
+    width: 100%;
+}
+
+.table {
+    margin-bottom: 6px;
+}
+
+.table td:last-child {
+    vertical-align: middle;
+}
+
+.table th {
+    background: #fff;
+}
+
+/* Estilos do cadastro de paciente */
+.etapaContainer {
+    border-bottom: 1px solid #eee;
+    list-style: none;
+    margin-bottom: 16px;
+    padding: 0;
+}
+
+.etapaContainer li {
+    color: #e2e2e2;
+    line-height: 30px;
+    display: inline-block;
+    text-align: center;
+    height: 60px;
+    width: 13.8%;
+}
+
+.etapaContainer li::before {
+    content: "";
+    background-color: #e2e2e2;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.etapaContainer li:first-child::after {
+    content: none;
+}
+
+.etapaContainer li::after {
+    content: "";
+    background-color: #e2e2e2;
+    display: block;
+    position: relative;
+    left: -50%;
+    top: -48px;
+    z-index: 0;
+    height: 6px;
+    width: 100%;
+}
+
+.etapaContainer li.ativo {
+    cursor: pointer;
+    color: #333;
+    font-weight: bold;
+}
+
+.etapaContainer li.ativo::before {
+    background-color: yellowgreen;
+}
+
+.etapaContainer li.ativo::after {
+    background-color: yellowgreen;
+}
+
+.formContainer {
+    display: table;
+    margin: 0 auto 20px auto;
+    width: 80%;
+}
+
+.formContainer .checkbox {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.formContainer .rodapeForm {
+    padding-top: 8px;
+}
+
+/* Etapa de contato */
+.addTelefone span {
+    font-size: 30px;
+}
+
+/* Estilos da tabela de contatos */
+.table.tableContato td:nth-child(2),
+.table.tableContato td:nth-child(3) {
+    width: 86px;
+}
+
+.table.tableContato td:nth-child(7) {
+    width: 48px;
+}
+
+/* Etapa de exame */
+.listaMetodologia div {
+    display: inline-block;
+    width: 40%;
+}
+
+.listaMetodologia div div {
+    width: 100%;
+}
+
+ .aleloContainer {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.aleloContainer .addBox {
+    background: #eee;
+}
+
+.aleloContainer .addBox,
+.aleloContainer .box  {
+    border-radius: 6px;  
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    margin: 0 6px 6px 0;
+    padding: 10px 10px 4px 10px; 
+    height: 120px;
+    width: 12%;
+}
+
+.aleloContainer .box {
+    background: yellowgreen; 
+    text-align: center;
+    width: 12%;
+}
+
+.aleloContainer .box input {
+    margin: 4px 0 4px 0;
+}
+
+.aleloContainer .box p {
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+    margin: 0;
+    padding-left: 6px;
+}
+
+.aleloContainer .box span {
+    font-size: 26px;
+    position: absolute;
+    top: 10px;
+    left: 78px;
+}
+
+.aleloContainer .addBox span {
+    color: #337ab7;
+    position: relative;
+    top: 56px;
+    left: 38px;
+}
+
+.aleloContainer .box span {
+    color: #fff;
+}
+
+/* Estilos da tabela de arquivos de laudo */
+.table.tableLaudo th:nth-child(1) {
+    width: 95%;
+}
+
+.table.tableLaudo th:nth-child(2) {
+    width: 5%;
+}
+
+.selecionaLaudos {
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    margin-bottom: 6px;
+    padding: 6px 0 6px 0;
+}
+
+.selecionaLaudos button {
+    background: #333;
+}
+
+.listaLaudos {
+    display: block;
+    padding-bottom: 6px;
+}
+
+/* Consulta de paciente */
+.paginaConsultaPaciente .pagination,
+.paginaConsultaPaciente .form-control {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px 20px 0;
+}
+
+#tblConsultaPaciente {
+    margin-bottom: 12px;
+}
+
+/* Consulta de evolução e exame do paciente */
+.tituloIdPaciente {
+    color: inherit;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.tituloIdPaciente, 
+.infoIdPaciente {
+    display: inline;
+}
+
+.infoIdPaciente {
+    margin-bottom: 6px;
+}
+
+.infoIdPaciente small {
+    font-size: 100%;
+}
+
+.infoIdPaciente small span.glyphicon {
+    position: relative;
+    right: 0;
+    top: 0;
+}
+
+.infoPaciente {
+    margin-bottom: 20px;
+}
+
+.infoPaciente > div:first-child {
+    border-right: 2px solid #eee;
+}
+
+.infoPaciente div div {
+    margin-bottom:8px
+}
+
+.infoPaciente label {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.infoPaciente form select {
+    margin-bottom: 4px;
+}
+
+.infoPaciente .subTitulo {
+    color: #FF9900;
+    font-weight: bold;
+}
+
+.infoPaciente p {
+    line-height: 1.8em;
+    margin-bottom: 16px;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.infoPaciente ul {
+    list-style: none;
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.infoPaciente .infoMetodologia .glyphicon {
+    color: limegreen;
+    cursor: initial;
+}
+
+.infoPaciente .infoMetodologia {
+    margin-right: 10px;
+}
+
+.infoHLA .box {
+    display: inline-block;
+    background: yellowgreen;
+    color: #fff;
+    border-radius: 6px;
+    width: 15%;
+    margin: 0 6px 10px 0;
+    padding: 18px;
+}
+
+.infoHLA .box p {
+    line-height: 0.8;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.infoHLA .box span {
+    display: block;
+}
+
+.infoLaudos .separaArquivosLaudo {
+    float: left;
+    padding: 4px 0 0 0;
+    width: 100%;
+}
+
+.infoLaudos .separaArquivosLaudo:nth-child(odd) {
+    background: #f1f1f1;
+}
+
+.infoLaudos p {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.infoLaudos .glyphicon {
+    color: #333;
+    font-size: medium;
+    margin-right: 4px;
+}
+
+.infoLaudos .glyphicon:last-child {
+    margin-right: 0;
+}
+
+.listaTransPrevio div {
+    margin-bottom: 10px;
+}
+
+.listaTransPrevio small {
+    left: 0;
+}
+
+/* Estilos da tabela de consulta de paciente  */
+.infoPaciente .table tr:nth-of-type(odd) {background:#f1f1f1;}
+
+/* Avaliação de paciente */ 
+.avaliaDadosPaciente.panel-group {
+    margin-top: 8px;
+}
+
+.avaliaDadosPaciente.panel-group,
+.avaliaDadosPaciente.panel-group .panel,
+.avaliaDadosPaciente.panel-group .panel-heading,
+.avaliaDadosPaciente.panel-group .panel-title,
+.avaliaDadosPaciente.panel-group .accordion-toggle,
+.avaliaDadosPaciente.panel-group .accordion-toggle div {
+    margin-bottom: 0;
+}
+
+.exibeDadosPendencia div {
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.exibeDadosPendencia label {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.tableControlePendencias .visualizaPendencia {
+    cursor: pointer;
+}
+
+.tableControlePendencias th:last-child {
+    width: 104px;
+}
+
+.containerPendencia {
+    overflow-y: auto;
+}
+
+.containerPendencia,
+.boxRespondePendencia {
+    width: 60%;
+}
+
+.balaoPendenciaPergunta,
+.balaoPendenciaResposta {
+    border-radius: 8px;
+    width: 80%;
+    margin-bottom: 8px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+.balaoPendenciaPergunta {
+    background: #eee;
+    float: left;
+    text-align: left;
+}
+
+/* .balaoPendenciaPergunta::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 75px;
+    left: 170px;
+    border: 12px solid;
+    border-color: #eee transparent transparent;
+} */
+
+.balaoPendenciaResposta {
+    background: palegreen;
+    float: right;
+    text-align: right;
+}
+
+/* .balaoPendenciaResposta::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 143px;
+    right: 170px;
+    border: 12px solid;
+    border-color: palegreen transparent transparent;
+} */
+
+.boxRespondePendencia {
+    /* background: #eee; */
+    text-align: left;
+    padding: 20px;
+    border-top: 4px solid #fff;
+}
+
+.formCriarNovaPendencia label {
+    border-bottom: 0;
+}
+
+/* Estilos diversos */
+.displayInline {
+    display: inline-block;
+}
+
+.inputMinimo {
+    width: 70px;
+}
+
+.inputData {
+    width: 50px;
+}
+
+.labelInvisivel {
+    visibility: hidden;
+}
+
+.goMobile {
+    display: none;
+}
+
+.mostraIconeCid {
+    cursor: text;
+    position: absolute;
+    right: 25px;
+    top: 32px;
+}
+
+.azul {
+    color: blue;
+}
+
+.amarelo {
+    color: gold;
+}
+
+h4 {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    margin-bottom: 10px;
+    max-width: 100%;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+.sidebar-border {
+    border-right: 2px solid #eee;
+}
+.btn-wrap {
+    margin-bottom: 8px;
+}
+/* Media queries */
+@media screen and (max-width: 1024px) {
+    [class^="col"] {padding-left: 10px; padding-right: 10px;}
+    .formContainer {width: 90%;}
+    .infoPaciente p {padding-right: 40px; padding-left: 40px;}
+}
+
+@media screen and (max-width: 768px) {
+    [class^="col"] {padding-left: 8px; padding-right: 8px;}
+    .noMobile {display: none;}
+    .formContainer {width: 100%;}
+    .etapaContainer li {height: 52px;}
+    .etapaContainer li::before {height: 20px; width:20px}
+    .etapaContainer li::after {top:-42px; height: 4px; width:100%}
+    .aleloContainer .addBox, 
+    .aleloContainer .box {width: 14%;}
+    .aleloContainer .box span {left: 68px;}
+    .listaMetodologia div {width: 60%;}
+    .infoPaciente .infoMetodologia {margin-right: -2px; width: 50%; display: inline-block;}
+    .infoPaciente p {padding-right: 20px; padding-left: 20px;}
+    .infoHLA .box {width: 20%;}
+    .tableContato table, 
+    .tableContato tbody, 
+    .tableContato td,
+    .infoPaciente table, 
+    .infoPaciente thead, 
+    .infoPaciente tbody,
+    .infoPaciente th, 
+    .infoPaciente td {display: block;}
+    .infoPaciente tr,
+    .tableContato tr {border:2px solid #ddd; border-spacing: 0; display: inline-block; vertical-align: top; margin-bottom:4px; width: 49%}
+    .infoPaciente td,
+    .tablecontato td {min-height: 30px; vertical-align: middle;}
+    #tblConsultaPaciente thead th:nth-child(3),
+    #tblConsultaPaciente thead th:nth-child(4),
+    #tblConsultaPaciente thead th:nth-child(5),
+    #tblConsultaPaciente td:nth-child(3),
+    #tblConsultaPaciente td:nth-child(4),
+    #tblConsultaPaciente td:nth-child(5) {display: none;}
+    .tableControlePendencias thead {display: none}
+    .tableControlePendencias td:first-child {min-height: 50px;}
+    .tableControlePendencias td:last-child {padding: 10px;}
+    .tableControlePendencias td span.glyphicon {font-size: 26px;}
+}
+
+@media screen and (max-width: 425px) {
+    .clearfix {display: none;}
+    .goMobile {display: block;}
+    .conteudo {padding-left:12px; padding-right:12px;}
+    .conteudo h2 {margin: 0px 0 10px 0;}
+    .etapaContainer {text-align: center}
+    .etapaContainer li {width: 31.8%;}
+    .etapaContainer li:nth-child(4)::after, 
+    .etapaContainer li:nth-child(7)::after, 
+    .etapaContainer li.ativo:nth-child(4)::after, 
+    .etapaContainer li.ativo:nth-child(7)::after {content: none; background-color:#fff;}
+    .infoHLA .box {width: 30%;}
+    .infoHLA .box p {font-size: 26px;}
+    .infoPaciente > div:first-child {border-right: 0; border-bottom: 2px solid #eee; margin-bottom: 16px;}
+    .infoPaciente .infoMetodologia {width: 100%;}
+    .infoPaciente p {padding-left: 20px; padding-right: 20px}
+    .infoLaudos .glyphicon {font-size: smaller; margin-right: 5px;}
+    .listaTransPrevio div {display: block; margin-left: 10px; padding: 0;}
+}
+
+.clicavel{
+    cursor: pointer;
+}

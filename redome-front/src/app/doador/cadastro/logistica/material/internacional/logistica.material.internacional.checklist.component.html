@@ -1,0 +1,137 @@
+<div class="container conteudo" >
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12" *ngIf="isMedula(); else elseCordao">
+                <h2>{{'logisticaMaterial.titulo' | translate}}</h2>
+            </div>
+            <ng-template #elseCordao>
+                <div class="col-xs-12 col-sm-12">
+                    <h2>{{'logisticaMaterial.tituloCordao' | translate}}</h2>
+                </div>
+            </ng-template>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+                </a>
+                <div class="btn-group" dropdown container="body">
+                    <button id="idDocumentos" type="button" dropdownToggle class="btn btn-setting btn-primary dropdown-toggle"
+                        aria-controls="dropdown-documentos">
+                        <span class="glyphicon glyphicon-file"></span> {{'botao.documentos' | translate}} <span class="caret"></span></button>
+                    <ul id="dropdown-documentos" *dropdownMenu class="dropdown-menu"
+                        role="menu" aria-labelledby="idDocumentos">
+                        <li role="menuitem" *ngIf="isMedula()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Doc001-Carta Solicitação Anvisa', true)" >
+                                Doc001-Carta Solicitação Anvisa
+                            </a>
+                        </li>
+                        <li role="menuitem" *ngIf="isMedula()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Doc002-Declaração Importação Anvisa', true)">
+                                Doc002-Declaração Importação Anvisa
+                            </a>
+                        </li>
+
+                        <!--Cordao Internacional-->
+                        <li role="menuitem" *ngIf="isCordao()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Doc001-Cordão', true)">
+                                Doc001-Cordão
+                            </a>
+                        </li>
+                        <li role="menuitem" *ngIf="isCordao()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Doc002-Cordão', true)">
+                                Doc002-Cordão
+                            </a>
+                        </li>
+                        <li role="menuitem" *ngIf="isCordao()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Doc004-Declaração ao Dep. de Cargas', true)">
+                                Doc004-Declaração ao Dep. de Cargas
+                            </a>
+                        </li>
+                        <li role="menuitem" *ngIf="isCordao()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Doc005-Anexo XXIX', true)">
+                                Doc005-Anexo XXIX
+                            </a>
+                        </li>
+
+                        <!--Mdula Internacional-->
+                        <li role="menuitem" *ngIf="isMedula();">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Carta Courier REDOME', true)">
+                                Carta Courier REDOME
+                            </a>
+                        </li>
+                        <li role="menuitem" *ngIf="isMedula()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Carta Courier REDOME Inglês', true)">
+                                Carta Courier REDOME Inglês
+                            </a>
+                        </li>
+                        <li role="menuitem" *ngIf="isMedula()">
+                            <a class="dropdown-item" type="button" (click)="obterDocumento('Checklist English REDOME', true)">
+                                Checklist English REDOME
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="downloadAutorizacaoPaciente()">
+                        <span class="icon icon-avaliacao"></span> {{'logisticaMaterial.autorizacaoPaciente' | translate}}</a>
+                </span>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="abriModalDadosAdicionais()">
+                        <span class="icon icon-enriquecimento"></span> {{'logisticaMaterial.informacoesAdicionais' | translate}}</a>
+                </span>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="validarPreenchimentoParaFinalizar()" >
+                        <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.finalizar' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+      <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <h4><small>{{ 'logisticaMaterial.dataColeta' | translate }}: </small>{{ detalhe?.dataColeta | date:'dd/MM/yyyy' }}</h4>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-sm-12 col-xs-12">
+              <h4><small>{{ 'logisticaMaterial.centroTransplante' | translate }}: </small>{{detalhe?.nomeCentroTransplante}}</h4>
+              <h4><small>{{ 'logisticaMaterial.enderecodoCT' | translate }}: </small>
+                <span class="texto-bloco" *ngIf="endereco">
+                {{ endereco?.tipoLogradouro}} {{ endereco?.nomeLogradouro}}, {{ endereco?.numero}} - {{ endereco?.complemento }}
+                {{ endereco?.complemento ? " - " : "" }} {{ endereco?.bairro}} - {{ endereco?.municipio?.descricao}}
+                {{ endereco?.municipio?.uf?.sigla}} - {{ endereco?.pais?.nome}} - CEP {{ endereco?.cep}}
+                </span></h4>
+              <h4><small>{{ 'logisticaMaterial.telefones' | translate }}: </small>
+                <ul>
+                  <li *ngFor=" let contatoTelefonico of contatos; index as i">
+                      <p id="">
+                          <small>{{'centrotransplante.detalhe.telefone.telefone' | translate}} {{ i+1 }}: </small><br/>
+                          <span class="texto-bloco">
+                              <div *ngIf= "contatoTelefonico.tipo == 2" >
+                                  <i class="icon-celular"></i>
+                                  {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}
+                                  <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                              </div>
+                              <div *ngIf= "contatoTelefonico.tipo == 1" >
+                                  <i class="icon-telefone"></i>
+                                  {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{" | " + contatoTelefonico.complemento }} {{" (" +  contatoTelefonico.nome + ")"}}
+                                  <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                              </div>
+                          </span>
+                      </p>
+                  </li>
+                </ul>
+              </h4>
+          </div>
+      </div>
+      <hr>
+      <checklist #checklist></checklist>
+    </div>
+</div>
+

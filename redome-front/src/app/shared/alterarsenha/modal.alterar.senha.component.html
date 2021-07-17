@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+            <h2 class="text-center"> {{ 'modalalterarsenha.titulo' | translate }} <br/> </h2>
+    </div>
+</div>
+<div class="" [formGroup]="form()">
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="password"
+                label="{{'modalalterarsenha.senhaatual' | translate}}:" 
+                formControlName="senhaAtual" 
+                [control]="form().controls['senhaAtual']" 
+                idd="txtSenhaAtual" 
+                placeholder="" >
+            </input-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="password"
+                label="{{'modalalterarsenha.novasenha' | translate}}:" 
+                formControlName="novaSenha" 
+                [control]="form().controls['novaSenha']" 
+                idd="txtNovaSenha" 
+                placeholder="" >
+            </input-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-component 
+                type="password"
+                label="{{'modalalterarsenha.confirmarsenha' | translate}}:" 
+                formControlName="confirmarSenha" 
+                [control]="form().controls['confirmarSenha']" 
+                idd="txtConfirmarSenha" 
+                placeholder="" >
+            </input-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-sm-offset-4 col-sm-5 col-xs-12 modal-btn">
+            <br/>
+            <br/>
+            <br/>
+            <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()" ><span class=""></span> {{ 'botao.confirmar' | translate }}  </a>
+        </div>
+    </div>
+    
+
+</div>

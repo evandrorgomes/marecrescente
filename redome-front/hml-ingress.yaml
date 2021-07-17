@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: redome-ingress
+  namespace: hml
+  annotations:
+#    kubernetes.io/ingress.class: "nginx"
+#    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+#  tls:
+#  - hosts:
+#    - dev-redome.cancer.org.br
+#    secretName: dev-redome-tls
+  rules:
+#  - host: dev-redome.cancer.org.br
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: redome-front-svc
+            port:
+              number: 80
+      - path: /redome-auth
+        pathType: Prefix
+        backend:
+          service:
+            name: redome-auth-svc
+            port:
+              number: 9000
+#      - path: /redome-tarefa
+#        backend:
+#          serviceName: redome-tarefa-svc
+#          servicePort: 9001
+#      - path: /redome-notificacao
+#        backend:
+#          serviceName: redome-notificacao-svc
+#          servicePort: 9002
+#      - path: /redome
+#        backend:
+#          serviceName: redome-svc
+#          servicePort: 9080
+#      - path: /redome-workup
+#        backend:
+#          serviceName: redome-workup-svc
+#          servicePort: 9004

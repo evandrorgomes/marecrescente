@@ -1,0 +1,7 @@
+<label [attr.for]="idd">{{ label }}</label>
+<select #select [ngClass]="getClazz()" id="{{idd}}" [multiple]="multipleSelect"
+    tabindex="0" (change)="onChange($event, select.value)">
+    <option value="" *ngIf="showBlankOption" ></option>
+    <option *ngFor="let option of options" value="{{ getOptionValue(option) }}">{{ getOptionText(option) }}</option>
+</select>
+<msg mensagem="{{ getMensagemErro() }}"></msg>

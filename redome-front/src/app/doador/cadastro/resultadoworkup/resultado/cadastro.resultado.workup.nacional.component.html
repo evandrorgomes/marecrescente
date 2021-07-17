@@ -1,0 +1,157 @@
+<div class="container conteudo">
+    <div class="page-title">
+       <div class="row">
+          <div class="col-xs-12 col-sm-12">
+             <h2>{{ 'workup.pedido.tituloFormularioResultadoWorkup' | translate }}</h2>
+          </div>
+       </div>
+       <div class="row">
+          <header-doador #headerDoador></header-doador>
+      </div>
+      <div class="row menu-btn">
+          <div class="col-sm-12 col-xs-12">
+              <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()">
+                <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+              </a>
+              <a class="btn btn-setting btn-primary" (click)="salvarFormulario()"  *ngIf="!isMostrarDetalhe" >
+                <span class="icon-salvar"></span>
+                    {{'contato.salvarQuestionario'| translate}}
+              </a>
+              <a class="btn btn-setting btn-primary" (click)="finalizarFormulario()" *ngIf="!isMostrarDetalhe" >
+                <span class="icon-calendario"></span>
+                    {{'botao.finalizar'| translate}}
+              </a>
+          </div>
+       </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+              <visualizar-prescricao></visualizar-prescricao>
+         </div>
+        </div>
+        <div [formGroup]="form()" class="questionario-pagina">
+            <div class="row">
+                <div class="form-group questionario-pergunta col-sm-8 col-xs-12" style="margin-top: 0px !important;">
+                    <label>{{'workup.resultadoworkup.fontecelulaprescrita' | translate}}:
+                        <span>{{ _fontesCelulas && _fontesCelulas.length >= 1 ? _fontesCelulas[0].descricao : '' }}</span>
+                        <span>{{ _fontesCelulas && _fontesCelulas.length == 2 ? ' ou ' + _fontesCelulas[1].descricao : '' }}</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+              <div class="form-group questionario-pergunta col-sm-6 col-xs-12" style="margin-top: 0px !important;">
+                  <group-radio-component
+                        label="{{'workup.resultadoworkup.coletaInviavel' | translate}}"
+                        id="coletaInviavel"
+                        formControlName="coletaInviavel"
+                        [control]="form().controls['coletaInviavel']"
+                        [optionsLabel]="labelsColetaInviavel"
+                        [optionsValue]="opcoesColetaInviavel"
+                        columnClass="col-sm-2 col-xs-6">
+                  </group-radio-component>
+              </div>
+            </div>
+            <div class="row" *ngIf="_coletaInviavel">
+              <div class="form-group questionario-pergunta col-sm-6 col-xs-12" style="margin-top: 0px !important;">
+                  <textarea-component
+                          label="{{'workup.resultadoworkup.coletaInviavelNao' | translate}}"
+                          formControlName="motivoInviabilidade"
+                          [control]="form().controls['motivoInviabilidade']"
+                          rows="4"
+                          idd="txtMotivoInviabilidade">
+                  </textarea-component>
+              </div>
+            </div>
+            <div class="row" *ngIf="_coletaViavel">
+                <div class="form-group questionario-pergunta col-sm-6 col-xs-12" style="margin-top: 0px !important;" *ngIf="!_somenteUmaFonte">
+                    <select-component
+                            label="{{'workup.resultadoworkup.fontecelula' | translate}}"
+                            idd="fonteCelula"
+                            formControlName="fonteCelula"
+                            [control]="form().controls['fonteCelula']"
+                            [options]="_fontesCelulas"
+                            fieldOptionValue="id"
+                            fieldOptionText="descricao"
+                    ></select-component>
+                </div>
+            </div>
+            <div class="row" *ngIf="_coletaViavel && _sanguePerifericoSelecionado">
+                <div class="form-group questionario-pergunta col-sm-3 col-xs-6" style="margin-top: 0px !important;" >
+                    <input-component
+                            label="{{'workup.resultadoworkup.datagcfh' | translate}}:"
+                            formControlName="datagcfh"
+                            [control]="form().controls['datagcfh']"
+                            idd="txtDatagcfh"
+                            placeholder=""
+                            [mascara]="_mascaraData">
+                    </input-component>
+                </div>
+                <div class="form-group questionario-pergunta col-sm-6 col-xs-12" style="margin-top: 0px !important;">
+                    <group-radio-component
+                            label="{{'workup.resultadoworkup.coletaaferese' | translate}}"
+                            idd="coletaaferese"
+                            formControlName="coletaaferese"
+                            [control]="form().controls['coletaaferese']"
+                            [optionsLabel]="labelsColetaInviavel"
+                            [optionsValue]="opcoesColetaInviavel"
+                            columnClass="col-sm-2 col-xs-6">
+                    </group-radio-component>
+                </div>
+            </div>
+            <div class="row" *ngIf="_coletaafereseinviavel">
+                <div class="form-group questionario-pergunta col-sm-12 col-xs-12" style="margin-top: 0px !important;">
+                    <textarea-component
+                            label="{{'workup.resultadoworkup.acessovenoso' | translate}}"
+                            formControlName="acessovenoso"
+                            [control]="form().controls['acessovenoso']"
+                            rows="4"
+                            idd="txtacessovenoso">
+                    </textarea-component>
+                </div>
+            </div>
+            <div class="row" *ngIf="_coletaViavel && _medulaOsseaSelecionada">
+                <div class="form-group questionario-pergunta col-sm-6 col-xs-12" style="margin-top: 0px !important;">
+                    <group-radio-component
+                            label="{{'workup.resultadoworkup.sangueautologo' | translate}}"
+                            idd="sangueautologo"
+                            formControlName="sangueautologo"
+                            [control]="form().controls['sangueautologo']"
+                            [optionsLabel]="labelsColetaInviavel"
+                            [optionsValue]="opcoesColetaInviavel"
+                            columnClass="col-sm-2 col-xs-6">
+                    </group-radio-component>
+                </div>
+            </div>
+            <div class="row" *ngIf="_sangueAutologoNaoColetado">
+                <div class="form-group questionario-pergunta col-sm-12 col-xs-12" style="margin-top: 0px !important;">
+                    <textarea-component
+                            label="{{'workup.resultadoworkup.motivosangueautologonaocoletado' | translate}}"
+                            formControlName="motivosangueautologonaocoletado"
+                            [control]="form().controls['motivosangueautologonaocoletado']"
+                            rows="4"
+                            idd="txtmotivosangueautologonaocoletado">
+                    </textarea-component>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="page-title h2 col-xs-12 col-sm-12" style="margin-top: 0px !important;">
+                <h2>{{ 'workup.pedido.tituloFormularioAvaliacaoResultadoWorkup' | translate }}</h2>
+            </div>
+        </div>
+        <questionario #questionario [formulario]="_formulario" [desabilita]="isMostrarDetalhe" ></questionario>
+        <div *ngIf="!isMostrarDetalhe" class="floatR">
+            <div class="col-sm-12 col-xs-12">
+                <span>
+                    <a class="btn btn-setting btn-primary" (click)="salvarFormulario()">
+                        <span class="icon-salvar"></span>
+                          {{'contato.salvarQuestionario'| translate}}
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

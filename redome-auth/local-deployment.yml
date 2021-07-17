@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-auth-svc
+  namespace: develop
+spec:
+  type: NodePort
+  selector:
+    app: redome-auth
+    namespace: develop
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-auth-deployment
+  namespace: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-auth
+      namespace: develop
+  template:
+    metadata:
+      labels:
+        app: redome-auth
+        namespace: develop
+    spec:
+       hostname: redome-auth
+       subdomain: redome-auth-svc          
+       containers:
+       - name: redome-auth
+         image: localhost:32000/redome_auth
+         env:
+         -  name: profile
+            value: dev
+
+         

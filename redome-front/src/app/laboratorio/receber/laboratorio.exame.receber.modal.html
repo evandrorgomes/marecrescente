@@ -1,0 +1,22 @@
+<div class="row" [formGroup]="receberPedidoForm">
+    <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+        <label>{{'laboratorioReceberColeta.recebimento.dataColeta' | translate}}</label>
+        <input class="form-control" [textMask]="{mask: dataMask}" type="text" maxlength="11" placeholder="DD/MM/AAAA" formControlName="dataColeta"
+            (blur)="setMensagemErroPorCampo('dataColeta');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataColeta') }}"></msg>
+    </div>
+    <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+        <label>{{'laboratorioReceberColeta.recebimento.dataRecebimento' | translate}}</label>
+        <input class="form-control" [textMask]="{mask: dataMask}" type="text" maxlength="11" placeholder="DD/MM/AAAA" formControlName="dataRecebimento"
+            (blur)="setMensagemErroPorCampo('dataRecebimento');">
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('dataRecebimento') }}"></msg>
+    </div>
+    <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+        <button type="button" class="btn btn-primary floatR" (click)="salvarRecebimento()">
+            {{'botao.salvar' | translate}}
+        </button>
+        <button type="button" class="btn btn-default floatL" (click)="fecharModal()">
+            {{'botao.cancelar' | translate}} 
+        </button>
+    </div>
+</div>

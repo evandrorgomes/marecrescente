@@ -1,0 +1,17 @@
+<div class="row">
+        <div class="col-sm-12 col-xs-12">
+                <h3 class="text-center"> {{ 'modalcancelarpedidoexamefase3.titulo' | translate }} </h3>
+        </div>
+</div>
+<div class="row text-left">
+        <div class=" form-group col-sm-12 col-xs-12">
+                <label>{{ 'modalcancelarpedidoexamefase3.justificativa' | translate }}:</label>
+                <input style="width: 800px;" id="justificativa"  class="form-control" [(ngModel)]="justificativa" maxlength="255" width="600" />
+                <msg mensagem="{{ mensagemErroJustificativa }}"> </msg>
+        </div>
+</div>
+<div class="row">
+        <div class=" col-sm-12 col-xs-12 modal-btn">
+                <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()" ><span class=""></span> {{ 'botao.confirmar' | translate }}  </a>
+        </div>
+</div>

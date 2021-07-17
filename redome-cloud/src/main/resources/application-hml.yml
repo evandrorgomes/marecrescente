@@ -1,0 +1,78 @@
+spring:
+#  jmx:
+#    default-domain: redome-cloud
+  security:  
+    user:
+      name: redomecloud
+      password: D4V&5uzR4isTHS08WRKIInL%1Zf*P  
+  cloud:  
+    config:
+      server:
+        git:
+          uri: git@us-south.git.cloud.ibm.com:ti.helpdesk/redome-config.git
+          searchPaths: redome-config
+          ignoreLocalSshSettings: true
+          passphrase: Modred2019           
+          hostKey: AAAAB3NzaC1yc2EAAAADAQABAAABAQCkK/VcwWJIaH/lurW2TXZ8zBuB25PMO1IcIfZnp7/uOh+SgmyhAsoB3qmak3J3Qq8nprFcwyBBdUa1sudqE1jf9EWGnqBBkaC9ZpZ1JJMt4pqe4kYx3SfQnI9rwkRV5iuUdiX8aFHvNR3qW77PRZdZYLQIxnTNf3txuIosyDmdHVYoEe1hx1cYmzO6ZfLxD/sIpla14MvDMWiWcBd5UwjKRihmBPjGrtWEQqJPmp1X8ZebcFb1ZZIuUuBLAfmDoCk86Nz6kFAJ7vpd9wk/bs71/2JzIpXQlu2hreTNVW6PXoU62GMmDJI83PQxmMbhbZq8Dwu/wAVD4hdYvDzQDTRx
+          hostKeyAlgorithm: ssh-rsa
+          privateKey: |
+            -----BEGIN RSA PRIVATE KEY-----
+            Proc-Type: 4,ENCRYPTED
+            DEK-Info: AES-128-CBC,42CD584413C7618DB3AD61489BB5F84A
+            
+            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
+            -----END RSA PRIVATE KEY---------
+
+logging:
+  pattern:
+    console:
+  path: /logs/redome-cloud/hml
+  

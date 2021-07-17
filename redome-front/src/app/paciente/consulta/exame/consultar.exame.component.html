@@ -1,0 +1,142 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'consultaExame.titulo' | translate }}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+            </a>
+            <a href="javascript:void(0)" class="btn btn-setting btn-primary" 
+                (click)="baixarInstrucaoColeta()" *ngIf="exibirInstrucaoColetaExameCT()" 
+                title="{{'consultaExame.pedidoExameTesteConfirmatorio' | translate}}">
+                <span class="icon-exames"></span> {{'botao.pedidoExameTipoSwab' | translate}} 
+            </a>
+            <span *ngIf="temPermissaoNovoExame && !pacienteEmObito">
+                <a id="idBtnNovoExame" class="btn btn-setting btn-primary" 
+                    [routerLink]="['/pacientes/' + rmrSelecionado + '/exames','novo']">
+                    <span class="icon-mais"></span> {{'botao.informarResultadoExame' | translate}}</a>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="page-content dadosGeraisExame">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12" *ngIf="!temExamesParaExibicao">
+            <!-- Exibe a mensagem de "exames não existem" quando não há exames válidos para o paciente -->
+            <h3 class="text-center">{{'mensagem.paciente_nao_possui_exames_cadastrados' | translate}}</h3>
+        </div>
+    </div>
+    <div class="row" *ngIf="temGenotipoParaExibicao">
+        <div class="form-group col-sm-12 col-xs-12">
+            <h4>{{'consultaExame.genotipo' | translate}}:</h4>
+            <div class="genotipo aleloContainer">
+                <div class="box melhorResolucao" data-toggle="tooltip" data-placement="bottom" *ngFor="let genotipo of genotipoDTO">
+                    <p>{{genotipo.locus}}*</p>
+                    <h5 title="{{genotipo.examePrimeiroAlelo}}">{{genotipo.primeiroAlelo}}</h5>
+                    <h5 title="{{genotipo.exameSegundoAlelo}}">{{genotipo.segundoAlelo}}</h5>
+                </div>
+            </div>
+            <hr>
+        </div> 
+    </div>
+    <div class="row">
+        <div *ngIf="temExamesParaExibicao" class="col-sm-offset-3 col-sm-6 col-xs-12">
+            <!-- Exibe a tela com os exames válidos para o paciente -->
+            <form>
+                <label>{{'consultaExame.descricaoCombo' | translate}}</label>
+                <select id="ddlComboExames" class="form-control" #comboExames [(ngModel)]="idExameSelecionado" [ngModelOptions]="{standalone: true}"
+                    (change)="selecionarExame(comboExames.value)">
+                    <option *ngFor="let exame of dtoExame.exames" value="{{exame.id}}">{{formatarExame(exame)}}</option>
+                </select>
+            </form>
+            <br/>
+            <br/>
+        </div>
+    </div>
+
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>Dados do Exame</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <p *ngIf="temExamesParaExibicao" id="laboratorio">
+                <small>{{'consultaExame.laboratorio' | translate }}: </small> 
+                <span *ngIf="deveExibirLaboratorio()">{{exameSelecionado?.laboratorio?.nome}}</span>
+                <span *ngIf="deveExibirLaboratorioParticular()">{{'consultaExame.textoLaboratorioParticular' | translate }}</span>
+            </p>
+            <p *ngIf="temExamesParaExibicao" id="dataColetaAmostra"><small>{{'consultaExame.dataColetaAmostra' | translate }}:</small> {{exameSelecionado?.dataColetaAmostra | date: "dd/MM/yyyy" }}</p>
+
+            <p *ngIf="temExamesParaExibicao && exameSelecionado.tipoAmostra" id="tipoAmostra">
+                <small>{{'consultaExame.tipoAmostra' | translate }}: </small>
+                <span id="spTipoAmostra">{{descricaoTipoAmostra}}<br></span>
+            </p>
+
+            <p *ngIf="temExamesParaExibicao" id="metodologias">
+                <small>{{'consultaExame.metodologia' | translate }}: </small>
+                <span *ngFor="let metodologia of exameSelecionado.metodologias" id="spMetodologia">{{metodologia.sigla}} - {{metodologia.descricao}}<br></span>
+            </p>
+            <div *ngIf="temExamesParaExibicao">
+                <p><small>{{'consultaExame.hla' | translate }}: </small></p>
+                <div class="aleloContainer">
+                    <div class="box" *ngFor="let locusExame of exameSelecionado.locusExames">
+                        <p>{{locusExame.id.locus.codigo}}*</p>
+                        <h5>{{locusExame.primeiroAlelo}}</h5>
+                        <h5>{{locusExame.segundoAlelo}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>Laudo do Exame</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div class="row listaLaudos" *ngIf="temExamesParaExibicao">
+                <div class="col-sm-8 col-xs-12">
+                    <div class="wrap-laudo">
+                        <!-- Exibe os arquivos de laudo anexados -->
+                        <div>
+                            <label>{{'consultaExame.anexos' | translate }}</label>
+                        </div>
+                        <div class="floatR">
+                            <a href="javascript:void(0)" class="baixar-todos" title="Baixar todos os arquivos no formato .zip" (click)="baixarTodosArquivosZipados(exameSelecionado)">
+                                <span class="icon-download"></span>Baixar todos os arquivos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separaArquivosLaudo" *ngFor="let arquivoLaudo of exameSelecionado.arquivosExame">
+                <div class="row listaLaudos">
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="wrap-laudo">
+                            <div>
+                                <p>{{retornaNomeArquivoExameSelecionado(arquivoLaudo.caminhoArquivo)}}</p>
+                            </div>
+                            <div class="floatR">
+                                <a href="javascript:void(0)" *ngIf="!verificarExtensaoPermiteVisualizar(arquivoLaudo.caminhoArquivo)" id="btVisualizar" class="glyphicon glyphicon-eye-open"
+                                    title="Visualizar arquivo" (click)="visualizarArquivo(arquivoLaudo)"></a>
+                                <a href="javascript:void(0)" class="icon-download " title="Baixar arquivo" (click)="baixarArquivo(arquivoLaudo)"></a>
+                                <a href="javascript:void(0)" class="icon-zip " title="Baixar arquivo no formato .zip" (click)="baixarArquivoZipado(arquivoLaudo)"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+    
+</div>
+<!-- Modal -->
+<modal mensagem="{{ mensagemModal }}" #exameDescartadoModal></modal>
+<modal mensagem="" #modalMsg></modal>

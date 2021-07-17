@@ -1,0 +1,82 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'conferenciaExame.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <form [formGroup]="consultaForm" (ngSubmit)="onSubmit(1)" >
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-3">
+                    <label for="txtConsultaRMR">{{'consultaForm.rmr' | translate}}</label>
+                    <input class="form-control" id="txtConsultaRMR" formControlName="rmr" type="text" Filtro padrao="onlyNumber">
+                </div>
+                <div class="form-group col-xs-12 col-sm-7">
+                    <label for="txtConsultaNome">{{'consultaForm.nome' | translate}}</label>
+                    <input id="txtConsultaNome" class="form-control" type="text" formControlName="nome" />
+                </div>
+                <div class="form-group col-sm-2 col-xs-12">
+                    <button id="btnConsultaRMR" class="btn btn-lg btn-primary btn-block" type="submit">{{'botao.consultar' | translate}}</button>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <br />
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-2">{{'conferenciaExame.rmr' | translate}}</td>
+                            <td class="col-sm-3">{{'conferenciaExame.nomePaciente' | translate}}</td>
+                            <td class="col-sm-2">{{'conferenciaExame.dataExame' | translate}}</td>
+                            <td class="col-sm-2">{{'conferenciaExame.aging' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let res of paginacao.content; index as i" class="clicavel" (click)="redirecionarParaDetalhe(res)">
+                            <td>{{res.objetoRelacaoEntidade.paciente.rmr}}</td>
+                            <td>{{res.objetoRelacaoEntidade.paciente.nome}}</td>
+                            <td>{{res.objetoRelacaoEntidade.dataCriacao | date:'dd/MM/yyyy'}}</td>
+                            <td>{{res.aging}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaLogisticaWorkup" 
+                *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacao.totalElements" 
+                        [ngModel]="paginacao.number" 
+                        [maxSize]="5" 
+                        class="pagination-sm pagination-wrap" 
+                        [boundaryLinks]="true" 
+                        [rotate]="false" 
+                        [itemsPerPage]="paginacao.quantidadeRegistro"
+                        (pageChanged)="mudarPagina($event)"  
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>" 
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroPorPagina" 
+                            (change)="mudarQuantidadeRegistroPorPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+    
+</div>
+<modal mensagem="" #modalErro></modal>

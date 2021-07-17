@@ -1,0 +1,100 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.pedido.tituloCT' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>Dados Gerais</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <p>
+                    <small>{{'workup.pedido.paciRmr' | translate}}:</small> 
+                    <span>{{dadosCentroTransplanteDTO?.rmr}}</span>
+                </p>
+                <p>
+                    <small>{{'workup.pedido.nomePaciente' | translate}}:</small> 
+                    <span>{{dadosCentroTransplanteDTO?.nomePaciente}}</span>
+                </p>
+                <p>
+                    <small>{{'workup.pedido.nomeMedico' | translate}}:</small> 
+                    <span>{{dadosCentroTransplanteDTO?.nomeMedico}}</span>
+                </p>
+                <p>
+                    <small>{{'workup.pedido.nomeCT' | translate}}:</small> 
+                    <span>{{dadosCentroTransplanteDTO?.nomeCentroTransplante}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="row wrap-bloco" *ngIf="dadosCentroTransplanteDTO?.telefonesCT">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.pedido.telefoneCT' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <div *ngFor="let telefone of dadosCentroTransplanteDTO?.telefonesCT; index as i">
+                    <p>
+                        <!-- Tipo (celular/fixo) -->
+                        <small>{{'workup.pedido.tipoTel' | translate}}:</small>
+                        <!-- {{telefone.tipo}} -->
+                        <span>{{getTipoTelefone(telefone.tipo)}}</span>
+                    </p>
+                    <p>
+                        <small>{{'workup.pedido.telefone' | translate}}:</small>
+                        <span>
+                            {{telefone.codInter}}
+                            
+                            {{telefone.codArea}}
+                            
+                            {{telefone.numero}}
+                            &nbsp;&nbsp;
+                            {{telefone.complemento}}
+                        </span>
+                    </p>
+                    <p>
+                        <small>{{'workup.pedido.nomeContato' | translate}}</small>
+                        <span>{{telefone.nome}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>   
+        <div class="row wrap-bloco" *ngIf="dadosCentroTransplanteDTO?.telefonesMedico">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.pedido.telefoneMedico' | translate}}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco" *ngFor="let telefone of dadosCentroTransplanteDTO?.telefonesMedico; index as i">
+                <p>
+                    <!-- Tipo (celular/fixo) -->    
+                    <small>{{'workup.pedido.tipoTel' | translate}}:</small>
+                    <!-- {{telefone.tipo}} -->
+                    <span>{{getTipoTelefone(telefone.tipo)}}</span>
+                </p>
+                <p>
+                    <small>{{'workup.pedido.telefone' | translate}}:</small>
+                    <span>
+                        {{telefone.codInter}}
+                        
+                        {{telefone.codArea}}
+                        
+                        {{telefone.numero}}
+                        &nbsp;&nbsp;
+                        {{telefone.complemento}}
+                    </span>
+                </p>
+                <p>
+                    <small>{{'workup.pedido.nomeContato' | translate}}</small>
+                    <span>{{telefone.nome}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

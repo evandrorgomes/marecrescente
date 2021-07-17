@@ -1,0 +1,24 @@
+<div [formGroup]="form">
+    <div class="row">
+        <!--<form class="formCriarNovaPendencia">-->
+        <div class="col-sm-12 col-xs-12">
+            <h2 class="text-center" >{{'avaliacao.resultadoworkup.internacional.modal.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 form-group">
+            <textarea-component 
+                label=""
+                formControlName="justificativa"
+                [control]="form.controls['justificativa']"
+                idd="txtJustificativa"
+                placeholder="" rows="3" maxlength="300" >
+            </textarea-component>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 modal-btn">
+            <button id="btnConfirmar" class="btn btn-lg btn-primary" (click)="confirmar()">{{'botao.confirmar' | translate}}</button>
+        </div>
+    </div>
+</div>

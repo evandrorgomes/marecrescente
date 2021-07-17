@@ -1,0 +1,30 @@
+resourceId: modred-rest-tarefa
+server:
+  port: 9001
+  servlet:
+    context-path: /redome-tarefa
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+jpa:
+  driver: oracle.jdbc.driver.OracleDriver
+c3p0:
+  initial_pool_size: 5
+  min_pool_size: 5
+  max_pool_size: 20
+  max_idle_time: 1800
+hibernate:
+  dialect: org.hibernate.dialect.Oracle12cDialect
+  
+logging:
+  level:
+    root: info
+  file:  
+    ize: 5MB
+    max-history: 20
+  pattern:
+    file: '%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n'

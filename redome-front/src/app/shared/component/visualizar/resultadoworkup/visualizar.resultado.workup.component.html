@@ -1,0 +1,65 @@
+<div *ngIf="existeExamesAdicionais()">
+    <div class="row">
+        <div class="page-title h2 col-xs-8 col-sm-12">
+            <h2>{{ 'avaliacao.resultadoworkup.nacional.examesadicionais' | translate }}</h2>
+        </div>
+    </div>
+    <br />
+    <div class="row wrap-bloco" *ngFor="let pedidos of _pedidosAdicionais; index as i">
+        <div>
+            <h3>{{pedidos.descricao}}</h3>
+        </div>
+        <div class="dados-bloco">
+            <div>
+                <div class="listaLaudos" *ngFor="let arquivo of pedidos.arquivosPedidoAdicionalWorkup; index as i">
+                  <div class="wrap-bloco" *ngIf="arquivo?.descricao else semDescricao">
+                      <div class="col-xs-2 col-sm-4"><span>{{arquivo?.descricao}}</span></div>
+                      <div class="dados-bloco">
+                          <a href="javascript:void(0)" (click)="baixarArquivoAdicionalWorkup(arquivo.id, obterNomeArquivo(arquivo.caminho))" title="{{'botao.download' | translate}}" >
+                              <span>{{obterNomeArquivo(arquivo.caminho)}}</span>
+                              &nbsp;&nbsp;
+                              <span class="icon-download "></span>
+                          </a>
+                      </div>
+                  </div>
+                  <ng-template #semDescricao>
+                    <div>
+                        <a href="javascript:void(0)" (click)="baixarArquivoAdicionalWorkup(arquivo.id, obterNomeArquivo(arquivo.caminho))" title="{{'botao.download' | translate}}" >
+                            <span>{{obterNomeArquivo(arquivo.caminho)}}</span>
+                            &nbsp;&nbsp;
+                            <span class="icon-download "></span>
+                        </a>
+                    </div>
+                  </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="page-title col-xs-8 col-sm-12">
+        <h4 *ngIf="_dmr !== undefined && _dmr !== null else semDmr" >{{ 'workup.pedido.tituloFormularioAvaliacaoResultadoWorkup' | translate }} -
+            {{ 'avaliacao.resultadoworkup.dmr' | translate}} {{ _dmr }} </h4>
+        <ng-template #semDmr>
+            <h4 >{{ 'workup.pedido.tituloFormularioAvaliacaoResultadoWorkup' | translate }} </h4>
+        </ng-template>
+    </div>
+</div>
+<br />
+
+<div class="row wrap-bloco" *ngIf="_resultadoWorkup?.coletaInviavel">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{ 'avaliacao.resultadoworkup.nacional.motivoinviabilidade' | translate }}</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco">
+        <div>
+            <div class="listaLaudos">
+                <span>{{ _resultadoWorkup?.motivoInviabilidade }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<questionario #questionario [formulario]="_formulario" [desabilita]="true" ></questionario>

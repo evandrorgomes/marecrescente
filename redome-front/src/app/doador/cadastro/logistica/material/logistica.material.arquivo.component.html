@@ -1,0 +1,155 @@
+<modal mensagem="" #modalMsg></modal>
+<modal mensagem="" #modalErro></modal>
+<modal mensagem="" #modalMsgSucesso (fecharModal)="fecharModalSucesso()"></modal>
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12" *ngIf="isMedula(); else elseCordao">
+                <h2>{{'logisticaMaterial.titulo' | translate}}</h2>
+            </div>
+            <ng-template #elseCordao>
+                <div class="col-xs-12 col-sm-12">
+                    <h2>{{'logisticaMaterial.tituloCordao' | translate}}</h2>
+                </div>
+            </ng-template>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                    <a  *ngIf="modoEdicao" id="" type="button" class="btn btn-setting btn-primary" (click)="abrirPopUpAlteracao()" >
+                            <span class="icon-editar"></span> {{'botao.alterarworkup' | translate}}
+                        </a>
+                <span *ngIf="!modoEdicao">
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="confirmarLogistica()">
+                        <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.confirmar' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <form [formGroup]="logisticaMaterialGroup">
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.dadosRetirada' | translate }}</h3>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco">
+                    <p><small>{{ 'logisticaMaterial.centroColeta' | translate }}: </small>{{detalhe?.nomeLocalRetirada}}</p>
+                    <p><small>{{ 'logisticaMaterial.dataColeta' | translate }}: </small>
+                        {{detalhe?.dataColeta}} {{obterHoraFormatada(detalhe?.horaPrevistaRetirada)}}
+                    </p>
+                    <p><small>{{ 'logisticaMaterial.enderecoRetirada' | translate }}:</small>
+                      {{ detalhe?.enderecoLocalRetirada?.tipoLogradouro}} {{ detalhe?.enderecoLocalRetirada?.nomeLogradouro}}, {{ detalhe?.enderecoLocalRetirada?.numero}} - {{ detalhe?.enderecoLocalRetirada?.bairro}} - {{ detalhe?.enderecoLocalRetirada?.municipio?.descricao }}<br/>{{ detalhe?.enderecoLocalRetirada?.municipio?.uf?.sigla}} - {{ detalhe?.enderecoLocalRetirada?.pais?.nome}} - CEP {{ detalhe?.enderecoLocalRetirada?.cep}}
+                    </p>
+                </div>
+            </div>
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.dadosCT' | translate }}</h3>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco">
+                    <p>
+                        <small>{{ 'logisticaMaterial.centroTransplante' | translate }}: </small>{{detalhe?.nomeCentroTransplante}}</p>
+                    <p>
+                        <small>{{ 'logisticaMaterial.enderecodoCT' | translate }}:</small>
+                          {{ detalhe?.enderecoLocalEntrega?.tipoLogradouro}} {{ detalhe?.enderecoLocalEntrega?.nomeLogradouro}}, {{ detalhe?.enderecoLocalEntrega?.numero}} - {{ detalhe?.enderecoLocalEntrega?.bairro}} - {{ detalhe?.enderecoLocalEntrega?.municipio?.descricao }}<br/>{{ detalhe?.enderecoLocalEntrega?.municipio?.uf?.sigla}} - {{ detalhe?.enderecoLocalEntrega?.pais?.nome}} - CEP {{ detalhe?.enderecoLocalEntrega?.cep}}
+                    </p>
+                </div>
+            </div>
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.transportadora' | translate }}</h3>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                    <div class="form-bloco">
+                        <div class="row">
+                            <div class="form-group col-sm-6 col-xs-12">
+                                <label>{{ 'logisticaMaterial.transportadora' | translate }}:</label>
+                                <select disabled="disabled" class="form-control" #cbTransportadora (blur)="setMensagemErroPorCampo('transportadora');" formControlName="transportadora">
+                                    <option value=""></option>
+                                    <option *ngFor="let transportadora of listaTransportadoras; index as i" value="{{transportadora?.id}}">{{transportadora?.nome}}</option>
+                                </select>
+                                <msg mensagem="{{ exibirMensagemErrorPorCampo('transportadora') }}"></msg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.dadosVoo' | translate }}</h3>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco">
+                    <p>
+                        <small>{{ 'logisticaMaterial.dadosVoo' | translate }}: </small>{{detalhe?.materialAereo?.dadosVoo}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{ 'logisticaMaterial.dadosCourier' | translate }}:</h3>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco">
+                    <p>
+                        <small>{{ 'logisticaMaterial.nomeCourier' | translate }}: </small>{{detalhe?.materialAereo?.courier?.nome}}</p>
+                    <p>
+                        <small>{{ 'logisticaMaterial.rgCourier' | translate }}: </small>{{detalhe?.materialAereo?.courier?.rg}}</p>
+                    <p>
+                        <small>{{ 'logisticaMaterial.cpfCourier' | translate }}: </small>{{detalhe?.materialAereo?.courier?.cpf}}</p>
+
+                    <ul>
+                        <li *ngFor=" let contatoTelefonico of detalhe?.materialAereo?.courier?.contatosTelefonicos; index as i">
+                            <p id="">
+                                <small>{{'DoadorContatoTelefone.telefone' | translate}} {{ i+1 }}: </small>
+                                <span class="texto-bloco">
+                                    <div *ngIf="contatoTelefonico.tipo == 2">
+                                        <i class="icon-celular"></i>
+                                        {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento
+                                        != null && contatoTelefonico.complemento != undefined ? ' | ' + contatoTelefonico.complemento
+                                        : '' }} {{" | " + contatoTelefonico.nome }}
+                                    </div>
+                                    <div *ngIf="contatoTelefonico.tipo == 1">
+                                        <i class="icon-telefone"></i>
+                                        {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{" | " + contatoTelefonico.complemento
+                                        != undefined?contatoTelefonico.complemento:''}} {{" (" + contatoTelefonico.nome +
+                                        ")"}}
+                                    </div>
+                                </span>
+                            </p>
+                        </li>
+                    </ul>
+
+                    <div class="form-bloco">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="selecionaLaudos">
+                                    <div [hidden]="true">
+                                        <input id="fileInput" #fileInput type="file" ng2FileSelect [uploader]="uploader" />
+                                    </div>
+                                    <!-- <button type="button" class="btn-setting btn-primary" (click)="fileInput.click()" id="uploadButton">
+                                        <span class="glyphicon glyphicon-paperclip"></span>
+                                        {{ 'logisticaMaterial.anexarCnt' | translate }}
+                                    </button> -->
+                                    <upload-arquivo-component #uploadComponent [hidden]="modoEdicao"></upload-arquivo-component>
+                                    <!-- <div *ngIf="possuiArquivo">
+                                        <p>
+                                            <small>{{ 'logisticaMaterial.cnt' | translate }}: </small>{{ nomeArquivo }}
+                                            <a (click)="removerArquivo()">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </a>
+                                        </p>
+                                        <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivo') }}"></msg>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

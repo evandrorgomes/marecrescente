@@ -1,0 +1,11 @@
+<div [formGroup]="contatoForm">
+    <contato-endereco-paciente></contato-endereco-paciente>
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12">
+            <label for="txtEmail">E-mail</label>
+            <input class="form-control" id="txtEmail" formControlName="email" type="email" placeholder="">
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('email') }}"></msg>
+        </div>
+    </div>
+    <contato-telefone #contatoTelefoneComponent></contato-telefone>        
+</div>

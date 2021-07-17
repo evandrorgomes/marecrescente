@@ -1,0 +1,61 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'transporteMaterial.titulo.retiradaentrega' | translate}}</h2>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 wrap-table">        
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>{{'transporteMaterial.tarefas.localRetirada' | translate}}</td>
+                        <td>{{'transporteMaterial.tarefas.data' | translate}}</td>
+                        <td>{{'transporteMaterial.tarefas.id' | translate}}</td>
+                        <td>{{'transporteMaterial.tarefas.rmr' | translate}}</td>
+                        <td>{{'transporteMaterial.tarefas.ct' | translate}}</td>
+                        <td>{{'transporteMaterial.tarefas.status' | translate}}</td>
+                    </tr>
+                </thead>
+                <tbody class="clicavel" *ngFor="let transporte of paginacaoTarefasTransporteMaterial?.content; index as i" 
+                    (click)="abrirModal(transporte)" >
+                    <tr>
+                        <td>{{transporte?.nomeLocalRetirada}}</td>
+                        <td>{{horaPrevistaRetiradaFormatada(transporte)}}</td>
+                        <td>{{transporte?.identificacao}}</td>
+                        <td>{{transporte?.rmr}}</td>
+                        <td>{{transporte?.nomeCentroTransplante}}</td>
+                        <td><span class="label label-default">{{transporte?.status?.descricao}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacaoTarefasTransporteMaterial?.totalElements && paginacaoTarefasTransporteMaterial?.totalElements != 0">
+        <div class="col-sm-12 col-xs-12"> 
+            <pagination [totalItems]="paginacaoTarefasTransporteMaterial?.totalElements" [ngModel]="paginacaoTarefasTransporteMaterial?.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoTarefasTransporteMaterial?.quantidadeRegistro"
+                    (pageChanged)="mudarPaginaTarefasTransporteMaterial($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="qtdRegistroTarefasTransporteMaterial" (change)="selecionaQuantidadeAvaliacoesPendentesPorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

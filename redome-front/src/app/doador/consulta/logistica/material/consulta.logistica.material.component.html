@@ -1,0 +1,137 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.logistica.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td class="col-sm-2">{{'workup.logistica.rmr' | translate}}</td>
+                            <td class="col-sm-2">{{'workup.logistica.idDoador' | translate}}</td>
+                            <td class="col-sm-3">{{'workup.logistica.responsavel' | translate}}</td>
+                            <td class="col-sm-2">{{'workup.logistica.dataLimite' | translate}}</td>
+                            <td class="col-sm-1">{{'workup.logistica.evento' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let log of paginacao.content; index as i" (click)="detalharTarefa(log)"
+                                class="clicavel">
+                            <td>{{log.rmr}}</td>
+                            <td>{{log.identificacaoDoador}}</td>
+                            <td>{{log?.nomeResponsavel}}</td>
+                            <!--td>{{exibirDataLimiteComCountDown(log?.dataLimite)}}</td-->
+                            <td>
+                                <span *ngIf="!log.tipoAereo" class="label label-info">{{'workup.logistica.material' | translate}}</span>
+                                <span *ngIf="log.tipoAereo" class="label label-info comvoo">{{'workup.logistica.material' | translate}} <i class="icon icon-aviao"></i></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaLogisticaWorkup"
+                *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacao.totalElements"
+                        [ngModel]="paginacao.number" [maxSize]="5"
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true"
+                        [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                        (pageChanged)="mudarPagina($event)"
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroPorPagina"
+                            (change)="mudarQuantidadeRegistroPorPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-title" *ngIf="exibirAcompanhamentoTransportadora">
+      <div class="row">
+          <div class="col-xs-12 col-sm-12">
+              <h2>{{'workup.logistica.tituloAcompanhamento' | translate}}</h2>
+          </div>
+      </div>
+  </div>
+  <div class="row" *ngIf="exibirAcompanhamentoTransportadora">
+      <div class="col-sm-12 col-xs-12 wrap-table">
+          <table class="table">
+              <thead>
+                  <tr>
+                      <td class="col-sm-2">{{'workup.logistica.rmr' | translate}}</td>
+                      <td class="col-sm-4">{{'workup.logistica.transportadora' | translate}}</td>
+                      <td class="col-sm-2">{{'workup.logistica.idDoador' | translate}}</td>
+                      <td class="col-sm-4">{{'workup.logistica.doador' | translate}}</td>
+                      <td class="col-sm-3">{{'workup.logistica.responsavel' | translate}}</td>
+                      <td class="col-sm-4">{{'workup.logistica.dataAgendamento' | translate}}</td>
+                      <td class="col-sm-1">{{'workup.logistica.status' | translate}}</td>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let log of paginacaoTransporte.content; index as i">
+                      <td>{{!log.pedidoWorkup?log.pedidoColeta.solicitacao.paciente.rmr:log.pedidoWorkup.solicitacao.paciente.rmr }}</td>
+                      <td>{{log.pedidoTransporte.transportadora.nome}}</td>
+                      <td>{{obterIdDoadorExibicao(log)}}</td>
+                      <td>{{obterIdentificacaoDoador(log)}}</td>
+                      <td>{{log.usuarioResponsavel.nome}}</td>
+                      <td>{{formatarDataHora(log.pedidoTransporte.horaPrevistaRetirada)}}</td>
+                      <td>
+                          <span class="label label-default">{{log.pedidoTransporte.status.descricao}}</span>
+                          <span *ngIf="exibirEdicao(log)" class="label label-warning clicavel" (click)="abrirEdicaoLogisticaAereo(log.id)">{{'workup.logistica.editar' | translate}} <i class="icon icon-editar"></i></span>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+  <!-- Paginação e quantidade de registros -->
+  <div class="row paginaLogisticaWorkup"
+          *ngIf="paginacaoTransporte.totalElements && paginacaoTransporte.totalElements != 0">
+      <div class="col-sm-12 col-xs-12">
+          <pagination [totalItems]="paginacaoTransporte.totalElements"
+                  [ngModel]="paginacaoTransporte.number" [maxSize]="5"
+                  class="pagination-sm pagination-wrap" [boundaryLinks]="true"
+                  [rotate]="false" [itemsPerPage]="paginacaoTransporte.quantidadeRegistro"
+                  (pageChanged)="mudarPaginaTransporte($event)"
+                  firstText="{{'paginacao.primeiro' | translate}}"
+                  previousText="<span class='icon-seta-esquerda'></span>"
+                  nextText="<span class='icon-seta-direita'></span>"
+                  lastText="{{'paginacao.ultimo' | translate}}">
+          </pagination>
+      </div>
+      <div class="col-sm-12 col-xs-12 pull-right">
+          <div class="form-group porpagina">
+              <label>Por Página:</label>
+              <select class="form-control" [(ngModel)]="qtdRegistroPorPagina"
+                      (change)="mudarQuantidadeRegistroPorPaginaTransporte($event)" >
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+              </select>
+          </div>
+      </div>
+  </div>
+</div>
+<modal mensagem="" #modalErro></modal>

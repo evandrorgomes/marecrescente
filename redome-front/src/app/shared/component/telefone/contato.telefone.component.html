@@ -1,0 +1,54 @@
+<div [formGroup]="telefoneForm">
+    <div class="row">
+    <div class="form-group col-sm-12 col-xs-12">
+        <label>Novo Telefone</label>
+        <!-- Na tabela, cada TR é um card de contato -->
+        <ul class="listaTelefone" formArrayName="listaTelefone">
+            <li *ngFor="let telefoneGroup of listaTelefoneForm.controls; index as i" [formGroupName]="i">
+                <div class="full-line listaTelefone-tipo"><!-- Tipo (celular/fixo) -->
+                    <select class="form-control" formControlName="tipo">
+                        <option value="">Tipo</option>
+                        <option id="ckTipoTelefoneCelular" value="2"><span class="icon-celular"></span> Celular</option>
+                        <option id="ckTipoTelefoneFixo" value="1"><span class="icon-telefone"></span> Fixo</option>
+                    </select>
+                    <span *ngIf="exibirMensagemErrorPorCampo('tipo')">
+                            {{ exibirMensagemErrorPorCampo('tipo') }}
+                    </span>
+                </div>
+                <span class="full-line">
+                    <div class="listaTelefone-ddi">
+                        <select class="form-control" formControlName="codInter" id="txtCodInter">
+                            <option *ngFor="let c of listaCodigoInternacional" value="{{ c.codigo }}">{{ '+' + c.codigo  }} {{ c.codigo.length == 1 ? '&emsp;&nbsp;': c.codigo.length == 2 ? '&ensp;&nbsp;' : '&nbsp;'   }}  {{ c.texto }} </option>
+                        </select>
+                    </div>
+                    <div class="listaTelefone-ddd"><!-- Telefone (código ddd) -->
+                        <input class="form-control" id="txtCodArea" type="text" placeholder="DDD" formControlName="codArea" maxlength="5" Filtro padrao="onlyNumber">
+                    </div>
+                    <div class="listaTelefone-tel"><!-- Telefone (número) -->
+                        <input class="form-control" id="txtNumTelefone" type="text" placeholder="Telefone" formControlName="numero" minlength="8" maxlength="10" Filtro padrao="onlyNumber">
+                    </div>
+                    <div class="listaTelefone-comple"><!-- Observação (ramal, recado) -->
+                        <input class="form-control" id="txtCompTelefone" type="text" placeholder="Complemento" formControlName="complemento" maxlength="20">
+                    </div>
+                </span>
+                <span class="full-line full-lineNome">
+                    <div class="listaTelefone-nome"><!-- Nome do contato -->
+                        <input class="form-control" id="txtNomeContato"  type="text" placeholder="Nome" formControlName="nome" maxlength="255">
+                    </div>
+                    <!-- Marca se o contato é principal -->
+                    <div class="checkbox-group listaTelefone-check" >
+                        <input id="ckContatoPrincipal{{i}}" [hidden]="esconderFlagPrincipal" formControlName="principal" type="checkbox" title="{{ 'mensagem.marcarprincipal' | translate }}"  (change)="marcarComoPrincipal(i)">
+                        <label  class="star-principal" for="ckContatoPrincipal{{i}}" [hidden]="esconderFlagPrincipal" title="{{ 'mensagem.marcarprincipal' | translate }}"><span></span></label>
+                    </div>
+                    <span class="glyphicon glyphicon-trash" title="Excluir contato" (click)="removerContato(i)" *ngIf="listaTelefoneForm.length > 1"></span>
+                </span>
+            </li>
+        </ul>
+        <msg class="listaTelefone-msg" mensagem="{{ exibirMensagemErrorPorCampo('telefonesContato') }}"></msg>
+        <msg class="listaTelefone-msg" mensagem="{{ exibirMensagemErrorPorCampo('telefonePrincipal') }}"></msg>
+    </div>    
+        <div class="text-center" [hidden]="escondeBotaoAdicionarTelefone">
+            <button class="btn btn-setting btn-primary" (click)="adicionarTel()" title="Adicionar contato"><i class="icon-mais"></i> {{ 'botao.novo.telefone' | translate }}</button>
+        </div>
+    </div>
+</div>

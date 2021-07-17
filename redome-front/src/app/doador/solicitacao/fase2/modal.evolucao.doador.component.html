@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <h2 class="text-center"> {{ 'modalEvolucaoDoador.titulo' | translate }} <br /> </h2>
+    </div>
+</div>
+<div class="" [formGroup]="form()">
+    <div class="row" style="margin-top: 15px">
+        <div class="form-group col-sm-offset-2 col-sm-8 col-xs-12">
+            <textarea-component label="{{'modalEvolucaoDoador.nome' | translate}}:" formControlName="descricao"
+                [control]="form().controls['nome']" idd="txtDescricao" placeholder="" rows="11" maxlength="4000">
+            </textarea-component>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-sm-offset-2 col-sm-8 col-xs-12 modal-btn" style="padding: 30px 0 0 0">
+            <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()"><span class=""></span>
+                {{ 'botao.confirmar' | translate }} </a>
+        </div>
+    </div>
+</div>

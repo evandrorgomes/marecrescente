@@ -1,0 +1,67 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'prescricao.tituloAvaliacao' | translate}}</h2>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h4 class="subTitulo">{{'prescricao.subtitulo' | translate}}</h4>
+        </div>
+    </div>
+    <div class="row avaliacoesPendentes">
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>{{'prescricao.avaliacoes.consulta.rmr' | translate}}</td>
+                        <td>{{'prescricao.avaliacoes.consulta.nome' | translate}}</td>
+                        <td>{{'prescricao.avaliacoes.consulta.idDoador' | translate}}</td>
+                        <td>{{'prescricao.avaliacoes.consulta.tipoDoador' | translate}}</td>
+                        <td>{{'prescricao.avaliacoes.consulta.dataColeta' | translate}}</td>
+                    </tr>
+                </thead>
+                <tbody class="clicavel" *ngFor="let avaliacaoPrescricao of paginacaoAvaliacaoPendente?.content; index as i" (click)="irParaAvaliacao(avaliacaoPrescricao)">
+                    <tr>
+                        <td>{{avaliacaoPrescricao?.rmr}}</td>
+                        <td>{{avaliacaoPrescricao.nome}}</td>
+
+                        <td> {{avaliacaoPrescricao?.identificacaoDoador}}</td>
+
+                        <td *ngIf="ehMedula(avaliacaoPrescricao?.tipoDoador)">{{'textosGenericos.medula' | translate  }}</td>
+                        <td *ngIf="ehCordao(avaliacaoPrescricao?.tipoDoador)">{{'textosGenericos.cordao' | translate  }}</td>
+
+                        <td>{{avaliacaoPrescricao?.dataColeta | date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacaoAvaliacaoPendente?.totalElements && paginacaoAvaliacaoPendente?.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoAvaliacaoPendente?.totalElements" [ngModel]="paginacaoAvaliacaoPendente?.number" [maxSize]="5"
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoAvaliacaoPendente?.quantidadeRegistro"
+                    (pageChanged)="mudarPaginaAvaliacoesPendentes($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="qtdRegistroAvaliacaoPendente" (change)="selecionaQuantidadeAvaliacoesPendentesPorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

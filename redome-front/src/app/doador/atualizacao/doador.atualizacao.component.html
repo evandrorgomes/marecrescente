@@ -1,0 +1,12 @@
+<header-doador #headerDoador></header-doador>
+<div class="container conteudo">
+    <div class="page-content">
+            <doadoridentificacao esconderLinkAlterarIdentificacao="false" #doadorIdentificacaoComponent></doadoridentificacao>
+			<doador-dados-pessoais [fase]="fase" esconderLinkAlterarIdentificacao="false" #doadorDadosPessoaisComponent> </doador-dados-pessoais>
+            <doador-contato-telefone exibirRemoverTelefone esconderLinkIncluirTelefone="false" #doadorContatoTelefoneComponent> </doador-contato-telefone>
+            <doador-contato-endereco exibirEnderecoContatoExcluido="false" exibirRemoverEndereco esconderLinkIncluirEndereco="false" #doadorContatoEnderecoComponent></doador-contato-endereco>
+            <doador-contato-email exibirEmailContatoExcluido="false" exibirRemoverEmail esconderLinkIncluirEmail="false" #doadorEmailContatoComponent></doador-contato-email>
+            
+    </div>
+</div>
+<modal mensagem="" #modalMsg></modal>

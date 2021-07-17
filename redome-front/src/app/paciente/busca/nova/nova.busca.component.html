@@ -1,0 +1,41 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'novabusca.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <auto-collapsed-menu>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary" 
+                [routerLink]="['/pacientes/' + rmr + '/evolucoes']">
+                <span class="icon-evolucao"></span> {{'botao.evolucoes' | translate}}
+            </a>
+        </menu-item>
+    </auto-collapsed-menu>
+</div>
+<div class="page-content">
+
+    <alert show="exibirAlerta">
+        {{'novabusca.subtitulo' | translate}}
+    </alert>
+    <br>
+    <!-- <diagnostico-paciente #diagnosticoComponent></diagnostico-paciente> -->
+    <visualizar-diagnostico #diagnosticoComponent [rmr]="rmr"></visualizar-diagnostico>
+    <visualizar-evolucao #evolucaoComponent [rmr]="rmr"></visualizar-evolucao>
+    
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <button id="btnSalvar" class="btn btn-primary btn-lg floatR" 
+                (click)="solicitarNovaBusca()" >{{ 'novabusca.confirmarDiagnostico' | translate }}
+            </button>
+        </div>
+    </div>
+</div>

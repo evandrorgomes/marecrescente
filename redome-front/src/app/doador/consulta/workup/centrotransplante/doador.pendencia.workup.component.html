@@ -1,0 +1,139 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.pendencia.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-8 col-xs-12 centrotransplante">
+                <select-centros-component #selectCentros
+                    [showAvaliadorOption]="false"
+                    (change)="mudarCentroTransplante(selectCentros.value)">
+                </select-centros-component>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <h4 class="subTitulo">{{'workup.pendencia.subTituloWorkup' | translate}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>{{'workup.consulta.tabela.rmr' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.nome' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.centrotransplante' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.score' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.agingPedidoWkp' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let tarefaWorkup of paginacaoPendenciasWorkup.content; index as i"
+                                (click)="abrirDetalhePendencia(tarefaWorkup)">
+                            <td>{{tarefaWorkup?.objetoRelacaoEntidade?.solicitacao?.paciente?.rmr}}</td>
+                            <td>{{tarefaWorkup?.objetoRelacaoEntidade?.solicitacao?.paciente?.nome}}</td>
+                            <td>{{tarefaWorkup?.objetoRelacaoEntidade?.solicitacao?.match.busca?.centroTransplante?.nome}}</td>
+                            <td>{{tarefaWorkup?.objetoRelacaoEntidade?.solicitacao?.paciente?.score}}</td>
+                            <td>{{tarefaWorkup?.aging}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoPendenciasWorkup.totalElements && paginacaoPendenciasWorkup.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoPendenciasWorkup.totalElements"
+                        [ngModel]="paginacaoPendenciasWorkup.number" [maxSize]="5"
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true"
+                        [rotate]="false" [itemsPerPage]="paginacaoPendenciasWorkup.quantidadeRegistro"
+                        (pageChanged)="proximaPagina($event.page)"
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>{{'paginacao.porPagina' | translate}}</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroPendenciasWorkup"
+                            (change)="proximaPagina($event.page)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 class="subTitulo">{{'workup.pendencia.subTituloCordao' | translate}}</h4>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>{{'workup.consulta.tabela.rmr' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.nome' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.centrotransplante' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.score' | translate}}</td>
+                            <td>{{'workup.consulta.tabela.agingPedidoWkp' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clicavel" *ngFor="let tarefaWorkup of paginacaoPendenciasCordao.content; index as i"
+                                (click)="abrirDetalhePendenciaCordao(tarefaWorkup)">
+                            <td>{{tarefaWorkup.objetoRelacaoEntidade.solicitacao.paciente.rmr}}</td>
+                            <td>{{tarefaWorkup.objetoRelacaoEntidade.solicitacao.paciente.nome}}</td>
+                            <td>{{tarefaWorkup?.objetoRelacaoEntidade?.solicitacao?.match?.busca?.centroTransplante?.nome}}</td>
+                            <td>{{tarefaWorkup.objetoRelacaoEntidade.solicitacao.paciente.score}}</td>
+                            <td>{{tarefaWorkup.aging}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoPendenciasCordao.totalElements && paginacaoPendenciasCordao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoPendenciasCordao.totalElements"
+                        [ngModel]="paginacaoPendenciasCordao.number" [maxSize]="5"
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true"
+                        [rotate]="false" [itemsPerPage]="paginacaoPendenciasCordao.quantidadeRegistro"
+                        (pageChanged)="proximaPaginaCordao($event.page)"
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>{{'paginacao.porPagina' | translate}}</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroPendenciasCordao"
+                            (change)="proximaPaginaCordao($event.page)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

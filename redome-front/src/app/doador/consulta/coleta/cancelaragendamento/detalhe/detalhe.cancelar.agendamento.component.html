@@ -1,0 +1,40 @@
+<modal mensagem="" #modalMsg></modal>
+<modal mensagem="" #modalMsgAgendamento (fecharModal)="voltar()"></modal>
+
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                    <h2 *ngIf="ehNotificacaoCancelamentoPedidoColetaDoador()" >{{'workup.coleta.cancelar.agendamento.titulo.doador' | translate}}</h2>
+                    <h2 *ngIf="ehNotificacaoCancelamentoPedidoColetaCentroColeta()">{{'workup.coleta.cancelar.agendamento.titulo.centrocoleta' | translate}}</h2>    
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <span *ngIf="ehNotificacaoCancelamentoPedidoColetaDoador()">
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="goToDetalheDoador()">
+                        {{'botao.doador' | translate}}</a>
+                </span>                
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="finalizarTarefa()">
+                        {{'botao.finalizar' | translate}}</a>
+                </span>
+            </div>
+        </div>        
+    </div>
+    <div class="page-content">
+        <detalhe-pedido-coleta [centrocoleta] = "pedidoWorkup?.centroColeta?.nome"
+            [datacoleta] = "pedidoWorkup?.dataColeta"
+            [fontecelula] = "pedidoWorkup?.fonteCelula?.descricao"
+            [dataprevistadisponibilidadedoador] = "pedidoWorkup?.dataPrevistaDisponibilidadeDoador"
+            [dataprevistaliberacaodoador] = "pedidoWorkup?.dataPrevistaLiberacaoDoador"
+            [naoExibirDadosDoadorInternacional]= "naoExibirDadosDoadorInternacional()">
+        </detalhe-pedido-coleta> 
+        
+    </div>
+</div>

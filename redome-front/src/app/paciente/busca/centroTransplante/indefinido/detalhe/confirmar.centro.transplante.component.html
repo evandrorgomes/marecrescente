@@ -1,0 +1,34 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <h3>{{'confirmarCentroTransplante.titulo' | translate}}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default"
+                        (click)="desatribuir()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-default" 
+                            (click)="abrirModalHistorico()">
+                        {{'botao.historico' | translate}}</a>
+                </span>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" 
+                            (click)="confirmarCentroTransplante()">
+                        {{'botao.salvar' | translate}}</a>
+                </span>
+            </div>
+        </div>        
+    </div>
+    <div class="page-content">
+        <centro-transplante-form #confirmarCentroForm></centro-transplante-form>
+    </div>
+</div>
+
+<modal mensagem="" #modalErro></modal>

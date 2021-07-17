@@ -1,0 +1,45 @@
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h2>{{'pedidoExameNacionalModal.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row text-left" *ngIf="data.tipoSolicitacao == 'F3'">
+        <div class="col-sm-12 col-xs-12">
+            <label>{{ 'pedidoExameNacionalModal.municipio' | translate }}:</label><br>
+            <span class="p-input">{{ municipio }} </span> <br>
+        </div>
+    </div>
+    <div class="row text-left" *ngIf="data.tipoSolicitacao == 'F3'">
+        <div class=" col-sm-12 col-xs-12">
+            <label>{{ 'pedidoExameNacionalModal.uf' | translate }}:</label><br>
+            <span class="p-input">{{ uf }} </span> <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12" *ngIf="data.tipoSolicitacao == 'F2'" [formGroup]="fase2Form()">
+            <group-radio-component label= "{{'pedidoExameNacionalModal.tipoExame' | translate}}"
+                formControlName="tipoExame"
+                [control]="fase2Form().controls['tipoExame']"
+                [optionsLabel]="descricoes()"
+                [optionsValue]="valores()">
+            </group-radio-component>
+        </div>
+        <div class="form-group col-sm-8 col-xs-12" *ngIf="data.tipoSolicitacao == 'F3'" [formGroup]="fase3Form()">
+            <select-component
+                label="{{'pedidoExameNacionalModal.laboratorio' | translate}}:"
+                formControlName="laboratorio"
+                [control]="fase3Form().controls['laboratorio']"
+                idd="txtLaboratorio"
+                [options]="laboratorios()"
+                fieldOptionValue="id"
+                fieldOptionText="nomeFormatadoComMunicipioComCapacidadeESaldoAtual">
+            </select-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12">
+            <button (click)="salvar()" id="btnConfirmar" class="btn btn-lg btn-primary floatR"><span class="glyphicon glyphicon-ok"></span> {{'botao.confirmar' | translate }}</button>
+        </div>
+    </div>
+</div>

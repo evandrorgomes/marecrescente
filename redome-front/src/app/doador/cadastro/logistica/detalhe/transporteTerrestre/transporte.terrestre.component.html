@@ -1,0 +1,38 @@
+<div class="form-bloco" [formGroup]="transporteTerrestreForm">
+    <div class="row">
+        
+        <div class="form-group col-sm-6 col-xs-6">
+            <label for="origem">{{ 'workup.logistica.labels.origem' | translate }}</label>
+            <input class="form-control" maxlength="200" type="text" 
+                formControlName="origem" (blur)="setMensagemErroPorCampo('origem');">
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('origem') }}"></msg> 
+        </div>
+        <div class="form-group col-sm-6 col-xs-6">
+            <label for="destino">{{ 'workup.logistica.labels.destino' | translate }}</label>
+            <input class="form-control" maxlength="200" type="text" 
+                formControlName="destino" (blur)="setMensagemErroPorCampo('destino');">
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('destino') }}"></msg> 
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="dataRealizacao">{{ 'workup.logistica.labels.dataRealizacao' | translate }}</label>
+            <input class="form-control"
+                [textMask]="{mask: data}" 
+                type="text" maxlength="17" placeholder="DD/MM/AAAA HH:MM" 
+                formControlName="dataRealizacao" (blur)="setMensagemErroPorCampo('dataRealizacao');">
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('dataRealizacao') }}"></msg> 
+        </div>
+
+        <div class="form-group col-sm-6 col-xs-12">
+            <label for="objetoTransportado">{{ 'workup.logistica.labels.objetoTransportado' | translate }}?</label>
+            <input class="form-control" maxlength="200" type="text" 
+                formControlName="objetoTransportado" (blur)="setMensagemErroPorCampo('objetoTransportado');">
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('objetoTransportado') }}"></msg> 
+        </div>
+
+    </div>
+</div>

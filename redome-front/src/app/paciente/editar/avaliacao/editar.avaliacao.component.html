@@ -1,0 +1,25 @@
+<div class="page-title">    
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'editarAvaliacao.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente #headerPaciente></header-paciente>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltar" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content dadosGeraisPaciente editarIdentificacaoDadosPessoais">
+    
+    <avaliacao #avaliacaoComponent></avaliacao>    
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 text-center-mobile">
+            <button id="btnSalvar" class="btn btn-primary btn-lg" (click)="onSubmit()" >{{ 'botao.salvar' | translate }}</button>
+        </div>
+    </div>
+</div>

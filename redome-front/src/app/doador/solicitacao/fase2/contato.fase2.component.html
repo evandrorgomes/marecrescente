@@ -1,0 +1,207 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2> {{ obterTitulo() }} </h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <span>
+                    <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()" *ngIf="exibirBotaoVoltar">
+                            <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+
+                    <a class="btn btn-setting btn-primary" (click)="salvarFormulario()"  *ngIf="exibirBotaoQuestionario" >
+                        <span class="icon-salvar"></span>
+                        {{'contato.salvarQuestionario'| translate}}
+                    </a>
+                    <a class="btn btn-setting btn-primary" (click)="proximoturno()" *ngIf="exibirBotaoProximoTurno" >
+                        <span class="icon-seta-direita"></span>
+                        {{'contato.proximoturno'| translate}}
+                    </a>
+                    <a class="btn btn-setting btn-primary" (click)="agendarContato()" *ngIf="exibirBotaoAgendar" >
+                            <span class="icon-calendario"></span>
+                        {{'contato.agendar'| translate}}
+                    </a>
+
+                    <a class="btn btn-setting btn-primary" (click)="finalizarContato()" *ngIf="exibirBotaoFinalizar" >
+                        <span class="icon-calendario"></span>
+                        {{'contato.finalizar'| translate}}
+                    </a>
+
+                    <a class="btn btn-setting btn-primary" (click)="reativarContato()" *ngIf="exibirBotaoReativar" >
+                            <span class="icon-calendario"></span>
+                            {{'contato.reativar'| translate}}
+                    </a>
+
+                    <a class="btn btn-setting btn-primary" (click)="cancelarTentativaContato()" *ngIf="exibirBotaoCancelarTentativa" >
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                        {{'contato.cancelarTentativa'| translate}}
+                    </a>
+
+                    <a class="btn btn-setting btn-primary" (click)="cancelarTentativaContato()" *ngIf="exibirBotaoCancelar" >
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                        {{'botao.cancelar'| translate}}
+                    </a>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <!-- Sinaliza as etapas de preenchimento do form -->
+                <ol class="etapaContainer">
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(1)" (click)="habilitarEtapa(1)" *ngIf="exibeEtapaTelefones()" >
+                        <b>{{'contato.telefones' | translate}}</b>
+                    </li>
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(2)" (click)="habilitarEtapa(2)">
+                        <b>{{'contato.atualizacao' | translate}}</b>
+                    </li>
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(3)" (click)="habilitarEtapa(3)" *ngIf="exibeEtapaQuestionario()">
+                        <b>{{'contato.questionario' | translate}}</b>
+                    </li>
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(4)" (click)="habilitarEtapa(4)">
+                        <b>{{'contato.evolucao' | translate}}</b>
+                    </li>
+                    <li [class]="getEstiloDoLinkDaMigalhaDePao(5)" (click)="habilitarEtapa(5)" *ngIf="isFase3() && exibeEtapaHemocentro()">
+                        <b>{{'contato.hemocentro' | translate}}</b>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-xs-12">
+                <div class="floatL">
+                    <a href="javascript:void(0)" title="Etapa Anterior" id="idEtapaAnterior" class="btn-controle" 
+                        (click)="habilitarEtapaAnterior()" *ngIf="exibirAnterior()">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> {{'contato.anterior' | translate}}
+                </a>
+                </div>
+                <div class="floatR">
+                    <a href="javascript:void(0)" title="Proxima Etapa" id="idProximaEtapa" class="btn-controle" (click)="habilitarProximaEtapa()" *ngIf="exibirProximo()">
+						{{'contato.proximo' | translate}} <span class="glyphicon glyphicon-circle-arrow-right"></span>
+					</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div [hidden]="esconderEtapa(1)">            
+            <div class="row wrap-bloco">
+                <div class="col-sm-2 col-xs-12">
+                    <h3>{{'contato.telefonesContato' | translate}}</h3>
+                    <a href="javascript:void(0)" class="editar-bloco" (click)="habilitarInclusao()"><span class="icon-mais"></span> 
+                        {{'contato.telefoneIncluir' | translate}}
+                    </a>
+                </div>
+                <div class="form-bloco col-sm-10 col-xs-12" [ngClass]="mostraFormulario">
+                    <div class="row">
+                        <div class="form-group textarea-bloco dados-bloco">
+                            <contato-telefone validarPrincipal="false" esconderBotaoAdicionarTelefone #contatoTelefoneComponent></contato-telefone>        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group dados-bloco btn-bloco">
+                            <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarInclusao()">{{ 'botao.cancelar' | translate }}</button>
+                            <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarTelefone()">{{ 'botao.salvar' | translate }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-xs-12 dados-bloco" *ngIf="mostraDados">
+                    <div *ngFor="let contato of doador?.contatosTelefonicos" id="tel_{{contato.id}}">
+                        <div [class]="getEstiloBlocoTelefone(contato)" *ngIf="!contato.excluido">
+                            <p class="tel-contato">
+                                <small>{{'doadores.telefone' | translate}}: </small>
+                                <span class="texto-bloco">
+                                    +{{contato.codInter + " " + contato.codArea + " "+contato.numero}} | {{contato.nome}}
+                                    <i *ngIf="contato.principal" class="icon-favorito laranja"></i>
+                                    <a class="btn-dadosinline" title="{{'contato.excluir' | translate}}" *ngIf="!contato.excluido"
+                                    (click)="abrirModalAtendimento(contato, true)">
+                                        <i class="glyphicon glyphicon-trash"></i></a>    
+                                    <a class="btn-dadosinline" title="{{'contato.registrarAtendimento' | translate}}" 
+                                    (click)="abrirModalAtendimento(contato, false)">
+                                        <i class="glyphicon glyphicon-phone-alt"></i>
+                                    </a>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row" *ngIf="paginacao.totalElements && paginacao.totalElements != 0" >
+                    <div class="col-lg-12 col-sm-12 col-xs-12 wrap-table">
+                        <table id="tblConsultaPaciente" class="table">
+                            <thead>
+                                <tr>
+                                    <th>{{'contato.registroContato.atendente' | translate}}</th>
+                                    <th>{{'contato.registroContato.telefone' | translate}}</th>
+                                    <th>{{'contato.registroContato.momento' | translate}}</th>
+                                    <th>{{'contato.registroContato.statusContato' | translate}}</th>
+                                    <th>{{'contato.registroContato.observacao' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of paginacao.content; index as i" >
+                                    <td>{{r.usuario.nome}}</td>                   
+                                    <td>({{r.contatoTelefonico.codInter}} {{r.contatoTelefonico.codArea}}) {{r.contatoTelefonico.numero}}</td>
+                                    <td>{{formatarDataHora(r.momentoLigacao)}}</td>     
+                                    <td><span [class]="obterClasseCSSContato(r.registroTipoOcorrencia.id)">{{r.registroTipoOcorrencia.nome}}</span></td>
+                                    <td>{{r.observacao}}</td>     
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+                <div class="row paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+                    <div class="col-sm-12 col-xs-12">
+                        <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5" 
+                                class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                                (pageChanged)="mudarPagina($event)" 
+                                firstText="{{'paginacao.primeiro' | translate}}"
+                                previousText="<span class='icon-seta-esquerda'></span>"
+                                nextText="<span class='icon-seta-direita'></span>"
+                                lastText="{{'paginacao.ultimo' | translate}}">
+                        </pagination>
+                    </div>
+                    <div class="col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group porpagina">
+                            <label>Por Página:</label>
+                            <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecionaQuantidadePorPagina($event)" >
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option> 
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="esconderEtapa(2)">
+            <atualizar-doador [fase]="fase" #doadorAtualizacaoComponent ></atualizar-doador>
+        </div>
+        <div [hidden]="esconderEtapa(3)">
+            <questionario #questionario [formulario]="_formulario"></questionario>
+            
+            <div class="floatR">
+                <div class="col-sm-12 col-xs-12">
+                    <span>
+                        <a class="btn btn-setting btn-primary" (click)="salvarFormulario()" >
+                                <span class="icon-salvar"></span>
+                                {{'contato.salvarQuestionario'| translate}}
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="esconderEtapa(4)">
+            <listar-evolucao-doador #listaEvolucaoDoador></listar-evolucao-doador>
+        </div>
+        <div [hidden]="esconderEtapa(5)">
+            <selecionar-hemocentro #selecionarHemocentro *ngIf="isFase3()" [enderecos]="getEnderecos()">
+            </selecionar-hemocentro>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+spring:
+  security:  
+    user:
+      name: redomediscovery
+      password: D4V5uzR4isTHS08WRKIInL1ZfP
+  
+eureka:
+  environment: hml
+  instance:
+    registryFetchIntervalSeconds: 30
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
+    nonSecurePortEnabled: true
+    securePortEnabled: false
+    hostname: redome-discovery.redome-discovery-svc.default.svc.cluster.local
+    appName: redome-discovery
+    prefer-ip-address: false    
+#    ipAddress: 172.21.213.13
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery.redome-discovery-svc.hml.svc.cluster.local:9082/eureka/, http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery-hml1.redome-discovery-svc1.hml.svc.cluster.local:9082/eureka/
+      
+logging:
+  pattern:
+    console:
+  path: /logs/redome-discovery/hml

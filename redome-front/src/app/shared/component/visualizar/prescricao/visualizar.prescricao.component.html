@@ -1,0 +1,11 @@
+<accordion >
+    <accordion-group>
+        <div accordion-heading>
+            <h4 *ngIf="_showRmr else semRmr">{{'visualizar.prescricao.titulocomrmr' | translate:{rmr: _rmr} }}</h4>
+            <ng-template #semRmr>
+                <h4>{{'visualizar.prescricao.titulosemrmr' | translate }}</h4>
+            </ng-template>
+        </div>
+        <detalhe-prescricao-medula [showDescarteEAprovacao]="false"></detalhe-prescricao-medula>
+    </accordion-group>
+</accordion>

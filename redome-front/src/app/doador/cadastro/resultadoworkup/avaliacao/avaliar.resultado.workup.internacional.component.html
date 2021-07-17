@@ -1,0 +1,123 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{ "avaliacao.resultadoworkup.internacional.titulo" | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente> </header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+                </a>
+                <a id="idExameAdicional" type="button" class="btn btn-setting btn-primary" *ngIf="!exibirExamesAdicionais()" (click)="examesAdicionais()">
+                  <span class="icon-exames"></span> {{'botao.examesAdicionais' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <visualizar-prescricao></visualizar-prescricao>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div>
+                    <h3 class="data-title">
+                        <span class="label label-danger" *ngIf="resultadoWorkup?.coletaInviavel else coletaViavel">{{ 'avaliacao.resultadoworkup.internacional.coletainviavel' | translate}}</span>
+                        <ng-template #coletaViavel>
+                            <span class="label label-success"> {{ 'avaliacao.resultadoworkup.internacional.coletaviavel' | translate}} </span>
+                        </ng-template>
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 col-xs-12">
+                <button id="btnNaoProsseguir" class="btn btn-lg btn-primary floatL" (click)="naoProsseguir()">
+                    <span class="glyphicon glyphicon-remove"></span> {{ 'botao.naoprosseguir' | translate }}
+                </button>
+                <button id="btnProsseguir" class="btn btn-lg btn-primary floatR" (click)="prosseguir()">
+                    <span class="glyphicon glyphicon-ok"></span> {{ 'botao.prosseguir' | translate }}
+                </button>
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+
+        <div class="row listaLaudos" *ngIf="resultadoWorkup?.arquivosResultadoWorkup">
+            <div class="col-sm-8 col-xs-12">
+                <div class="wrap-laudo">
+                    <!-- Exibe os arquivos de laudo anexados -->
+                    <div>
+                        <label>{{'avaliacao.resultadoworkup.internacional.laudos' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="separaArquivosLaudo" *ngFor="let arquivo of resultadoWorkup?.arquivosResultadoWorkup; index as i">
+            <div class="row listaLaudos">
+                <div class="col-sm-8 col-xs-12">
+                    <div class="wrap-laudo">
+                        <div>
+                            <span>{{obterNomeArquivo(arquivo.caminho)}}
+                            </span>
+                            <span *ngIf="arquivo.descricao">| {{arquivo.descricao}} </span>
+
+                        </div>
+                        <div class="floatR">
+                            <a href="javascript:void(0)" class="icon-download " title="Baixar arquivo" (click)="baixarArquivoDelaudo(arquivo.id, obterNomeArquivo(arquivo.caminho))"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page_context" *ngIf="exibirExamesAdicionais()">
+          <div class="row">
+            <div class="page-title h2 col-xs-8 col-sm-12">
+                <h2>{{ 'avaliacao.resultadoworkup.internacional.examesadicionais' | translate }}</h2>
+            </div>
+          </div>
+          <br />
+          <div class="row wrap-bloco" *ngFor="let pedidos of pedidosAdicionais; index as i">
+            <div>
+                <h3>{{pedidos.descricao}}</h3>
+            </div>
+            <div class="dados-bloco">
+              <div>
+                <div class="listaLaudos" *ngFor="let arquivo of pedidos.arquivosPedidoAdicionalWorkup; index as i">
+                  <div class="wrap-bloco" *ngIf="arquivo?.descricao else semDescricao">
+                      <div class="col-xs-2 col-sm-4"><span>{{arquivo?.descricao}}</span></div>
+                      <div class="dados-bloco">
+                          <a href="javascript:void(0)" (click)="baixarArquivoAdicionalWorkup(arquivo.id, obterNomeArquivo(arquivo.caminho))" title="{{'botao.download' | translate}}" >
+                              <span>{{obterNomeArquivo(arquivo.caminho)}}</span>
+                              &nbsp;&nbsp;
+                              <span class="icon-download "></span>
+                          </a>
+                      </div>
+                  </div>
+                  <ng-template #semDescricao>
+                    <div>
+                        <a href="javascript:void(0)" (click)="baixarArquivoAdicionalWorkup(arquivo.id, obterNomeArquivo(arquivo.caminho))" title="{{'botao.download' | translate}}" >
+                            <span>{{obterNomeArquivo(arquivo.caminho)}}</span>
+                            &nbsp;&nbsp;
+                            <span class="icon-download "></span>
+                        </a>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

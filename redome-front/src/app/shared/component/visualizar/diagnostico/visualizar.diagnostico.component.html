@@ -1,0 +1,19 @@
+<div class="row wrap-bloco" *ngIf="diagnostico">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'pacienteForm.diagnosticoGroup.titulo' | translate}}</h3>
+        <a  *ngIf="!somenteLeitura"
+            href="javascript:void(0)" class="editar-bloco" 
+            [routerLink]="'/pacientes/' + rmr + '/editar/diagnostico'">
+            <span class="icon-editar"></span>{{'botao.editar' | translate}}
+        </a>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco">
+        <p><small>{{'pacienteForm.diagnosticoGroup.dataDiagnostico' | translate}}: </small>
+            {{ diagnostico?.dataDiagnostico | date:'dd/MM/yyyy' }}
+        </p>
+        <p><small>{{'pacienteForm.diagnosticoGroup.cid' | translate}}: </small>
+            <span class="mostraIconeCid icon-cid " [ngClass]="contempladoPortaria"></span>
+            {{ diagnostico?.cid?.codigo + ' - ' + diagnostico?.cid?.descricao }}
+        </p> 
+    </div>
+</div>

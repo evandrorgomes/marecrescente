@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: redome-cloud-svc
+ namespace: develop
+spec:
+ type: NodePort
+ selector:
+   app: redome-cloud
+   namespace: develop
+ ports:
+  - protocol: TCP
+    name: web
+    port: 9081
+  - protocol: TCP
+    name: debug
+    port: 5000
+---    
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-cloud-deployment
+  namespace: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-cloud
+      namespace: develop
+  template:
+    metadata:
+      labels:
+        app: redome-cloud
+        namespace: develop
+    spec:
+      hostname: redome-cloud
+      subdomain: redome-cloud-svc
+      containers:
+      - name: redome-cloud
+        image: localhost:32000/redome_cloud
+        ports:
+        - containerPort: 9081
+        - containerPort: 5000
+        env:
+          - name: profile
+            value: dev
+      
+        
+

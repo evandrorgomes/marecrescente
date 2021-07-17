@@ -1,0 +1,207 @@
+
+<div class="container conteudo" [formGroup]="form()">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{ 'workup.agendarcoleta.titulo' | translate }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                  <span class="icon-seta-esquerda"></span>
+                  {{'botao.voltar' | translate}}
+                </a>
+                <span>
+                  <a id="" type="button" class="btn btn-setting btn-primary" (click)="salvarColeta()">
+                      <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}</a>
+                </span>
+          </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+              <visualizar-prescricao></visualizar-prescricao>
+          </div>
+        </div>
+        <div class="row">
+          <div  class="form-group col-sm-6 col-xs-12">
+              <group-radio-component label="{{'workup.agendarcoleta.tipoproduto' | translate}}:"
+                  id="tipoproduto"
+                  formControlName="tipoProduto"
+                  [control]="form().controls['tipoProduto']"
+                  [optionsLabel]="labelsMedulaSangue"
+                  [optionsValue]="opcoesMedulaSangue"
+                  (change)="isMedula(form().controls['tipoProduto'].value)"
+                  columnClass="radio-group col-sm-4 col-xs-12">
+              </group-radio-component>
+          </div>
+        </div>
+        <div class="row" >
+          <p class="col-xs-12 col-sm-12">
+              {{ 'workup.agendarcoleta.seaplicavel' | translate }}:
+          </p>
+        </div>
+
+      <div *ngIf="ehMedula; else elseEhSangue">
+
+            <div class="row">
+              <div class="form-group col-sm-2 col-xs-12" style="min-height: 75px;">
+                  <label for="txtDataInternacao">{{'workup.agendarcoleta.datainternacao' | translate}}:</label>
+                  <input value="{{ pedidoColeta?.dataInternacaoFormatada }}" class="form-control" id="txtDataInternacao" type="text" readonly>
+              </div>
+              <div class="form-group col-sm-2 col-xs-12">
+                  <input-component
+                          label="{{'workup.agendarcoleta.horario' | translate}}:"
+                          formControlName="horaInternacao"
+                          [control]="form().controls['horaInternacao']"
+                          idd="txtHoraInternacao"
+                          [mascara]="maskHora"
+                          placeholder="HH:MM">
+                  </input-component>
+              </div>
+          </div>
+
+          <div class="row" >
+            <div class="form-group col-sm-4 col-xs-12">
+                <input-component
+                        label="{{'workup.agendarcoleta.setorandar' | translate}}:"
+                        formControlName="internacaoSetorAndar"
+                        [control]="form().controls['internacaoSetorAndar']"
+                        idd="txtInternacaoSetorAndar">
+                </input-component>
+            </div>
+            <div class="form-group col-sm-4 col-xs-12">
+                <input-component
+                        label="{{'workup.agendarcoleta.procurarpor' | translate}}:"
+                        formControlName="internacaoProcurarPor"
+                        [control]="form().controls['internacaoProcurarPor']"
+                        idd="txtInternacaoProcurarPor">
+                </input-component>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <endereco-contato #enderecoInternacao [readOnly]="true" esconderCampoPais="true" esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+            </div>
+          </div>
+      </div>
+
+      <ng-template #elseEhSangue>
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-12">
+                <input-component
+                    label="{{'workup.agendarcoleta.datainiciogcsf' | translate}}:"
+                    formControlName="dataInicioGcsf"
+                    [control]="form().controls['dataInicioGcsf']"
+                    idd="txtDataInicioGcsf"
+                    [mascara]="maskData"
+                    placeholder="DD/MM/AAAA">
+                </input-component>
+            </div>
+            <div class="form-group col-sm-2 col-xs-12">
+                <input-component
+                        label="{{'workup.agendarcoleta.horario' | translate}}:"
+                        formControlName="horaInicioGcsf"
+                        [control]="form().controls['horaInicioGcsf']"
+                        idd="txtHoraInicioGcsf"
+                        [mascara]="maskHora"
+                        placeholder="HH:MM">
+                </input-component>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="form-group col-sm-4 col-xs-12">
+                <input-component
+                        label="{{'workup.agendarcoleta.setorandar' | translate}}:"
+                        formControlName="gcsfSetorAndar"
+                        [control]="form().controls['gcsfSetorAndar']"
+                        idd="txtGcsfSetorAndar">
+                </input-component>
+            </div>
+            <div class="form-group col-sm-4 col-xs-12">
+                <input-component
+                        label="{{'workup.agendarcoleta.procurarpor' | translate}}:"
+                        formControlName="gcsfProcurarPor"
+                        [control]="form().controls['gcsfProcurarPor']"
+                        idd="txtGcsfProcurarPor">
+                </input-component>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <endereco-contato #enderecoGcsf [readOnly]="true" esconderCampoPais="true" esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+            </div>
+        </div>
+      </ng-template>
+
+      <div class="row">
+        <div class="form-group col-sm-2 col-xs-12" style="min-height: 75px;">
+            <label for="txtDataColeta">{{ 'workup.agendarcoleta.dataColeta' | translate }}:</label>
+            <input value="{{ pedidoColeta?.dataColetaFormatada }}" class="form-control" id="txtDataColeta" type="text" readonly>
+        </div>
+
+        <div class="form-group col-sm-2 col-xs-12">
+          <input-component
+                  label="{{'workup.agendarcoleta.horario' | translate}}:"
+                  formControlName="horaColeta"
+                  [control]="form().controls['horaColeta']"
+                  idd="txtHoraColeta"
+                  [mascara]="maskHora"
+                  placeholder="HH:MM">
+          </input-component>
+        </div>
+      </div>
+
+      <div class="row" >
+        <div class="form-group col-sm-3 col-xs-12">
+            <group-radio-component label= "{{'workup.agendarcoleta.estaemjejum' | translate}}"
+                id="estaEmJejum"
+                formControlName="estaEmJejum"
+                [control]="form().controls['estaEmJejum']"
+                [optionsLabel]="labelsSimNao"
+                [optionsValue]="opcoesSimNao"
+                (change)="isDoadorEmJejum(form().controls['estaEmJejum'].value)">
+            </group-radio-component>
+        </div>
+
+        <div class="form-group col-sm-2 col-xs-12" *ngIf="estaEmJejum">
+            <input-component
+                    label="{{'workup.agendarcoleta.quantashorasemjejum' | translate}}"
+                    formControlName="quantasHorasEmJejum"
+                    [control]="form().controls['quantasHorasEmJejum']"
+                    idd="txtQuantasHorasEmJejum">
+            </input-component>
+        </div>
+        <div class="form-group col-sm-3 col-xs-offset-1 col-xs-12" *ngIf="estaEmJejum">
+            <group-radio-component label= "{{'workup.agendarcoleta.estatotalmenteemjejum' | translate}}"
+                id="estaTotalmenteEmJejum"
+                formControlName="estaTotalmenteEmJejum"
+                [control]="form().controls['estaTotalmenteEmJejum']"
+                [optionsLabel]="labelsSimNao"
+                [optionsValue]="opcoesSimNao">
+            </group-radio-component>
+        </div>
+      </div>
+
+      <div class="row" >
+        <div class="form-group col-sm-6 col-xs-12">
+            <textarea-component
+                    label="{{'workup.agendarcoleta.informacoesadicionais' | translate}}:"
+                    formControlName="informacoesAdicionais"
+                    [control]="form().controls['informacoesAdicionais']"
+                    rows="4"
+                    idd="txtInformacoesAdicionais">
+            </textarea-component>
+        </div>
+      </div>
+
+    </div>
+</div>

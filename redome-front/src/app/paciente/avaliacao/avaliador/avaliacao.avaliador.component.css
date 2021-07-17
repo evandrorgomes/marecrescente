@@ -1,0 +1,23 @@
+.modal-header-esquerda{
+    left:10px;
+}
+
+.label-modal{
+    border-bottom: 0;
+    font-size: 21px;
+}
+
+.mensagem-validacao-modal{
+    left: 0;
+    position: absolute;
+    width: 81%;
+}
+
+.modalAlterado{
+    height: 100%;
+}
+
+.modalDialogoData{
+    font-size: 11px;
+    font-style: italic;
+}

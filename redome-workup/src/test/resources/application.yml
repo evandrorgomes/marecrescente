@@ -1,0 +1,24 @@
+resourceId: modred-rest-workup
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
+jpa:
+  driver: oracle.jdbc.driver.OracleDriver
+c3p0:
+  initial_pool_size: 5
+  min_pool_size: 5
+  max_pool_size: 20
+  max_idle_time: 1800
+hibernate:
+  dialect: org.hibernate.dialect.Oracle12cDialect
+
+storage:
+  api_key: o93BXIZkOHScnMFcvhLSYBH4xwo80C4RCo6uFyuGjgBv
+  service_instance_id: "crn:v1:bluemix:public:cloud-object-storage:global:a/d97c2f72526b4d00bacd785b76777ca2:66ed8cd4-172b-4045-91c2-8fea84f9342e::" 
+  endpoint_url: https://s3.sao01.objectstorage.softlayer.net
+  IAM_ENDPOINT: https://iam.cloud.ibm.com/identity/token
+  

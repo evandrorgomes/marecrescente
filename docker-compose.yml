@@ -1,0 +1,35 @@
+version: "3"
+services:
+  cloud:
+    build:
+      context: ./redome-cloud
+      dockerfile: ./.devcontainer/Dockerfile
+    ports:
+      - "9081:9081"
+    volumes:
+      - .:/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
+   
+ #   container_name: redome-cloud
+ 
+    # networks:
+    #   - projetos-redome_default
+  # discovery:
+  #   ports:
+  #     - "9082:9082"
+
+  # auth:
+  #   ports:
+  #     - "9000:9000"
+  #   depends_on: 
+  #     - cloud
+  #     - discovery
+    
+  # redome:
+  #   ports:
+  #     - "9080:9080"
+  #   depends_on: 
+  #     - cloud
+  #     - discovery
+  #     - auth
+  

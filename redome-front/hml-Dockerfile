@@ -1,0 +1,4 @@
+FROM nginx:1.17
+RUN apt update && apt upgrade curl -y
+COPY dist/ /usr/share/nginx/html
+COPY nginx-custom.conf /etc/nginx/conf.d/default.conf

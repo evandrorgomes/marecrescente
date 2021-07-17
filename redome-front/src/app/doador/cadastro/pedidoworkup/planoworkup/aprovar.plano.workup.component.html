@@ -1,0 +1,116 @@
+<div class="container conteudo">
+  <div class="page-title">
+    <div class="row menu-btn">
+      <div class="col-sm-12 col-xs-12">
+        <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span
+            class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+        </a>
+        <a id="idAprovar" type="button" class="btn btn-setting btn-primary" (click)="aprovar()"><span
+            class="glyphicon glyphicon-ok-circle"></span> {{'botao.aprovar' | translate}}</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-xs-12" style="font-size: 18px; color: #767676; top: 20px;">
+        <p>
+        <small class="col-sm-4 col-xs-12">{{'workup.plano.dmr' | translate}}:{{ aprovarPlanoWorkup?.identificacao }}</small>
+        <small class="col-sm-4 col-xs-12">{{'workup.plano.rmr' | translate}}:{{ aprovarPlanoWorkup?.rmr }}</small>
+      </p>
+      </div>
+    </div>
+
+  </div>
+  <div class="page-content">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12" style="color: #f38630;">
+        <h2 style="margin-top: 0px !important;" *ngIf="isPedidoWorkupNacional(); else internacional">
+          {{'workup.plano.titulo' | translate}}</h2>
+        <ng-template #internacional>
+          <h2 style="margin-top: 0px !important;">{{'workup.plano.tituloInternacional' | translate}}</h2>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="row col-sm-12 col-xs-12 dados-bloco">
+      <p><small>{{'workup.plano.dataExame' | translate}}:
+        </small>{{ aprovarPlanoWorkup?.dataExame | date: 'dd/MM/yyyy' }}</p>
+      <p><small>{{'workup.plano.dataResultado' | translate}}:
+        </small>{{ aprovarPlanoWorkup?.dataResultado | date: 'dd/MM/yyyy' }}</p>
+      <p *ngIf="isPedidoWorkupNacional()" ><small>{{'workup.plano.dataInternacao' | translate}}:
+        </small>{{ aprovarPlanoWorkup?.dataInternacao | date: 'dd/MM/yyyy' }}</p>
+      <p><small>{{'workup.plano.dataColeta' | translate}}:
+        </small>{{ aprovarPlanoWorkup?.dataColeta | date: 'dd/MM/yyyy' }}</p>
+      <p><small>{{'workup.plano.observacao' | translate}}: </small>{{ aprovarPlanoWorkup?.observacaoPlanoWorkup }}</p>
+
+      <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+          <small>{{'workup.plano.arquivos' | translate}}:</small>
+        </div>
+        <div class="col-sm-12 col-xs-12 dados-bloco">
+          <div>
+            <div *ngFor="let arquivo of aprovarPlanoWorkup?.arquivosPedidoWorkup; index as i">
+              <a href="javascript:void(0)" (click)="baixarArquivo(arquivo)" title="{{'botao.download' | translate}}">
+                <span>{{arquivo.nomeSemTimestamp}}</span>
+                &nbsp;&nbsp;
+                <span class="icon-download "></span>
+              </a>
+            </div>
+            <p *ngIf="aprovarPlanoWorkup?.arquivosPedidoWorkup && aprovarPlanoWorkup?.arquivosPedidoWorkup.length == 0">
+              <small> {{ 'mensagem.nenhumarquivoinformado' | translate }} </small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-content" [formGroup]="planoWorkupForm">
+
+    <div class="row wrap-bloco"></div>
+
+    <div class="row">
+      <div class="form-group col-sm-6 col-xs-12" style="margin-top: 10px !important;">
+        <input-component label="{{'workup.plano.dataCondicionamento' | translate}}:"
+          formControlName="dataCondicionamento" [control]="form().controls['dataCondicionamento']"
+          idd="txtDataCondicionamento" [mascara]="maskData" placeholder="DD/MM/AAAA">
+        </input-component>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-6 col-xs-12" style="margin-top: 10px !important;">
+        <input-component label="{{'workup.plano.dataInfusao' | translate}}:" formControlName="dataInfusao"
+          [control]="form().controls['dataInfusao']" idd="txtDataInfusao" [mascara]="maskData" placeholder="DD/MM/AAAA">
+        </input-component>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-6 col-xs-12" style="margin-top: 10px !important;">
+        <label>{{ 'workup.plano.criopreservacao'| translate }}</label>
+        <div class="radio-group">
+
+          <input id="ddlSim" tabindex="1" type="radio" value="true" formControlName="criopreservacao">
+          <label for="ddlSim" class="radio-inline">
+            <span></span> {{ 'workup.plano.sim'| translate }}
+          </label>
+          <input id="ddlNao" tabindex="2" type="radio" value="false" formControlName="criopreservacao">
+          <label for="ddlNao" class="radio-inline">
+            <span></span> {{ 'workup.plano.nao'| translate }}
+          </label>
+
+        </div>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('criopreservacao') }}"></msg>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-6 col-xs-12" style="margin-top: 10px !important;">
+        <label for="txtObservacao">{{'workup.plano.observacao' | translate}}:</label>
+        <textarea class="form-control" formControlName="observacao" id="txtObservacao"></textarea>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('observacao') }}"></msg>
+      </div>
+    </div>
+
+  </div>
+</div>

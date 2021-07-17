@@ -1,0 +1,119 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'avaliacaocamaratecnica.titulo' | translate}}</h2>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <h4>{{'avaliacaocamaratecnica.subtituloavaliacoesabertas' | translate}}</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-xs-2">{{'avaliacaocamaratecnica.tabela.rmr' | translate}}</th>
+                        <th class="col-sm-4 col-xs-4">{{'avaliacaocamaratecnica.tabela.nome' | translate}}</th>
+                        <th class="col-sm-3 col-xs-3">{{'avaliacaocamaratecnica.tabela.status' | translate}}</th>
+                        <th class="col-sm-1 col-xs-1">{{'avaliacaocamaratecnica.tabela.aging' | translate}}</th>
+                        <th class="col-sm-2 col-xs-1">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clicavel" *ngFor="let avaliacao of paginacaoAberta.content; index as i"
+                    (click)="abrirDetalheAvaliacao(avaliacao)">
+                        <td>{{ avaliacao?.objetoRelacaoEntidade?.paciente?.rmr }}</td>
+                        <td>{{ avaliacao?.objetoRelacaoEntidade?.paciente?.nome  }}</td>
+                        <td><span class="label label-default status-table">{{ avaliacao?.objetoRelacaoEntidade?.status?.descricao  }}</span></td>
+                        <td>{{ avaliacao?.aging  }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row paginaConsultaPaciente"
+            *ngIf="paginacaoAberta.totalElements && paginacaoAberta.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoAberta.totalElements" [ngModel]="paginacaoAberta.number" [maxSize]="5"
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoAberta.quantidadeRegistro"
+                    (pageChanged)="mudarPagina($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}"
+                    >
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>{{'paginacao.porPagina' | translate}}</label>
+                <select class="form-control"
+                        [(ngModel)]="quantidadeRegistro"
+                        (change)="selecionarQuantidadePorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xs-12 wrap-table">
+                <h4>{{'avaliacaocamaratecnica.subtituloavaliacoesandamento' | translate}}</h4>
+            <table  class="table">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2 col-xs-2">{{'avaliacaocamaratecnica.tabela.rmr' | translate}}</th>
+                        <th class="col-sm-4 col-xs-4">{{'avaliacaocamaratecnica.tabela.nome' | translate}}</th>
+                        <th class="col-sm-3 col-xs-3">{{'avaliacaocamaratecnica.tabela.status' | translate}}</th>
+                        <th class="col-sm-1 col-xs-1">{{'avaliacaocamaratecnica.tabela.aging' | translate}}</th>
+                        <th class="col-sm-2 col-xs-1">{{'avaliacaocamaratecnica.tabela.usuarioResponsavel' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clicavel" *ngFor="let avaliacao of paginacaoEmAndamento.content; index as i"
+                    (click)="abrirDetalheAvaliacao(avaliacao)">
+                        <td>{{ avaliacao?.objetoRelacaoEntidade?.paciente?.rmr }}</td>
+                        <td>{{ avaliacao?.objetoRelacaoEntidade?.paciente?.nome  }}</td>
+                        <td><span class="label label-default status-table">{{ avaliacao?.objetoRelacaoEntidade?.status?.descricao  }}</span></td>
+                        <td>{{ avaliacao?.aging  }}</td>
+                        <td>{{ avaliacao?.usuarioResponsavel?.nome  }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row paginaConsultaPaciente"
+            *ngIf="paginacaoEmAndamento.totalElements && paginacaoEmAndamento.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoEmAndamento.totalElements" [ngModel]="paginacaoEmAndamento.number" [maxSize]="5"
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoEmAndamento.quantidadeRegistro"
+                    (pageChanged)="mudarPagina($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}"
+                    >
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>{{'paginacao.porPagina' | translate}}</label>
+                <select class="form-control"
+                        [(ngModel)]="quantidadeRegistro"
+                        (change)="selecionarQuantidadePorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

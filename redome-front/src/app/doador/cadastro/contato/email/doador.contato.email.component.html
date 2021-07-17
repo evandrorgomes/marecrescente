@@ -1,0 +1,34 @@
+<div class="row wrap-bloco">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'DoadorEmailContato.titulo' | translate}}</h3>
+        <a href="javascript:void(0)" class="editar-bloco" (click)="incluir()"
+        *ngIf="!deveEsconderLinkIncluirEmail()"  ><span class="icon-editar"></span>{{'link.incluir' | translate}} </a>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+        <ul [ngClass]="mostraDados">
+            <li *ngFor=" let emailContato of contatosEmail; index as i">
+                
+                <p><small>{{'DoadorEmailContato.email' | translate}} {{ i + 1 }}: </small>
+                <span [ngClass]="contatoExcuido(emailContato)"> {{emailContato.email}} 
+                    <i class="icon-favorito laranja" *ngIf="emailContato.principal"  ></i>
+                    <a class="btn-dadosinline" *ngIf="deveExibirRemoverEmail"
+                        title="{{ 'DoadorEmailContato.excluir' | translate}}" 
+                        (click)="excluirEmail(emailContato)">
+                    <i class="glyphicon glyphicon-trash"></i></a>   
+                </span></p>
+            </li>
+        </ul>
+        <div class="form-bloco" [ngClass]="mostraFormulario">
+            <contato-email validarPrincipal="false" #emailContatoComponent></contato-email>
+            <div class="row">
+                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                    <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicao()" >{{'botao.cancelar' | translate}}</button>
+                    <button id="alterarContato" class="btn btn-primary floatR" 
+                        *ngIf="temPermissaoParaIncluirEmail()" (click)="salvarEmail()" >{{'botao.salvar' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal mensagem="" #modalErro></modal>

@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <h3 class="text-center">{{'invoice.modal.titulo' | translate}}</h3>
+    </div>
+</div>
+<div class="row" [formGroup]="form()" >
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12 ">
+        <input-component label="{{ 'invoice.modal.campos.numero'| translate }}" formControlName="numero" [control]="form().get('numero')">
+        </input-component>
+    </div>
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12 ">
+        <input-number-component label="{{ 'invoice.modal.campos.valor' | translate }}" formControlName="valor" [control]="form().get('valor')"
+            [currencyOption]="{ prefix: '', allowNegative : false, thousands: '', precision: '2' }"></input-number-component>
+    </div>
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12 ">
+            <group-radio-component label= "{{'invoice.modal.campos.indevido' | translate}}"
+            id="indevido"
+            rowClass="row"
+            formControlName="indevido" 
+            [control]="form().controls['indevido']"
+            [optionsLabel]="labelsIndevido"
+            [optionsValue]="opcoesIndevido">
+        </group-radio-component>
+    </div>
+
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-offset-3 col-xs-12">
+        <br />
+        <button type="button" class="btn btn-default btn-lg floatL" (click)="cancelar()" >
+            {{'botao.cancelar' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary btn-lg floatR" (click)="salvarItemInvoice()">
+            {{'botao.salvar' | translate}}
+        </button>
+    </div>
+</div>

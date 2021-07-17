@@ -1,0 +1,24 @@
+<label>{{ label }}</label>
+<div *ngIf="isHorizontal()">
+    <div [ngClass]="rowClass">
+        <div [ngClass]="columnClass" *ngFor="let item  of control.controls; let i = index" [formGroup]="item" >
+            <input #checkBoxcomponent id="ck_{{i}}" type="checkbox" formControlName="{{controFieldName}}"
+                (change)="onChange($event)" tabindex="0" >
+            <label for="ck_{{i}}">
+                <span></span>{{  optionsLabel[i] }}  
+            </label>
+        </div>
+    </div>
+</div>
+<div *ngIf="isVertical()">
+    <div [ngClass]="rowClass" *ngFor="let item  of control.controls; let i = index" [formGroup]="item" >
+        <div [ngClass]="columnClass">
+            <input #checkBoxcomponent id="ck_{{i}}" type="checkbox" formControlName="{{controFieldName}}"
+                (change)="onChange($event)" tabindex="0" >
+            <label for="checkBoxcomponent">
+                <span></span>{{  optionsLabel[i] }}  
+            </label>
+        </div>
+    </div>
+</div>
+<msg mensagem="{{ getMensagemErro() }}"></msg>

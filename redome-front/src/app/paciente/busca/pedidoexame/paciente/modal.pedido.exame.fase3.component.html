@@ -1,0 +1,38 @@
+<div class="row">
+        <div class="col-sm-12 col-xs-12">
+                <h2>Pedido de Exame de Fase 3</h2>
+        </div>
+</div>
+<div class="row text-left">
+        <div class="col-sm-12 col-xs-12">
+                <label>{{ 'modalpedidoexamefase3.municipioenderecopaciente' | translate }}:</label><br>
+                <span class="p-input">{{ municipioEnderecoPaciente }} </span> <br>
+        </div>
+</div>
+<div class="row text-left">
+        <div class=" col-sm-12 col-xs-12">
+                <label>{{ 'modalpedidoexamefase3.ufenderecopaciente' | translate }}:</label><br>
+                <span class="p-input">{{ data?.ufEnderecoPaciente }} </span> <br>
+        </div>
+</div>
+<div class="row text-left">
+        <div class=" col-sm-12 col-xs-12" *ngIf="data?.alteracaoLaboratorio" >
+                <label>{{ 'modalpedidoexamefase3.laboratorioatual' | translate }}:</label><br>
+                <span class="p-input">{{ data?.laboratorioAtual?.nome }} </span><br>
+        </div>
+</div>
+<div class="row text-left">
+        <div class=" form-group col-sm-12 col-xs-12">
+                <label>{{ 'modalpedidoexamefase3.laboratorio' | translate }}:</label>
+                <select id="laboratorio" class="form-control"  [(ngModel)]="idLaboratorioSelecionado" >
+                        <option></option> 
+                        <option *ngFor="let lab of laboratorios"  value="{{lab.id}}">{{obterDescricaoLaboratorio(lab)}}</option>
+                </select>
+                <msg mensagem="{{ mensagemErroLaboratorio }}"> </msg>
+        </div>
+</div>
+<div class="row text-right">
+        <div class="form-group col-sm-12 col-xs-12">
+                <a id="idConfirmar" type="button" class="btn btn-primary floatR" (click)="confirmar()" ><span class="glyphicon glyphicon-ok"></span> Enviar</a>
+        </div>
+</div>

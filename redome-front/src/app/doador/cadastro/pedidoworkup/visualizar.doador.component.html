@@ -1,0 +1,25 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'doadores.detalhe.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <doadoridentificacao esconderLinkAlterarIdentificacao="false" #doadorIdentificacaoComponent></doadoridentificacao>
+        <doador-dados-pessoais esconderLinkAlterarIdentificacao="false" #doadorDadosPessoaisComponent> </doador-dados-pessoais>
+        <doador-contato-telefone esconderLinkIncluirTelefone="false" #doadorContatoTelefoneComponent> </doador-contato-telefone>
+        <doador-contato-endereco esconderLinkIncluirEndereco="false" #doadorContatoEnderecoComponent></doador-contato-endereco>
+        <doador-contato-email esconderLinkIncluirEmail="false" #doadorEmailContatoComponent></doador-contato-email>
+    </div>
+</div>

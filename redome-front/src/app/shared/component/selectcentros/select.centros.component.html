@@ -1,0 +1,37 @@
+<div class="select-centro">
+    <div class="form-group" *ngIf="exibirCombo()">
+        <label [attr.for]="idd">{{ 'textosGenericos.filtrarpor' | translate }}:</label>
+        <select #select [ngClass]="getClazz()" id="{{idd}}" [(ngModel)]="_itemSelecionado"
+            tabindex="0" (change)="onChange(select.value)">
+            <option value="" *ngIf="showBlankOption" ></option>
+            <option value="-99_0" *ngIf="showMeusPacientesOption" >{{ 'textosGenericos.meuspacientes' | translate}} </option>
+            <ng-container *ngIf="showAvaliadorOption" [ngTemplateOutlet]="groupAvaliador"></ng-container>
+            <ng-container *ngIf="showTransplantadorOption" [ngTemplateOutlet]="groupTransplantador"></ng-container>
+            <ng-container *ngIf="showColetaOption" [ngTemplateOutlet]="groupCentroColeta"></ng-container>
+        </select>
+    </div>
+</div>
+
+<ng-template #groupAvaliador>
+    <optgroup label="{{ obterAgruapador(1)?.nomeAgrupador }}"  >
+        <option *ngFor="let centro of obterAgruapador(1)?.centrosTransplante"
+            value='{{ centro?.id }}_{{ obterAgruapador(1).idAgrupador }}'>{{ centro?.nome }}
+        </option>
+    </optgroup>
+</ng-template>
+
+<ng-template #groupCentroColeta>
+    <optgroup label="{{ obterAgruapador(2)?.nomeAgrupador }}"  >
+        <option *ngFor="let centro of obterAgruapador(2)?.centrosTransplante"
+            value='{{ centro?.id }}_{{ obterAgruapador(2).idAgrupador }}'>{{ centro?.nome }}
+        </option>
+    </optgroup>
+</ng-template>
+
+<ng-template #groupTransplantador>
+    <optgroup label="{{ obterAgruapador(3)?.nomeAgrupador }}"  >
+        <option *ngFor="let centro of obterAgruapador(3)?.centrosTransplante"
+            value='{{ centro?.id }}_{{ obterAgruapador(3).idAgrupador }}'>{{ centro?.nome }}
+        </option>
+    </optgroup>
+</ng-template>

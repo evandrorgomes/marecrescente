@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="genotipo_teste" columnCount="9" printOrder="Horizontal" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="62" leftMargin="0" rightMargin="20" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" uuid="fc97a963-c0b6-4c19-a348-7e2773e092a3">
+	<property name="template.engine" value="tabular_template"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#005FB3">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="locus" class="java.lang.String"/>
+	<field name="primeiroAlelo" class="java.lang.String"/>
+	<field name="segundoAlelo" class="java.lang.String"/>
+	<field name="qualificacaoPrimeiroAlelo" class="java.lang.String"/>
+	<field name="qualificacaoSegundoAlelo" class="java.lang.String"/>
+	<detail>
+		<band height="19">
+			<property name="com.jaspersoft.studio.layout"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="6" y="0" width="55" height="19" uuid="37375f3d-3170-4a93-a4ea-a4b3fc936106"/>
+				<box>
+					<pen lineWidth="0.01" lineStyle="Solid" lineColor="#0D0B0B"/>
+					<topPen lineWidth="0.01" lineStyle="Solid" lineColor="#0D0B0B"/>
+					<leftPen lineWidth="0.01" lineStyle="Solid" lineColor="#0D0B0B"/>
+					<bottomPen lineWidth="0.01" lineStyle="Solid" lineColor="#0D0B0B"/>
+					<rightPen lineWidth="0.01" lineStyle="Solid" lineColor="#0D0B0B"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[IF(AND($F{primeiroAlelo} != null,$F{segundoAlelo} != null), $F{primeiroAlelo} + "\n" + $F{segundoAlelo}, "" )]]></textFieldExpression>
+			</textField>
+			<ellipse>
+				<reportElement x="3" y="2" width="6" height="6" backcolor="#FFFFFF" uuid="7bfaabee-143e-4da8-9bbd-217789395b7e">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoPrimeiroAlelo} , "P")]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#67A3C9"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="3" y="2" width="6" height="6" backcolor="#FFFFFF" uuid="447af619-65c0-4cd2-8b8a-9b23b9feecec">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoPrimeiroAlelo},"M")]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#EF4F4F"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="3" y="2" width="6" height="6" backcolor="#FFFFFF" uuid="6f0e4308-edf1-4a26-98cb-6946781631c5">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoPrimeiroAlelo} , "A")
+]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#EDE12E"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="3" y="2" width="6" height="6" backcolor="#FFFFFF" uuid="fa14f96c-3f93-4347-a776-d92442783356">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoPrimeiroAlelo} , "L")]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#8DCF86"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="3" y="10" width="6" height="6" backcolor="#FFFFFF" uuid="d3914ebb-0557-4d2a-8b0f-c6eb5463fe9c">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoSegundoAlelo} , "L")]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#8DCF86"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="3" y="10" width="6" height="6" backcolor="#FFFFFF" uuid="f4af39e6-d2cd-4b19-bdea-e83e7e10d58b">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoSegundoAlelo} , "A")]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#EDE12E"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="3" y="10" width="6" height="6" backcolor="#FFFFFF" uuid="1bb65021-c74c-4620-b1c9-2cbf65257b93">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoSegundoAlelo} , "M")]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#EF4F4F"/>
+				</graphicElement>
+			</ellipse>
+			<ellipse>
+				<reportElement x="3" y="10" width="6" height="6" backcolor="#FFFFFF" uuid="7e820eaa-fc36-4285-a273-9d17e0a560b5">
+					<printWhenExpression><![CDATA[EXACT($F{qualificacaoSegundoAlelo} , "P")]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#67A3C9"/>
+				</graphicElement>
+			</ellipse>
+			<textField>
+				<reportElement stretchType="ElementGroupBottom" x="3" y="2" width="6" height="6" forecolor="#000000" uuid="2e5b35c2-4a3e-4936-b53d-7063c2c3cc9b">
+					<printWhenExpression><![CDATA[$F{qualificacaoPrimeiroAlelo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="4" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qualificacaoPrimeiroAlelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="10" width="6" height="6" forecolor="#000000" uuid="9b1de7f6-42e6-40d0-8cfa-17384af3ee77">
+					<printWhenExpression><![CDATA[$F{qualificacaoSegundoAlelo} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="4" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qualificacaoSegundoAlelo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

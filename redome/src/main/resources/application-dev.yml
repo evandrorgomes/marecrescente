@@ -1,0 +1,72 @@
+security:
+  oauth2:
+    client:        
+      clientId: modred-front-client
+      clientSecret: 123456
+      accessTokenUri: http://redome-auth.redome-auth-svc.develop.svc.cluster.local:9000/redome-auth/oauth/token
+      user-authorization-uri: http://redome-auth.redome-auth-svc.develop.svc.cluster.local:9000/redome-auth/oauth/authorize
+      grant-type: password, client_credentials
+      scope: trust, validation_hla, integracao
+    resource:
+      token-info-uri: http://redome-auth.redome-auth-svc.develop.svc.cluster.local:9000/redome-auth/oauth/check_token.json
+      prefer-token-info: true
+
+jpa:
+  url: jdbc:oracle:thin:@169.57.173.77:1521/dev12c
+  password: euPwzh7F55
+  username: modred_aplicacao
+
+email:
+  - servidor: smtp.gmail.com
+# servidor=192.168.0.3
+  - porta: 587
+# porta=25
+  - usuario: redomenet.suporte@cancer.org.br
+# usuario=sismatch@inca.gov.br
+  - senha: "!redome!"
+# senha=SI160112
+
+# HOST DE INTEGRAÇÃO REDOME WEB
+host:
+  redomeweb: http://localhost:8080/REDOMEWeb
+
+storage:
+  bucketname: dev-redome
+  #storage_container_name: container-redome
+
+feign:
+  hystrix:
+    enabled: true
+  
+    
+    
+    
+hystrix:
+  shareSecurityContext: true  
+ 
+
+
+ribbon:  
+  eureka:
+    enabled: true
+  
+eureka:    
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+    serviceUrl: 
+      defaultZone: http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery.redome-discovery-svc.develop.svc.cluster.local:9082/eureka/, http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery-dev1.redome-discovery-svc1.develop.svc.cluster.local:9082/eureka/  
+
+spring:
+  sleuth:
+    sampler:
+      rate: 1
+      probability: 1.0  
+    web:      
+      additionalSkipPattern: "/redome/oauth/.*"
+  zipkin:
+    sender:
+      type: web
+    baseUrl: http://redome-zipkin.redome-zipkin-svc.develop.svc.cluster.local:9441/

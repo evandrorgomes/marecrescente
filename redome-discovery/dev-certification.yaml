@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: dev-redome-discovery-tls
+  namespace: develop
+spec:
+  secretName: dev-redome-discovery-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - 'dev-redome-discovery.cancer.org.br'

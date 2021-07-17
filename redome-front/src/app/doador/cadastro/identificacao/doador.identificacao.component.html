@@ -1,0 +1,93 @@
+<div class="row wrap-bloco">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{ 'DoadorIdentificacao.titulo' | translate }}</h3>
+        <a href="javascript:void(0)" class="editar-bloco"  *ngIf="!deveEsconderLinkAlterarIdentificacao()" (click)="editar()" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco" >
+        <div [ngClass]="mostraDados">
+            <p id=""><small>{{ 'DoadorIdentificacao.nome'| translate }}: </small><span class="texto-bloco">{{doador?.nome}}</span></p>
+            <p id=""><small>{{ 'DoadorIdentificacao.nomeMae'| translate }}: </small><span class="texto-bloco">{{doador?.nomeMae}}</span></p>
+            <p id=""><small>{{ 'DoadorIdentificacao.dataNascimento'| translate }}: </small><span class="texto-bloco">{{doador?.dataNascimento | date:'dd/MM/yyyy' }}</span></p>
+            <p id=""><small>{{ 'DoadorIdentificacao.sexo'| translate }}: </small><span class="texto-bloco">{{doador?.sexo}}</span></p>  
+            <p id=""><small>{{ 'DoadorIdentificacao.cpf'| translate }}: </small><span class="texto-bloco">{{ aplicarMascaraCpf(doador?.cpf) }}</span></p>
+            <p id=""><small>{{ 'DoadorIdentificacao.rg'| translate }}: </small><span class="texto-bloco RgSpace">{{doador?.rg}}</span><small>{{ 'DoadorIdentificacao.orgaoExpedidor'| translate }}: </small><span>{{doador?.orgaoExpedidor}}</span></p>            
+        </div>
+        <div [ngClass]="mostraFormulario" class="form-bloco" [formGroup]="identificacaoForm">
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12 nomeSocialStyle">
+                    <label for="nomecivil">{{ 'DoadorIdentificacao.nomeCivil'| translate }}</label>
+                    <input class="form-control" id="nomecivil" tabindex="3" maxlength="255"  type="text"  (blur)="setMensagemErroPorCampo('nome');"
+                        formControlName="nome">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('nome') }}"></msg> 
+                    <div class="checkbox-group">
+                        <input id="cknomesocial" type="checkbox" tabindex="2" (click)="marcarNomeSocial()">
+                        <label for="cknomesocial">
+                            <span></span>{{ 'DoadorIdentificacao.nomeSocial'| translate }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" [hidden]="!exibeNomeCivil">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <label for="nome">{{ 'DoadorIdentificacao.nome'| translate }}</label>
+                    <input class="form-control" id="nome" tabindex="1" maxlength="255" type="text" formControlName="nomeSocial">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeSocial') }}"></msg> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 col-xs-12">
+                    <label for="nomedamae">{{ 'DoadorIdentificacao.nomeMae'| translate }}</label>
+                    <input class="form-control" id="nomedamae" tabindex="4" maxlength="255" type="text" formControlName="nomeMae" (blur)="setMensagemErroPorCampo('nomeMae');">
+                     <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeMae') }}"></msg> 
+                </div>
+                <div class="form-group col-sm-3 col-xs-12">
+                    <label for="dataNascimento">{{ 'DoadorIdentificacao.dataNascimento'| translate }}</label>
+                    <input class="form-control"
+                        [textMask]="{mask: data}"
+                     tabindex="1" id="dataNascimento" type="text" maxlength="11" placeholder="DD/MM/AAAA" formControlName="dataNascimento">
+                     <msg mensagem="{{ exibirMensagemErrorPorCampo('dataNascimento') }}"></msg> 
+                </div>
+                <div class="form-group col-sm-3 col-xs-12">
+                    <label>{{ 'DoadorIdentificacao.sexo'| translate }}</label>
+                    <div class="radio-group">
+                        <input id="ddlSexoF" tabindex="1" type="radio" value="F" (change)="setMensagemErroPorCampo('sexo');" formControlName="sexo">
+                        <label for="ddlSexoF" class="radio-inline">
+                            <span></span> {{ 'sexo.feminino'| translate }}
+                        </label>
+    
+                        <input id="ddlSexoM" tabindex="2" type="radio" value="M" (change)="setMensagemErroPorCampo('sexo');" formControlName="sexo">
+                        <label for="ddlSexoM" class="radio-inline">
+                            <span></span> {{ 'sexo.masculino'| translate }}
+                        </label>
+                    </div>
+                    <div class="clearfix"></div>
+                     <msg mensagem="{{ exibirMensagemErrorPorCampo('sexo') }}"></msg> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="nomedamae">{{ 'DoadorIdentificacao.cpf'| translate }}</label>
+                    <input class="form-control" [textMask]="{mask: cpf}" id="cpf" tabindex="4" formControlName="cpf" maxlength="15" type="text">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('cpf') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="identidade">{{ 'DoadorIdentificacao.rg'| translate }}</label>
+                    <input class="form-control" id="identidade" tabindex="4" formControlName="rg" maxlength="14" type="text">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('rg') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="orgaoExpeditor">{{ 'DoadorIdentificacao.orgaoExpedidor'| translate }}</label>
+                    <input class="form-control" id="orgaoExpeditor" tabindex="4" formControlName="orgaoExpedidor" maxlength="255" type="text">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('orgaoExpedidor') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                    <button id="cancelarIdentificacao" class="btn btn-default floatL" (click)="cancelarEdicao()" >{{ 'botao.cancelar'| translate }}</button>
+                    <button id="alterarIdentificacao" class="btn btn-primary floatR" (click)="salvarIdentificacao()">{{ 'botao.salvar'| translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<modal mensagem="" #modalMsg></modal>

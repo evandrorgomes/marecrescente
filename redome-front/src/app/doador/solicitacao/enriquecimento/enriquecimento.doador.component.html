@@ -1,0 +1,33 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'doadores.enriquecer.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="cancelarTarefaEnriquecimento()"><span class="icon-seta-esquerda"></span> {{'botao.cancelar' | translate}}</a>
+                <span [hidden]='!exibirBotaoInativar'>
+                    <a type="button" class="btn btn-setting btn-default"
+                        (click)="inativarDoador()"><span class="icon-proibido"></span> {{'doadores.enriquecer.inativar' | translate}}</a>
+                </span>
+                <span>
+                    <a type="button" class="btn btn-setting btn-primary" (click)="salvar()">
+                        <span class="icon-salvar"></span> {{'doadores.enriquecer.salvar' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <doadoridentificacao esconderLinkAlterarIdentificacao="false" #doadorIdentificacaoComponent></doadoridentificacao>
+        <doador-contato-telefone esconderLinkIncluirTelefone="false" #doadorContatoTelefoneComponent></doador-contato-telefone>
+        <doador-contato-endereco exibirEnderecoContatoExcluido="true"  esconderLinkIncluirEndereco="false" #doadorContatoEnderecoComponent></doador-contato-endereco>
+        <doador-contato-email exibirEmailContatoExcluido="true" esconderLinkIncluirEmail="false" #doadorEmailContatoComponent></doador-contato-email>
+        <inativacao-modal recurso="INATIVAR_DOADOR_ENRIQUECIMENTO"></inativacao-modal>
+    </div>
+    <inativacao-modal></inativacao-modal>
+</div>

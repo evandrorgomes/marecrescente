@@ -1,0 +1,75 @@
+<accordion-group isOpen="{{ true }}" [isDisabled]="true" >
+    <div [ngClass]="obterCSSPorErro((comErro))" accordion-heading>
+        <label for="{{ obterIdPergunta() }}">{{ obterMarcadorText() }}</label>
+    </div>
+
+<input id="{{ obterIdPergunta() }}" name="{{ obterIdPergunta() }} " type="text" *ngIf="obterTipoText()" [attr.maxlength]="tamanho"
+        [(ngModel)]="valor" style="width: 100%" [disabled]="desabilita" />
+
+<input id="{{ obterIdPergunta() }}" name="{{ obterIdPergunta() }} " type="text" *ngIf="obterTipoNumeric()" [attr.maxlength]="tamanho"
+        [(ngModel)]="valor" style="width: 100%" currencyMask [options]="getOptions()" [disabled]="desabilita" />
+
+<input id="{{ obterIdPergunta() }}" name="{{ obterIdPergunta() }} " type="text" *ngIf="obterTipoDate()" maxlength="11" placeholder="DD/MM/AAAA"
+        [(ngModel)]="valor" style="width: 100%" [textMask]="{mask: _data}" [disabled]="desabilita" />
+
+<textarea id="{{ obterIdPergunta() }}" name="{{ obterIdPergunta() }}" *ngIf="obterTipoTextArea()" [attr.maxlength]="tamanho"
+        [(ngModel)]="valor" [disabled]="desabilita"></textarea>
+
+<ul *ngIf="obterTipoAlinhamentoVertical() && obterTipoRadio()">
+    <li *ngFor="let op of opcoes; index as i">
+        <input id="r{{obterIdPergunta() + i }}" name="r{{ obterIdPergunta() + i }}" type="radio" value="{{ op.valor }}"
+            [(ngModel)]="valor" [disabled]="desabilita"/>
+        <label for="r{{ obterIdPergunta() + i }}" class="radio-inline">
+            <span></span> {{ op.descricao }}
+        </label>
+    </li>
+</ul>
+
+<ul *ngIf="obterTipoAlinhamentoHorizontal() && obterTipoRadio()">
+    <li>
+        <small *ngFor="let op of opcoes; index as i">
+             <input id="r{{obterIdPergunta() + i }}" name="r{{ obterIdPergunta() + i }}" type="radio" value="{{ op.valor }}"
+                [(ngModel)]="valor" [disabled] ="desabilita"/>
+            <label for="r{{ obterIdPergunta() + i }}" class="radio-inline">
+                <span></span> {{ op.descricao }}
+            </label>
+        </small>
+    </li>
+</ul>
+
+<ul *ngIf="obterTipoAlinhamentoVertical() && obterTipoCheck()">
+    <li *ngFor="let sel of _selecionados; index as i">
+        <input id="c{{ obterIdPergunta() +  i }}" name="c{{ obterIdPergunta() +  i }}" type="checkbox" value="{{ sel.opcao.valor }}"
+            [(ngModel)]="sel.selected" (change)="checkChange()" (click)="desabilitarOutros(sel.opcao, !sel.selected)" disabled="{{ sel.disabled }}" />
+        <label for="c{{ obterIdPergunta() + i }}" class="checkbox-inline">
+            <span></span> {{ sel.opcao.descricao }}
+        </label>
+    </li>
+</ul>
+
+<ul *ngIf="obterTipoAlinhamentoHorizontal() && obterTipoCheck()">
+    <li>
+        <small *ngFor="let sel of _selecionados; index as i">
+            <input id="c{{ obterIdPergunta() +  i }}" name="c{{ obterIdPergunta() +  i }}" type="checkbox" value="{{ sel.opcao.valor }}"
+                [(ngModel)]="sel.selected" (change)="checkChange()" (click)="desabilitarOutros(sel.opcao, !sel.selected)" [disabled]="desabilita" />
+            <label for="c{{ obterIdPergunta() + i }}" class="checkbox-inline">
+                <span></span> {{ sel.opcao.descricao }}
+            </label>
+        </small>
+    </li>
+</ul>
+
+<select id="{{ obterIdPergunta() }}" [(ngModel)]="valor" *ngIf="obterTipoSelect()" style="width: 100%;" [disabled]="desabilita" >
+    <option *ngFor="let op of opcoes; index as i" value="{{ op.valor }}"> {{ op.descricao }}</option>
+</select>
+
+<div *ngIf="dependentes?.length != 0">
+    <div *ngFor="let dp of dependentes">
+        <pergunta marcador="{{ dp.pergunta?.marcador }}" id="{{ dp.pergunta?.id }}"  tipo="{{ dp.pergunta?.tipo }}" descricao="{{ dp.pergunta?.descricao }}"
+                tamanho=" {{ dp.pergunta?.tamanho }}"  [opcoes]="dp.pergunta?.opcoes" [dependentes]="dp.pergunta?.dependentes" [desabilita]= "desabilita"
+                [formatoNumerico]="dp.pergunta?.formatoNumerico" [comErro]="dp.pergunta?.comErro" [alinhamento]="dp.pergunta?.alinhamento"
+                [(valor)]="dp.pergunta.resposta" *ngIf="verificarResposta(dp.valor, dp.tipoComparacao)">
+        </pergunta>
+    </div>
+</div>
+</accordion-group>

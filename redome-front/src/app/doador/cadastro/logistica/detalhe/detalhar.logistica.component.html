@@ -1,0 +1,302 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.logistica.tituloWorkup' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a type="button" class="btn btn-setting btn-default" (click)="voltarParaListagem()">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+                </a>
+                <a id="btnConfirmarDados" type="button" class="btn btn-setting btn-primary" 
+                    (click)="salvar()"><span class="icon-salvar"></span> 
+                    {{'workup.logistica.acoes.salvar' | translate}}
+                </a>
+                <a id="btnFinalizar" type="button" class="btn btn-setting btn-primary" 
+                    (click)="finalizar()"><span class="glyphicon glyphicon-ok-circle"></span> 
+                    {{'workup.logistica.acoes.finalizar' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.logistica.examemedico' | translate }}</h3>
+            </div>
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <ul>
+                    <li>                
+                        <p id="">
+                            <small>{{'workup.logistica.dataexamemedico1' | translate}}: </small>
+                            <span class="texto-bloco">
+                                <div>
+                                    {{ dataExameMedico1 | date: 'dd/MM/yyyy HH:mm' }}
+                                </div>
+                            </span>
+                        </p>
+                        <p id="">
+                            <small>{{'workup.logistica.dataexamemedico2' | translate}}: </small>
+                            <span class="texto-bloco">
+                                <div>
+                                    {{ dataExameMedico2 | date: 'dd/MM/yyyy HH:mm' }}
+                                </div>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>    
+
+        <!-- INFORMAÇÕES DO DOADOR -->
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.logistica.informacoesDoador' | translate }}</h3>
+            </div>
+
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                
+                <!-- INFORMAÇÕES DE TELEFONE -->
+                <ul>
+                    <li *ngFor=" let contatoTelefonico of dadosDoador?.contatosTelefonicos; index as i">                
+                        <p id="">
+                            <small>{{'workup.logistica.telefones' | translate}} {{ i+1 }}: </small>
+                            <span class="texto-bloco">
+                                <div>
+                                    <i class="{{contatoTelefonico.tipo == 2 ? 'icon-celular' : 'icon-telefone'}}"></i> 
+                                    {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}                             
+                                    <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                </div>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+
+                <!-- INFORMAÇÕES DE ENDEREÇO -->
+                <ul>
+                    <li *ngFor=" let endereco of dadosDoador?.enderecosContato; index as i">
+                        <p id="" *ngIf="endereco.principal">
+                            <small>{{'workup.logistica.enderecos' | translate}}: </small>
+                            <span class="texto-bloco">
+                                <div>
+                                    {{ endereco?.tipoLogradouro}} {{ endereco?.nomeLogradouro}}, {{ endereco?.numero}} - {{ endereco?.bairro}} - {{ endereco?.municipio?.descricao }}<br/>{{ endereco?.municipio?.uf?.sigla}} - {{ endereco?.pais?.nome}} - CEP {{ endereco?.cep}}  
+                                </div>
+                            </span>        
+                        </p>
+                    </li>
+                </ul>
+
+                <!-- INFORMAÇÕES DE E-MAILS -->
+                <ul>
+                    <li *ngFor=" let emailContato of dadosDoador?.emailsContato; index as i">
+                        <p id="">
+                            <small>{{'workup.logistica.emails' | translate}} {{ i + 1 }}: </small>
+                            <span class="texto-bloco"> {{emailContato.email}} 
+                                <i class="icon-favorito laranja" *ngIf="emailContato.principal"  ></i>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <!-- INFORMAÇÕES DO CENTRO DE COLETA -->
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.logistica.informacoesCentroColeta' | translate }}</h3>
+            </div>
+
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <!-- NOME DO CENTRO DE COLETA -->
+                <ul>
+                    <li>
+                        <p id="">
+                            <small>Nome:</small>
+                            <span class="texto-bloco">{{ centroTransplante?.nome }}</span>
+                        </p>
+                    </li>
+                </ul>
+
+               <!-- INFORMAÇÕES DE TELEFONE -->
+               <ul>
+                    <li *ngFor=" let contatoTelefonico of centroTransplante?.contatosTelefonicos; index as i">                
+                        <p id="">
+                            <small>{{'workup.logistica.telefones' | translate}} {{ i+1 }}: </small>
+                            <span class="texto-bloco">
+                                <div>
+                                    <i class="{{contatoTelefonico.tipo == 2 ? 'icon-celular' : 'icon-telefone'}}"></i> 
+                                    {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}                             
+                                    <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                </div>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+
+                <!-- INFORMAÇÕES DE ENDEREÇO -->
+                <ul>
+                    <li *ngFor=" let endereco of centroTransplante?.enderecos; index as i">
+                        <p id="">
+                            <small *ngIf="endereco.workup">{{'workup.logistica.enderecoWorkup' | translate}}: </small>
+                            <span class="texto-bloco" *ngIf="endereco.workup">
+                                {{ endereco?.tipoLogradouro}} {{ endereco?.nomeLogradouro}}, {{ endereco?.numero}} - {{ endereco?.bairro}} - {{ endereco?.municipio?.descricao }}<br/>{{ endereco?.municipio?.uf?.sigla}} - {{ endereco?.pais?.nome}} - CEP {{ endereco?.cep}}  
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+
+                <!-- INFORMAÇÕES DE E-MAILS -->
+                <ul>
+                    <li *ngFor=" let emailCentro of centroTransplante?.emails; index as i">
+                        <p id="">
+                            <small>{{'workup.logistica.emails' | translate}} {{ i + 1 }}: </small>
+                            <span class="texto-bloco"> {{emailCentro.email}} 
+                                <i class="icon-favorito laranja" *ngIf="emailCentro.principal"  ></i>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+         <!-- INFORMAÇÕES DO transporte aéreo -->
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.logistica.transporteAereo' | translate }}</h3>
+                <a href="javascript:void(0)" class="editar-bloco" (click)="incluirTransporteAereo()" [ngClass]='mostrarIncluirTransporteAereo'><span class="icon-editar"></span>{{'link.incluir' | translate}} </a>
+            </div>
+    
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">                
+                <voucher #voucherTransporteAereo (eventoCancelar)="cancelarEdicaoTransporteAereo()" (eventoEnviar)="enviarEdicaoTransporteAereo()"  ></voucher>
+            </div>
+        </div>
+
+        <!-- TRANSPORTE TERRESTRE -->
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.logistica.transporteTerrestre' | translate }}</h3>
+                <a href="javascript:void(0)" class="editar-bloco" [ngClass]='mostraDados' 
+                    (click)="editar()"><span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+            </div>
+
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <!-- FORM SOMENTE LEITURA -->
+                <ul [ngClass]="mostraDados" >
+                    <li *ngFor=" let transp of dto?.transporteTerrestre; index as i">                
+                        <p>
+                            {{'workup.logistica.transporte' | translate}} {{ i+1 }} 
+                                <small style="display:inline-block"><a class="btn-dadosinline" 
+                                    title="{{ 'workup.logistica.excluir' | translate}}" 
+                                    (click)="excluirTransporteTerrestre(i)">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </small>
+                        </p>
+                        <p id="">
+                            <small>{{'workup.logistica.labels.origem' | translate}}: </small>
+                            <span class="texto-bloco">
+                                <div>{{ transp.origem }}</div>
+                            </span>
+                        </p>
+                        <p id="">
+                            <small>{{'workup.logistica.labels.destino' | translate}}: </small>
+                            <span class="texto-bloco">
+                                <div>{{ transp.destino }}</div>
+                            </span>
+                        </p>
+                        <p id="">
+                            <small>{{'workup.logistica.labels.dataRealizacao' | translate}}: </small>
+                            <span class="texto-bloco">
+                                <div>{{ toDateTimeString(transp.dataRealizacao) }}</div>
+                            </span>
+                        </p>
+                        <p id="">
+                            <small>{{'workup.logistica.labels.objetoTransportado' | translate}}? </small>
+                            <span class="texto-bloco">
+                                <div>{{ transp.objetoTransportado }}</div>
+                            </span>
+                        </p>
+                        <p id="">
+                            <br />
+                                <a href="javascript:void(0)" class="editar-bloco" 
+                                (click)="adicionarRetorno(transp)"><span class="icon-editar"></span> {{'link.adicionarVolta' | translate}}</a>
+                        </p>
+                    </li>
+                </ul>
+
+                <div class="form-bloco" [ngClass]="mostraFormulario">
+                    <transporte-terrestre-component #transporteTerrestreComponent
+                        listaTransportesTerrestres="dto?.transporteTerrestre">
+                    </transporte-terrestre-component>
+                    <div class="row">
+                        <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                            <button class="btn btn-default floatL" (click)="cancelarInclusaoTransporte()">{{ 'botao.cancelar' | translate }}</button>
+                            <button class="btn btn-primary floatR" (click)="adicionarTransporte()">{{ 'botao.salvar' | translate }}</button>                    
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <!-- INFORMAÇÕES De hospedagem -->
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.logistica.hospedagem' | translate }}</h3>
+                <a href="javascript:void(0)" class="editar-bloco" (click)="incluirHospedagem()" [ngClass]='mostrarIncluirHospedagem'><span class="icon-editar"></span>{{'link.incluir' | translate}} </a>
+            </div>
+    
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">                
+                <voucher #voucherHospedagem (eventoCancelar)="cancelarEdicaoHospedagem()" (eventoEnviar)="enviarEdicaoHospedagem()"  ></voucher>
+            </div>
+        </div>
+
+        <!-- INFORMAÇÕES De hospedagem -->
+        <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                <h3>{{'workup.logistica.observacoes' | translate }}</h3>
+                <a href="javascript:void(0)" class="editar-bloco" (click)="edtiarObservacao()" [ngClass]='mostrarEditarObservacao'><span class="icon-editar"></span>{{'link.editar' | translate}} </a>
+            </div>
+    
+            <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+                <ul [ngClass]="mostraDadosObservacao" >
+                    <li>
+                        <span class="texto-bloco">
+                            {{ dto?.observacao }}                             
+                        </span>
+                    </li>
+                </ul>            
+                <div class="form-bloco" [ngClass]="mostraFormularioObservacao">
+                    <div class="row" >
+                        <div class="form-group col-sm-12 col-xs-12">
+                                <label for="txtobservacao">{{'workup.logistica.observacoes' | translate }}: </label>
+                            <textarea class="form-control" id="txtobservacao" maxlength="500" [(ngModel)]="observacao" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                            <button id="cancelarObservacao" class="btn btn-default floatL" (click)="cancelarEdicaoObservacao()" >{{'botao.cancelar' | translate}}</button>
+                            <button id="alterarObservacao" class="btn btn-primary floatR" 
+                                    (click)="salvarObservacao()" >{{'botao.salvar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<modal mensagem="" #modal (fecharModal)="fecharModal()"   ></modal>

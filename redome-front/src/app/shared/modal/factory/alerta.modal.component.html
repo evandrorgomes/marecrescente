@@ -1,0 +1,21 @@
+<!-- Modal -->   
+<div class="modal-header">
+    <button type="button" 
+        class="close" (click)="fecharModalComponente()">&times;</button>
+</div>
+<div class="modal-body modal-mensagem" *ngIf="hasData()">
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h3 class="text-center" [innerHTML]="data" ></h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 modal-btn">
+            <button type="button" class="btn btn-primary btn-lg" 
+                (click)="fecharModalComponente()" *ngIf="exibirBotaoOk" >
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+            

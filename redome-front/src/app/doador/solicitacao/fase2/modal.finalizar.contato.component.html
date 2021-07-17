@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+            <h2 class="text-center"> {{ 'modalFinalizarContato.titulo' | translate }} <br/> </h2>
+    </div>
+</div>
+<div class="" [formGroup]="form()">
+    <div class="row">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <select-component #cmbContactado (change)="tornarObrigatorio(cmbContactado.value)"
+                label="{{'modalFinalizarContato.contactado' | translate}}:" 
+                formControlName="contactado" 
+                [control]="form().controls['contactado']" 
+                idd="cmbContactado"
+                [options]="_listasSimNao"
+                fieldOptionValue="valor"
+                fieldOptionText="descricao">
+            </select-component>             
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px" *ngIf="form().controls['contactado'].value == 'true'" >
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <select-component 
+                label="{{'modalFinalizarContato.contactadoterceiro' | translate}}:" 
+                formControlName="contactadoTerceiro" 
+                [control]="form().controls['contactadoTerceiro']" 
+                idd="cmbContactadoTerceiro"
+                [options]="_listasSimNao"
+                fieldOptionValue="valor"
+                fieldOptionText="descricao">
+            </select-component>             
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px" *ngIf="form().controls['contactado'].value == 'true'" >
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <select-component #cmbAcao (change)="tornarMotivoObrigatorio(cmbAcao.value)"
+                label="{{'modalFinalizarContato.acao' | translate}}:" 
+                formControlName="acao" 
+                [control]="form().controls['acao']" 
+                idd="cmbAcao"
+                [options]="_listaAcoes"
+                fieldOptionValue="id"
+                fieldOptionText="descricao">
+            </select-component>             
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px" *ngIf="form().controls['acao'].value == '0' && form().controls['contactado'].value == 'true' " >
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <select-component 
+                label="{{'modalFinalizarContato.motivo' | translate}}:" 
+                formControlName="motivo" 
+                [control]="form().controls['motivo']" 
+                idd="cmbMotivo"
+                [options]="_motivosStatusDoador"
+                fieldOptionValue="id"
+                fieldOptionText="descricao">
+            </select-component>                         
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px">
+        <div class="form-group col-sm-offset-4 col-sm-5 col-xs-12">
+            <input-number-component *ngIf="deveExibirCampoTempo()"
+                label="{{'modalFinalizarContato.tempo' | translate}}:" 
+                formControlName="tempo" 
+                [control]="form().controls['tempo']" 
+                idd="txtTempo" 
+                [currencyOption]="{ prefix: '', allowNegative : false, thousands: '', precision: '0' }"
+                placeholder="Tempo em Meses">
+            </input-number-component>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-sm-offset-4 col-sm-5 col-xs-12 modal-btn" style="padding: 30px 0 0 0">
+            <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()" ><span class=""></span> {{ 'botao.confirmar' | translate }}  </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-svc
+  namespace: hml 
+spec:
+  type: NodePort
+  selector:
+    app: redome
+    namespace: hml
+  ports:
+    - protocol: TCP
+      port: 9080
+      targetPort: 9080
+      nodePort: 31549
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-deployment
+  namespace: hml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome
+      namespace: hml
+  template:
+    metadata:
+      labels:
+        app: redome
+        namespace: hml
+    spec:
+      hostname: redome
+      subdomain: redome-svc      
+      containers:
+      - name: redome
+        image: $IMAGE_NAME
+        env:
+          - name: profile
+            value: hml
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "768Mi"
+          limits:
+            cpu: "100m"
+            memory: "1536Mi"
+        volumeMounts:
+          - mountPath: "/logs"
+            name: apilog      
+      volumes:
+        - name: apilog
+          persistentVolumeClaim:
+            claimName: inca-pvc      
+

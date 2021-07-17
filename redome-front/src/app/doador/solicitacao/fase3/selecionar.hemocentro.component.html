@@ -1,0 +1,37 @@
+<div class="row">
+    <form [formGroup]="selecionarHemocentroForm">
+        <div class="row">
+            <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+                <label for="ddlEndDoador">{{ 'contato.selecionarEndDoador' | translate }}:</label>
+                <select class="form-group" #cbEndDoador
+                        formControlName="endDoador" 
+                        class="form-control" id="ddlEndDoador"
+                        (blur)="marcarComoObrigatorio('endDoador')"
+                        (change)="selecionarEndDoador(cbEndDoador.value)">
+                    <option value=""></option>
+                    <option *ngFor="let end of _enderecosDoador" 
+                        value="{{end?.municipio?.uf?.sigla}}">{{
+                            end?.tipoLogradouro + ' ' + end?.nomeLogradouro + ', ' +
+                            end?.municipio?.descricao + ', ' + end?.municipio?.uf?.sigla}}</option>
+                </select>
+                <msg mensagem="{{ mensagemErro?.endDoador }}"></msg>
+            </div>
+        </div>
+        <div class="row" *ngIf="selecionarHemocentroForm.controls['endDoador'].value != null">
+            <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+                <label for="ddlHemoEntidades">
+                    {{ 'contato.selecionarHemocentro' | translate }}:</label>
+                <select class="form-group" #cbHemoentidade
+                        formControlName="hemoentidade" 
+                        class="form-control" id="ddlHemoEntidade"
+                        (blur)="marcarComoObrigatorio('hemoentidade')"
+                        (change)="selecionarHemoEntidade(cbHemoentidade.value)">
+                    <option value=""></option>    
+                    <option *ngFor="let hemo of hemoentidades" 
+                        value="{{hemo?.id}}">{{hemo?.nome}}</option>
+                </select>
+                <msg mensagem="{{ mensagemErro?.hemoentidade }}"></msg>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,108 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <!-- Título da seção -->
+                <h2>{{'consultaSmsComponent.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <form [formGroup]="_form">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-2 ">                    
+                    <input-number-component 
+                        label="{{'consultaSmsComponent.dmr' | translate}}:" 
+                        formControlName="dmr" 
+                        [control]="_form.controls['dmr']" 
+                        idd="txtDmr" 
+                        [currencyOption]="{ prefix: '', allowNegative : false, thousands: '', precision: '0' }"
+                        placeholder="">
+                    </input-number-component>
+                </div>
+                <div class="form-group col-xs-12 col-sm-2">
+                    <input-component 
+                        label="{{'consultaSmsComponent.datainicial' | translate}}:" 
+                        formControlName="dataInicial" 
+                        [control]="_form.controls['dataInicial']" 
+                        idd="txtDataInicial" 
+                        [mascara]="_maskData"
+                        placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+                <div class="form-group col-xs-12 col-sm-2">
+                    <input-component 
+                        label="{{'consultaSmsComponent.datafinal' | translate}}:" 
+                        formControlName="dataFinal" 
+                        [control]="_form.controls['dataFinal']" 
+                        idd="txtDataFinal" 
+                        [mascara]="_maskData"
+                        placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+                <div class="form-group col-xs-12 col-sm-3">
+                    <select-component 
+                        label="{{'consultaSmsComponent.status' | translate}}:" 
+                        formControlName="status" 
+                        [control]="_form.controls['status']" 
+                        idd="cmbStatus"
+                        [options]="_listaStatus"
+                        fieldOptionValue="id"
+                        fieldOptionText="descricao">
+                    </select-component> 
+                </div>
+                <div class="col-sm-3 col-xs-12">
+                    <button id="btnConsulta" class="btn btn-lg btn-primary btn-block" (click)="consultar()">{{'botao.consultar' | translate}}</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Tabela que exibe o resultado da busca -->
+        <div class="row" *ngIf="_paginacao.totalElements && _paginacao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table id="tblConsulta" class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-3">{{'consultaSmsComponent.tabela.data' | translate}}</th>
+                            <th class="col-sm-3">{{'consultaSmsComponent.tabela.dmr' | translate}}</th>
+                            <th class="col-sm-3">{{'consultaSmsComponent.tabela.telefone' | translate}}</th>
+                            <th class="col-sm-3">{{'consultaSmsComponent.tabela.status' | translate}}</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sms of _paginacao.content; index as i">
+                            <td>{{ sms.data | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                            <td>{{ sms.dmr }}</td>
+                            <td>{{ sms.telefone }} </td>
+                            <td>{{ sms.statusDescricao }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="_paginacao.totalElements && _paginacao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="_paginacao.totalElements" [ngModel]="_paginacao.number" [maxSize]="5" class="pagination-sm pagination-wrap"
+                    [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="_paginacao.quantidadeRegistro" (pageChanged)="mudarPagina($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}" previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>" lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="_qtdRegistros" (change)="selecinaQuantidadePorPagina($event)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

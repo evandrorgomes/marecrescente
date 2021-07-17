@@ -1,0 +1,91 @@
+spring:  
+  jmx:
+    default-domain: redome-tarefa 
+  sleuth:
+    enabled: true
+    sampler:
+      rate: 1
+      probability: 1.0
+  zipkin:
+    sender:
+      type: web
+    baseUrl: http://redome-zipkin.redome-zipkin-svc.hml.svc.cluster.local:9441/
+    
+security:
+  oauth2:
+    client:        
+      clientId: redome-tarefa
+      clientSecret: 123456
+      accessTokenUri: http://redome-auth.redome-auth-svc.hml.svc.cluster.local:9000/redome-auth/oauth/token
+      user-authorization-uri: http://redome-auth.redome-auth-svc.hml.svc.cluster.local:9000/redome-auth/oauth/authorize
+      grant-type: password, client_credentials
+      scope: server
+    resource:
+      user-info-uri: http://redome-auth.redome-svc.hml.svc.cluster.local:9000/redome-auth/api//user/current
+      token-info-uri: http://redome-auth.redome-auth-svc.hml.svc.cluster.local:9000/redome-auth/oauth/check_token.json
+      prefer-token-info: false
+      
+## MAPEAMENTO BD INCA
+jpa:
+  url: jdbc:oracle:thin:@10.46.9.63:1521/bdintra.inca.local
+  password: euPwzh7F55
+  username: modred_aplicacao
+  
+feign:
+  hystrix:
+    enabled: true
+    command:
+      default:
+        execution:
+          isolation:
+            strategy: SEMAPHORE
+    
+hystrix:
+  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 210000
+
+ribbon:
+  eureka:
+    enabled: true
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+  
+eureka:
+  instance:
+    non-secure-port: 9001
+    
+    virtual-host-name: REDOME-TAREFA
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+    serviceUrl: 
+      defaultZone: http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery.redome-discovery-svc.hml.svc.cluster.local:9082/eureka/, http://redomediscovery:D4V5uzR4isTHS08WRKIInL1ZfP@redome-discovery-hml1.redome-discovery-svc1.hml.svc.cluster.local:9082/eureka/
+      
+      
+email:
+  - servidor: smtp.gmail.com
+# servidor=192.168.0.3
+  - porta: 587
+# porta=25
+  - usuario: redomenet.suporte@cancer.org.br
+# usuario=sismatch@inca.gov.br
+  - senha: "!redome!"
+# senha=SI160112
+
+# HOST DE INTEGRAÇÃO REDOME WEB
+host:
+  redomeweb: http://localhost:8080/REDOMEWeb
+
+logging:
+  pattern:
+    console:
+  path: /logs/redome-tarefa/hml  
+  

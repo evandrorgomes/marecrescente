@@ -1,0 +1,237 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{titulo}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()" >
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+
+                <a id="idSalvar" type="button" class="btn btn-setting btn-primary" (click)="salvar()">
+                    <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <visualizar-prescricao></visualizar-prescricao>
+            </div>
+        </div>
+
+        <div [formGroup]="form()">
+            <div class="row" >
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 10px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.dataexame' | translate}}:"
+                            formControlName="dataExame"
+                            [control]="form().controls['dataExame']"
+                            idd="txtDataExame"
+                            [mascara]="maskData"
+                            placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 10px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.dataresultado' | translate}}:"
+                            formControlName="dataResultado"
+                            [control]="form().controls['dataResultado']"
+                            idd="txtDataResultado"
+                            [mascara]="maskData"
+                            placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 10px !important;" *ngIf="isWorkupNacional()">
+                    <input-component
+                            label="{{'informarplanoworkup.datainternacao' | translate}}:"
+                            formControlName="dataInternacao"
+                            [control]="form().controls['dataInternacao']"
+                            idd="txtDataInternacao"
+                            [mascara]="maskData"
+                            placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 10px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.datacoleta' | translate}}:"
+                            formControlName="dataColeta"
+                            [control]="form().controls['dataColeta']"
+                            idd="txtDataColeta"
+                            [mascara]="maskData"
+                            placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group col-sm-6 col-xs-12" style="margin-top: 10px !important;">
+                    <textarea-component
+                            label="{{'informarplanoworkup.observacao' | translate}}:"
+                            formControlName="observacao"
+                            [control]="form().controls['observacao']"
+                            rows="4"
+                            idd="txtPbservacao">
+                    </textarea-component>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 col-xs-12" style="margin-top: 20px !important;">
+                    <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="page-content" *ngIf="isWorkupNacional()">
+        <div [formGroup]="formDoador()">
+            <div class="row">
+                <div class="page-title h2 col-xs-12 col-sm-12" style="margin-top: 20px !important;">
+                    <h2>Informações para o Doador</h2>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.dataexamemedico1' | translate}}:"
+                            formControlName="dataExameMedico1"
+                            [control]="formDoador().controls['dataExameMedico1']"
+                            idd="txtDataExameMedico1"
+                            [mascara]="maskData"
+                            placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+                <div class="form-group col-sm-2 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.horario' | translate}}:"
+                            formControlName="horaExameMedico1"
+                            [control]="formDoador().controls['horaExameMedico1']"
+                            idd="txtHoraExameMedico1"
+                            [mascara]="maskHora"
+                            placeholder="HH:MM">
+                    </input-component>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.dataexamemedico2' | translate}}:"
+                            formControlName="dataExameMedico2"
+                            [control]="formDoador().controls['dataExameMedico2']"
+                            idd="txtDataExameMedico2"
+                            [mascara]="maskData"
+                            placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+                <div class="form-group col-sm-2 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.horario' | translate}}:"
+                            formControlName="horaExameMedico2"
+                            [control]="formDoador().controls['horaExameMedico2']"
+                            idd="txtHoraExameMedico2"
+                            [mascara]="maskHora"
+                            placeholder="HH:MM">
+                    </input-component>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.datarepeticaobthcg' | translate}}:"
+                            formControlName="dataRepeticaoBthcg"
+                            [control]="formDoador().controls['dataRepeticaoBthcg']"
+                            idd="txtDataRepeticaoBthcg"
+                            [mascara]="maskData"
+                            placeholder="DD/MM/AAAA">
+                    </input-component>
+                </div>
+                <div class="form-group col-sm-2 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.horario' | translate}}:"
+                            formControlName="horaRepeticaoBthcg"
+                            [control]="formDoador().controls['horaRepeticaoBthcg']"
+                            idd="txthoraRepeticaoBthcg"
+                            [mascara]="maskHora"
+                            placeholder="HH:MM">
+                    </input-component>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="form-group col-sm-2 col-xs-12" style="margin-top: 20px !important;">
+                    <group-radio-component label= "{{'informarplanoworkup.doadoremjejum' | translate}}"
+                        id="doadorEmJejum"
+                        formControlName="doadorEmJejum"
+                        [control]="formDoador().controls['doadorEmJejum']"
+                        [optionsLabel]="labelsDoadorEmJejum"
+                        [optionsValue]="opcoesDoadorEmJejum"
+                        (change)="isDoadorEmJejum(formDoador().controls['doadorEmJejum'].value)">
+                    </group-radio-component>
+                </div>
+
+                <div class="form-group col-sm-2 col-xs-12" style="margin-top: 20px !important;" *ngIf="doadorEmJejum">
+                    <input-component
+                            label="{{'informarplanoworkup.horasemjejum' | translate}}:"
+                            formControlName="horasEmJejum"
+                            [control]="formDoador().controls['horasEmJejum']"
+                            idd="txtHorasEmJejum">
+                    </input-component>
+                </div>
+            </div>
+
+            <div class="row" >
+                <div class="form-group col-sm-6 col-xs-12" style="margin-top: 10px !important;">
+                    <textarea-component
+                            label="{{'informarplanoworkup.informacoesadicionais' | translate}}:"
+                            formControlName="informacoesAdicionais"
+                            [control]="formDoador().controls['informacoesAdicionais']"
+                            rows="4"
+                            idd="txtInformacoesAdicionais">
+                    </textarea-component>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="page-title h2 col-xs-12 col-sm-12" style="margin-top: 20px !important;">
+                    <h2>Informações Complementares</h2>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.nomesetorandar' | translate}}:"
+                            formControlName="nomeSetorAndar"
+                            [control]="formDoador().controls['nomeSetorAndar']"
+                            idd="txtNomeSetorAndar">
+                    </input-component>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12" style="margin-top: 20px !important;">
+                    <input-component
+                            label="{{'informarplanoworkup.procurarpor' | translate}}:"
+                            formControlName="procurarPor"
+                            [control]="formDoador().controls['procurarPor']"
+                            idd="txtProcurarPor">
+                    </input-component>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12" style="margin-top: 20px !important;">
+                    <endereco-contato #enderecoWorkup [readOnly]="true" esconderCampoPrincipal="true" esconderCampoCorrespondencia="true"  #enderecoContato></endereco-contato>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

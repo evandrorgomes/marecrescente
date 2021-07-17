@@ -1,0 +1,46 @@
+<div class="row wrap-bloco">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'DoadorContatoTelefone.titulo' | translate }}</h3>
+        <a href="javascript:void(0)" class="editar-bloco" 
+        *ngIf="!deveEsconderLinkIncluirTelefone()"  (click)="editar()" ><span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+        <ul [ngClass]="mostraDados" >
+            <li *ngFor=" let contatoTelefonico of contatosTelefonicos; index as i">                
+                <p id="">
+                    <small>{{'DoadorContatoTelefone.telefone' | translate}} {{ i+1 }}: </small>
+                    <span [ngClass]="contatoExcuido(contatoTelefonico)">
+                        <div *ngIf= "contatoTelefonico.tipo == 2" >
+                            <i class="icon-celular"></i> 
+                            {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " + contatoTelefonico.nome ? contatoTelefonico.nome : '' }}                             
+                            <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                            <a class="btn-dadosinline" *ngIf="deveExibirRemoverTelefone"
+                                title="{{ 'DoadorEmailContato.excluir' | translate}}" 
+                                (click)="excluirTelefone(contatoTelefonico)">
+                            <i class="glyphicon glyphicon-trash"></i></a>   
+                        </div>
+                        <div *ngIf= "contatoTelefonico.tipo == 1" >
+                            <i class="icon-telefone"></i> 
+                            {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{" | " + contatoTelefonico.complemento ? contatoTelefonico.complemento : '' }} {{contatoTelefonico.nome ? " (" +  contatoTelefonico.nome + ")" : ''}} 
+                            <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                            <a class="btn-dadosinline" *ngIf="deveExibirRemoverTelefone"
+                                title="{{ 'DoadorEmailContato.excluir' | translate}}" 
+                                (click)="excluirTelefone(contatoTelefonico)">
+                            <i class="glyphicon glyphicon-trash"></i></a>  
+                        </div>
+                    </span>
+                </p>
+            </li>
+        </ul>
+        <div class="form-bloco" [ngClass]="mostraFormulario">
+            <contato-telefone esconderBotaoAdicionarTelefone validarPrincipal="false"  #contatoTelefoneComponent></contato-telefone>
+            <div class="row">
+                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                    <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicao()">{{ 'botao.cancelar' | translate }}</button>
+                    <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarTelefone()">{{ 'botao.salvar' | translate }}</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<modal mensagem="" #modalMsg></modal>

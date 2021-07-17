@@ -1,0 +1,41 @@
+<form [formGroup]="centroTransplanteGroup">
+    <div class="row">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label>{{ 'confirmarCentroTransplante.centroAvaliador' | translate }}:</label>
+            <label class="form-control label-input">{{detalhe?.nomeCentroAvaliador}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label>{{ 'confirmarCentroTransplante.medico' | translate }}:</label>
+            <label class="form-control label-input">{{detalhe?.nomeMedicoResponsavel}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label>{{ 'confirmarCentroTransplante.selecioneCentroTransplantador' | translate }}:</label>
+            <label>({{ 'confirmarCentroTransplante.atual' | translate }}: {{detalhe?.centroTransplantador?.nome}})</label>
+            <select class="form-group" #cbCentroTransplante class="form-control" 
+                    (blur)="setMensagemErroPorCampo('novoCentroTransplante');"
+                    (change)="selecionarCentroTransplantador()"
+                    formControlName="novoCentroTransplante">
+                <option value=""></option>
+                <option *ngFor="let centro of centrosTransplante; index as i"
+                    value="{{centro?.id}}">{{centro?.nome}}</option>
+            </select>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('novoCentroTransplante') }}"></msg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label>{{ 'confirmarCentroTransplante.endereco' | translate }}</label>
+            <label class="form-control label-input">{{textoEndereco}}</label>
+        </div>
+        <div class="form-group col-sm-6 col-sm-offset-3 col-xs-12">
+            <label>{{ 'confirmarCentroTransplante.telefone' | translate }}</label>
+            <label class="form-control label-input">{{textoContato}}</label>
+        </div>
+    </div>
+</form>
+
+<modal mensagem="" #modalErro></modal>

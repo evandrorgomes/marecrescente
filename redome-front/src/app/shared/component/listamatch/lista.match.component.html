@@ -1,0 +1,35 @@
+<li style="padding-top: 0px;" *ngIf="exibirBusca()" >
+    <div style="text-align: center;" [formGroup]="_formFiltro" >
+        <div class="input-group" style="min-height: unset; margin-bottom: unset;">
+
+            <input type="text" size="100%" class="form-control" style="height: 20px; font-size: 10px;" 
+                formControlName="identificadorDoador"                
+                placeholder="{{ 'textosGenericos.localizardoador' | translate }}" 
+                aria-describedby="basic-addon2">
+            
+            <span class="input-group-btn" id="basic-addon2" 
+                style="font-size: 10px; line-height: 0; background-color: transparent; border: none; float: right;
+                    margin-left: 280px; margin-top: 10px;  position: absolute;z-index: 5;" >
+                <a href="javascript:void(0)" (click)="cancelarPesqquisa()"  style="font-size: 10px;" *ngIf="exibirIconeCancelarPesquisa()" >
+                    <i class="fas  fa-times-circle" style="line-height: 0;  position: absolute; float: right;" ></i> 
+                </a>
+                <i class="fas  fa-search" style="line-height: 0; position: absolute; float: right; left: 20px;" ></i> 
+            </span>
+        </div>
+    </div>
+</li>
+<li style="padding-top: 0px;" *ngIf="paginaAtual > 1" >
+    <div style="text-align: center;font-size: 30px;" >
+        <button type="button" class="btn btn-setting" style="font-size: 30px;width: 100%;margin: 0px;" [disabled]="paginaAtual <= 1 " (click)="paginaAnterior()" >
+            <i class="fas fa-chevron-up" style="font-size: 25px;"></i> 
+        </button>
+    </div>
+</li>
+<card-match  [match]="match" *ngFor="let match of listaPaginada" [exibirMenuPrecricaoDoadorNaDisponibilidade]="exibirPrescricao()"  [exibirStatusDoadorNoHistorico]="exibirStatusDoadorNoHistorico"  ></card-match>
+<li style="padding-top: 0px;" *ngIf="proximaPaginaVisible" >
+    <div style="text-align: center;">
+        <button type="button" class="btn btn-setting" style="font-size: 30px;width: 100%;margin: 1px 0px 0px 0px;" (click)="proximaPagina()" >
+            <i class="fas fa-chevron-down" style="font-size: 25px;" ></i> 
+        </button>
+    </div>
+</li>

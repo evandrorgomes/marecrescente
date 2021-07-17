@@ -1,0 +1,187 @@
+<div #comparacaoModal class="match-modal">
+  <div class="row">
+      <div class="col-sm-12 col-xs-12">
+          <h3 class="title-genotipo">{{'modalGenotipo.paciente.genotipo' | translate}}</h3>
+          <a type="button" class="btn btn-setting btn-primary btn-print floatR" (click)="prepararParaImpressao()">
+              <span class="glyphicon glyphicon-print"></span> {{'botao.imprimir' | translate}}
+          </a>
+      </div>
+  </div>
+  <printable #areaImpressao>
+      <div class="row">
+          <div class="col-sm-3 col-xs-12 match-dados">
+              <p>
+                  <small class="dmr">
+                      {{genotipoComparadoDTO?.rmr ? genotipoComparadoDTO?.rmr : '' }}
+                      {{ genotipoComparadoDTO?.nomePaciente ? (genotipoComparadoDTO?.rmr ? ' : ' : '') + genotipoComparadoDTO?.nomePaciente : '' }}
+                  </small>
+              </p>
+              <p>
+                  <small>
+                      {{genotipoComparadoDTO?.sexo ? genotipoComparadoDTO?.sexo + ', ' : ''}}
+                      {{genotipoComparadoDTO?.idade ? genotipoComparadoDTO?.idade + ', ' : ''}}
+                      {{ genotipoComparadoDTO?.peso ? genotipoComparadoDTO?.peso : '' }}
+                      {{ genotipoComparadoDTO?.peso ? 'Kg,' : ''}}
+                      <span class="icon-sangue" *ngIf="genotipoComparadoDTO?.abo"></span>
+                      {{genotipoComparadoDTO?.abo ? genotipoComparadoDTO?.abo : ''}}
+                  </small>
+              </p>
+          </div>
+          <div class="col-sm-9 col-xs-12 aleloContainer">
+              <div *ngFor="let locus of genotipoComparadoDTO?.listaLocus; index as i">
+
+                  <div class="box" *ngIf="genotipoComparadoDTO?.pacientePossuiGenotipoComLocusEValor(locus)"
+                      (click)="abrirDivGenotipoDescritivo(true, genotipoComparadoDTO, null, locus.codigo)">
+                      <!-- (mouseleave)="fecharDivGenotipoDescritivo()"> -->
+                      <p>{{ locus.codigo }}*</p>
+                      <div>
+                          {{ genotipoComparadoDTO?.obterValorAleloGenotipoPaciente(locus.codigo).primeiroAlelo }}
+                      </div>
+                      <div>
+                          {{ genotipoComparadoDTO?.obterValorAleloGenotipoPaciente(locus.codigo).segundoAlelo }}
+                      </div>
+                  </div>
+                  <div class="box" *ngIf="genotipoComparadoDTO?.pacientePossuiGenotipoComLocusESemValor(locus)">
+                      <p>{{ locus.codigo }}*</p>
+                  </div>
+              </div>
+          </div>
+          <div class="aleloContainer"  [@fadeIn]="pacienteSelecionado && divPaciente ? 'open' : 'close'"
+              *ngIf="pacienteSelecionado && divPaciente">
+              <div class="col-sm-12 col-xs-12 box" style="text-align: left; font-size: 12px; background-color: #f38630;">
+                  <div style="color: floralwhite;">
+                      <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{'detalhePaciente.locus' | translate}} :</b></div>
+                      <div class="col-sm-11 p-0"><b style="font-weight: bold;">{{this._textoLocus}}</b></div>
+                  </div>
+
+                  <div class="col-sm-12 col-xs-12 box" style="text-align: left; font-size: 12px;">
+                      <div class="col-sm-12"></div>
+                      <div class="col-sm-12 p-0"><b style="font-weight: bold;">Paciente</b></div>
+                      <div>
+                          <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{this._primeiroAleloPaciente}} :</b></div>
+                          <div class="col-sm-11 p-0" *ngIf="this.valorPrimeiroAleloPaciente">{{this.valorPrimeiroAleloPaciente}}</div>
+                          <div class="col-sm-12" *ngIf="!this.valorPrimeiroAleloPaciente"></div>
+                      </div>
+                      <div>
+                          <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{this._segundoAleloPaciente}} :</b></div>
+                          <div class="col-sm-11 p-0" *ngIf="this.valorSegundoAleloPaciente">{{this.valorSegundoAleloPaciente}}</div>
+                          <div class="col-sm-12" *ngIf="!this.valorSegundoAleloPaciente"></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <sub-header-paciente #subHeaderPaciente></sub-header-paciente>
+      <div class="row">
+          <div class="col-sm-12 ">
+              <h3 class="title-genotipo" style="margin-top: 0px;padding-bottom: 22px;">{{'modalGenotipo.doador.genotipo' | translate}}</h3>
+              <div class="row" style="position: absolute; margin-top: -30px; font-size: 70%;width: 100%">
+                  <div class="col-sm-1" style="width:10%;">
+                      Legenda:
+                  </div>
+                  <div class="col-sm-3" style="width:22%;">
+                      <b class="qualificacaoP" style="font-size: 80%; left: 0px; margin-top: -3px;">P</b>
+                      <small style="position: relative;left:6px;font-size: 9px; width: 20%;">Match em baixa ou média resolução</small>
+                  </div>
+                  <div class="col-sm-3">
+                      <b class="qualificacaoM" style="font-size: 80%; left: 0px; margin-top: -3px;">M</b>
+                      <small style="position: relative;left:6px;font-size: 9px; width: 20%;">Mismatch em baixa ou média resolução</small>
+                  </div>
+                  <div class="col-sm-2">
+                      <b class="qualificacaoA" style="font-size: 80%; left: 0px; margin-top: -3px;">A</b>
+                      <small style="position: relative;left:6px;font-size: 9px; width: 20%;">Match em alta resolução</small>
+                  </div>
+                  <div class="col-sm-3">
+                      <b class="qualificacaoL" style="font-size: 80%; left: 0px; margin-top: -3px;">L</b>
+                      <small style="position: relative;left:6px;font-size: 9px; width: 20%;">Mismatch em alta resolução</small>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row genotipo-doadores" *ngFor="let genotipoDoadorDTO of genotipoComparadoDTO?.genotiposDoadores; index as i">
+          <div class="col-sm-3 col-xs-12 match-dados">
+              <p>
+                  <small class="dmr" [hidden]="ehCordao(genotipoDoadorDTO)">{{ genotipoDoadorDTO?.dmr }}</small>
+                  <small class="dmr" [hidden]="ehMedulaNacional(genotipoDoadorDTO)">{{ genotipoDoadorDTO?.idRegistro }}</small>
+                  <small class="dmr" [hidden]="ehMedula(genotipoDoadorDTO) && !ehCordaoNacional(genotipoDoadorDTO)">{{ genotipoDoadorDTO?.idBscup }}</small>
+                  <span class="classificacao">{{ genotipoDoadorDTO?.classificacao }}</span>
+                  <span class="mismatch"> {{ genotipoDoadorDTO?.mismatch }}</span>
+              </p>
+              <p>
+                  <small [hidden]="ehCordao(genotipoDoadorDTO)">{{ genotipoDoadorDTO?.sexoFormatado }}, {{ genotipoDoadorDTO?.idade
+                      }}, {{ genotipoDoadorDTO?.peso }}Kg, <i class="icon-sangue"></i>{{ genotipoDoadorDTO?.abo}}</small>
+                  <small [hidden]="ehMedula(genotipoDoadorDTO)">{{ genotipoDoadorDTO?.sexoFormatado }}, {{ quantidadeTCNPorKiloFormatada(genotipoDoadorDTO?.quantidadeTCNPorKilo)
+                      }}, {{ quantidadeCD34PorKiloFormatada(genotipoDoadorDTO?.quantidadeCD34PorKilo) }}, <i class="icon-sangue"></i>{{
+                      genotipoDoadorDTO?.abo}}</small>
+              </p>
+              <small class="label label-primary">{{ genotipoDoadorDTO?.fase }} </small>
+              <small *ngIf="genotipoDoadorDTO.descricaoTipoPermissividade" class="label label-info" style="font-size: 9px; margin-left: 5px;">{{ genotipoDoadorDTO?.descricaoTipoPermissividade }} </small>
+          </div>
+
+          <div class="col-sm-9 col-xs-12 aleloContainer">
+              <div *ngFor="let locus of genotipoComparadoDTO?.listaLocus; index as i">
+                  <div class="box box-doador" *ngIf="genotipoDoadorDTO?.doadorPossuiGenotipoComLocusEValor(locus)"
+                      (click)="abrirDivGenotipoDescritivo(false, genotipoComparadoDTO, genotipoDoadorDTO, locus.codigo)">
+                      <div>
+                          {{genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo).primeiroAlelo}}
+                          <b style="margin-top: 6px; margin-left: 5px;"
+                              *ngIf="exibirQualificacaoAlelo(genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo).qualificacaoAlelo)"
+                              [ngClass]="obterCSSPorQualificacao(genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo).qualificacaoAlelo)">
+                              {{ genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo).qualificacaoAlelo }}</b>
+                      </div>
+                      <div>
+                          {{genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo).segundoAlelo}}
+                          <!-- <b style="margin-top: 26px; margin-left: 5px;" [ngClass]="obterCSSPorQualificacao(genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo).qualificacaoAlelo)">
+                              {{ genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo).qualificacaoAlelo }}</b> -->
+                      </div>
+                      <div *ngIf="genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo)?.probabilidade">
+                        {{genotipoDoadorDTO?.obterValorAleloGenotipoDoador(locus.codigo)?.probabilidade}}%
+                      </div>
+                  </div>
+                  <div class="box box-vazio" *ngIf="genotipoDoadorDTO?.doadorPossuiGenotipoComLocusESemValor(locus)"></div>
+              </div>
+          </div>
+
+          <div class="aleloContainer"  [@fadeIn]="this.divIdenticador === genotipoDoadorDTO.identificadorDoador ? 'open' : 'close'"
+              *ngIf="this.divIdenticador === genotipoDoadorDTO.identificadorDoador">
+              <div class="col-sm-12 col-xs-12 box" style="text-align: left; font-size: 12px; background-color: #f38630;">
+                  <div style="color: floralwhite;">
+                      <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{'detalhePaciente.locus' | translate}} :</b></div>
+                      <div class="col-sm-11 p-0"><b style="font-weight: bold;">{{this._textoLocus}}</b></div>
+                  </div>
+
+                  <div class="col-sm-12 col-xs-12 box" style="text-align: left; font-size: 12px;">
+                      <div class="col-sm-12"></div>
+                      <div class="col-sm-12 p-0"><b style="font-weight: bold;">Paciente</b></div>
+                      <div>
+                          <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{this._primeiroAleloPaciente}} :</b></div>
+                          <div class="col-sm-11 p-0" *ngIf="this.valorPrimeiroAleloPaciente">{{this.valorPrimeiroAleloPaciente}}</div>
+                          <div class="col-sm-12" *ngIf="!this.valorPrimeiroAleloPaciente"></div>
+                      </div>
+                      <div>
+                          <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{this._segundoAleloPaciente}} :</b></div>
+                          <div class="col-sm-11 p-0" *ngIf="this.valorSegundoAleloPaciente">{{this.valorSegundoAleloPaciente}}</div>
+                          <div class="col-sm-12" *ngIf="this.valorSegundoAleloPaciente"></div>
+                      </div>
+                  </div>
+
+                  <div class="col-sm-12 col-xs-12 box" style="text-align: left; font-size: 12px;">
+                      <div class="col-sm-12"></div>
+                      <div class="col-sm-12 p-0"><b style="font-weight: bold;">Doador</b></div>
+                      <div>
+                          <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{this._primeiroAleloDoador}} :</b></div>
+                          <div class="col-sm-11 p-0" style="text-align: justify;">{{this.valorPrimeiroAleloDoador}}</div>
+                      </div>
+                      <div>
+                          <div class="col-sm-1 p-0"><b style="font-weight: bold;">{{this._segundoAleloDoador}} :</b></div>
+                          <div class="col-sm-11 p-0" style="text-align: justify;">{{this.valorSegundoAleloDoador}}</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </printable>
+
+</div>
+

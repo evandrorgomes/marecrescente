@@ -1,0 +1,89 @@
+ <div class="container conteudo" [formGroup]="cadastrarForm">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.resultadoworkup.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-doador #headerDoador></header-doador>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                    <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltarConsulta();">
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="salvarResultado()">
+                        <span class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="form-group col-sm-6 col-xs-12">
+                <group-radio-component #grColetaViavel  id="grColetaViavel"
+                                       label="{{'workup.resultadoworkup.coletaviavel' | translate}}"
+                                       formControlName="coletaViavel"
+                                       [control]="form().controls['coletaViavel']"
+                                       [optionsLabel]="labelsSimNao"
+                                       [optionsValue]="opcoesSimNao"
+                                        columnClass="radio-group col-sm-2 col-xs-12">
+                </group-radio-component>
+            </div>
+        </div>
+        <div class="row" *ngIf="coletaInviavel()">
+            <div class="form-group col-sm-6 col-xs-12">
+                <group-radio-component #grDoadorIndisponivel id="grDoadorIndisponivel"
+                                       label= "{{'workup.resultadoworkup.doadorindisponivel' | translate}}"
+                                       formControlName="doadorIndisponivel"
+                                       [control]="form().controls['doadorIndisponivel']"
+                                       [optionsLabel]="labelsSimNao"
+                                       [optionsValue]="opcoesSimNao"
+                                       columnClass="radio-group col-sm-2 col-xs-12">
+                </group-radio-component>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2 col-xs-12">
+                <div [hidden]="true">
+                    <input id="fileInput"  #fileInput type="file" ng2FileSelect [uploader]="uploader" formControlName="upload" />
+                </div>
+                <button type="button" class="btn btn-lg btn-primary btn-consulta" (click)="fileInput.click()" id="uploadButton">
+                    <span class="glyphicon glyphicon-paperclip"></span> {{'botao.anexarLaudo' | translate}}
+                </button>
+            </div>
+        </div>
+       
+        <div class="page-content">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 wrap-table">
+                    <table class="table tableLaudo">
+                        <thead>
+                            <tr>
+                                <th>{{'tabela.laudoSelecionado' | translate}}: ({{ arquivosFormArray().controls.length }} {{ arquivosFormArray().controls.length <= 1 ? 'anexado' : 'anexados' }})</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="arquivos" class="form-inline">
+                            <tr *ngFor="let item of arquivosFormArray().controls; let i = index;"
+                            [formGroupName]="i">
+                                <td>{{ item.get('nomeArquivo').value  }}</td>
+                                <td>
+                                    <label>{{'workup.resultadoworkup.comentario' | translate}}: </label>
+                                    <input type="text" class="form-control" formControlName="comentario" maxlength="50" placeholder="Descrição do arquivo">
+                                </td>
+                                <td class="tdAcoes"><span class="glyphicon glyphicon-remove floatR" title="Remover arquivo" (click)="removerArquivo(item.get('nomeArquivoCompleto').value)"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group col-sm-12 col-xs-12">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivo') }}"></msg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

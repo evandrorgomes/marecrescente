@@ -1,0 +1,31 @@
+<div class="form-bloco">
+    <div [formGroup]="formGroup">
+        <div class="row">
+            <div class="btn-bloco col-sm-12 col-xs-12">
+                <div [hidden]="true">
+                    <input id="fileInput" #fileInput type="file"
+                        ng2FileSelect [uploader]="uploader" />
+                </div>
+                <button type="button" class="btn btn-primary" (click)="fileInput.click()" id="uploadButton">
+                    <span class="glyphicon glyphicon-paperclip"></span>
+                    {{'textosGenericos.selecioneArquivo' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="row" *ngIf="arquivos?.size != 0" >
+            <div class="form-group col-sm-12 col-xs-12">
+                <label for="txtarquivoSelecionado">{{'textosGenericos.arquivos' | translate}}: </label>
+                <span *ngFor="let arquivo of getKeys(arquivos); index as i ">
+                        <input class="form-control" id="txtarquivoSelecionado" readonly type="text" value="{{arquivo}}" >
+                        <a class="link" title="{{ 'mensagem.excluirarquivo' | translate }}" (click)="removerArquivo(arquivo)">
+                            <span class="glyphicon glyphicon-trash" ></span>
+                        </a>
+                </span>
+            </div>
+        </div>
+        <div [ngClass]="mensagemClass">
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('filename') }}"></msg>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivo') }}"></msg>
+        </div>
+    </div>
+</div>

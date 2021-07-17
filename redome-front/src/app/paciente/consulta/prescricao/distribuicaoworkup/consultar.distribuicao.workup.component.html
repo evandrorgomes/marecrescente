@@ -1,0 +1,128 @@
+<div class="container conteudo" >
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!-- Título da seção -->
+            <h2>{{'distribuicaoworkup.titulo' | translate}}</h2>
+        </div>
+    </div>
+</div>
+
+    <!-- Tabela que exibe o resultado da busca -->
+<!-- *ngIf="_paginacao.totalElements && _paginacao.totalElements != 0" -->
+    <div class="row" >
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <table id="tblConsultaDistribuicoes" class="table">
+                <thead>
+                <tr>
+                    <th>{{'distribuicaoworkup.tabela.rmr' | translate}}</th>
+                    <th>{{'distribuicaoworkup.tabela.centrotransplante' | translate}}</th>
+                    <th>{{'distribuicaoworkup.tabela.medico' | translate}}</th>
+                    <th>{{'distribuicaoworkup.tabela.fonte' | translate}}</th>
+                    <th>{{'distribuicaoworkup.tabela.identificacaodoador' | translate}}</th>
+                    <th>{{'distribuicaoworkup.tabela.dataprescricao' | translate}}</th>
+                    <th>{{'distribuicaoworkup.tabela.dataavaliacao' | translate}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="clicavel"  *ngFor="let distribuicao of _paginacao.content; index as i" (click)="distribuir(distribuicao)" >
+                    <td>{{distribuicao?.rmr}}</td>
+                    <td>{{distribuicao?.nomeCentroTransplante}} </td>
+                    <td>{{distribuicao?.medicoResponsavelPrescricao}}</td>
+                    <td>{{distribuicao?.tipoPrescricao}}</td>
+                    <td>{{distribuicao?.identificacaoDoador}}</td>
+                    <td>{{ formatarData(distribuicao?.dataPrescricao) }}</td>
+                    <td>{{ formatarData(distribuicao?.dataAvaliacaoPrescricao) }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="_paginacao.totalElements && _paginacao.totalElements != 0" >
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="_paginacao.totalElements" [ngModel]="_paginacao.number" [maxSize]="5"
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false"
+                        [itemsPerPage]="_paginacao.quantidadeRegistro"
+                        (pageChanged)="_mudarPagina($event)"
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}"
+            >
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="_quantidadeRegistro"
+                        (change)="_selecinaQuantidadePorPagina($event)">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="distribuicao-accordion">
+        <div class="row page-title">
+            <div class="col-xs-12 col-sm-12">
+                <!-- Título da seção -->
+                <h4>{{'distribuicaoworkup.tituloworkupandamento' | translate}}</h4>
+            </div>
+        </div>
+        <accordion >
+            <accordion-group *ngFor="let usuario of _usuarios; index as i;" [isOpen]="_acordionOpen[i]" >
+                <div accordion-heading>
+                    <table class="table mb-0">
+                        <thead *ngIf="i == 0">
+                        <tr>
+                            <th width="70%">{{ 'distribuicaoworkup.tabelausuario.nomeusuario' | translate }}</th>
+                            <th width="10%">{{ 'distribuicaoworkup.tabelausuario.cordao' | translate }}</th>
+                            <th width="10%">{{ 'distribuicaoworkup.tabelausuario.medula' | translate }}</th>
+                            <th width="10%">{{ 'distribuicaoworkup.tabelausuario.total' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr (click)="abrirDetalhe(i)">
+                                <td width="70%">{{ usuario.nome }}</td>
+                                <td width="10%">{{ usuario.quantidadeCordao}} </td>
+                                <td width="10%">{{ usuario.quantidadeMedula}} </td>
+                                <td width="10%">{{ usuario.total }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <table class="table mb-2">
+                    <thead>
+                    <tr>
+                        <th>{{'distribuicaoworkup.tabela.rmr' | translate}}</th>
+                        <th>{{'distribuicaoworkup.tabela.centrotransplante' | translate}}</th>
+                        <th>{{'distribuicaoworkup.tabela.medico' | translate}}</th>
+                        <th>{{'distribuicaoworkup.tabela.fonte' | translate}}</th>
+                        <th>{{'distribuicaoworkup.tabela.identificacaodoador' | translate}}</th>
+                        <th>{{'distribuicaoworkup.tabela.dataprescricao' | translate}}</th>
+                        <th>{{'distribuicaoworkup.tabela.dataavaliacao' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="clicavel" *ngFor="let distribuicao of distribucoesPorUsuario(usuario.nome); index as i"  (click)="redistribuir(distribuicao)" >
+                        <td>{{distribuicao?.rmr}}</td>
+                        <td>{{distribuicao?.nomeCentroTransplante}} </td>
+                        <td>{{distribuicao?.medicoResponsavelPrescricao}}</td>
+                        <td>{{distribuicao?.tipoPrescricao}}</td>
+                        <td>{{distribuicao?.identificacaoDoador}}</td>
+                        <td>{{ formatarData(distribuicao?.dataPrescricao) }}</td>
+                        <td>{{ formatarData(distribuicao?.dataAvaliacaoPrescricao) }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </accordion-group>
+        </accordion>
+    </div>
+
+</div>

@@ -1,0 +1,25 @@
+<div [formGroup]="formGroup">
+    <div formArrayName="listLocus">
+        <!-- Seleciona os locus e alelos -->
+        <div class="genotipo aleloContainer">
+            <div class="box" *ngFor="let locus of controls; index as i">
+                <div [formGroupName]="i">
+                    <p>{{obterCodigoLocus(locus)}}*</p>
+                    <span *ngIf="!verificarLocusObrigatorio(locus)" 
+                        class="glyphicon glyphicon-remove-circle" 
+                        (click)="removerLocus(i)">
+                    </span>
+                </div>
+            </div>
+            <div class="box addBox">
+                <select id="locusSelecionado" class="form-control" #locusSelecionado (change)="adicionarLocus(locusSelecionado?.value)">
+                    <option>{{'pacienteForm.exameGroup.locus' | translate}}</option> 
+                    <option *ngFor="let loci of listarLocusNaoSelecionados()" value="{{loci}}">
+                        {{loci}}*
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <msg mensagem="{{retornarMensagemErro()}}"></msg>
+</div>

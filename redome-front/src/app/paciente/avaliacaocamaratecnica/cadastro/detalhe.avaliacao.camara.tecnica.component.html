@@ -1,0 +1,71 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'avaliacaocamaratecnica.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <auto-collapsed-menu>
+        <menu-item>
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" 
+                    (click)="voltarConsulta()">
+                <span class="icon-seta-esquerda"></span>{{'botao.voltar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a id="" type="button" class="btn btn-setting btn-primary" 
+                    [routerLink]="['/pacientes/' + avaliacaoCamaraTecnicaDto?.avaliacaoCamaraTecnica?.paciente?.rmr + '/evolucoes']">
+                <span class="icon-evolucao"></span> {{'botao.evolucoes' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a id="" type="button" class="btn btn-setting btn-primary" 
+                    [routerLink]="['/pacientes/' + avaliacaoCamaraTecnicaDto?.avaliacaoCamaraTecnica?.paciente?.rmr + '/exames']">
+                <span class="icon-exames"></span> {{'botao.exames' | translate}}
+            </a>
+        </menu-item>
+    </auto-collapsed-menu>
+</div>
+
+<div class="page-content dadosGeraisEvolucao" >
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 text-center btn-avaliaBusca">
+            <span>
+                <a id="btnAprovarAvaliacao" type="button" class="btn btn-primary btn-lg" (click)="reprovar()" >
+                    <span class="glyphicon glyphicon-remove"></span> {{'botao.recusar' | translate}}
+                </a>
+            </span>
+            <span>
+                <a id="btnAprovarAvaliacao" type="button" class="btn btn-default btn-lg" (click)="alterarStatus()" >
+                    <span class="glyphicon glyphicon-refresh"></span> {{'botao.alterarStatus' | translate}}
+                </a>
+            </span>
+            <span>
+                <a id="btnAprovar" type="button" class="btn btn-primary btn-lg" (click)="aprovar()">
+                    <span class="glyphicon glyphicon-ok"></span> {{'botao.aceitar' | translate}}
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'transferencia.centro.detalhe.dadospaciente.titulo' | translate }} </h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <p id="lbPeso"><small>{{'avaliacaocamaratecnica.detalhe.dadospaciente.peso' | translate}}: </small>{{ evolucao?.peso }}  Kg</p>
+            <p id="lbAltura"><small>{{'transferencia.centro.detalhe.dadospaciente.altura' | translate}}: </small>{{ evolucao?.altura }} m</p>
+            <p id="lbCMV"><small>{{'avaliacaocamaratecnica.detalhe.dadospaciente.cmv.titulo' | translate}}: </small> {{
+                evolucao?.cmv == null ? "-" : 
+                    (evolucao?.cmv ? ('avaliacaocamaratecnica.detalhe.dadospaciente.cmv.positiva' | translate) : ('transferencia.centro.detalhe.dadospaciente.cmv.negativa' | translate)) 
+            }}</p>
+            <p id="lbTransplanteAnt"><small>{{'avaliacaocamaratecnica.detalhe.dadospaciente.transplantePrevio' | translate}}: </small><span *ngIf="evolucao?.tiposTransplante?.length < 1">{{ 'textosGenericos.nao' | translate }}</span></p>
+                <div *ngFor="let t of evolucao?.tiposTransplante">
+                    <p>{{t.descricao}}</p>
+                </div>
+            <p id="lbDataUltimoTransplante"   *ngIf="evolucao?.tiposTransplante?.length > 0"><small>{{ 'pacienteForm.evolucaoGroup.dataUltimoTransplante' | translate }}: </small>{{ evolucao?.dataUltimoTransplanteFormatada}}</p>
+            <p id="lbCondicaoPaci"><small>{{'avaliacaocamaratecnica.detalhe.dadospaciente.condicaoPaciente' | translate}}: </small>{{ evolucao?.condicaoPaciente?.descricao }}</p>
+        </div>
+    </div>
+</div>

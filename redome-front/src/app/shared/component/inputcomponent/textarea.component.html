@@ -1,0 +1,5 @@
+<label [attr.for]="idd">{{ label }}</label>
+<textarea #textarea placeholder="{{ placeHolder }}" maxlength="getMaxLength()" [ngClass]="getClazz()" id="{{idd}}" tabindex="0" 
+    (blur)="onChange($event, textarea.value)"
+     rows="{{ rows }}"></textarea>
+<msg mensagem="{{ getMensagemErro() }}"></msg>

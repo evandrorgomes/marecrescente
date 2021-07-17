@@ -1,0 +1,76 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'buscainternacional.titulo' | translate}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()" >
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div [hidden]="!_temPermissaoUpload"  class="row text-left">
+            <div class=" form-group col-sm-12 col-xs-12">
+                    <label>{{ 'buscainternacional.relatorio' | translate }}:</label>
+                    <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+            </div>
+            <div class=" form-group col-sm-12 col-xs-12">
+                    <label>{{ 'buscainternacional.nome' | translate }}:</label>
+                    <input  class="form-control" [(ngModel)]="_descricao" />
+            </div>
+
+            <div class="form-group col-sm-12 col-xs-12">
+                <button id="btnEnviar" class="btn btn-lg btn-primary floatR" (click)="enviar()">
+                    <span></span> {{ 'botao.salvar' | translate }}
+                </button>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-xs-12">
+            <div class="row listaLaudos">
+                <div class="col-sm-12 col-xs-12">
+                    <div class="wrap-laudo">
+                        <!-- Exibe os arquivos de laudo anexados -->
+                        <div>
+                            <label>{{'consultaExame.anexos' | translate }}</label>
+                        </div>
+                        <div class="floatR">
+                            <a href="javascript:void(0)" class="baixar-todos" title="Baixar todos os arquivos no formato .zip" (click)="baixarTodosArquivosZipados()">
+                                <span class="icon-download"></span>Baixar todos os arquivos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separaArquivosLaudo" *ngFor="let arquivo of _arquivos">
+                <div class="row listaLaudos">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="wrap-laudo">
+                            <div>
+                                <p>{{retornaNomeArquivo(arquivo.caminho)}}</p>
+                            </div>
+                            <div *ngIf="arquivo.descricao">
+                                <p> - </p>
+                            </div>
+                            <div *ngIf="arquivo.descricao">
+                                <p>{{ arquivo.descricao }}</p>
+                            </div>
+                            <div class="floatR">
+                                <a href="javascript:void(0)" class="icon-download " title="Baixar arquivo" (click)="baixarArquivo(arquivo)"></a>
+                                <a href="javascript:void(0)" class="icon-zip " title="Baixar arquivo no formato .zip" (click)="baixarArquivoZipado(arquivo)"></a>
+                                <a href="javascript:void(0)" class="glyphicon glyphicon-trash " title="Excluir Arquivo" *ngIf="_temPermissaoExcluir" (click)="excluirArquivo(arquivo)"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

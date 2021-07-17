@@ -1,0 +1,80 @@
+<div class="row wrap-bloco" *ngIf="!ehCordao() && !naoExibirDoadorInternacional()" >
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'workup.agendarcoleta.centrocoleta' | translate}}:</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 textarea-bloco">                
+        <p>                    
+            <span>{{centroColeta}}</span>                    
+        </p>                
+    </div>
+</div>
+<div class="row wrap-bloco" *ngIf="!ehCordao()">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'workup.agendarcoleta.dataColeta' | translate}}</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 textarea-bloco">                
+        <p>                    
+            <span>{{dataColeta | date: 'dd/MM/yyyy'}}</span>                    
+        </p>                
+    </div>
+</div>
+<div class="row wrap-bloco" *ngIf="!ehCordao()">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'workup.agendarcoleta.fonte' | translate}}:</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 textarea-bloco">                
+        <p>                    
+            <span>{{fonteCelula}}</span> 
+        </p>                
+    </div>
+</div>
+
+<div class="row wrap-bloco" *ngIf="dataPrevistaDisponibilidadeDoador && !ehCordao()">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'workup.pedido.dataPrevistaDisponibilidadeDoador' | translate}}:</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 textarea-bloco">                
+        <p>                    
+            <span>{{dataPrevistaDisponibilidadeDoador | date: 'dd/MM/yyyy'}}</span> 
+        </p>                
+    </div>
+</div>
+
+<div class="row wrap-bloco" *ngIf="dataPrevistaLiberacaoDoador && !ehCordao()">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'workup.pedido.dataPrevistaLiberacaoDoador' | translate}}:</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 textarea-bloco">                
+        <p>                    
+            <span>{{dataPrevistaLiberacaoDoador | date: 'dd/MM/yyyy'}}</span> 
+        </p>                
+    </div>
+</div>
+
+<div class="row wrap-bloco" *ngIf="ehCordao()" >
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'workup.agendarcoleta.dataProposta' | translate}}</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+        <p>
+            <small>{{'workup.agendarcoleta.dataLimiteColeta' | translate}}: </small>
+            <span>{{ dataPrevistaColeta1 | date: 'dd/MM/yyyy'}}</span>
+        </p>
+        <p>
+            <small>{{'workup.agendarcoleta.dataLimiteColeta' | translate}}: </small>
+            <span>{{ dataPrevistaColeta2 | date: 'dd/MM/yyyy'}}</span>
+        </p>
+    </div>
+</div>
+
+<!-- <div class="row wrap-bloco" *ngIf="ehCordao() && ultimaDisponibilidade?.dataAceite">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{'workup.agendarcoleta.dataSugerida' | translate}}</h3>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco form-bloco">            
+        <p id="" *ngIf="ultimaDisponibilidade?.dataColeta">
+            <small>{{'workup.agendarcoleta.dataLimiteColeta' | translate}}: </small>
+            <span>{{ultimaDisponibilidade?.dataColeta | date: 'dd/MM/yyyy'}}</span>
+        </p>            
+    </div>
+</div> -->

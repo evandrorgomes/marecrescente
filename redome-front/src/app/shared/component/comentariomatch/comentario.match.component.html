@@ -1,0 +1,12 @@
+<div [formGroup]="comentarioForm">
+    <div class="form-bloco listaTelefone" formArrayName="listaComentario">
+        <div *ngFor="let comentarioGroup of listaComentarioForm.controls; index as i" [formGroupName]="i" class="row">
+            <div class="form-group col-sm-9 col-xs-12">
+                <label for="comentario">{{'comentarioMatchComponent.comentario' | translate}}</label>
+                <textarea rows="4" cols="100" class="form-control" id="comentario" type="text" formControlName="comentario"> 
+                </textarea> 
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('comentario') }}"></msg>
+            </div>
+        </div>
+    </div>
+</div>

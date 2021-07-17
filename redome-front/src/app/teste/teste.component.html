@@ -1,0 +1,153 @@
+<div class="container-fluid conteudo">
+    <h2>Conferir Exame</h2>
+   <div class="sidebar-border col-lg-10 col-md-10 col-sm-10 col-xs-12">
+        <form novalidate="" class="ng-invalid ng-touched ng-dirty">
+            <input type="button" value="Popular paciente" hidden="">
+            <div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <h4>Arquivos anexados</h4>
+                    <div class="separaArquivosLaudo form-group col-sm-12 col-xs-12">
+                        <div class="">
+                            <div class="col-lg-9 col-sm-10 col-xs-9">
+                                <p>exame.jpg</p>
+                            </div>
+                            <div class="col-lg-3 col-sm-2 col-xs-3 text-right">
+                                <span class="glyphicon glyphicon-eye-open" id="btVisualizar" title="Visualizar arquivo"></span>
+                                <span class="glyphicon glyphicon-download-alt" title="Baixar arquivo"></span>
+                                <span class="glyphicon glyphicon-compressed" title="Baixar arquivo no formato .zip"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <h4>Dados do Paciente</h4>
+                    <div class="form-group col-sm-12 col-xs-12">
+                        <label for="txtNome">Nome:</label>
+                        <input class="form-control input-sm ng-pristine ng-valid ng-touched" formcontrolname="nome" id="txtNome" maxlength="255" type="text">
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <label for="txtDataNascimento">Data de Nascimento:</label>
+                        <input class="form-control input-sm ng-pristine ng-valid ng-touched" formcontrolname="dataNascimento" id="txtDataNascimento" maxlength="11" placeholder="DD/MM/AAAA" type="text">
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <label for="txtCPF">CPF:</label>
+                        <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="cpf" id="txtCPF" maxlength="15" placeholder="apenas números" type="text">
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <label for="txtCNS">CNS:</label>
+                        <input filtro="" class="form-control input-sm ng-pristine ng-valid ng-touched" formcontrolname="cns" id="txtCNS" maxlength="15" padrao="onlyNumber" placeholder="apenas números" type="text">
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <h4>Data de Metodologia do Exame</h4>
+                    <div class="form-group col-md-2 col-sm-3 col-xs-3">
+                        <label for="txtDataExame">Data de Exame:</label>
+                        <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="dataExame" id="txtDataExame" maxlength="11" placeholder="" type="text">
+                    </div>
+                    <div class="form-group col-md-10 col-sm-9 col-xs-9">
+                        <label for="ddlMetodologia">Metodologia:</label>
+                        <div class="col-xs-12 zeraPadding listaMetodologia ng-untouched ng-pristine ng-valid" formarrayname="listMetodologias">
+                            <div class="">
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <label class="checkbox-inline">
+                                        <input formcontrolname="checked" id="chkMetodologia" type="checkbox" value="" class="ng-untouched ng-pristine ng-valid">NGS - Next Generation Sequencing
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <label class="checkbox-inline">
+                                        <input formcontrolname="checked" id="chkMetodologia" type="checkbox" value="" class="ng-untouched ng-pristine ng-valid">SBT - Sequence Based typing
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <label class="checkbox-inline">
+                                        <input formcontrolname="checked" id="chkMetodologia" type="checkbox" value="" class="ng-untouched ng-pristine ng-valid">SSO - Sequence Specific Oligonucleotide
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <label class="checkbox-inline">
+                                        <input formcontrolname="checked" id="chkMetodologia" type="checkbox" value="" class="ng-untouched ng-pristine ng-valid">SSP - Sequence Specific Primers
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 zeraPadding">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h4>Informações de HLA</h4>
+                    <div formarrayname="listLocus" class="ng-untouched ng-pristine ng-valid">
+                        <div class="aleloContainer">
+                            <div class="box">
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <p>A*</p>
+                                    <!---->
+                                    <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="alelo1" placeholder="Alelo 1" type="text" id="primeiroalelo0">
+                                    <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="alelo2" placeholder="Alelo 2" type="text" id="segundoalelo0">
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <p>B*</p>
+                                    <!---->
+                                    <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="alelo1" placeholder="Alelo 1" type="text" id="primeiroalelo1">
+                                    <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="alelo2" placeholder="Alelo 2" type="text" id="segundoalelo1">
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="ng-untouched ng-pristine ng-valid">
+                                    <p>DRB1*</p>
+                                    <!---->
+                                    <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="alelo1" placeholder="Alelo 1" type="text" id="primeiroalelo2">
+                                    <input class="form-control input-sm ng-untouched ng-pristine ng-valid" formcontrolname="alelo2" placeholder="Alelo 2" type="text" id="segundoalelo2">
+                                </div>
+                            </div>
+                            <div class="addBox">
+                                <select class="form-control input-sm" id="locusSelecionado">
+                                    <option>Lócus</option> 
+                                    <option value="C">C*</option>
+                                    <option value="DRB3">DRB3*</option>
+                                    <option value="DRB4">DRB4*</option>
+                                    <option value="DRB5">DRB5*</option>
+                                    <option value="DPA1">DPA1*</option>
+                                    <option value="DPB1">DPB1*</option>
+                                    <option value="DQA1">DQA1*</option>
+                                    <option value="DQB1">DQB1*</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-10 col-sm-9 col-xs-9">
+                        <div class="col-xs-12 zeraPadding"></div>
+                    </div>
+                </div>   
+                <div aria-hidden="true" bsmodal="" class="modal fade" role="dialog" tabindex="-1">
+                    <div class="modal-dialog modal-custom">
+                        <div class="modal-header">
+                            <button class="close" type="button">×</button>
+                        </div>
+                        <div class="modal-content"></div>  
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zeraPadding btn-wrap">
+            <a class="btn btn-primary btn-block" id="" type="button">Confere</a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zeraPadding btn-wrap">
+            <a class="btn btn-default btn-block" id="" type="button">Não Confere</a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 zeraPadding btn-wrap">
+            <a class="btn btn-default btn-block" id="" type="button">Voltar</a>
+        </div>
+    </div>
+</div>

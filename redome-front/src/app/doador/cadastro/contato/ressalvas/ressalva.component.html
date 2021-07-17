@@ -1,0 +1,44 @@
+<div class="row wrap-bloco">
+    <div class="col-sm-2 col-xs-12">
+        <h3>{{ 'ressalva.titulo' | translate }}</h3>
+        <a href="javascript:void(0)" class="editar-bloco"  (click)="editar()" 
+        *ngIf="!deveEsconderLinkIncluirRessalva()"><span class="icon-editar"></span> {{ 'link.incluir' | translate }}</a>
+    </div>
+    <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+        <div [ngClass]="mostraDados">
+            <p *ngFor="let ressalva of ressalvas; index as i">
+                <span span class="texto-bloco">{{ressalva.observacao}}
+                        <a class="btn-dadosinline" 
+                        title="{{ 'botao.excluir' | translate}}" 
+                        (click)="excluirRessalva(ressalva.id)"
+                        *ngIf="permitirExclusaoRessalva()">
+                    <i class="glyphicon glyphicon-trash"></i></a> 
+                </span>
+                <!-- <span  (click)="excluirRessalva(ressalva.id)"
+                    class="glyphicon glyphicon-trash clicavel" title="{{'botao.excluir' | translate}}">
+                </span> -->
+        </p>
+            
+            
+        </div>
+        <div [ngClass]="mostraFormulario" class="form-bloco" [formGroup]="ressalvaForm">
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <label for="txtPeso">{{ 'ressalva.titulo' | translate }}</label>
+                    <input class="form-control" tabindex="6" id="txtRessalva" type="text" placeholder="" name="ressalva" 
+                        maxlength="255"
+                        (blur)="setMensagemErroPorCampo('ressalva')" formControlName="ressalva">
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('ressalva') }}"></msg>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                    <button id="cancelarRessalvas" class="btn btn-default floatL" (click)="cancelarEdicao()" >{{ 'botao.cancelar'| translate }}</button>
+                    <button id="incluirRessalvas" class="btn btn-primary floatR" (click)="salvarRessalva()">{{ 'botao.salvar'| translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<modal mensagem="" #modalMsg></modal>

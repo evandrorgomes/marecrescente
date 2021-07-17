@@ -1,0 +1,52 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>Nova evolução médica</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">            
+            <a id="idVoltarConsultaEvolucao" type="button" class="btn btn-setting btn-default" (click)="botaoCancelar()"><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <evolucao></evolucao>
+    <associa-pendencia></associa-pendencia>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">           
+            <button id="btnGuardarEvolucao" class="btn btn-primary btn-lg floatR" type="submit" (click)="onSubmit(sucessoModal)">{{ 'botao.salvarEvolucao' | translate }}</button> 
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" bsModal #sucessoModal="bs-modal" [config]="{backdrop: 'static', keyboard: false}" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="btnFecharModal" type="button" class="close" (click)="fecharSucessoModal(sucessoModal)">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <h3 class="text-center">{{ mensagemSucesso }}</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 modal-btn">
+                        <button id="modalSucesso" type="button" class="btn btn-lg btn-primary" (click)="fecharSucessoModal(sucessoModal)">
+                            Ok
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

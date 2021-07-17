@@ -1,0 +1,23 @@
+
+<form [formGroup]="inativarForm">
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12">
+            <label for="ddlMotivoStatusDoador">{{ 'inativarDoador.motivoStatus' | translate }}:</label>
+            <select class="form-group" #motivoStatusDoador formControlName="motivoStatusDoador" class="form-control" id="ddlMotivoStatusDoador"
+                (blur)="setMensagemErroPorCampo('motivoStatusDoador');" (change)="alterarValidacaoDoCampoDescricao(motivoStatusDoador.value);">
+                <option value=""></option>
+                <option *ngFor="let motivo of motivosStatusDoador" value="{{motivo?.id}}">{{motivo?.descricao}}</option>
+            </select>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('motivoStatusDoador') }}"></msg>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-xs-12" [hidden]="!exibirTempoAfastamento">
+            <label for="txtTempoAfastamento">{{ 'inativarDoador.tempoAfastamento' | translate }}:</label>
+            <input class="form-control centraliza" tabindex="1" [textMask]="{mask: data}" 
+                formControlName="tempoAfastamento" id="txtTempoAfastamento"
+                type="text" maxlength="11" placeholder="DD/MM/AAAA">
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('tempoAfastamento') }}"></msg>
+        </div>
+    </div>
+</form>

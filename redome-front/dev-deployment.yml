@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-front-svc
+  namespace: develop
+spec:
+  type: NodePort
+  selector:
+    app: redome-front
+    namespace: develop
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-front-deployment
+  namespace: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-front
+      namespace: develop
+  template:
+    metadata:
+      labels:
+        app: redome-front
+        namespace: develop
+    spec:
+      hostname: redome-front
+      subdomain: redome-front-svc
+      containers:
+      - name: redome-front
+        image: us.icr.io/dev_modred/redome_front:9-20200828165040
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "768Mi"
+          limits:
+            memory: "1536Mi"
+        ports:
+          - containerPort: 80
+      imagePullSecrets:
+      - name: ibmcloudregcred
+      nodeSelector:
+        name: worker01

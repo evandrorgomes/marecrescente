@@ -1,0 +1,170 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'manterUsuario.tituloDetalhe' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <header-paciente></header-paciente>
+    </div>
+    <auto-collapsed-menu>
+        <menu-item>
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span>{{'botao.voltar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-primary" 
+                    *ngIf="modoInclusaoHabilitado" (click)="salvarGlobal()">
+                <span class="icon-salvar"></span>{{'botao.salvar' | translate}}
+            </a>
+        </menu-item>
+        <menu-item>
+            <a type="button" class="btn btn-setting btn-default"
+                    *ngIf="!modoInclusaoHabilitado" (click)="inativar()">
+                <span class="icon-proibido"></span> {{'manterUsuario.inativar' | translate}}
+            </a>
+        </menu-item>
+    </auto-collapsed-menu>
+</div>
+
+<div class="page-content" >
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'manterUsuario.dadosAcesso' | translate}}</h3>
+            <a  href="javascript:void(0)" class="editar-bloco" 
+                (click)="dadosPessoaisSomenteLeitura = false"
+                *ngIf="dadosPessoaisSomenteLeitura">
+                <span class="icon-editar"></span>{{'botao.editar' | translate}}
+            </a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" [ngClass]="dadosPessoaisSomenteLeitura ? '': 'hide'">
+            <p><small>{{'manterUsuario.login' | translate}}: </small>
+                {{ usuario?.username }}
+            </p>
+            <p><small>{{'manterUsuario.email' | translate}}: </small>
+                {{ usuario?.email }}
+            </p>
+            <p><small>{{'manterUsuario.nome' | translate}}: </small>
+                {{ usuario?.nome }}
+            </p>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" 
+            [ngClass] = "dadosPessoaisSomenteLeitura ? 'hide': ''"
+            [formGroup]="formulario.form">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-8">
+                    <label>{{'manterUsuario.login' | translate}}</label>
+                    <input #txLogin class="form-control" type="text" formControlName="username">
+                    <required-message *ngIf="formulario.get('username').invalid"></required-message>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-8">
+                    <label>{{'manterUsuario.nome' | translate}}</label>
+                    <input #txNome class="form-control" type="text" formControlName="nome"/>
+                    <required-message *ngIf="formulario.get('nome').invalid"></required-message>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-8">
+                    <label>{{'manterUsuario.email' | translate}}</label>
+                    <input #txEmail class="form-control" type="text" formControlName="email"/>
+                    <required-message *ngIf="formulario.get('email').invalid"></required-message>
+                </div>
+            </div>
+            <div class="row" *ngIf="!modoInclusaoHabilitado">
+                <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                    <button class="btn btn-default floatL" (click)="cancelarEdicaoDadosBasicos()" >
+                        {{'botao.cancelar' | translate}}
+                    </button>
+                    <button class="btn btn-primary floatR" (click)="salvarEdicaoDadosBasicos()" >
+                        {{'botao.salvar' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'manterUsuario.perfis' | translate}}</h3>
+            <a  href="javascript:void(0)" class="editar-bloco" 
+                (click)="permissoesSomenteLeitura = false"
+                *ngIf="permissoesSomenteLeitura && disponivelParaCadastroRedome">
+                <span class="icon-editar"></span>{{'botao.editar' | translate}}
+            </a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" [ngClass]="permissoesSomenteLeitura ? '': 'hide'">
+            <p innerHTML="{{ listarPerfisFormatados() }}"></p>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco" [ngClass]="permissoesSomenteLeitura ? 'hide': ''">
+            <div class="row">
+                <div class="form-group col-xs-12 col-sm-5">
+                    <label>{{'manterUsuario.sistema' | translate}}</label>
+                    <select class="form-group" #cbSistema class="form-control" 
+                            (change)="selecionarPerfisAssociados(cbSistema.value)"
+                            [(ngModel)]="idSistemaSelecionado">
+                        <option value=""></option>
+                        <option *ngFor="let sistema of listaSistemas" value="{{sistema?.id}}">{{sistema?.nome}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-12 col-sm-5" *ngIf="exibirSelecaoBscups || existeBscupSelecionado()">
+                    <label>{{'manterUsuario.bscup' | translate}}</label>
+                    <select class="form-group" #cbBscup class="form-control" [(ngModel)]="idBscupSelecionado">
+                        <option value=""></option>
+                        <option *ngFor="let bscup of listaBscups" value="{{bscup?.id}}">
+                            {{bscup?.sigla}}
+                        </option>
+                    </select>
+                    <msg mensagem="{{ mensagemBscupNaoSelecionado }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <select-component 
+                        #perfisDisponiveis
+                        label="{{'manterUsuario.perfisDisponiveis' | translate}}:" 
+                        fieldOptionValue="id"
+                        fieldOptionText="descricao"
+                        [showBlankOption]="false"
+                        [multipleSelect]="true"
+                        [options]="listaPerfisDisponiveis"
+                        (change)="selecionarSistema(perfisDisponiveis.value)">
+                    </select-component>        
+                </div>
+                <div class="form-group col-sm-1 col-xs-12 btn-reflectselect">            
+                    <button type="button" class="btn btn-setting btn-primary"
+                        (click)="adicionarPerfil()">
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button>
+                    <button type="button" class="btn btn-setting btn-primary"
+                        (click)="removerPerfil()">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                    </button>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">            
+                    <select-component 
+                        #perfisSelecionados
+                        label="{{'manterUsuario.perfisSelecionados' | translate}}:" 
+                        fieldOptionValue="id"
+                        fieldOptionText="descricao"
+                        [showBlankOption]="false"
+                        [multipleSelect]="true"
+                        [options]="listaPerfisSelecionados">
+                    </select-component>
+                    <msg mensagem="{{ mensagemPerfisNaoSelecionados }}"></msg>
+                </div>
+                <div class="form-group btn-bloco col-xs-12 col-sm-12" *ngIf="!modoInclusaoHabilitado">
+                    <button class="btn btn-default floatL" (click)="cancelarEdicaoPerfis()" >
+                        {{'botao.cancelar' | translate}}
+                    </button>
+                    <button class="btn btn-primary floatR" (click)="salvarEdicaoPerfis()" >
+                        {{'botao.salvar' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

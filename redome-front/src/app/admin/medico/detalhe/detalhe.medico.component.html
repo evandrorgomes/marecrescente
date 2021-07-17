@@ -1,0 +1,262 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'medico.detalhe.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior *ngIf="!_temPerfilMedico"><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+        </div>
+    </div>
+</div>
+<div class="page-content dadosGeraisPaciente">        
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'medico.detalhe.dadosidentificacao.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarDadosBasicos()" 
+                *ngIf="_mostraLinkEditarDadosBasicos">
+                <span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div [ngClass]="_mostraDadosBasicos">
+                <p><small>{{'medico.detalhe.dadosidentificacao.nome' | translate}}: </small>{{ medico?.nome }}</p>
+                <p *ngIf="!_temPerfilMedico"><small>{{'medico.detalhe.dadosidentificacao.crm' | translate}}: </small>{{ medico?.crm }}</p>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioDadosBasicos" [formGroup]="form()">
+                <div class="row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        <input-component 
+                            label="{{'medico.detalhe.dadosidentificacao.nome' | translate}}:" 
+                            formControlName="nome" 
+                            [control]="form().controls['nome']" 
+                            idd="txtNome" 
+                            placeholder="" >
+                        </input-component>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!_temPerfilMedico">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <input-component 
+                            label="{{'medico.detalhe.dadosidentificacao.crm' | translate}}:" 
+                            formControlName="crm" 
+                            [control]="form().controls['crm']" 
+                            idd="txtCrm"                             
+                            placeholder="" >
+                        </input-component>                        
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoDadosBasicos()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoDadosBasicos()" >{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arquivo CRM -->
+    <div class="row wrap-bloco" *ngIf="!_temPerfilMedico" >
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'medico.detalhe.arquivocrm.titulo' | translate}}</h3>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <div class="separaArquivosLaudo">
+                <div class="row listaLaudos">
+                    <div class="col-sm-8 col-xs-12">
+                        <p>
+                            <a href="javascript:void(0)" class="link" title="{{ 'textosGenericos.baixararquivo' | translate }} " (click)="baixarArquivo()">
+                                {{ obterNomeArquivo(medico?.arquivoCrm) }} <span class="icon icon-download"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Endereço -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'medico.detalhe.endereco.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarEndereco()"
+                *ngIf="_mostraLinkEditarEndereco">
+                <span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEndereco" >
+                <li *ngIf="medico?.endereco">
+                    <p id="" *ngIf="medico?.endereco.principal === true" >
+                        <span class="texto-bloco" >{{ medico?.endereco?.tipoLogradouro}} {{ medico?.endereco?.nomeLogradouro}}, {{ medico?.endereco?.numero}} - {{ medico?.endereco?.complemento }} {{ medico?.endereco?.complemento ? " - " : "" }} {{ medico?.endereco?.bairro}} - {{ medico?.endereco?.municipio?.descricao}}<br/>{{ medico?.endereco?.municipio?.uf?.sigla}} - {{ medico?.endereco?.pais.nome}} - CEP {{ medico?.endereco?.cep}}  
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioEndereco">
+                
+                <endereco-contato #endereco esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+                <div class="row">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEndereco()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEndereco()" >{{'botao.salvar' | translate}}</button>                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Telefones -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'medico.detalhe.telefone.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirTelefone()"
+                *ngIf="_mostraLinkInserirTelefone">
+                <span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraTelefone" >
+                <li *ngFor=" let contatoTelefonico of medico?.contatosTelefonicos; index as i">
+                    <p id="">
+                        <small>{{'medico.detalhe.telefone.telefone' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div *ngIf= "contatoTelefonico.tipo == 2" >
+                                <i class="icon-celular"></i> 
+                                {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}
+                                <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                <a class="btn-dadosinline" *ngIf="!contatoTelefonico.principal"
+                                    title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}" 
+                                        (click)="excluirTelefone(contatoTelefonico)">
+                                <i class="glyphicon glyphicon-trash"></i></a>   
+                            </div>
+                            <div *ngIf= "contatoTelefonico.tipo == 1" >
+                                <i class="icon-telefone"></i> 
+                                {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}
+                                <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                <a class="btn-dadosinline" *ngIf="!contatoTelefonico.principal"
+                                    title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}" 
+                                    (click)="excluirTelefone(contatoTelefonico)">
+                                <i class="glyphicon glyphicon-trash"></i></a>  
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioTelefone">
+                <contato-telefone esconderBotaoAdicionarTelefone="true" [validarPrincipal]="_validarTelefonePrincipal"  #contatoTelefoneComponent></contato-telefone>
+                <div class="row" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoTelefone()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarContatoTelefonico()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emails -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'medico.detalhe.email.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirEmail()"
+            *ngIf="_mostraLinkInserirEmail">
+                <span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEmail">
+                <li *ngFor=" let email of medico?.emails; index as i">                
+                    <p id="">
+                        <small>{{'medico.detalhe.email.email' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div>                                    
+                                {{ email.email }}&nbsp;
+                                <i class="icon-favorito laranja" *ngIf="email.principal"></i>
+                                <a class="btn-dadosinline" *ngIf="!email.principal"
+                                    title="{{ 'medico.detalhe.email.excluir' | translate}}" 
+                                    (click)="excluirEmail(email)">
+                                    <i class="glyphicon glyphicon-trash"></i></a>  
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioEmail">
+                <contato-email [esconderBotaoAdicionarEmail]="true" [validarPrincipal]="_validarEmailPrincipal"  #emailContatoComponent></contato-email>
+                <div class="row" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEmail()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarContatoEmail()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Centros de referência -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'medico.detalhe.centroreferencia.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarCentroReferencia()"
+            *ngIf="_mostraLinkEditarCentrosReferencia">
+                    <span class="icon-editar"></span> {{'link.editar' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <ul [ngClass]="_mostraCentrosReferencia">
+                <li *ngFor=" let centroReferencia of medico?.centrosReferencia; index as i">                
+                    <p id="">
+                        <small>{{'medico.detalhe.centroreferencia.centroreferencia' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div>                                    
+                                {{ centroReferencia.nome }}&nbsp;
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioCentrosReferencia">
+                <div class="row">        
+                    <div class="form-group box-selectlist col-sm-5 col-xs-12" [formGroup]="formCentrosDisponiveis()">            
+                        <select-component 
+                            label="{{'medico.detalhe.centroreferencia.disponiveis' | translate}}:" 
+                            formControlName="selecionados" 
+                            [control]="formCentrosDisponiveis().controls['selecionados']" 
+                            idd="txtCentroDisponiveis"
+                            [options]="listaCentrosDisponiveis"
+                            fieldOptionValue="id"
+                            fieldOptionText="nome"
+                            [showBlankOption]="false"
+                            [multipleSelect]="true">
+                        </select-component>        
+                    </div>
+                    <div class="form-group btn-selectlist col-sm-2 col-xs-12">            
+                        <button id="idAdicionarCentros" type="button" class="btn btn-setting btn-primary"
+                            (click)="adicionarCentros()" [disabled]="habiltaBotaoAdicionar()"  ><span class="glyphicon glyphicon-arrow-right"></span></button>
+                        <button id="idRemoverCentros" type="button" class="btn btn-setting btn-primary"
+                            (click)="removerCentros()" [disabled]="habiltaBotaoRemover()" ><span class="glyphicon glyphicon-arrow-left"></span></button>            
+            
+                    </div>
+                    <div class="form-group box-selectlist col-sm-5 col-xs-12" [formGroup]="formCentrosSelecionados()">            
+                        <select-component 
+                            label="{{'medico.detalhe.centroreferencia.selecionados' | translate}}:" 
+                            formControlName="selecionados" 
+                            [control]="formCentrosSelecionados().controls['selecionados']" 
+                            idd="txtCentroSelecionados"
+                            [options]="listaCentrosSelecionados"
+                            fieldOptionValue="id"
+                            fieldOptionText="nome"
+                            [showBlankOption]="false"
+                            [multipleSelect]="true">
+                        </select-component>
+                    </div>
+                </div>
+                <div class="row" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoCentroReferencia()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarContatoCentroReferencia()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>      
+        </div>
+    </div>
+</div>

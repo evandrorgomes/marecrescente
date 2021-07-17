@@ -1,0 +1,22 @@
+<ng-template #consulta>
+</ng-template>
+
+<div *filtro>
+    <div class="form-group col-xs-12 col-sm-6">
+        <label>{{'centrotransplante.filtros.pesquisarNome' | translate}}</label>
+        <input class="form-control" type="text" [(ngModel)]="filtrarPorNome">
+    </div>
+    <div class="form-group col-xs-12 col-sm-2">
+        <label>{{'centrotransplante.filtros.pesquisarCnpj' | translate}}</label>
+        <input Filtro padrao="onlyNumber"  class="form-control" type="text" [(ngModel)]="filtrarPorCnpj" placeholder="Apenas números"/>
+    </div>
+    <div class="form-group col-xs-12 col-sm-2">
+        <label>{{'centrotransplante.filtros.pesquisarCnes' | translate}}</label>
+        <input Filtro padrao="onlyNumber" class="form-control" type="text" [(ngModel)]="filtrarPorCnes" placeholder="Apenas números"/>
+    </div>
+    <div class="col-sm-2 col-xs-12">
+        <button class="btn btn-lg btn-primary btn-block" (click)="listarUtilizandoFiltros()">
+            {{'botao.consultar' | translate}}
+        </button>
+    </div>
+</div>

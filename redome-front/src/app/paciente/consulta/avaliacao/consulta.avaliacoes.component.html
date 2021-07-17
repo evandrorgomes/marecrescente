@@ -1,0 +1,143 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'avaliacoesPendentes.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <!-- <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a class="btn btn-setting btn-default" id="" type="button" retornarPaginaAnterior>
+                <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+            </a>
+        </div>
+    </div> -->
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-8 col-xs-12">
+            <select-centros-component #selectCentros 
+                [showTransplantadorOption]="false"
+                (change)="mudouCentro(selectCentros.value)"
+                ></select-centros-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h3 class="subTitulo">{{'avaliacoesPendentes.pendentes.titulo' | translate}}</h3>
+        </div>
+    </div>
+    <div class="row avaliacoesPendentes">
+        <div class="col-sm-12 col-xs-12 wrap-table">    
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>{{'avaliacoesPendentes.rmr' | translate}}</td>
+                        <td>{{'avaliacoesPendentes.nome' | translate}}</td>
+                        <td>{{'avaliacoesPendentes.idade' | translate}}</td>
+                        <td>{{'avaliacoesPendentes.tempo' | translate}}</td>
+                    </tr>
+                </thead>
+                <tbody class="clicavel" *ngFor="let avaliacao of paginacaoAvaliacaoPendente.content; index as i" (click)="irParaAvaliacao(avaliacao.rmr)">
+                    <tr>
+                        <td>{{avaliacao.rmr}}</td>
+                        <td>{{avaliacao.nome}}</td>
+                        <td>{{avaliacao.idade}} {{'avaliacoesPendentes.anos' | translate}}</td>
+                        <td>{{avaliacao.tempoCadastro}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <span class="icon-cid" [ngClass]="indicarSeContempladoEmPortaria(avaliacao.cid)"></span>  
+                            {{avaliacao.cid.descricaoFormatada}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacaoAvaliacaoPendente.totalElements && paginacaoAvaliacaoPendente.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoAvaliacaoPendente.totalElements" [ngModel]="paginacaoAvaliacaoPendente.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoAvaliacaoPendente.quantidadeRegistro"
+                    (pageChanged)="mudarPaginaAvaliacoesPendentes($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="qtdRegistroAvaliacaoPendente" (change)="selecionaQuantidadeAvaliacoesPendentesPorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12">
+            <h3 class="subTitulo">{{'avaliacoesPendentes.atribuidos.titulo' | translate}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>{{'avaliacoesPendentes.rmr' | translate}}</td>
+                        <td>{{'avaliacoesPendentes.nome' | translate}}</td>
+                        <td>{{'avaliacoesPendentes.idade' | translate}}</td>
+                        <td>{{'avaliacoesPendentes.tempo' | translate}}</td>
+                    </tr>
+                </thead>
+                <tbody class="clicavel" *ngFor="let avaliacao of paginacaoAvaliacaoAtribuida.content; index as i" 
+                    (click)="irParaAvaliacao(avaliacao.rmr)">
+                    <tr>
+                        <td>{{avaliacao.rmr}}</td>
+                        <td>{{avaliacao.nome}}</td>
+                        <td>{{avaliacao.idade}} {{'avaliacoesPendentes.anos' | translate}}</td>
+                        <td>{{avaliacao.tempoCadastro}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <span class="icon-cid" [ngClass]="indicarSeContempladoEmPortaria(avaliacao.cid)"></span>  
+                            {{avaliacao.cid.descricaoFormatada}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacaoAvaliacaoAtribuida.totalElements && paginacaoAvaliacaoAtribuida.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacaoAvaliacaoAtribuida.totalElements" [ngModel]="paginacaoAvaliacaoAtribuida.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoAvaliacaoAtribuida.quantidadeRegistro"
+                    (pageChanged)="mudarPaginaAvaliacoesAtribuidas($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="qtdRegistroAvaliacaoAtribuida" (change)="selecionaQuantidadeAvaliacoesAtribuidasPorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<modal mensagem="" #modalMsg ></modal>

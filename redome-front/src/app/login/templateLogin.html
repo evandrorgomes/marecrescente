@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Entrada do sistema Plataforma Redome">
+  <meta name="author" content="Fundação do Câncer">
+  <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+  <title>Plataforma Tecnológica Redome</title>
+  <!-- Bootstrap core CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="login.css" rel="stylesheet">
+  <!-- Carregamento do Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <form class="form-signin" name="formLogin">
+      <h1>
+        <img src="../imagens/LogoPlatRedome.png" />
+      </h1>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="email" type="text" class="form-control" name="email" placeholder="Nome de usuário">
+      </div>
+      <!-- Mensagens de erro -->
+      <!-- 
+        <div class="alert alert-warning">Insira o nome de usuário</div>
+        <div class="alert alert-danger">Nome de usuário não existe</div>
+        -->
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="password" type="password" class="form-control" name="password" placeholder="Senha">
+      </div>
+      <!-- Mensagens de erro -->
+      <!--
+        <div class="alert alert-warning">Insira a senha</div>
+        <div class="alert alert-danger">Senha inválida</div>
+        -->
+      <!-- checkbox para lembrar senha
+        <div class="checkbox">
+          <label><input type="checkbox" value="remember-me">Lembrar senha</label>
+        </div>
+        -->
+      <button type="submit" class="btn btn-lg btn-primary btn-block">Entrar</button>
+    </form>
+  </div>
+</body>
+
+</html>

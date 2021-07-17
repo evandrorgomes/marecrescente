@@ -1,0 +1,25 @@
+<ng-template #consulta>
+</ng-template>
+
+<div *filtro>
+  <div class="form-group col-xs-12 col-sm-2">
+    <label>{{'invoice.apagar.consulta.filtros.pesquisarNumero' | translate}}</label>
+    <input Filtro padrao="onlyNumber" class="form-control" type="text" [(ngModel)]="filtrarPorNumero" placeholder="Apenas números">
+  </div>
+  <div class="col-xs-12 col-sm-5">
+    <div class="form-group" style="float: left;width: 50%;">
+      <label>{{'invoice.apagar.consulta.filtros.pesquisarFaturamento' | translate}}</label>
+      <input class="form-control" type="text" [(ngModel)]="filtrarDataInicio" placeholder="DD/MM/YYYY" [textMask]="{mask: _maskData}" />
+    </div>
+    <div class="form-group" style="float: left;width: 50%;padding-left: 15px">
+      <label>&nbsp;</label>
+      <input class="form-control" type="text" [(ngModel)]="filtrarDataFinal" placeholder="DD/MM/YYYY" [textMask]="{mask: _maskData}" />
+    </div>
+  </div>
+  <div class="col-sm-5 col-xs-12 text-right" style="text-align: -webkit-right;">
+    <button class="btn btn-lg btn-primary btn-block"  style="width: 40%;" (click)="listarUtilizandoFiltros()">
+      {{'botao.consultar' | translate}}
+    </button>
+  </div>
+</div>
+

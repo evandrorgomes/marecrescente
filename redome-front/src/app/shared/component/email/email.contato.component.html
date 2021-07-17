@@ -1,0 +1,23 @@
+<div [formGroup]="emailForm">
+    <div class="form-bloco listaTelefone" formArrayName="listaEmail">
+        <div *ngFor="let emailGroup of listaEmailForm.controls; index as i" [formGroupName]="i" class="row">
+            <div class="form-group col-sm-9 col-xs-12">
+                <label for="email">{{'emailComponent.email' | translate}}</label>
+                <input maxlength="100" class="form-control" id="email" type="text" formControlName="email">
+            </div>
+            <div class="form-group col-sm-3 col-xs-12" *ngIf="deveEsconderCampoPrincipal()" >                
+                <div class="checkbox-group listaTelefone-check" >
+                    <input id="ckEmailPrincipal{{i}}" formControlName="principal" type="checkbox" title="{{ 'mensagem.marcarprincipal' | translate }}" (change)="marcarComoPrincipal(i)" >
+                    <label class="star-principal" for="ckEmailPrincipal{{i}}" title="{{ 'mensagem.marcarprincipal' | translate }}" ><span></span></label>
+                </div>
+                <span class="glyphicon glyphicon-trash" title="Excluir contato" (click)="removerContato(i)" *ngIf="listaEmailForm.length > 1"></span>
+            </div>
+        </div>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('emailsContato') }}"></msg>
+        <msg mensagem="{{ exibirMensagemErrorPorCampo('emailPrincipal') }}"></msg>
+    </div>
+    <div class="text-center" [hidden]="esconderBotaoAdicionarEmail">
+        <button class="btn btn-setting btn-primary" (click)="adicionarEmail()" title="Adicionar contato"><i class="icon-mais"></i> {{ 'botao.novo.email' | translate }}</button>
+    </div>
+    
+</div>

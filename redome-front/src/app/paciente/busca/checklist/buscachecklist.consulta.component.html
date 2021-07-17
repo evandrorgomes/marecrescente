@@ -1,0 +1,90 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-3">
+            <h2>{{'buscaChecklist.titulo' | translate}}</h2>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+
+
+        <div class="row" [formGroup]="filtroListasForm">
+                <div class="form-group col-xs-12 col-sm-4">
+                        <label>{{'pacienteBusca.analistaResponsavel' | translate}} &nbsp; </label>
+                        <select [(ngModel)]="loginAnalistaSelecionado" class="form-control"
+                                formControlName="analistaBusca" #cbAnalistaBusca>
+                            <option value="">{{'pacienteBusca.todos' | translate}}</option>
+                            <option *ngFor="let analista of listaAnalistasBusca" value="{{analista?.username}}">
+                                {{analista?.nome}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4">
+                        <label>{{'pacienteBusca.checklist' | translate}} &nbsp; </label>
+                        <select [(ngModel)]="idTipoBuscaCheckListSelecionado" class="form-control"
+                                formControlName="itemCheckList">
+                            <option value="">{{'pacienteBusca.todos' | translate}}</option>
+                            <option *ngFor="let tipo of listaTiposBuscaCheckList" value="{{tipo?.id}}">
+                                {{tipo?.descricao}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 col-xs-12">
+                        <button class="btn btn-lg btn-primary btn-block" (click)="atualizarListaBuscas()">
+                            {{'botao.consultar' | translate}}
+                        </button>
+                    </div>
+            </div>
+    <div class="row dadosGeraisEvolucao">
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <table id="tabelaPendencias" class="table">
+                <thead>
+                    <tr>
+                        <th class="col-sm-1">{{'buscaChecklist.tabela.rmr' | translate}}</th>
+                        <th class="col-sm-3">{{'buscaChecklist.tabela.identificacaoDoador' | translate}}</th>
+                        <th class="col-sm-3">{{'buscaChecklist.tabela.dataCriacao' | translate}}</th>
+                        <th class="col-sm-3">{{'buscaChecklist.tabela.tipoDoador' | translate}}</th>
+                        <th class="col-sm-1">{{'buscaChecklist.tabela.nome' | translate}}</th>
+                        <th class="col-sm-3">{{'buscaChecklist.tabela.prazo' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clicavel"*ngFor="let checklist of paginacao.content; index as i" (click)="carregaTelaDetalhe(checklist.rmr, checklist.identificadorDoador?checklist.identificadorDoador:'', checklist.matchAtivo != null? checklist.matchAtivo:'', checklist.fase != null? checklist.fase: '')">
+                        <td class="col-sm-1">{{ checklist.rmr }}</td>
+                        <td class="col-sm-3">{{ checklist.identificadorDoador }} &nbsp;<span class="label label-danger" *ngIf="!checklist.matchAtivo &&  checklist.identificadorDoador">{{'buscaChecklist.matchInativo' | translate}}</span> </td>
+                        <td class="col-sm-3">{{ checklist.dataCriacao | date: "dd/MM/yyyy" }}</td>
+                        <td class="col-sm-3">{{ checklist.tipoDoador }}</td>
+                        <td class="col-sm-1">{{ checklist.descricao }}</td>
+                        <td class="col-sm-3">{{ checklist.prazoEmDias}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5"
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                    (pageChanged)="mudarPagina($event)"
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}"
+                    >
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecinaQuantidadePorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

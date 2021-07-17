@@ -1,0 +1,138 @@
+<div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'consultarPrescricao.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-8 col-xs-12 centrotransplante">
+                <select-centros-component #selectCentros
+                    [showAvaliadorOption]="false"
+                    (change)="mudarCentroTransplante(selectCentros.value)"
+
+                ></select-centros-component>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <h3>{{'consultarPrescricao.subtitulo' | translate}}</h3>
+            </div>
+        </div>
+        <div class="row avaliacoesPendentes">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>{{'consultarPrescricao.rmr' | translate}}</td>
+                            <td>{{'consultarPrescricao.nome' | translate}}</td>
+                            <td>{{'consultarPrescricao.aging' | translate}}</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody class="clicavel" *ngFor="let consultaPrescricaoDTO of paginacaoTarefasEmAberto?.content; index as i">
+                        <tr>
+                            <td>{{consultaPrescricaoDTO.rmr}}</td>
+                            <td>{{consultaPrescricaoDTO.nomePaciente}}</td>
+                            <td>{{consultaPrescricaoDTO.agingDaTarefa}}</td>
+                            <td class="table-icon text-right">
+                                <span (click)="carregaTelaDetalhe(consultaPrescricaoDTO.rmr)"
+                                    class="glyphicon glyphicon-user" title="{{ 'icone.detalhePaciente' | translate }}">
+                                </span>
+                                <span (click)="carregaTelaAnaliseMatch(consultaPrescricaoDTO.rmr)"
+                                    style="font-size: 18px; vertical-align: sub;"
+                                    class="icon icon-mach-done" title="{{ 'icone.analisematch' | translate }}">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoTarefasEmAberto?.totalElements && paginacaoTarefasEmAberto?.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoTarefasEmAberto?.totalElements" [ngModel]="paginacaoTarefasEmAberto?.number" [maxSize]="5"
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoTarefasEmAberto?.quantidadeRegistro"
+                        (pageChanged)="mudarPaginaPacientesSemPrescricao($event)"
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroTarefasEmAberto" (change)="selecionaQuantidadeTarefasEmAbertoPorPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <h3>{{'consultarPrescricao.subtitulo2' | translate}}</h3>
+            </div>
+        </div>
+        <div class="row avaliacoesPendentes">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>{{'consultarPrescricao.rmr' | translate}}</td>
+                            <td>{{'consultarPrescricao.nome' | translate}}</td>
+                            <td>{{'consultarPrescricao.idDoador' | translate}}</td>
+                            <td>{{'consultarPrescricao.tipoDoador' | translate}}</td>
+                            <td>{{'consultarPrescricao.status' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody class="clicavel" *ngFor="let consultaPrescricaoDTO of paginacaoPacienteComPrescricao?.content; index as i">
+                        <tr (click)="visualizarDetalhe(consultaPrescricaoDTO)">
+                            <td>{{consultaPrescricaoDTO?.rmr}}</td>
+                            <td>{{consultaPrescricaoDTO?.nomePaciente}}</td>
+                            <td>{{consultaPrescricaoDTO?.identificadorDoador}}</td>
+                            <td *ngIf="ehMedula(consultaPrescricaoDTO?.idTipoDoador)">{{'textosGenericos.medula' | translate  }}</td>
+                            <td *ngIf="ehCordao(consultaPrescricaoDTO?.idTipoDoador)">{{'textosGenericos.cordao' | translate  }}</td>
+                            <td>{{consultaPrescricaoDTO?.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaConsultaPaciente" *ngIf="paginacaoPacienteComPrescricao?.totalElements && paginacaoPacienteComPrescricao?.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacaoPacienteComPrescricao?.totalElements" [ngModel]="paginacaoPacienteComPrescricao?.number" [maxSize]="5"
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacaoPacienteComPrescricao?.quantidadeRegistro"
+                        (pageChanged)="mudarPaginaPacientesComPrescricao($event)"
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>Por Página:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistrosPacienteComPrescricao" (change)="selecionaQuantidadePacientesComPrescricaoPorPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <modal mensagem="" #modalMsg ></modal>

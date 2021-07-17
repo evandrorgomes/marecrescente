@@ -1,0 +1,14 @@
+<div class="row text-left">
+   <div class=" form-group col-sm-12 col-xs-12" [formGroup]="form()"  >
+      <textarea-component label="{{'avaliacao.resultadoworkup.justificativa' | translate}}" maxlength="255" [rows]="5"
+                          formControlName="justificativa"
+                          [control]="form().controls['justificativa']"></textarea-component>
+   </div>
+</div>
+<div class="row">
+   <div class=" col-sm-12 col-xs-12 modal-btn">
+      <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()">
+         <span class=""></span> {{ 'botao.salvar' | translate }}
+      </a>
+   </div>
+</div>

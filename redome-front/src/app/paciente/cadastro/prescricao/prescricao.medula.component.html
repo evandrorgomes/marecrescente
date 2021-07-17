@@ -1,0 +1,355 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                    <h2>{{ 'prescricaoComponent.tituloMedula' | translate }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="salvarPrescricaoMedula()">
+                        {{'botao.salvar' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div [formGroup]="formGroup">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoComponent.doador.titulo'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-3 col-xs-12">
+                    <label for="identificacaoDoador">{{ 'prescricaoComponent.doador.identificacao'| translate }}</label>
+                    <input class="form-control" id="identificacaoDoador" type="text" value="{{ doador?.identificacao }}" readonly>
+                </div>
+                <div class="form-group col-sm-1 col-xs-12">
+                    <label for="aborhDoador">{{ 'prescricaoComponent.doador.abo'| translate }}</label>
+                    <input class="form-control" id="aborhDoador" type="text" value="{{ doador?.abo }}" readonly>
+                </div>
+                <div class="form-group col-sm-2 col-xs-6">
+                    <label for="sexoDoador">{{ 'prescricaoComponent.doador.sexo'| translate }}</label>
+                    <input class="form-control" id="sexoDoador" type="text" value="{{ (doador?.sexo === 'F' ? 'sexo.feminino' : 'sexo.masculino') | translate }}" readonly>
+                </div>
+                <div class="form-group col-sm-1 col-xs-6">
+                    <label for="pesoDoador">{{ 'prescricaoComponent.doador.peso'| translate }}</label>
+                    <input class="form-control" id="pesoDoador" type="text" value="{{ obterPesoFormatado() }}"
+                           currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: '', precision: '1' }" readonly>
+                </div>
+                <div class="form-group col-sm-5 col-xs-6">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoComponent.opcao1'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataLimiteWorkup1">{{ 'prescricaoComponent.dataLimiteWorkup1'| translate }}</label>
+                    <input class="form-control"
+                        [textMask]="{mask: data}"
+                        tabindex="1" id="dataLimiteWorkup1" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                        formControlName="dataLimiteWorkup1" (blur)="setMensagemErroPorCampo('dataLimiteWorkup1');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataLimiteWorkup1') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataColeta1">{{ 'prescricaoComponent.dataColeta1'| translate }}</label>
+                    <input class="form-control"
+                        [textMask]="{mask: data}"
+                        tabindex="1" id="dataColeta1" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                        formControlName="dataColeta1" (blur)="setMensagemErroPorCampo('dataColeta1');exibeMensagemAlertaPrazoExpirado('dataColeta1');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataColeta1') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoComponent.opcao2'| translate }}</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataLimiteWorkup2">{{ 'prescricaoComponent.dataLimiteWorkup2'| translate }}</label>
+                    <input class="form-control"
+                        [textMask]="{mask: data}"
+                        tabindex="1" id="dataLimiteWorkup2" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                        formControlName="dataLimiteWorkup2" (blur)="setMensagemErroPorCampo('dataLimiteWorkup2');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataLimiteWorkup2') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataColeta2">{{ 'prescricaoComponent.dataColeta2'| translate }}</label>
+                    <input class="form-control"
+                        [textMask]="{mask: data}"
+                        tabindex="1" id="dataColeta2" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                        formControlName="dataColeta2" (blur)="setMensagemErroPorCampo('dataColeta2');exibeMensagemAlertaPrazoExpirado('dataColeta2');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataColeta2') }}"></msg>
+                </div>
+            </div>
+            <div class="row" *ngIf="exibirMensagemErrorPorCampo('datasIguais')">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('datasIguais') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoComponent.opcao1'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-8 col-xs-12">
+                    <label for="ddlFonteCelula">{{ 'prescricaoComponent.fonteCelulaOpcao1'| translate }}</label>
+                    <select formControlName="fonteCelulaOpcao1" class="form-control" id="ddlFonteCelula" (change)="mudouFonteCelulaOpcao1($event)" (blur)="setMensagemErroPorCampo('fonteCelulaOpcao1')">
+                        <option value=""></option>
+                        <option *ngFor="let c of listaFonteCelula" value="{{c.id}}">{{c.descricao}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('fonteCelulaOpcao1') }}"></msg>
+                </div>
+            </div>
+            <div class="row" *ngIf="fonteCelulaPreenchida('fonteCelulaOpcao1')" >
+
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtQuantidadeTotalOpcao1" *ngIf="ehFonteCelulaOpcao1SanguePeriferico" >
+                        <span style="display: block;float:  left;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadeTotalOpcao1" *ngIf="ehFonteCelulaOpcao1SanguePeriferico">
+                        <span style="display: block;float:  left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float: left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                    </label>
+
+                    <label for="txtQuantidadeTotalOpcao1" *ngIf="ehFonteCelulaOpcao1Medula" style="display: block;float: left;" >
+                        <span style="display: block;float:  left;margin-left: 4px; margin-right: 2px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadeTotalOpcao1" *ngIf="ehFonteCelulaOpcao1Medula" style="display: block;float: left;">
+                            {{ 'prescricaoComponent.x10'| translate }}
+                    </label>
+                    <label for="txtQuantidadeTotalOpcao1" *ngIf="ehFonteCelulaOpcao1Medula" style="display: block;float: left;" >
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: ''}" class="form-control" tabindex="3" id="txtQuantidadeTotalOpcao1" type="text"
+                        (blur)="setMensagemErroPorCampo('quantidadeTotalOpcao1')" placeholder="" formControlName="quantidadeTotalOpcao1" maxlength="7">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('quantidadeTotalOpcao1') }}"></msg>
+                </div>
+
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcao1Medula" style="display: block;float: left;" >
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                        <span style="display: block;float:  left;margin-left:  4px;"> /{{ 'textosGenericos.kilograma'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcao1Medula" style="display: block;float: left;">
+                        <span style="display: block;float:  left;margin-left:  4px;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcao1Medula" style="display: block;float: left;" >
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+
+                    <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcao1SanguePeriferico" >
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                        <span style="display: block;float:  left;margin-left:  4px;"> +/{{ 'textosGenericos.kilograma'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadePorKgOpcao1" *ngIf="ehFonteCelulaOpcao1SanguePeriferico">
+                        <span style="display: block;float:  left;margin-left:  4px;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                    </label>
+
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: '' }" class="form-control" tabindex="3" id="txtQuantidadePorKgOpcao1" type="text"
+                        (blur)="setMensagemErroPorCampo('quantidadePorKgOpcao1')" placeholder="" placeholder=""  formControlName="quantidadePorKgOpcao1" >
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('quantidadePorKgOpcao1') }}"></msg>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="fonteCelulaPreenchida('fonteCelulaOpcao1')">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoComponent.opcao2'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row" *ngIf="fonteCelulaPreenchida('fonteCelulaOpcao1')">
+                <div class="form-group col-sm-8 col-xs-12">
+                    <label for="ddlFonteCelulaOpcao2">{{ 'prescricaoComponent.fonteCelulaOpcao2'| translate }}</label>
+                    <select formControlName="fonteCelulaOpcao2" class="form-control" id="ddlFonteCelulaOpcao2" (change)="mudouFonteCelulaOpcao2($event)" (blur)="setMensagemErroPorCampo('fonteCelulaOpcao2')">
+                        <option value=""></option>
+                        <option *ngFor="let c of listaFonteCelulaOpcao2" value="{{c.id}}">{{c.descricao}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('fonteCelulaOpcao2') }}"></msg>
+                </div>
+            </div>
+            <div class="row" *ngIf="fonteCelulaPreenchida('fonteCelulaOpcao2')" >
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtQuantidadeTotalOpcao2" *ngIf="ehFonteCelulaOpcao2Medula">
+                        <span style="display: block;float:  left;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadeTotalOpcao2" *ngIf="ehFonteCelulaOpcao2Medula">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+
+                    <label for="txtQuantidadeTotalOpcao2" *ngIf="ehFonteCelulaOpcao2SanguePeriferico" >
+                        <span style="display: block;float:  left;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadeTotalOpcao2" *ngIf="ehFonteCelulaOpcao2SanguePeriferico">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                    </label>
+
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: ''}" class="form-control" tabindex="3" id="txtQuantidadeTotalOpcao2" type="text"
+                        (blur)="setMensagemErroPorCampo('quantidadeTotalOpcao2')" placeholder="" formControlName="quantidadeTotalOpcao2" maxlength="7">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('quantidadeTotalOpcao2') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+
+                    <label for="txtQuantidadePorKgOpcao2" *ngIf="ehFonteCelulaOpcao2Medula">
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                        <span style="display: block;float:  left;margin-left:  4px;"> /{{ 'textosGenericos.kilograma'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadePorKgOpcao2" *ngIf="ehFonteCelulaOpcao2Medula">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+
+                    <label for="txtQuantidadePorKgOpcao2" *ngIf="ehFonteCelulaOpcao2SanguePeriferico" >
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                        <span style="display: block;float:  left;margin-left:  4px;"> +/{{ 'textosGenericos.kilograma'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadePorKgOpcao2" *ngIf="ehFonteCelulaOpcao2SanguePeriferico">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.6'| translate }}</span>
+                    </label>
+
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: '' }" class="form-control" tabindex="3" id="txtQuantidadePorKgOpcao2" type="text"
+                        (blur)="setMensagemErroPorCampo('quantidadePorKgOpcao2')" placeholder="" placeholder=""  formControlName="quantidadePorKgOpcao2" >
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('quantidadePorKgOpcao2') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12" >
+                    <input type="checkbox" id="fazerColeta" value="true" formControlName="fazerColeta" >
+                    <label for="fazerColeta" ><span></span> {{ 'prescricaoComponent.fazerColeta' | translate}} </label>
+                </div>
+            </div>
+
+
+            <div class="row"  *ngIf="evolucao?.tiposTransplante?.length > 0">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoComponent.tipoTransplanteTitulo'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row" *ngIf="evolucao?.tiposTransplante?.length > 0">
+                <div class="form-group col-sm-12 col-xs-12" >
+                    <div class="radio-group">
+                        <div *ngFor="let tipo of evolucao?.tiposTransplante">
+                            <label><span></span>{{tipo.descricao}}</label>
+                        </div>
+                        <div>
+                            <label> {{ 'prescricaoComponent.dataUltimoTransplante'| translate }}: {{evolucao.dataUltimoTransplanteFormatada}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoComponent.amostrasTitulo'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row" formArrayName="tiposAmostra">
+                <div *ngFor="let t of tipoAmostraFormArray.controls;let i = index;" class="row">
+                    <div [formGroupName]="i">
+                        <div class="checkbox-group  col-sm-1 col-xs-12">
+                            <div>
+                            <input type="checkbox" id="chkTipoAmostra{{i}}" value="true" (click)="limparCampos($event, t)" formControlName="check" #chkTipoAmostra>
+                                <label for="chkTipoAmostra{{i}}" ><span></span> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 col-xs-12">
+                            <input-number-component
+                                label="{{t.get('descricao').value}} - {{'prescricaoComponent.ml' | translate}}:"
+                                formControlName="ml"
+                                [control]="t.get('ml')"
+                                idd="txtMl{{i}}"
+                                placeholder=""
+                                [currencyOption]="{ prefix: '', allowNegative : false, thousands: '', precision: '0' }"
+                                [disabled]="verificarCheckHabilitacao(t)">
+                            </input-number-component>
+                        </div>
+                        <div class="col-sm-2 col-xs-12" *ngIf="verificaSeTipoAmostraEOutros(t)">
+                                <input-component
+                                label="{{'prescricaoComponent.outros' | translate}}:"
+                                [control]="t.get('descricaoOutrosExames')"
+                                formControlName="descricaoOutrosExames"
+                                idd="txtDescricaoExames{{i}}">
+                            </input-component>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" *ngIf="mostrarInputArquivoJustificativa" >
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtArquivoJustificativa">Arquivo Justificativa</label>
+                    <div class="selecionaLaudos" *ngIf="!possuiArquivoJustificativa">
+                        <br />
+                        <div [hidden]="true">
+                            <input id="fileInputJustificativa"  #fileInputJustificativa type="file" ng2FileSelect [uploader]="uploaderJustificativa" />
+                        </div>
+                        <button type="button" class="btn-setting btn-primary btn-center" (click)="fileInputJustificativa.click()" id="uploadButtonJustificativa">
+                            <span class="glyphicon glyphicon-paperclip"></span>
+                            {{'botao.arquivo' | translate}}
+                        </button>
+                    </div>
+                    <input type="text" class="form-control" id="txtArquivoJustificativa" [disabled]="true" value="{{ nomeArquivoJustificativa }} " *ngIf="possuiArquivoJustificativa" >
+                    <a *ngIf="possuiArquivoJustificativa"
+                            title="{{ 'DoadorEmailContato.excluir' | translate}}"
+                            (click)="removerArquivoJustificativa()">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivoJustificativa') }}"></msg>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 wrap-table">
+                    <table class="table tableLaudo">
+                        <thead>
+                            <tr>
+                                <th>{{'tabela.prescricaoSelecionada' | translate}}: ({{ arquivos.length }} {{ arquivos.length <= 1 ? 'anexado' : 'anexados' }})</th>
+                                <th><!--<span class="glyphicon glyphicon-option-horizontal" title="Opções"></span>--></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let item of arquivos">
+                                <td>{{ item.nomeSemTimestamp }}</td>
+                                <td class="tdAcoes"><span class="glyphicon glyphicon-remove" title="Remover arquivo" (click)="removerArquivo(item.nome)"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group col-sm-12 col-xs-12">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivo') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="selecionaLaudos text-center">
+                    <div [hidden]="true">
+                        <input id="fileInput"  #fileInput type="file" ng2FileSelect [uploader]="uploader" />
+                    </div>
+                    <button type="button" class="btn-setting btn-primary btn-center" (click)="fileInput.click()" id="uploadButton">
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                        {{'botao.arquivo' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

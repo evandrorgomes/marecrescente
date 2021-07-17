@@ -1,0 +1,72 @@
+<div class="container conteudo">
+    <div class="page-title">
+       <div class="row">
+          <div class="col-xs-12 col-sm-12">
+             <h2>{{ 'workup.pedido.tituloFormularioWorkup' | translate }}</h2>
+          </div>
+       </div>
+       <div class="row">
+          <header-doador #headerDoador></header-doador>
+      </div>
+      <div class="row">
+         <div class="col-xs-12 col-sm-12 header-doador">
+               <h4>{{ 'textosGenericos.dataPedido'| translate }}:</h4>
+               <small>{{pedidoWorkup?.dataInicioWorkup | date: 'dd/MM/yyyy'}}</small>
+          </div>
+      </div>
+      <div class="row menu-btn">
+          <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" (click)="voltar()">
+               <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}
+            </a>
+            <a class="btn btn-setting btn-primary" (click)="salvarFormulario()"  *ngIf="!isMostrarDetalhe" >
+               <span class="icon-salvar"></span>
+               {{'contato.salvarQuestionario'| translate}}
+            </a>
+            <a class="btn btn-setting btn-primary" (click)="finalizarFormulario()" *ngIf="!isMostrarDetalhe" >
+               <span class="icon-calendario"></span>
+               {{'contato.finalizar'| translate}}
+            </a>
+          </div>
+       </div>
+       <div class="row wrap-bloco">
+         <div class="col-sm-2 col-xs-12">
+            <h3>{{'contato.telefonesContato' | translate}}</h3>
+         </div>
+         <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div>
+               <div *ngFor="let contato of doadorNacional?.contatosTelefonicos; index as i">
+                  <div>
+                     <p>
+                        <small>{{'doadores.telefone' | translate}}: </small>
+                        <span class="texto-bloco">
+                           +{{contato.codArea + " "+contato.numero}} | {{contato.nome}}
+                        </span>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+       </div>
+   </div>
+   <div class="page-content">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12">
+          <visualizar-prescricao></visualizar-prescricao>
+      </div>
+  </div>
+
+        <questionario #questionario [formulario]="_formulario" [desabilita]="isMostrarDetalhe" ></questionario>
+        <div *ngIf="!isMostrarDetalhe" class="floatR">
+            <div class="col-sm-12 col-xs-12">
+                <span>
+                    <a class="btn btn-setting btn-primary" (click)="salvarFormulario()">
+                            <span class="icon-salvar"></span>
+                            {{'contato.salvarQuestionario'| translate}}
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

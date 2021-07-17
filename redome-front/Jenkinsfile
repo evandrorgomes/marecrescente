@@ -1,0 +1,87 @@
+pipeline {
+    agent any
+    
+    environment {
+      DOCKER_REGISTRY = "sr-vmlxapp26.inca.local:5000" 
+      IMAGE_NAME = "${DOCKER_REGISTRY}/redome-front:${BUILD_NUMBER}_${BUILD_TIMESTAMP}"
+    }
+    
+    stages {
+	    stage('Build Project') {
+	       steps {
+	          sh 'rm src/environments/environment.prod.ts'
+             sh 'mv src/environments/environment.hml.ts src/environments/environment.prod.ts'
+             sh 'npm install'
+             sh 'npm rum build:prod'
+	       }
+	    }
+	    stage('Build Image and Push') {	       
+	       steps {
+	          sh 'docker build -t ${IMAGE_NAME} -f hml-Dockerfile .'
+	          sh 'docker push ${IMAGE_NAME}'	          
+	       }
+	    }
+	    stage('deploy') {
+	       steps {
+	          withKubeConfig([credentialsId: 'inca-dev']) {
+                sh """ cat <<EOF > deployment.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: redome-front-svc
+  namespace: hml
+spec:
+  type: NodePort
+  selector:
+    app: redome-front
+    namespace: hml
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redome-front-deployment
+  namespace: hml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redome-front
+      namespace: hml
+  template:
+    metadata:
+      labels:
+        app: redome-front
+        namespace: hml
+    spec:
+      hostname: redome-front
+      subdomain: redome-front-svc
+      containers:
+        - name: redome-front
+          image: $IMAGE_NAME
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "768Mi"
+            limits:
+              cpu: "100m"
+              memory: "1536Mi"
+          ports:
+            - containerPort: 80
+                """
+            sh 'kubectl apply --insecure-skip-tls-verify -n hml -f deployment.yaml'
+              }
+	       }
+	    }
+	}
+/**	post {
+	  always {
+	    junit skipPublishingChecks: true, testResults: 'target/surefire-reports/*.xml'
+	  }
+	} */
+}
+
+

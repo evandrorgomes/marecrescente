@@ -1,0 +1,22 @@
+spring:
+  security:  
+    user:
+      name: redomediscovery
+      password: D4V5uzR4isTHS08WRKIInL1ZfP
+  
+eureka:
+  instance:    
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
+    nonSecurePortEnabled: true
+    securePortEnabled: false
+    hostname: localhost
+    appName: redome-discovery
+    prefer-ip-address: false    
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/

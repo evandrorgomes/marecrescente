@@ -1,0 +1,553 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'centrotransplante.detalhe.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior><span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+            <a id="idSalvar" type="button" class="btn btn-setting btn-primary"
+                *ngIf="!centroTransplante?.id" (click)="salvarNovoCentroTransplante()" ><span class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}</a>
+        </div>
+    </div>
+</div>
+<div class="page-content dadosGeraisPaciente">
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'centrotransplante.detalhe.dadosbasicos.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarDadosBasicos()"
+                *ngIf="_exibirLinkEditarDadosBasicos" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div [ngClass]="_mostraDadosBasicos">
+                <p><small>{{'centrotransplante.detalhe.dadosbasicos.nome' | translate}}: </small>{{ centroTransplante?.nome }}</p>
+                <p><small>{{'centrotransplante.detalhe.dadosbasicos.cnpj' | translate}}: </small>{{ formatarCnpj(centroTransplante?.cnpj) }}</p>
+                <p><small>{{'centrotransplante.detalhe.dadosbasicos.cnes' | translate}}: </small>{{ centroTransplante?.cnes }}</p>
+                <p><small>{{'centrotransplante.detalhe.dadosbasicos.funcoes' | translate}}: </small>
+                    <span *ngFor="let funcao of centroTransplante?.funcoes; let last = last; index as i" >
+                        {{ funcao.descricao }}
+                        <span *ngIf="!last">&nbsp;/&nbsp;</span>
+                    </span>
+                </p>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioDadosBasicos" [formGroup]="form()">
+                <div class="row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        <input-component
+                            label="{{'centrotransplante.detalhe.dadosbasicos.nome' | translate}}:"
+                            formControlName="nome"
+                            [control]="form().controls['nome']"
+                            idd="txtNome"
+                            placeholder="" maxLength="100" >
+                        </input-component>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <input-component
+                            label="{{'centrotransplante.detalhe.dadosbasicos.cnpj' | translate}}:"
+                            formControlName="cnpj"
+                            [control]="form().controls['cnpj']"
+                            idd="txtCnpj"
+                            [mascara]="maskCnpj"
+                            placeholder="" >
+                        </input-component>
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <input-component
+                            label="{{'centrotransplante.detalhe.dadosbasicos.cnes' | translate}}:"
+                            formControlName="cnes"
+                            [control]="form().controls['cnes']"
+                            idd="txtCnes"
+                            placeholder="" >
+                        </input-component>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        <group-checkbox-component
+                            label="{{'centrotransplante.detalhe.dadosbasicos.funcoes' | translate}}:"
+                            formArrayName="itens"
+                            [control]="form().controls['itens']"
+                            controFieldName="selected"
+                            [optionsLabel]="listaDescricaoFuncao()">
+                        </group-checkbox-component>
+                    </div>
+                </div>
+                <div class="row" *ngIf="_exibirBotoesEditarDadosBasicos">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoDadosBasicos()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoDadosBasicos()" >{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{'centrotransplante.detalhe.laboratorio.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarLaboratorioPreferencial()"
+                *ngIf="_exibirLinkEditarLaboratorio" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div [ngClass]="_mostraLaborarioPreferencial">
+                <p><small>{{'centrotransplante.detalhe.laboratorio.nome' | translate}}: </small>{{ centroTransplante?.laboratorioPreferencia?.nome }}</p>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioLaborarioPreferencial" [formGroup]="formLaboratorio()">
+                <div class="row">
+                    <div class="form-group col-sm-8 col-xs-12">
+                        <select-component
+                            label="{{'centrotransplante.detalhe.dadosbasicos.nome' | translate}}:"
+                            formControlName="id"
+                            [control]="formLaboratorio().controls['id']"
+                            idd="txtLaboratorio"
+                            [options]="laboratorios"
+                            fieldOptionValue="id"
+                            fieldOptionText="descricaoUfNome">
+                        </select-component>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="_exibirBotoesEditarLaboratorio">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoLaboratorioPreferencial()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoLaboratorioPreferencial()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<!--[control]="formCentrosDisponiveis().controls['selecionados']"-->
+
+    <div class="row wrap-bloco">
+            <div class="col-sm-2 col-xs-12">
+                    <h3>{{'centrotransplante.detalhe.medico.titulo' | translate}}</h3>
+                    <a href="javascript:void(0)" class="editar-bloco" (click)="editarMedicos()"
+                        *ngIf="_exibirLinkEditarMedicos" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+                </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco">
+            <div [ngClass]="_mostraMedicos">
+                <p *ngFor="let item of centroTransplante?.centroTransplanteUsuarios" ><small>{{'centrotransplante.detalhe.medico.nome' | translate}}: </small>{{ item.usuario.nome}}</p>
+            </div>
+            <div class="form-bloco" [ngClass]="_mostraFormularioMedicos">
+                <div class="row">
+                    <div class="form-group col-sm-4 col-xs-12">
+                        <form>
+                            <label>{{'centrotransplante.detalhe.medico.consultaMedico' | translate}}:</label>
+                            <input  class="form-control" type="text" tabindex="0" [(ngModel)]="consultaMedico"
+                            name="consultaMedico"
+                            (keyup)="pesquisarMedicos($event)">
+                        </form>
+                    </div>
+                    <div class="form-group col-sm-1 col-xs-12">
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-12"></div>
+                </div>
+                <div class="row">
+                        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formMedicosDisponiveis()">
+                            <select-component
+                                label="{{'centrotransplante.detalhe.medico.medicosDiposniveis' | translate}}:"
+                                [control]="formMedicosDisponiveis().controls['selecionados']"
+                                formControlName="selecionados"
+                                idd="txtMedicosDisponiveis"
+                                [options]="medicosDisponiveis"
+                                fieldOptionValue="id"
+                                fieldOptionText="nome"
+                                [showBlankOption]="false"
+                                [multipleSelect]="true">
+                            </select-component>
+                        </div>
+                        <div class="form-group col-sm-1 col-xs-12">
+                            <button id="idAdicionarMedico" type="button" class="btn btn-setting btn-primary"
+                                (click)="adicionarMedicos()"><span class="glyphicon glyphicon-arrow-right"></span></button>
+                            <button id="idRemoverCentros" type="button" class="btn btn-setting btn-primary"
+                                (click)="removerMedicos()"><span class="glyphicon glyphicon-arrow-left"></span></button>
+
+                        </div>
+                        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formMedicosSelecionados()">
+                            <select-component
+                                label="{{'centrotransplante.detalhe.medico.medicosResponsaveis' | translate}}:"
+                                [control]="formMedicosSelecionados().controls['selecionados']"
+                                formControlName="selecionados"
+                                idd="txtMedicosSelecionados"
+                                [options]="medicosSelecionados"
+                                fieldOptionValue="id"
+                                fieldOptionText="nome"
+                                [showBlankOption]="false"
+                                [multipleSelect]="true"
+                                [quantidadeItens]="3">
+                            </select-component>
+                        </div>
+                </div>
+                <div class="row" *ngIf="_exibirBotoesEditarMedicos">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelar" class="btn btn-default floatL" (click)="cancelarEdicaoMedicos()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterar" class="btn btn-primary floatR" (click)="salvarEdicaoMedicos()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Endereço -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'manterTransportadora.campos.enderecoTransportadora' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarEndereco()"
+                *ngIf="_exibirLinkEditarEndereco" ><span class="icon-editar"></span> {{ 'link.editar' | translate }}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEndereco" >
+                <li *ngFor=" let endereco of centroTransplante?.enderecos; index as i">
+                    <p id="" *ngIf="endereco.principal === true" >
+                        <span class="texto-bloco" >{{ endereco.tipoLogradouro}} {{ endereco.nomeLogradouro}}, {{ endereco.numero}} - {{ endereco.complemento }} {{ endereco.complemento ? " - " : "" }} {{ endereco.bairro}} - {{ endereco?.municipio?.descricao}}<br/>{{ endereco.municipio?.uf?.sigla}} - {{ endereco?.pais?.nome}} - CEP {{ endereco.cep}}
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioEndereco">
+
+                <endereco-contato #endereco esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+                <div class="row" *ngIf="_exibirBotoesEditarEndereco">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEndereco()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEndereco()" >{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Endereço Retirada -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'centrotransplante.detalhe.enderecoretirada.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarEnderecoRetirada()"
+                *ngIf="_exibirLinkInserirEditarEnderecoRetirada"><span class="icon-editar"></span>
+                <div style="display: inline;" *ngIf="deveExibirEditarEnderecoRetirada()" >{{ 'link.editar' | translate }}</div>
+                <div style="display: inline;" *ngIf="!deveExibirEditarEnderecoRetirada()" >{{ 'link.incluir' | translate }}</div>
+            </a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEnderecoRetirada" >
+                <li *ngFor=" let endereco of centroTransplante?.enderecos; index as i">
+                    <p id="" *ngIf="endereco.retirada === true">
+                        <span class="texto-bloco" >{{ endereco.tipoLogradouro}} {{ endereco.nomeLogradouro}}, {{ endereco.numero}} - {{ endereco.complemento }} {{ endereco.complemento ? " - " : "" }} {{ endereco.bairro}} - {{ endereco.municipio.descricao}}<br/>{{ endereco.municipio.uf.sigla}} - {{ endereco.pais.nome}} - CEP {{ endereco.cep}}
+                            <a class="btn-dadosinline"
+                                title="{{ 'centrotransplante.detalhe.enderecoretirada.excluir' | translate}}"
+                                (click)="excluirEnderecoContatoRetirada(endereco)">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco copia-endereco" [ngClass]="_mostraFormularioEnderecoRetirada">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12">
+                        <input type="checkbox" id="chkNaoPossuiEnderecoRetirada" #chkNaoPossuiEnderecoRetirada
+                            *ngIf="!_exibirBotoesInserirEditarEnderecoRetirada" (change)="naoPossuiEnderecoRetirada (chkNaoPossuiEnderecoRetirada.checked)" >
+                        <label for="chkNaoPossuiEnderecoRetirada" *ngIf="!_exibirBotoesInserirEditarEnderecoEntrega"><span></span> {{ 'centrotransplante.detalhe.enderecoretirada.naopossui' | translate }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <a href="javascript:void(0)" class="btn btn-setting btn-primary" (click)="copiarEnderecoParaEnderecoRetirada()"
+                        *ngIf="!_naoPossuiEnderecoRetirada" ><i class="glyphicon glyphicon-duplicate"></i> {{ 'link.copiarendereco' | translate }} </a>
+                    </div>
+                </div>
+                <endereco-contato *ngIf="!_naoPossuiEnderecoRetirada" #enderecoRetirada esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+                <div class="row" *ngIf="_exibirBotoesInserirEditarEnderecoRetirada">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEnderecoRetirada()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEnderecoRetirada()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Endereço Entrega -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'centrotransplante.detalhe.enderecoentrega.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarEnderecoEntrega()"
+                *ngIf="_exibirLinkInserirEditarEnderecoEntrega"><span class="icon-editar"></span>
+                <div style="display: inline;" *ngIf="deveExibirEditarEnderecoEntrega()" >{{ 'link.editar' | translate }}</div>
+                <div style="display: inline;" *ngIf="!deveExibirEditarEnderecoEntrega()" >{{ 'link.incluir' | translate }}</div>
+            </a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEnderecoEntrega" >
+                <li *ngFor=" let endereco of centroTransplante?.enderecos; index as i">
+                    <p id="" *ngIf="endereco.entrega === true">
+                        <span class="texto-bloco" >{{ endereco.tipoLogradouro}} {{ endereco.nomeLogradouro}}, {{ endereco.numero}} - {{ endereco.complemento }} {{ endereco.complemento ? " - " : "" }} {{ endereco.bairro}} - {{ endereco.municipio.descricao}}<br/>{{ endereco.municipio.uf.sigla}} - {{ endereco.pais.nome}} - CEP {{ endereco.cep}}
+                            <a class="btn-dadosinline"
+                                title="{{ 'centrotransplante.detalhe.enderecoentrega.excluir' | translate}}"
+                                (click)="excluirEnderecoContatoEntrega(endereco)">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco copia-endereco" [ngClass]="_mostraFormularioEnderecoEntrega">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12">
+                        <input type="checkbox" id="chkNaoPossuiEnderecoEntrega" #chkNaoPossuiEnderecoEntrega
+                            *ngIf="!_exibirBotoesInserirEditarEnderecoEntrega" (change)="naoPossuiEnderecoEntrega(chkNaoPossuiEnderecoEntrega.checked)" >
+                        <label for="chkNaoPossuiEnderecoEntrega" *ngIf="!_exibirBotoesInserirEditarEnderecoEntrega"><span></span> {{ 'centrotransplante.detalhe.enderecoentrega.naopossui' | translate }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12">
+                        <a href="javascript:void(0)" class="btn btn-setting btn-primary" (click)="copiarEnderecoParaEnderecoEntrega()"
+                        *ngIf="!_naoPossuiEnderecoEntrega" ><i class="glyphicon glyphicon-duplicate"></i> {{ 'link.copiarendereco' | translate }} </a>
+                    </div>
+                </div>
+                <endereco-contato *ngIf="!_naoPossuiEnderecoEntrega" #enderecoEntrega esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+                <div class="row" *ngIf="_exibirBotoesInserirEditarEnderecoEntrega">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEnderecoEntrega()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEnderecoEntrega()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Endereço Workup -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'centrotransplante.detalhe.enderecoworkup.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="editarEnderecoWorkup()"
+                *ngIf="_exibirLinkInserirEditarEnderecoWorkup"><span class="icon-editar"></span>
+                <div style="display: inline;" *ngIf="deveExibirEditarEnderecoWorkup()" >{{ 'link.editar' | translate }}</div>
+                <div style="display: inline;" *ngIf="!deveExibirEditarEnderecoWorkup()" >{{ 'link.incluir' | translate }}</div>
+            </a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEnderecoWorkup" >
+                <li *ngFor=" let endereco of centroTransplante?.enderecos; index as i">
+                    <p id="" *ngIf="endereco.workup === true">
+                        <span class="texto-bloco" >{{ endereco.tipoLogradouro}} {{ endereco.nomeLogradouro}}, {{ endereco.numero}} - {{ endereco.complemento }} {{ endereco.complemento ? " - " : "" }} {{ endereco.bairro}} - {{ endereco.municipio.descricao}}<br/>{{ endereco.municipio.uf.sigla}} - {{ endereco.pais.nome}} - CEP {{ endereco.cep}}
+                            <a class="btn-dadosinline"
+                                title="{{ 'centrotransplante.detalhe.enderecoworkup.excluir' | translate}}"
+                                (click)="excluirEnderecoContatoWorkup(endereco)">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco copia-endereco" [ngClass]="_mostraFormularioEnderecoWorkup">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12">
+                        <input type="checkbox" id="chkNaoPossuiEnderecoWorkup" #chkNaoPossuiEnderecoWorkup
+                            *ngIf="!_exibirBotoesInserirEditarEnderecoWorkup" (change)="naoPossuiEnderecoWorkup(chkNaoPossuiEnderecoWorkup.checked)" >
+                        <label for="chkNaoPossuiEnderecoWorkup" *ngIf="!_exibirBotoesInserirEditarEnderecoWorkup"><span></span> {{ 'centrotransplante.detalhe.enderecoworkup.naopossui' | translate }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12">
+                        <a href="javascript:void(0)" class="btn btn-setting btn-primary" (click)="copiarEnderecoParaEnderecoWorkup()"
+                        *ngIf="!_naoPossuiEnderecoWorkup" ><i class="glyphicon glyphicon-duplicate"></i> {{ 'link.copiarendereco' | translate }} </a>
+                    </div>
+                </div>
+                <endereco-contato *ngIf="!_naoPossuiEnderecoWorkup" #enderecoWorkup esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+                <div class="row" *ngIf="_exibirBotoesInserirEditarEnderecoWorkup">
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEnderecoWorkup()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEnderecoWorkup()">{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Endereço GCSF -->
+    <div class="row wrap-bloco">
+      <div class="col-sm-2 col-xs-12">
+          <h3>{{ 'centrotransplante.detalhe.enderecogcsf.titulo' | translate}}</h3>
+          <a href="javascript:void(0)" class="editar-bloco" (click)="editarEnderecoGcsf()"
+              *ngIf="_exibirLinkInserirEditarEnderecoGcsf"><span class="icon-editar"></span>
+              <div style="display: inline;" *ngIf="deveExibirEditarEnderecoGcsf()" >{{ 'link.editar' | translate }}</div>
+              <div style="display: inline;" *ngIf="!deveExibirEditarEnderecoGcsf()" >{{ 'link.incluir' | translate }}</div>
+          </a>
+      </div>
+      <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+          <ul [ngClass]="_mostraEnderecoGcsf" >
+              <li *ngFor=" let endereco of centroTransplante?.enderecos; index as i">
+                  <p id="" *ngIf="endereco.gcsf === true">
+                      <span class="texto-bloco" >{{ endereco.tipoLogradouro}} {{ endereco.nomeLogradouro}}, {{ endereco.numero}} - {{ endereco.complemento }} {{ endereco.complemento ? " - " : "" }} {{ endereco.bairro}} - {{ endereco.municipio.descricao}}<br/>{{ endereco.municipio.uf.sigla}} - {{ endereco.pais.nome}} - CEP {{ endereco.cep}}
+                          <a class="btn-dadosinline"
+                              title="{{ 'centrotransplante.detalhe.enderecogcsf.excluir' | translate}}"
+                              (click)="excluirEnderecoContatoGcsf(endereco)">
+                              <i class="glyphicon glyphicon-trash"></i>
+                          </a>
+                      </span>
+                  </p>
+              </li>
+          </ul>
+          <div class="form-bloco copia-endereco" [ngClass]="_mostraFormularioEnderecoGcsf">
+              <div class="row">
+                  <div class="form-group col-xs-12 col-sm-12">
+                      <input type="checkbox" id="chkNaoPossuiEnderecoGcsf" #chkNaoPossuiEnderecoGcsf
+                          *ngIf="!_exibirBotoesInserirEditarEnderecoGcsf" (change)="naoPossuiEnderecoGcsf(chkNaoPossuiEnderecoGcsf.checked)" >
+                      <label for="chkNaoPossuiEnderecoGcsf" *ngIf="!_exibirBotoesInserirEditarEnderecoGcsf"><span></span> {{ 'centrotransplante.detalhe.enderecogcsf.naopossui' | translate }}</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-xs-12 col-sm-12">
+                      <a href="javascript:void(0)" class="btn btn-setting btn-primary" (click)="copiarEnderecoParaEnderecoGcsf()"
+                      *ngIf="!_naoPossuiEnderecoGcsf" ><i class="glyphicon glyphicon-duplicate"></i> {{ 'link.copiarendereco' | translate }} </a>
+                  </div>
+              </div>
+              <endereco-contato *ngIf="!_naoPossuiEnderecoGcsf" #enderecoGcsf esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+              <div class="row" *ngIf="_exibirBotoesInserirEditarEnderecoGcsf">
+                  <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                      <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEnderecoGcsf()" >{{'botao.cancelar' | translate}}</button>
+                      <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEnderecoGcsf()">{{'botao.salvar' | translate}}</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Endereço Internação -->
+    <div class="row wrap-bloco">
+      <div class="col-sm-2 col-xs-12">
+          <h3>{{ 'centrotransplante.detalhe.enderecointernacao.titulo' | translate}}</h3>
+          <a href="javascript:void(0)" class="editar-bloco" (click)="editarEnderecoInternacao()"
+              *ngIf="_exibirLinkInserirEditarEnderecoInternacao"><span class="icon-editar"></span>
+              <div style="display: inline;" *ngIf="deveExibirEditarEnderecoInternacao()" >{{ 'link.editar' | translate }}</div>
+              <div style="display: inline;" *ngIf="!deveExibirEditarEnderecoInternacao()" >{{ 'link.incluir' | translate }}</div>
+          </a>
+      </div>
+      <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+          <ul [ngClass]="_mostraEnderecoInternacao" >
+              <li *ngFor=" let endereco of centroTransplante?.enderecos; index as i">
+                  <p id="" *ngIf="endereco.internacao === true">
+                      <span class="texto-bloco" >{{ endereco.tipoLogradouro}} {{ endereco.nomeLogradouro}}, {{ endereco.numero}} - {{ endereco.complemento }} {{ endereco.complemento ? " - " : "" }} {{ endereco.bairro}} - {{ endereco.municipio.descricao}}<br/>{{ endereco.municipio.uf.sigla}} - {{ endereco.pais.nome}} - CEP {{ endereco.cep}}
+                          <a class="btn-dadosinline"
+                              title="{{ 'centrotransplante.detalhe.enderecointernacao.excluir' | translate}}"
+                              (click)="excluirEnderecoContatoInternacao(endereco)">
+                              <i class="glyphicon glyphicon-trash"></i>
+                          </a>
+                      </span>
+                  </p>
+              </li>
+          </ul>
+          <div class="form-bloco copia-endereco" [ngClass]="_mostraFormularioEnderecoInternacao">
+              <div class="row">
+                  <div class="form-group col-xs-12 col-sm-12">
+                      <input type="checkbox" id="chkNaoPossuiEnderecoInternacao" #chkNaoPossuiEnderecoInternacao
+                          *ngIf="!_exibirBotoesInserirEditarEnderecoInternacao" (change)="naoPossuiEnderecoInternacao(chkNaoPossuiEnderecoInternacao.checked)" >
+                      <label for="chkNaoPossuiEnderecoInternacao" *ngIf="!_exibirBotoesInserirEditarEnderecoInternacao"><span></span> {{ 'centrotransplante.detalhe.enderecointernacao.naopossui' | translate }}</label>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-xs-12 col-sm-12">
+                      <a href="javascript:void(0)" class="btn btn-setting btn-primary" (click)="copiarEnderecoParaEnderecoInternacao()"
+                      *ngIf="!_naoPossuiEnderecoInternacao" ><i class="glyphicon glyphicon-duplicate"></i> {{ 'link.copiarendereco' | translate }} </a>
+                  </div>
+              </div>
+              <endereco-contato *ngIf="!_naoPossuiEnderecoInternacao" #enderecoInternacao esconderCampoPrincipal="true" esconderCampoCorrespondencia="true" #enderecoContato ></endereco-contato>
+              <div class="row" *ngIf="_exibirBotoesInserirEditarEnderecoInternacao">
+                  <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                      <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEnderecoInternacao()" >{{'botao.cancelar' | translate}}</button>
+                      <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEdicaoEnderecoInternacao()">{{'botao.salvar' | translate}}</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+
+    <!-- Telefones -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'centrotransplante.detalhe.telefone.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirTelefone()"
+                *ngIf="_exibirLinkInserirTelefone" ><span class="icon-editar"></span> {{'link.incluir' | translate}}</a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraTelefone" >
+                <li *ngFor=" let contatoTelefonico of centroTransplante?.contatosTelefonicos; index as i">
+                    <p id="">
+                        <small>{{'centrotransplante.detalhe.telefone.telefone' | translate}} {{ i+1 }}: </small>
+                        <span class="texto-bloco">
+                            <div *ngIf= "contatoTelefonico.tipo == 2" >
+                                <i class="icon-celular"></i>
+                                {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{ contatoTelefonico.complemento ? " | " + contatoTelefonico.complemento : ''  }} {{" | " +  contatoTelefonico.nome }}
+                                <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                <a class="btn-dadosinline"
+                                    title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}"
+                                        (click)="excluirTelefone(contatoTelefonico)">
+                                <i class="glyphicon glyphicon-trash"></i></a>
+                            </div>
+                            <div *ngIf= "contatoTelefonico.tipo == 1" >
+                                <i class="icon-telefone"></i>
+                                {{ contatoTelefonico.codInter }}&nbsp;{{ contatoTelefonico.codArea }}&nbsp;{{ contatoTelefonico.numero }} {{" | " + contatoTelefonico.complemento }} {{" (" +  contatoTelefonico.nome + ")"}}
+                                <i class="icon-favorito laranja" *ngIf="contatoTelefonico.principal"></i>
+                                <a class="btn-dadosinline"
+                                    title="{{ 'centrotransplante.detalhe.telefone.excluir' | translate}}"
+                                    (click)="excluirTelefone(contatoTelefonico)">
+                                <i class="glyphicon glyphicon-trash"></i></a>
+                            </div>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioTelefone">
+                <contato-telefone [esconderBotaoAdicionarTelefone]="_esconderBotaoAdicionarTelefone" validarPrincipal="false"  #contatoTelefoneComponent></contato-telefone>
+                <div class="row" *ngIf="_exibirBotoesInserirTelefone" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoTelefone()">{{ 'botao.cancelar' | translate }}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarContatoTelefonico()">{{ 'botao.salvar' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emails -->
+    <div class="row wrap-bloco">
+        <div class="col-sm-2 col-xs-12">
+            <h3>{{ 'centrotransplante.detalhe.email.titulo' | translate}}</h3>
+            <a href="javascript:void(0)" class="editar-bloco" (click)="incluirEmail()"
+            *ngIf="_exibirLinkInserirEmail"  ><span class="icon-editar"></span>{{'link.incluir' | translate}} </a>
+        </div>
+        <div class="col-sm-10 col-xs-12 dados-bloco textarea-bloco">
+            <ul [ngClass]="_mostraEmail">
+                <li *ngFor=" let emailContato of centroTransplante?.emails; index as i">
+                    <p id=""><small>{{'entrotransplante.detalhe.email.email' | translate}} {{ i + 1 }}: </small>
+                    <span class="texto-bloco"> {{emailContato.email}}
+                        <i class="icon-favorito laranja" *ngIf="emailContato.principal"  ></i>
+                        <a class="btn-dadosinline" title="{{ 'centrotransplante.detalhe.email.excluir' | translate}}"
+                            (click)="excluirEmail(emailContato)" *ngIf="!emailContato.principal" >
+                        <i class="glyphicon glyphicon-trash"></i></a>
+                    </span></p>
+                </li>
+            </ul>
+            <div class="form-bloco" [ngClass]="_mostraFormularioEmail">
+                <contato-email [validarPrincipal]="_validarEmailPrincipal" [esconderBotaoAdicionarEmail]="_esconderBotaoAdicionarEmail" #emailContatoComponent></contato-email>
+                <div class="row" *ngIf="_exibirBotoesInserirEmail" >
+                    <div class="form-group btn-bloco col-xs-12 col-sm-12">
+                        <button id="cancelarContato" class="btn btn-default floatL" (click)="cancelarEdicaoEmail()" >{{'botao.cancelar' | translate}}</button>
+                        <button id="alterarContato" class="btn btn-primary floatR" (click)="salvarEmail()" >{{'botao.salvar' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

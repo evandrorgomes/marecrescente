@@ -1,0 +1,91 @@
+<div [formGroup]="form()">
+
+    <div id="pergunta" class="form-group col-xs-6" *ngIf="mostrarPergunta" >
+        <label for="ckPergunta">
+            {{ 'associaPendenciaForm.associaPendencias' | translate }}
+        </label>
+        <div class="col-xs-12 zeraPadding">
+            <input formControlName="associaPendencias"
+            id="rdPerguntaSim" type="radio" value="1"
+            (blur)="setMensagemErroPorCampo('associaPendencias')">
+            <label for="rdPerguntaSim" class="radio-inline">
+                <span></span>{{ 'associaPendenciaForm.sim' | translate  }}
+            </label>
+            <input formControlName="associaPendencias"
+                    id="rdPerguntaNao" type="radio" value="0"
+                    (blur)="setMensagemErroPorCampo('associaPendencias')">
+            <label for="rdPerguntaNao" class="radio-inline">
+                <span></span>{{ 'associaPendenciaForm.nao' | translate  }}
+            </label>
+        </div>
+
+        <div *ngIf="exibirMensagemErrorPorCampo('associaPendencias') && form().get('associaPendencias').touched">
+            <div class="clearfix"></div>
+            <msg mensagem="{{ exibirMensagemErrorPorCampo('associaPendencias') }}"></msg>
+        </div>
+    </div>
+
+    <div id="lista" class="col-md-12 col-sm-12 col-xs-12" *ngIf="form().get('associaPendencias').value != null && form().get('associaPendencias').value == 1 ">
+
+        <div class="form-group col-sm-12 col-xs-12 wrap-table">
+            <h4>{{ 'tabela.associaPendencia.titulo' | translate}}</h4>
+
+            <table class="tableContato table" id="tabelaAssociaPendencia">
+                <tbody formArrayName="listaPendencias">
+                    <tr *ngFor="let pendenciaGroup of listaPendenciaForm.controls; index as i" [formGroupName]="i">
+                        <td style="width:5%">
+                            <input id="ckSelecionado{{i}}"
+                                formControlName="selecionado"
+                                type="checkbox"
+                                title="Seleciona a pendência" >
+                        </td>
+                        <td>
+                            <span> {{ pendenciaGroup.get('nome').value }}  </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="exibirMensagemErrorPorCampo('listaSelecionada')">
+                    <div class="clearfix"></div>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('listaSelecionada') }}"></msg>
+            </div>
+
+        </div>
+
+        <div class="form-group col-md-4 col-sm-12 col-xs-12">
+            <label for="txResposta">{{ 'associaPendenciaForm.resposta' | translate }}</label>
+            <textarea id="txResposta" formControlName="resposta" cols="80" rows="6"
+              placeholder=" {{ 'placeholder.opcional' | translate }} " ></textarea>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="form-group col-xs-6">
+            <label for="ckPergunta">
+                    {{ 'associaPendenciaForm.respondePendencias' | translate }} ?
+                </label>
+                <div class="col-xs-12 zeraPadding">
+                    <input formControlName="respondePendencias"
+                        id="rdRespondePendenciasSim" type="radio" value="1"
+                        (blur)="setMensagemErroPorCampo('respondePendencias')">
+                    <label for="rdRespondePendenciasSim" class="radio-inline">
+                            <span></span> {{ 'associaPendenciaForm.sim' | translate  }}
+                    </label>
+                    <input formControlName="respondePendencias"
+                            id="rdRespondePendenciasNao" type="radio" value="0"
+                            (blur)="setMensagemErroPorCampo('respondePendencias')">
+                    <label for="rdRespondePendenciasNao" class="radio-inline">
+                            <span></span> {{ 'associaPendenciaForm.nao' | translate  }}
+                    </label>
+                </div>
+
+                <div *ngIf="exibirMensagemErrorPorCampo('respondePendencias') && form().get('respondePendencias').touched">
+                    <div class="clearfix"></div>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('respondePendencias') }}"></msg>
+                </div>
+
+        </div>
+
+    </div>
+
+</div>

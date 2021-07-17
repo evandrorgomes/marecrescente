@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: redome-auth
+build:
+  artifacts:
+  - image: localhost:32000/redome_auth
+    docker:
+      dockerfile: local-Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - local-deployment.yml
+portForward:
+  - resourceType: service
+    resourceName: redome-auth-svc
+    port: 9000
+    localPort: 9000

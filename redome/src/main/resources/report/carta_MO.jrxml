@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta para Transporte de MO" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="745f3d2c-ce49-498b-bc22-65f7ad99f2ac">
+	<property name="ireport.zoom" value="2.3579476910000046"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1165"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="5127522c-4a4a-486e-a3b6-dc004ca10b81"/>
+	<parameter name="celulaTronco" class="java.lang.String"/>
+	<parameter name="logo_redome" class="java.lang.String"/>
+	<parameter name="logo_inca" class="java.lang.String"/>
+	<parameter name="assinatura" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="155" splitType="Stretch">
+			<image>
+				<reportElement x="13" y="12" width="276" height="105" uuid="e01bca5e-5a85-4fb1-a125-2b613830028c"/>
+				<imageExpression><![CDATA[$P{logo_redome}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="416" y="12" width="139" height="93" uuid="d160cb23-8197-4f30-949c-9018402769bb"/>
+				<imageExpression><![CDATA[$P{logo_inca}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="83" y="6" width="131" height="20" uuid="a496f593-efbe-41dc-8e51-4fb7a427977d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="6" width="71" height="20" uuid="798b06a6-261e-4f78-8a24-1fb65d3fbff4"/>
+				<text><![CDATA[Rio de Janeiro,]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="555" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="3" width="543" height="338" uuid="ba43a441-1b8e-492b-a6b6-11f18f38a480"/>
+				<textElement markup="html">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[<p>Aos Profissionais dos aeroportos, das companhias aéreas e oficiais de segurança.</p>
+<p><b>Courier</b> é um profissional treinado para transportar <font size="1">células-tronco hematopoéticas ("PBSC") do local de coleta
+(cidade) até o local onde se encontra um paciente que precisa de um transplante de células-tronco hematopoéticas. É indispensável que este
+produto, contendo as células-tronco, seja transportado o mais rápido possível e que permaneça junto ao courier durante todo o percurso.</font></p>
+<br />
+<b>ATENÇÃO: FAVOR INSPECIONAR MANUALMENTE.</b>
+<br />
+<p>O Programa de Transplante de Medula Óssea determina que as células-tronco
+hematopoéticas <b><u>NÃO PODEM SER EXPOSTAS AO RAIO-X</u></b> nos postos de controle de segurança
+dos aeroportos. A exposição ao raio-X pode danificar seriamente as células contidas neste
+produto, o que causará complicações ao paciente que receberá estas células como
+tratamento.</p>
+<p>O doador do produto foi testado para os vírus causadores de hepatites, HIV e para outros
+agentes causadores de doenças infecciosas e os resultados foram negativos. Essas células-
+tronco hematopoéticas estão devidamente embaladas e etiquetadas de acordo com as
+normas de segurança que regem este tipo de transporte.
+Agradecemos pela sua colaboração e ajuda em facilitar e agilizar a chegada deste produto ao
+seu destino.</p>
+<p>Em caso de dúvida sobre o transporte dessas células-tronco hematopoéticas entre em
+contato:</p>
+<p>REDOME (Registro Nacional de Doadores Voluntários de Medula Óssea)</p>
+<p>telefone + 21 2505-5664 – 2ª a 6ª-FEIRA – 8h às 18h</p>
+<br />
+<b>OU</b>
+<br />
+<p>Letícia Valverde - Analista de Relacionamento REDOME
+telefone +21 98463-8117 – fora do horário comercial e fins de semana/feriados</p>
+<br />
+<p>Indicar o tipo de produto:</p>
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="341" width="333" height="18" uuid="01f00587-92ca-4182-8e2c-2fbbd11f85c1"/>
+				<textElement markup="html"/>
+				<text><![CDATA[ Células-tronco mobilizadas pelo sangue periférico (PBSC)
+
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="378" width="333" height="21" uuid="4864277c-6050-45c3-b149-bded2dc64e26"/>
+				<text><![CDATA[Muito obrigado pela sua atenção e ajuda neste assunto urgente.]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="13" y="345" width="6" height="6" uuid="162dfb10-aa34-4511-ae0d-3bfedcd697aa">
+					<printWhenExpression><![CDATA[!$P{celulaTronco}.equals("SP")]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="25" y="358" width="333" height="20" uuid="f4af3eb9-9b73-48d7-acb8-7de7fd6b815c"/>
+				<textElement markup="html"/>
+				<text><![CDATA[Células-tronco de medula óssea]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="13" y="363" width="6" height="6" uuid="77f6f21f-c6aa-41b1-8432-bc06ed41b896">
+					<printWhenExpression><![CDATA[!$P{celulaTronco}.equals("MO")]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="13" y="360" width="13" height="14" uuid="5da33f15-7995-4119-ba2f-91582ef20b58">
+					<printWhenExpression><![CDATA[$P{celulaTronco}.equals("MO")]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<staticText>
+				<reportElement isPrintRepeatedValues="false" x="13" y="341" width="13" height="13" uuid="8ae8e2a3-5a49-4a8c-9908-aa4362d403b0">
+					<printWhenExpression><![CDATA[$P{celulaTronco} == "SP"]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="466" width="333" height="21" uuid="20fbb06d-6339-4be2-9098-29883217f207"/>
+				<text><![CDATA[Alexandre José Almada]]></text>
+			</staticText>
+			<image>
+				<reportElement x="12" y="406" width="102" height="59" uuid="55d421b3-dd57-43e2-af5b-d5ec63ef9741"/>
+				<imageExpression><![CDATA[$P{assinatura}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="13" y="487" width="194" height="55" uuid="f46d32b1-cbbf-4389-a731-eed16c46dcc4"/>
+				<text><![CDATA[REREME - Busca de Doador Não Aparentado
+Matrícula INCA/FAF - 1000665
+CRBio 21683-2]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="445" y="16" width="100" height="15" uuid="367756ef-98f8-454b-bd30-97372d365793"/>
+				<text><![CDATA[Carta002 Rev.00 17.01.2017]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

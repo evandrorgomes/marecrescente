@@ -1,0 +1,71 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <!-- Título da seção -->
+            <h2>{{ titulo() | translate}}</h2>
+        </div>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">           
+            <a id="idNovo" type="button" class="btn btn-setting btn-default" *ngIf="exibirBotaoNovo" 
+                    (click)="clicarNovo()" ><span class="glyphicon glyphicon-plus-sign"></span> {{'botao.novo.crud' | translate}}</a>
+        </div>
+    </div>
+</div>
+<div class="page-content">
+    <!-- Tabela que exibe o resultado da busca -->
+    <div class="row">
+        <ng-template [ngTemplateOutlet]="filtros"></ng-template>
+    </div> 
+    <div class="row"> 
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            <table id="tblConsulta" class="table">
+                <thead>
+                    <tr>
+                        <ng-container *ngFor="let coluna of colunas; index as idx2">
+                            <th *ngIf="coluna.mostrar" >{{ getColumnTitulo(coluna.nome) }}</th>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody  >
+                    <tr class="clicavel" *ngFor="let conteudo of paginacao.content; index as idx" (click)="clicarLinha(conteudo)">
+                        <ng-container *ngFor="let coluna of colunas; index as idx2">
+                            <td *ngIf="coluna.mostrar" >
+                                {{ getConteudo(conteudo, coluna) }}
+                            </td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="!paginacao.totalElements || paginacao.totalElements == 0" >
+        <div class="col-sm-12 col-xs-12 wrap-table">
+            {{ 'textosGenericos.naoForamEncontradosRegistros' | translate}}
+        </div>
+    </div>
+    <!-- Paginação e quantidade de registros -->
+    <div class="row paginaConsultaPaciente" *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+        <div class="col-sm-12 col-xs-12">
+            <pagination [totalItems]="paginacao.totalElements" [ngModel]="paginacao.number" [maxSize]="5" 
+                    class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                    (pageChanged)="mudarPagina($event)" 
+                    firstText="{{'paginacao.primeiro' | translate}}"
+                    previousText="<span class='icon-seta-esquerda'></span>"
+                    nextText="<span class='icon-seta-direita'></span>"
+                    lastText="{{'paginacao.ultimo' | translate}}">
+            </pagination>
+        </div>
+        <div class="col-sm-12 col-xs-12 pull-right">
+            <div class="form-group porpagina">
+                <label>Por Página:</label>
+                <select class="form-control" [(ngModel)]="quantidadeRegistro" (change)="selecinaQuantidadePorPagina($event)" >
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+    </div>

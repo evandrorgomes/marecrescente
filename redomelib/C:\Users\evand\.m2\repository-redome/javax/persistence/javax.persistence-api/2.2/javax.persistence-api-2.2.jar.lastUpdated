@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jul 02 15:24:41 BRT 2021
+https\://jcenter.bintray.com/.lastUpdated=1625250281178
+@default-io.spring.repo.maven.release-http\://repo.spring.io/release/.lastUpdated=1625250275387
+http\://repo.spring.io/release/.error=Could not transfer artifact javax.persistence\:javax.persistence-api\:jar\:2.2 from/to io.spring.repo.maven.release (http\://repo.spring.io/release/)\: Transfer failed for http\://repo.spring.io/release/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2.jar 308 Permanent Redirect
+http\://repo.springsource.org/milestone/.error=
+http\://repo.springsource.org/milestone/.lastUpdated=1625250276789

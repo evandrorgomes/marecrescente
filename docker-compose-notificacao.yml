@@ -1,0 +1,11 @@
+version: "3"
+services:
+    notificacao:
+        build:
+            context: ./redome-notificacao
+            dockerfile: ./.devcontainer/Dockerfile
+        ports:
+            - "9002:9002"
+        volumes:
+            - .:/workspace:cached
+        command: /bin/sh -c "while sleep 1000; do :; done"

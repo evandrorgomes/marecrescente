@@ -1,0 +1,173 @@
+<div [formGroup]="enderecoForm">
+    <div class="etapa2">
+        <div class="row">
+            <div [formGroup]="groupPais" [hidden]="deveEsconderCampoPais()">
+                <div class="form-group col-sm-4 col-xs-12" *ngIf="!readOnly">
+                    <label for="ddlPaisResidencia">País em que reside</label>
+                    <select class="form-control" id="ddlPaisResidencia" formControlName="id" (change)="verificarSeResideBrasil()" >
+                        <option *ngFor="let p of paises" value="{{p.id}}">{{p.nome}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('pais.id') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12" *ngIf="readOnly">
+                    <label for="ddlPaisResidencia">País em que reside</label>
+                    <select class="form-control" id="ddlPaisResidencia" formControlName="id" (change)="verificarSeResideBrasil()" disabled >
+                        <option *ngFor="let p of paises" value="{{p.id}}">{{p.nome}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('pais.id') }}"></msg>
+                </div>
+            </div>
+            <div [hidden]="!isEndBrasil">
+                <div class="form-group col-sm-4 col-xs-12" *ngIf="!readOnly">
+                    <label for="txtCEP">{{getLabel('cep')}}</label>
+                    <input [textMask]="{mask: mascaraCep}" formControlName="cep" maxlength="10" (blur)="buscarLogradouroPorCep()" class="form-control" id="txtCEP" type="text" placeholder="Apenas números">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('cep') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12" *ngIf="readOnly">
+                    <label for="txtCEP">{{getLabel('cep')}}</label>
+                    <input [textMask]="{mask: mascaraCep}" formControlName="cep" maxlength="10" (blur)="buscarLogradouroPorCep()" class="form-control" id="txtCEP" type="text" placeholder="Apenas números" readonly>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('cep') }}"></msg>
+                </div>
+            </div>
+            <div class="form-group col-sm-2 col-xs-12" [hidden]="deveEsconderCampoPrincipal()" >
+                <div class="checkbox-group bottomline floatR" *ngIf="!readOnly">
+                    <input id="EndPrincipal" type="checkbox" formControlName="principal">
+                    <label for="EndPrincipal">
+                        <span></span><i class="icon-favorito"></i> Principal
+                    </label>
+                </div>
+                <div class="checkbox-group bottomline floatR" *ngIf="readOnly">
+                    <input id="EndPrincipal" type="checkbox" formControlName="principal" readonly>
+                    <label for="EndPrincipal">
+                        <span></span><i class="icon-favorito"></i> Principal
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-sm-2 col-xs-12" [hidden]="deveEsconderCampoCorrespondencia()">
+                <div class="checkbox-group bottomline floatR" *ngIf="!readOnly">
+                    <input id="EndCorrespondencia" type="checkbox" formControlName="correspondencia">
+                    <label for="EndCorrespondencia">
+                        <span></span><i class="icon-mail"></i> Correspondência
+                    </label>
+                </div>
+                <div class="checkbox-group bottomline floatR" *ngIf="readOnly">
+                    <input id="EndCorrespondencia" type="checkbox" formControlName="correspondencia">
+                    <label for="EndCorrespondencia">
+                        <span></span><i class="icon-mail"></i> Correspondência
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="!isEndBrasil">
+            <div class="row" *ngIf="!readOnly">
+                <div class="form-group col-sm-2 col-xs-12" style="min-height: 75px;" >
+                    <label for="txtTipoLogradouro">{{getLabel('tipoLogradouro')}}</label>
+                    <input formControlName="tipoLogradouro" maxlength="100" class="form-control" id="txtTipoLogradouro" type="text" (blur)="setMensagemErroPorCampo('tipoLogradouro')">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('tipoLogradouro') }}"></msg>
+                </div>
+                <div class="form-group col-sm-8 col-xs-12" >
+                    <label for="txtLogradouro">{{getLabel('nomeLogradouro')}}</label>
+                    <input class="form-control" id="txtLogradouro" formControlName="nomeLogradouro" type="text" maxlength="255"
+                        (blur)="setMensagemErroPorCampo('nomeLogradouro')">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeLogradouro') }}"></msg>
+                </div>
+                <div class="form-group col-sm-2 col-xs-6" >
+                    <label for="txtNumLogradouro">{{getLabel('numero')}}</label>
+                    <input class="form-control" id="txtNumLogradouro" formControlName="numero" type="text" maxlength="10" (blur)="setMensagemErroPorCampo('numero')">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('numero') }}"></msg>
+                </div>
+            </div>
+            <div class="row" *ngIf="!readOnly">
+                <div class="form-group col-sm-2 col-xs-12" >
+                    <label for="txtComplemento">{{getLabel('complemento')}}</label>
+                    <input class="form-control" id="txtComplemento" formControlName="complemento" type="text" maxlength="255">
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtBairro">{{getLabel('bairro')}}</label>
+                    <input class="form-control" id="txtBairro" formControlName="bairro" type="text" maxlength="200" (blur)="setMensagemErroPorCampo('bairro')">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('bairro') }}"></msg>
+                </div>
+                <div class="form-group col-sm-2 col-xs-6">
+                    <label for="txtUF">{{getLabel('uf')}}</label>
+                    <select #selectUf class="form-control" id="txtUF" formControlName="uf" type="text" maxlength="2" (blur)="setMensagemErroPorCampo('uf')" (change)="carregarMunicipioPorUf(selectUf.value)">
+                        <option></option>
+                        <option *ngFor="let uf of ufs" value="{{uf.sigla}}">{{uf.sigla}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('uf') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtMunicipio">{{getLabel('municipio')}}</label>
+                    <select class="form-control" id="txtMunicipio" formControlName="municipio" type="text" maxlength="255" (blur)="setMensagemErroPorCampo('municipio')">
+                        <option></option>
+                        <option *ngFor="let municipio of municipios" value="{{municipio.id}}">{{municipio.descricao}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('municipio') }}"></msg>
+                </div>
+
+            </div>
+
+
+            <div class="row" *ngIf="readOnly">
+                <div class="form-group col-sm-2 col-xs-12" style="min-height: 75px;" >
+                    <label for="txtTipoLogradouro">{{getLabel('tipoLogradouro')}}</label>
+                    <input formControlName="tipoLogradouro" maxlength="100" class="form-control" id="txtTipoLogradouro" type="text" (blur)="setMensagemErroPorCampo('tipoLogradouro')" readonly>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('tipoLogradouro') }}"></msg>
+                </div>
+                <div class="form-group col-sm-8 col-xs-12" >
+                    <label for="txtLogradouro">{{getLabel('nomeLogradouro')}}</label>
+                    <input class="form-control" id="txtLogradouro" formControlName="nomeLogradouro" type="text" maxlength="255"
+                           (blur)="setMensagemErroPorCampo('nomeLogradouro')" readonly>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeLogradouro') }}"></msg>
+                </div>
+                <div class="form-group col-sm-2 col-xs-6" >
+                    <label for="txtNumLogradouro">{{getLabel('numero')}}</label>
+                    <input class="form-control" id="txtNumLogradouro" formControlName="numero" type="text" maxlength="10" (blur)="setMensagemErroPorCampo('numero')" readonly>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('numero') }}"></msg>
+                </div>
+            </div>
+            <div class="row" *ngIf="readOnly">
+                <div class="form-group col-sm-2 col-xs-12" >
+                    <label for="txtComplemento">{{getLabel('complemento')}}</label>
+                    <input class="form-control" id="txtComplemento" formControlName="complemento" type="text" maxlength="255" readonly>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtBairro">{{getLabel('bairro')}}</label>
+                    <input class="form-control" id="txtBairro" formControlName="bairro" type="text" maxlength="200" (blur)="setMensagemErroPorCampo('bairro')" readonly>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('bairro') }}"></msg>
+                </div>
+                <div class="form-group col-sm-2 col-xs-6">
+                    <label for="txtUF">{{getLabel('uf')}}</label>
+                    <select #selectUf class="form-control" id="txtUF" formControlName="uf" type="text" maxlength="2" (blur)="setMensagemErroPorCampo('uf')" (change)="carregarMunicipioPorUf(selectUf.value)" disabled>
+                        <option></option>
+                        <option *ngFor="let uf of ufs" value="{{uf.sigla}}">{{uf.sigla}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('uf') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtMunicipio">{{getLabel('municipio')}}</label>
+                    <select class="form-control" id="txtMunicipio" formControlName="municipio" type="text" maxlength="255" (blur)="setMensagemErroPorCampo('municipio')" disabled>
+                        <option></option>
+                        <option *ngFor="let municipio of municipios" value="{{municipio.id}}">{{municipio.descricao}}</option>
+                    </select>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('municipio') }}"></msg>
+                </div>
+
+            </div>
+
+        </div>
+        <div [hidden]="isEndBrasil">
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12" *ngIf="!readOnly">
+                    <label for="txtEndEstrangeiro">{{getLabel('enderecoEstrangeiro')}}</label>
+                    <textarea class="form-control" id="txtEndEstrangeiro" rows="2" formControlName="enderecoEstrangeiro" maxlength="255" (blur)="setMensagemErroPorCampo('enderecoEstrangeiro')"></textarea>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('enderecoEstrangeiro') }}"></msg>
+                </div>
+                <div class="form-group col-sm-12 col-xs-12" *ngIf="readOnly">
+                    <label for="txtEndEstrangeiro">{{getLabel('enderecoEstrangeiro')}}</label>
+                    <textarea class="form-control" id="txtEndEstrangeiro" rows="2" formControlName="enderecoEstrangeiro" maxlength="255" (blur)="setMensagemErroPorCampo('enderecoEstrangeiro')" readonly></textarea>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('enderecoEstrangeiro') }}"></msg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

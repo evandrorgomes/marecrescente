@@ -1,0 +1,35 @@
+<div [formGroup]="form()">
+        <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                        <h3 class="text-center">{{'avaliacaocamaratecnica.titulo' | translate}} ({{acao}})</h3>
+                </div>
+        </div>
+        <div  [hidden]="exibirStatus()"  class="row text-left">
+                <div class=" form-group col-sm-12 col-xs-12">
+                        <label>{{ 'avaliacaocamaratecnica.detalhe.form.status' | translate }}:</label>
+                        <select class="form-control" formControlName="status" (blur)="setMensagemErroPorCampo('status')">
+                                <option *ngFor="let s of statusLista" value="{{s.id}}">
+                                        {{s.descricao}}
+                                </option> 
+                        </select>
+                        <div class="clearfix"></div>
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('status') }}"></msg>
+                </div>
+        </div>
+        <div [hidden]="exibirUpload()"  class="row text-left">
+                <div class=" form-group col-sm-12 col-xs-12">
+                        <label>{{ 'avaliacaocamaratecnica.detalhe.form.justificativa' | translate }}:</label>
+                        <textarea  class="form-control" formControlName="justificativa"></textarea>
+                        <msg mensagem="{{ exibirMensagemErrorPorCampo('justificativa') }}"></msg>
+                </div>
+                <div class=" form-group col-sm-12 col-xs-12">
+                        <label>{{ 'avaliacaocamaratecnica.detalhe.form.relatorio' | translate }}:</label>
+                        <upload-arquivo-component #uploadComponent></upload-arquivo-component>
+                </div>
+        </div>
+        <div class="row">
+                <div class=" col-sm-12 col-xs-12 modal-btn">
+                        <a id="idConfirmar" type="button" class="btn btn-primary" (click)="confirmar()" ><span class=""></span> {{ 'botao.confirmar' | translate }}  </a>
+                </div>
+        </div>
+</div>

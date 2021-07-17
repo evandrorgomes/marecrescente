@@ -1,0 +1,42 @@
+server:
+  port: 9000
+  servlet:
+    context-path: /redome-auth
+  use-forward-headers: true
+
+resourceId: redome-auth
+
+spring:
+  mvc:    
+    view:
+      prefix: /
+      suffix: .jsp
+      
+management:
+  endpoint:
+    health:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,bus-refresh        
+
+jpa:
+  driver: oracle.jdbc.driver.OracleDriver
+  
+c3p0:
+  initial_pool_size: 5
+  min_pool_size: 5
+  max_pool_size: 20
+  max_idle_time: 1800
+hibernate:
+  dialect: org.hibernate.dialect.Oracle12cDialect
+
+logging:
+  level:
+    root: info
+  file:  
+    ize: 5MB
+    max-history: 20
+  pattern:
+    file: '%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n'

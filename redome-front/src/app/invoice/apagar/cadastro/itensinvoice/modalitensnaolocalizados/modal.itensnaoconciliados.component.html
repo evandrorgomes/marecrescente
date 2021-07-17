@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-12 col-xs-12">
+        <h4>Pedidos sem conciliação </h4>
+    </div>
+</div>
+<div class="row" *ngIf="paginacaNaoConciliado.totalElements && paginacaNaoConciliado.totalElements !== 0">
+    <div class="col-sm-12 col-xs-12 wrap-table">
+        <table id="tblConsultaPaciente" class="table">
+            <thead>
+                <tr>
+                    <th>{{'tabela.financeiro.pedidos.semconciliacao.paciente' | translate}}</th>
+                    <th>{{'tabela.financeiro.pedidos.semconciliacao.doador' | translate}}</th>
+                    <th>{{'tabela.financeiro.pedidos.semconciliacao.tipo' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of paginacaNaoConciliado.content; index as i">
+                    <td>{{item.rmr}}</td>
+                    <td>{{item.idDoadorInternacional}}</td>
+                    <td>{{item?.tipoServico?.descricao}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row paginaConsultaPaciente" *ngIf="paginacaNaoConciliado.totalElements && paginacaNaoConciliado.totalElements !== 0">
+    <div class="col-sm-12 col-xs-12">
+        <pagination [totalItems]="paginacaNaoConciliado.totalElements" [ngModel]="paginacaNaoConciliado.number" [maxSize]="5"
+            class="pagination-sm pagination-wrap" [boundaryLinks]="true" [rotate]="false"
+            [itemsPerPage]="paginacaNaoConciliado.quantidadeRegistro" (pageChanged)="mudarPaginaPaginacao($event)"
+            firstText="{{'paginacao.primeiro' | translate}}" previousText="<span class='icon-seta-esquerda'></span>"
+            nextText="<span class='icon-seta-direita'></span>" lastText="{{'paginacao.ultimo' | translate}}">
+        </pagination>
+    </div>
+    <div class="col-sm-12 col-xs-12 pull-right">
+        <div class="form-group porpagina">
+            <label>Por Página:</label>
+            <select class="form-control" [(ngModel)]="quantidadeRegistro"
+                (change)="selecinaQuantidadePorPagina($event)">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+    </div>
+</div>

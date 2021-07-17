@@ -1,0 +1,101 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h2>{{'workup.coleta.titulo' | translate}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 wrap-table">
+                <table class="table">
+                    <thead>
+                        <tr *ngIf="temPerfilAnalistaWorkup()">
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.idDoador' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.tipo' | translate}}</td>
+                            <td class="col-sm-4">{{'tabela.pedido.workup.coleta.doador' | translate}}</td>
+                            <td class="col-sm-4">{{'tabela.pedido.workup.coleta.bancosanguecordao' | translate}}</td>
+                            <td class="col-sm-3">{{'tabela.pedido.workup.coleta.responsavel' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.dataLimite' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.status' | translate}}</td>
+                        </tr>
+                        <tr *ngIf="temPerfilAnalistaWorkupInternacional()">
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.idDoador' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.tipo' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.registro' | translate}}</td>
+                            <td class="col-sm-4">{{'tabela.pedido.workup.coleta.responsavel' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.dataLimite' | translate}}</td>
+                            <td class="col-sm-2">{{'tabela.pedido.workup.coleta.status' | translate}}</td>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="temPerfilAnalistaWorkup()">
+                        <tr class="clicavel" *ngFor="let tarefa of paginacao.content; index as i" (click)="detalharTarefa(tarefa)">
+                            <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)" >{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.doador?.dmr}}</td>
+                            <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)" >{{tarefa?.objetoRelacaoEntidade?.solicitacao?.match?.doador?.idBancoSangueCordao}}</td>
+
+                            <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)">{{'textosGenericos.medula' | translate  }}</td>
+                            <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)">{{'textosGenericos.cordao' | translate  }}</td>
+
+                            <td class="col-sm-4">{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.doador?.nome}}</td>
+                            <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)" ></td>
+                            <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)" >{{tarefa?.objetoRelacaoEntidade?.solicitacao?.match?.doador?.bancoSangueCordao?.sigla}}</td>
+                            <td class="col-sm-3">{{tarefa?.usuarioResponsavel?.nome}}</td>
+                            <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)">{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.dataPrevistaDisponibilidadeDoador | date: 'dd/MM/yyyy' }}</td>
+                            <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)">{{menorDataColetaPrescricao (tarefa?.objetoRelacaoEntidade?.solicitacao?.prescricao) | date: 'dd/MM/yyyy' }}</td>
+                            <td class="col-sm-2"><span class="label label-default">{{tarefa?.objetoRelacaoEntidade?.statusPedidoColeta.descricao}}</span></td>
+
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="temPerfilAnalistaWorkupInternacional()">
+                        <tr class="clicavel" *ngFor="let tarefa of paginacao.content; index as i" 
+                                (click)="detalharTarefa(tarefa)">
+                                
+                                <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)">{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.doador?.idRegistro}}</td>                  
+                                <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)">{{tarefa?.objetoRelacaoEntidade?.solicitacao?.match?.doador?.idRegistro}}</td>                  
+                                
+                                <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)">{{'textosGenericos.medula' | translate  }}</td>
+                                <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)">{{'textosGenericos.cordao' | translate  }}</td>
+                            
+                            <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)">{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.solicitacao?.match?.doador?.registroOrigem?.nome}}</td>
+                            <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)">{{tarefa?.objetoRelacaoEntidade?.solicitacao?.match?.doador?.registroOrigem?.nome}}</td>
+                            <td class="col-sm-4">{{tarefa?.usuarioResponsavel?.nome}}</td>
+                            <td class="col-sm-2" *ngIf="ehMedula(tarefa.objetoRelacaoEntidade)">{{tarefa?.objetoRelacaoEntidade?.pedidoWorkup?.dataPrevistaDisponibilidadeDoador | date: 'dd/MM/yyyy' }}</td>
+                            <td class="col-sm-2" *ngIf="ehCordao(tarefa.objetoRelacaoEntidade)">{{menorDataColetaPrescricao (tarefa?.objetoRelacaoEntidade?.solicitacao?.prescricao) | date: 'dd/MM/yyyy' }}</td>
+                            <td class="col-sm-2"><span class="label label-default">{{tarefa?.objetoRelacaoEntidade?.statusPedidoColeta.descricao}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginação e quantidade de registros -->
+        <div class="row paginaLogisticaWorkup" 
+                *ngIf="paginacao.totalElements && paginacao.totalElements != 0">
+            <div class="col-sm-12 col-xs-12">
+                <pagination [totalItems]="paginacao.totalElements" 
+                        [ngModel]="paginacao.number" [maxSize]="5" 
+                        class="pagination-sm pagination-wrap" [boundaryLinks]="true" 
+                        [rotate]="false" [itemsPerPage]="paginacao.quantidadeRegistro"
+                        (pageChanged)="mudarPagina($event)" 
+                        firstText="{{'paginacao.primeiro' | translate}}"
+                        previousText="<span class='icon-seta-esquerda'></span>"
+                        nextText="<span class='icon-seta-direita'></span>"
+                        lastText="{{'paginacao.ultimo' | translate}}">
+                </pagination>
+            </div>
+            <div class="col-sm-12 col-xs-12 pull-right">
+                <div class="form-group porpagina">
+                    <label>{{ 'textosGenericos.porpagina' | translate }}:</label>
+                    <select class="form-control" [(ngModel)]="qtdRegistroPorPagina" 
+                            (change)="mudarPagina($event)" >
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

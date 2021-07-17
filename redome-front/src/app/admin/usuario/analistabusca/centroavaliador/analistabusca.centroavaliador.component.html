@@ -1,0 +1,66 @@
+<div class="page-title">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h2>{{'analistabuscacentroavaliador.titulo' | translate}}</h2>
+        </div>
+    </div>
+    <div class="row menu-btn">
+        <div class="col-sm-12 col-xs-12">
+            <button id="idSalvar" type="button" class="btn btn-setting btn-primary"
+                [disabled]="habiltaBotaoSalvar()" (click)="salvar()" ><span class="glyphicon glyphicon-ok-circle"></span> {{'botao.salvar' | translate}}</button>
+        </div>
+    </div>
+</div>
+<div class="page-content dadosGeraisPaciente"> 
+    <div class="row">        
+        <div class="form-group col-sm-4 col-xs-12" [formGroup]="form()">                
+            <select-component #usuario
+                label="{{'analistabuscacentroavaliador.analistabusca' | translate}}:" 
+                formControlName="id" 
+                [control]="form().controls['id']" 
+                idd="txtUsuario"
+                [options]="_usuarios"
+                fieldOptionValue="id"
+                fieldOptionText="nome"
+                (change)=selecionarUsuario(usuario.value)>
+
+            </select-component> 
+        </div>
+    </div>    
+    <div class="row">        
+        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formCentrosDisponiveis()">            
+            <select-component 
+                label="{{'analistabuscacentroavaliador.centros.disponiveis' | translate}}:" 
+                formControlName="selecionados" 
+                [control]="formCentrosDisponiveis().controls['selecionados']" 
+                idd="txtCentroDisponiveis"
+                [options]="listaCentrosDisponiveis"
+                fieldOptionValue="id"
+                fieldOptionText="nome"
+                [showBlankOption]="false"
+                [multipleSelect]="true">
+            </select-component>        
+        </div>
+        <div class="form-group col-sm-1 col-xs-12">            
+            <button id="idAdicionarCentros" type="button" class="btn btn-setting btn-primary"
+                (click)="adicionarCentros()" [disabled]="habiltaBotaoAdicionar()"  ><span class="glyphicon glyphicon-arrow-right"></span></button>
+            <button id="idRemoverCentros" type="button" class="btn btn-setting btn-primary"
+                (click)="removerCentros()" [disabled]="habiltaBotaoRemover()" ><span class="glyphicon glyphicon-arrow-left"></span></button>            
+
+        </div>
+        <div class="form-group col-sm-4 col-xs-12" [formGroup]="formCentrosSelecionados()">            
+            <select-component 
+                label="{{'analistabuscacentroavaliador.centros.selecionados' | translate}}:" 
+                formControlName="selecionados" 
+                [control]="formCentrosSelecionados().controls['selecionados']" 
+                idd="txtCentroSelecionados"
+                [options]="listaCentrosSelecionados"
+                fieldOptionValue="id"
+                fieldOptionText="nome"
+                [showBlankOption]="false"
+                [multipleSelect]="true">
+            </select-component>
+        </div>
+    </div>
+</div>
+

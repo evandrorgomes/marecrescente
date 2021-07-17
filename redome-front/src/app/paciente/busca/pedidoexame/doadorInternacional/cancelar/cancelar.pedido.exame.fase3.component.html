@@ -1,0 +1,49 @@
+<div class="page-content">
+        <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                        <h2 *ngIf="isExameComplementar()">{{'pedidoexamefase2.cancelar.titulo' | translate}}</h2>
+                        <h2 *ngIf="isExameCtInternacional()">{{'pedidoexamefase3.cancelar.titulo' | translate}}</h2>
+                        <h2 *ngIf="isExameIdmInternacional()">{{'pedidoexameIdm.cancelar.titulo' | translate}}</h2>
+                </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-12 col-xs-12" *ngIf="isExameComplementar()">
+                    <label>{{ 'pedidoexamefase3.cancelar.justificativa' | translate }}:</label>
+                    <input style="width: 800px;" id="justificativa" class="form-control" 
+                            [(ngModel)]="justificativa" maxlength="255" width="600" />
+                    <msg mensagem="{{ mensagemErroJustificativa }}"></msg>
+            </div>
+
+            <div class="form-group col-sm-12 col-xs-12" *ngIf="isExameIdmOuCtInternacional()">
+                    <label>{{ 'modalcancelarpedidoexamefase3.datacancelamento' | translate }}:</label>
+                    <input class="form-control centraliza" tabindex="1" [textMask]="{mask: dateMask}" 
+                            id="txtTempoAfastamento"
+                            [(ngModel)]="dataCancelamento"
+                            type="text" maxlength="11" placeholder="DD/MM/AAAA">
+                    <msg mensagem="{{ mensagemErroDataCancelamento }}"></msg>
+            </div>
+        </div>
+
+        <div class="row">
+                <div class="checkbox-group col-sm-12 col-xs-12">
+                        <input id="inativarDoador" type="checkbox" #inativarCheckBox 
+                                (click)="tornarInativarObrigatorio(inativarCheckBox.checked)">
+                        <label for="inativarDoador">
+                                <span></span>{{'inativarDoador.titulo' | translate}}
+                        </label>
+                </div>
+        </div>
+        <div class="row" [hidden]="!inativarCheckBox.checked">
+                <div class="form-group col-sm-12 col-xs-12">
+                        <inativacao-doador #inativacaoDoador 
+                                RECURSO="isExameCtInternacional() ? 'CANCELAR_FASE_3_INTERNACIONAL' : 'CANCELAR_PEDIDO_IDM'">
+                        </inativacao-doador>
+                </div>
+        </div>
+        <div class="row">
+                <div class="form-group col-sm-12 col-xs-12">
+                        <button (click)="salvar()" id="btnConfirmar" class="btn btn-lg btn-primary floatR">
+                        <span class="glyphicon glyphicon-ok"></span> {{'botao.confirmar' | translate }}</button>
+                </div>
+        </div>
+</div>

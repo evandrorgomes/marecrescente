@@ -1,0 +1,264 @@
+<div class="container conteudo">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                    <h2>{{ 'prescricaoCordaoComponent.tituloCordao' | translate }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <header-paciente #headerPaciente></header-paciente>
+        </div>
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <a id="idVoltaConsulta" type="button" class="btn btn-setting btn-default" retornarPaginaAnterior>
+                    <span class="icon-seta-esquerda"></span> {{'botao.voltar' | translate}}</a>
+                <span>
+                    <a id="" type="button" class="btn btn-setting btn-primary" (click)="salvarPrescricaoCordao()">
+                        {{'botao.salvar' | translate}}</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div [formGroup]="formGroup">
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoCordaoComponent.cordao.titulo'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-3 col-xs-12">
+                    <label for="identificacaoDoador">{{ 'prescricaoCordaoComponent.cordao.identificacao'| translate }}</label>
+                    <input class="form-control" id="identificacaoDoador" type="text" value="{{ cordao?.identificacao }}" readonly tabindex="-1">
+                </div>
+                <div class="form-group col-sm-9 col-xs-12">
+                    <label for="bancoOrigem">{{ 'prescricaoCordaoComponent.cordao.bancoOrigem'| translate }}</label>
+                    <input class="form-control" id="bancoOrigem" type="text" value="{{ cordao?.bancoOrigem }}" readonly tabindex="-1">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-1 col-xs-12">
+                    <label for="aborhDoador">{{ 'prescricaoCordaoComponent.cordao.abo'| translate }}</label>
+                    <input class="form-control" id="aborhDoador" type="text" value="{{ cordao?.abo }}" readonly tabindex="-1">
+                </div>
+                <div class="form-group col-sm-2 col-xs-6">
+                    <label for="sexoDoador">{{ 'prescricaoCordaoComponent.cordao.sexo'| translate }}</label>
+                    <input class="form-control" id="sexoDoador" type="text" value="{{ (cordao?.sexo === 'F' ? 'sexo.feminino' : 'sexo.masculino') | translate }}" readonly tabindex="-1">
+                </div>
+                <div class="form-group col-sm-1 col-xs-6">
+                    <label for="pesoDoador">{{ 'prescricaoCordaoComponent.cordao.peso'| translate }}</label>
+                    <input class="form-control" id="pesoDoador" type="text" value="{{ obterPesoFormatado() }}"
+                           currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: '', precision: '1' }" readonly tabindex="-1">
+                </div>
+                <div class="form-group col-sm-2 col-xs-12">
+                    <label for="txtQuantidadeTotalOpcao1">
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadeTotalOpcao1">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: ''}"
+                           class="form-control" tabindex="3" id="txtQuantidadeTotalOpcao1" type="text"
+                           placeholder="" formControlName="quantidadeTotalOpcao1" readOnly tabindex="-1">
+                </div>
+                <div class="form-group col-sm-2 col-xs-12">
+                    <label for="txtQuantidadePorKgOpcao2">
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.tcn'| translate }}</span>
+                        <span style="display: block;float:  left;margin-left:  4px;"> /{{ 'textosGenericos.kilograma'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadePorKgOpcao2">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: '' }"
+                           class="form-control" tabindex="3" id="txtQuantidadePorKgOpcao1" type="text"
+                           (blur)="setMensagemErroPorCampo('quantidadePorKgOpcao1')"
+                           formControlName="quantidadePorKgOpcao1" readOnly tabindex="-1">
+                </div>
+                <div class="form-group col-sm-2 col-xs-12">
+                    <label for="txtQuantidadeTotalOpcao2">
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadeTotalOpcao2">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: ''}"
+                           class="form-control" tabindex="3" id="txtQuantidadeTotalOpcao2" type="text"
+                           placeholder="" formControlName="quantidadeTotalOpcao2" maxlength="7" readOnly tabindex="-1">
+                </div>
+                <div class="form-group col-sm-2 col-xs-12">
+                    <label for="txtQuantidadePorKgOpcao2">
+                        <span style="display: block;float:  left;margin-left:  4px;"> {{ 'prescricaoComponent.cd34'| translate }}</span>
+                        <span style="display: block;float:  left;margin-left:  4px;"> /{{ 'textosGenericos.kilograma'| translate }}</span>
+                    </label>
+                    <label for="txtQuantidadePorKgOpcao2">
+                        <span style="display: block;float: left;">{{ 'prescricaoComponent.x10'| translate }}</span>
+                        <span style="font-size: 9px;margin-top: -5px;display: block;float:  left;">{{ 'prescricaoComponent.8'| translate }}</span>
+                    </label>
+                    <input currencyMask [options]="{ prefix: '', allowNegative : false, decimal: ',', thousands: '' }"
+                           class="form-control" tabindex="3" id="txtQuantidadePorKgOpcao2" type="text"
+                           (blur)="setMensagemErroPorCampo('quantidadePorKgOpcao2')"
+                           formControlName="quantidadePorKgOpcao2" readOnly tabindex="-1">
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4>{{'prescricaoCordaoComponent.endereco'| translate }}</h4>
+                </div>
+            </div>
+            <endereco-contato esconderCampoCorrespondencia="true" esconderCampoPrincipal="true" [readOnly]="true" #enderecoEntrega></endereco-contato>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4>{{'prescricaoCordaoComponent.contato'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <label for="nomeContatoParaReceber">{{ 'prescricaoCordaoComponent.nomeContatoParaReceber'| translate }}</label>
+                    <input class="form-control"
+                           tabindex="1" id="nomeContatoParaReceber" type="text" maxlength="80"
+                           formControlName="nomeContatoParaReceber" (blur)="setMensagemErroPorCampo('nomeContatoParaReceber');exibeMensagemAlertaPrazoExpirado('nomeContatoParaReceber');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeContatoParaReceber') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4>{{'prescricaoCordaoComponent.contatoUrgencia'| translate }}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-7 col-xs-12">
+                    <label for="nomeUrgencia">{{ 'prescricaoCordaoComponent.nomeContatoUrgente'| translate }}</label>
+                    <input class="form-control"
+                           tabindex="2" id="nomeUrgencia" type="text" maxlength="80"
+                           formControlName="nomeContatoUrgente" (blur)="setMensagemErroPorCampo('nomeContatoUrgente');exibeMensagemAlertaPrazoExpirado('nomeContatoUrgente');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('nomeContatoUrgente') }}"></msg>
+                </div>
+                <div class="form-group col-sm-1 col-xs-12">
+                    <label for="dddUrgencia">{{ 'prescricaoCordaoComponent.codAreaUrgencia'| translate }}</label>
+                    <input class="form-control" id="dddUrgencia" type="text"  formControlName="codigoAreaUrgente" maxlength="5" Filtro padrao="onlyNumber" tabindex="3">
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="telefoneUrgencia">{{ 'prescricaoCordaoComponent.telefoneUrgencia'| translate }}</label>
+                    <input class="form-control" id="telefoneUrgencia" type="text" formControlName="telefoneUrgente" minlength="8" maxlength="10" Filtro padrao="onlyNumber" tabindex="4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <h4 >{{'prescricaoCordaoComponent.datas'| translate }}</h4> <h6> {{'prescricaoCordaoComponent.informe'| translate }} <b>{{'prescricaoCordaoComponent.informeNegrito'| translate }}</b> {{'prescricaoCordaoComponent.informe2'| translate }} </h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataReceber1">{{ 'prescricaoCordaoComponent.dataReceber1'| translate }}</label>
+                    <input class="form-control" [textMask]="{mask: data}"
+                        tabindex="5" id="dataReceber1" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                        formControlName="dataReceber1" (blur)="setMensagemErroPorCampo('dataReceber1');exibeMensagemAlertaPrazoExpirado('dataReceber1');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataReceber1') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataReceber2">{{ 'prescricaoCordaoComponent.dataReceber2'| translate }}</label>
+                    <input class="form-control" [textMask]="{mask: data}"
+                           tabindex="6" id="dataReceber2" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                           formControlName="dataReceber2" (blur)="setMensagemErroPorCampo('dataReceber2');exibeMensagemAlertaPrazoExpirado('dataReceber2');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataReceber2') }}"></msg>
+                </div>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataReceber3">{{ 'prescricaoCordaoComponent.dataReceber3'| translate }}</label>
+                    <input class="form-control" [textMask]="{mask: data}"
+                           tabindex="7" id="dataReceber3" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                           formControlName="dataReceber3" (blur)="setMensagemErroPorCampo('dataReceber3');exibeMensagemAlertaPrazoExpirado('dataReceber3');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataReceber3') }}"></msg>
+                </div>
+            </div>
+            <div class="row" *ngIf="exibirMensagemErrorPorCampo('datasIguais')">
+                <div class="form-group col-sm-12 col-xs-12">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('datasIguais') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="dataInfusao">{{ 'prescricaoCordaoComponent.dataInfusao'| translate }}</label>
+                    <input class="form-control"
+                        [textMask]="{mask: data}"
+                        tabindex="8" id="dataInfusao" type="text" maxlength="11" placeholder="DD/MM/AAAA"
+                        formControlName="dataInfusao" (blur)="setMensagemErroPorCampo('dataInfusao');exibeMensagemAlertaPrazoExpirado('dataInfusao');">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('dataInfusao') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <label>{{ 'prescricaoCordaoComponent.armazenaCordao' | translate}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-xs-12" >
+                    <input class="form-control" type="radio" id="armazenaCordaoSim" value="true"  name="armazenaCordao"  formControlName="armazenaCordao" tabindex="9" >
+                    <label for="armazenaCordaoSim" ><span></span> {{ 'textosGenericos.sim' | translate}} </label>
+                    <input class="form-control" type="radio" id="armazenaCordaoNao" value="false" name="armazenaCordao" formControlName="armazenaCordao" tabindex="10" >
+                    <label for="armazenaCordaoNao" ><span></span> {{ 'textosGenericos.nao' | translate}} {{ 'prescricaoCordaoComponent.freezer' | translate}}  </label>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('armazenaCordao') }}"></msg>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="mostrarInputArquivoJustificativa" >
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="txtArquivoJustificativa">Arquivo Justificativa</label>
+                    <div class="selecionaLaudos" *ngIf="!possuiArquivoJustificativa">
+                        <br />
+                        <div [hidden]="true">
+                            <input id="fileInputJustificativa"  #fileInputJustificativa type="file" ng2FileSelect [uploader]="uploaderJustificativa" />
+                        </div>
+                        <button type="button" class="btn-setting btn-primary btn-center" (click)="fileInputJustificativa.click()" id="uploadButtonJustificativa" tabindex="11">
+                            <span class="glyphicon glyphicon-paperclip"></span>
+                            {{'botao.arquivo' | translate}}
+                        </button>
+                    </div>
+                    <input type="text" class="form-control" id="txtArquivoJustificativa" [disabled]="true" value="{{ nomeArquivoJustificativa }} " *ngIf="possuiArquivoJustificativa" tabindex="-1" >
+                    <a *ngIf="possuiArquivoJustificativa"
+                            title="{{ 'DoadorEmailContato.excluir' | translate}}"
+                            (click)="removerArquivoJustificativa()">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivoJustificativa') }}"></msg>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-12 col-xs-12 wrap-table">
+                    <table class="table tableLaudo">
+                        <thead>
+                            <tr>
+                                <th>{{'tabela.prescricaoSelecionada' | translate}}: ({{ arquivos.length }} {{ arquivos.length <= 1 ? 'anexado' : 'anexados' }})</th>
+                                <th><!--<span class="glyphicon glyphicon-option-horizontal" title="Opções"></span>--></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  *ngFor="let item of arquivos">
+                                <td>{{ item.nomeSemTimestamp }}</td>
+                                <td class="tdAcoes"><span class="glyphicon glyphicon-remove" title="Remover arquivo" (click)="removerArquivo(item.nome)"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group col-sm-12 col-xs-12">
+                    <msg mensagem="{{ exibirMensagemErrorPorCampo('arquivo') }}"></msg>
+                </div>
+            </div>
+            <div class="row">
+                <div class="selecionaLaudos text-center">
+                    <div [hidden]="true">
+                        <input id="fileInput"  #fileInput type="file" ng2FileSelect [uploader]="uploader" />
+                    </div>
+                    <button type="button" class="btn-setting btn-primary btn-center" (click)="fileInput.click()" id="uploadButton" tabindex="12">
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                        {{'botao.arquivo' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+spring:
+  security:
+    strategy: MODE_INHERITABLETHREADLOCAL
+  main:
+    allow-bean-definition-overriding: true
+  jmx:
+    default-domain: redome-tarefa
+  cloud:
+    discovery:
+      enabled: false
+    config:
+      discovery:
+        enabled: false
+      enabled: false
+  sleuth:
+    enabled: false
+    sampler:
+      percentage: 1.0
+      probability: 1.0
+  zipkin:
+    sender:
+      type: web
+    baseUrl: http://localhost:9441/
+    
+logging:
+  level:
+    org.springframework: INFO
+  
+security:
+  oauth2:
+    client:        
+      clientId: redome-tarefa
+      clientSecret: 123456
+      accessTokenUri: http://localhost:1111/redome-auth/oauth/token
+      user-authorization-uri: http://localhost:1111/redome-auth/oauth/authorize
+      grant-type: password, client_credentials
+      scope: server
+    resource:
+#      user-info-uri: http://localhost:9080/user/current
+      token-info-uri: http://localhost:1111/redome-auth/oauth/check_token.json
+      prefer-token-info: true
+jpa:
+  driver: oracle.jdbc.driver.OracleDriver
+  url: jdbc:oracle:thin:@169.57.173.77:1521/dev12c
+  password: euPwzh7F55
+  username: modred_aplicacao  
+
+eureka:
+  client:
+    enabled: false
+    
+ribbon:
+  eureka:
+    enabled: false
+  ConnectTimeout: 60000
+  ReadTimeout: 600000        
+
+feign:
+  hystrix:
+    enabled: true
+    command:
+      default:
+        execution:
+          isolation:
+            strategy: SEMAPHORE
+  client:
+    url:
+      redome: http://localhost:1111/redome
+      
+hystrix:
+  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 210000
+
+email:
+  - servidor: smtp.gmail.com
+# servidor=192.168.0.3
+  - porta: 587
+# porta=25
+  - usuario: redomenet.suporte@cancer.org.br
+# usuario=sismatch@inca.gov.br
+  - senha: "!redome!"
+# senha=SI160112
+
+# HOST DE INTEGRAÇÃO REDOME WEB
+host:
+  redomeweb: http://localhost:8080/REDOMEWeb
+
+storage:
+  bucketname: dev-redome
+  

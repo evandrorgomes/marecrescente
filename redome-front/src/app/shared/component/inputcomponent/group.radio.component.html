@@ -1,0 +1,28 @@
+<label>{{ label }}</label>
+<div *ngIf="isHorizontal()">
+<div [ngClass]="groupClass">
+        <div [ngClass]="rowClass">
+            <div [ngClass]="columnClass" *ngFor="let item of optionsLabel; let i = index">
+                <input #radioComponent id="rd_{{id}}_{{i}}" name="radio_{{id}}" type="radio"
+                    (change)="onChange($event, radioComponent.value)" tabindex="0" value="{{ optionsValue[i] }}" >
+                <label for="rd_{{id}}_{{i}}" class="radio-inline">
+                    <span></span>{{ item }}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="isVertical()">
+<div [ngClass]="groupClass">
+        <div [ngClass]="rowClass" *ngFor="let item of optionsLabel; let i = index" >
+            <div [ngClass]="columnClass">
+                <input #radioComponent id="rd_{{id}}_{{i}}" name="radio_{{id}}" type="radio"
+                    (change)="onChange($event, radioComponent.value)" tabindex="0" value="{{ optionsValue[i] }}">
+                <label for="rd_{{id}}_{{i}}" class="radio-inline">
+                    <span></span>{{ item }}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<msg mensagem="{{ getMensagemErro() }}"></msg>

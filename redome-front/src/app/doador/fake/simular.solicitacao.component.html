@@ -1,0 +1,57 @@
+<div [formGroup]="solicitacaoForm">
+    <div  class="col-sm-10 col-xs-12 form-bloco">
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-4">
+                <label for="tipoTela">Tipo</label>
+                <div class="radio-group">
+                    <input id="rdMatch" tabindex="1" type="radio" value="M" formControlName="tipoTela">
+                    <label for="rdMatch" class="radio-inline">
+                        <span></span> Match
+                    </label>
+
+                    <input id="rdSolicitacao" tabindex="2" type="radio" value="S" formControlName="tipoTela">
+                    <label for="rdSolicitacao" class="radio-inline">
+                        <span></span> Solicitação
+                    </label>
+                </div>
+                <msg mensagem="{{exibirMensagemErrorPorCampo('tipoTela')}}"></msg>
+            </div>
+            <div class="form-group col-sm-4 col-xs-4">
+                <label for="tipo">Tipo solicitação</label>
+                <select class="form-control" id="tipo" tabindex="3" formControlName="tipo" (blur)="setMensagemErroPorCampo('tipo')">
+                    <option value="1">Fase 2</option>
+                    <option value="2">Fase 3</option>
+                    <option value="3">Workup</option>
+                </select>
+                <msg mensagem="{{exibirMensagemErrorPorCampo('tipo')}}"></msg>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4 col-xs-4">
+                <label for="rmr">Rmr</label>
+                <input class="form-control" id="rmr" tabindex="1" formControlName="rmr" maxlength="255" type="text"
+                (blur)="setMensagemErroPorCampo('rmr');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('rmr') }}"></msg>
+            </div>
+            
+            <div class="form-group col-sm-4 col-xs-4">
+                <label for="idDoador">ID DoadorNacional</label>
+                <input class="form-control" id="idDoador" tabindex="2" formControlName="idDoador" maxlength="255" type="text"
+                (blur)="setMensagemErroPorCampo('idDoador');">
+                <msg mensagem="{{ exibirMensagemErrorPorCampo('idDoador') }}"></msg>
+            </div>
+        </div>
+        
+    </div>
+    <div  class="col-sm-10 col-xs-12 form-bloco">
+        <div class="row menu-btn">
+            <div class="col-sm-12 col-xs-12">
+                <span>
+                    <a id="btnEnviar" type="button" class="btn btn-setting btn-primary" (click)="enviar()"> Enviar</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<modal #modalMsg></modal>

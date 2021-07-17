@@ -1,0 +1,35 @@
+
+<!-- Elementos do layout para todas as páginas -->
+<!-- Topo -->
+<div  *ngFor="let b of busy" [class]="getEstiloComponenteLoading()"  [ngBusy]="{busy: b, message: mensagemLoading, backdrop: false, wrapperClass: estiloComponenteLoading}"></div>
+<header *ngIf="estaLogado()">
+    <div class="container">
+        <div class="row">
+            <div class="navbar-header">     
+                <a href="javascript:void(0)" class="navbar-brand" id="logo-redome" (click)="irParaHome()">Redome - Plataforma Tecnológica</a>
+                <app-navbar #appNavbar [totalIconesParaExibir]="6" ></app-navbar>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Aqui entra o conteúdo de cada página -->
+
+<router-outlet></router-outlet>
+
+<!-- Modal -->
+<div class="modal fade" bsModal #mensagemAppModal="bs-modal" [config]="{backdrop: 'static', keyboard: false}" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-custom">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="close" type="button" class="close" (click)="fecharModal()">&times;</button>
+            </div>
+        
+            <div class="modal-body">
+                <h3 class="text-center">{{ mensagemApp }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
